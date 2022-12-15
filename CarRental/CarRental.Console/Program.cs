@@ -1,10 +1,12 @@
-﻿namespace CarRental.ConsoleUI
+﻿using CarRental.DAL;
+
+namespace CarRental.ConsoleUI
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-           Menu();
+            Menu();
         }
 
 
@@ -73,14 +75,14 @@
                 else continue;
             }
         }
-        
+
         public static Car SearchCarByName()
         {
             Console.WriteLine("tak");
             Console.ReadKey();
             return null;
         }
-        
+
         //Zastępstwo za przyszłe funkcje
         static void PlaceHOlder()
         {
