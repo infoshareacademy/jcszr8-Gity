@@ -27,43 +27,50 @@
                 Console.WriteLine("0 - Edytuj wypożyczenie.");
                 Console.WriteLine("F1 - Edytuj dane samochodu.");
                 ConsoleKeyInfo read = Console.ReadKey();
-                switch(read.Key)
+                Console.WriteLine();
+                Console.WriteLine("Czy napewno chcesz wybrac ta opcje?: Tak/Nie");
+                string conf = Console.ReadLine();
+                if (conf == "Tak")
                 {
-                    case ConsoleKey.D1:
-                        Console.Clear(); PlaceHOlder();
-                        break;
-                    case ConsoleKey.D2:
-                        Console.Clear(); PlaceHOlder();
-                        break;
-                    case ConsoleKey.D3:
-                        Console.Clear(); SearchCarByName();
-                        break;
-                    case ConsoleKey.D4:
-                        Console.Clear(); PlaceHOlder();
-                        break;
-                    case ConsoleKey.D5:
-                        Console.Clear(); PlaceHOlder();
-                        break;
-                    case ConsoleKey.D6:
-                        Console.Clear(); PlaceHOlder();
-                        break;
-                    case ConsoleKey.D7:
-                        Console.Clear(); PlaceHOlder();
-                        break;
-                    case ConsoleKey.D8:
-                        Console.Clear(); PlaceHOlder();
-                        break;
-                    case ConsoleKey.D9:
-                        Console.Clear(); PlaceHOlder();
-                        break;
-                    case ConsoleKey.D0:
-                        Console.Clear(); PlaceHOlder();
-                        break;
-                    case ConsoleKey.F1:
-                        Console.Clear(); PlaceHOlder();
-                        break;
-                    default: break;
+                    switch (read.Key)
+                    {
+                        case ConsoleKey.D1:
+                            Console.Clear(); PlaceHOlder();
+                            break;
+                        case ConsoleKey.D2:
+                            Console.Clear(); PlaceHOlder();
+                            break;
+                        case ConsoleKey.D3:
+                            Console.Clear(); SearchCarByName();
+                            break;
+                        case ConsoleKey.D4:
+                            Console.Clear(); PlaceHOlder();
+                            break;
+                        case ConsoleKey.D5:
+                            Console.Clear(); PlaceHOlder();
+                            break;
+                        case ConsoleKey.D6:
+                            Console.Clear(); PlaceHOlder();
+                            break;
+                        case ConsoleKey.D7:
+                            Console.Clear(); PlaceHOlder();
+                            break;
+                        case ConsoleKey.D8:
+                            Console.Clear(); PlaceHOlder();
+                            break;
+                        case ConsoleKey.D9:
+                            Console.Clear(); PlaceHOlder();
+                            break;
+                        case ConsoleKey.D0:
+                            Console.Clear(); PlaceHOlder();
+                            break;
+                        case ConsoleKey.F1:
+                            Console.Clear(); PlaceHOlder();
+                            break;
+                        default: break;
+                    }
                 }
+                else continue;
             }
         }
         
