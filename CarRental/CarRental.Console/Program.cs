@@ -12,10 +12,11 @@ namespace CarRental.ConsoleUI
             //Console.WriteLine($"Number of cars in database: {cars.Count}");
             //foreach (Car car in cars)
             //{
-            //    Console.WriteLine(car.Model);
+            //    //Console.WriteLine(car.Model);
+            //    car.PrintCarDetails();
             //}
 
-            Menu();   
+            Menu();
         }
 
 

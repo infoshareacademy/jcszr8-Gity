@@ -17,5 +17,12 @@ namespace CarRental.DAL
         public string FuelType { get; set; }
         public int MaxCapacity { get; set; }
         public List<string> Addons { get; set; }
+
+        public void PrintCarDetails()
+        {
+            Console.WriteLine($"CarDetails: Model={Model} Make={Make}, " +
+                $"Year={Year} Color={Color} Ac={Ac}, " +
+                $"Transmission={Transmission}, FuelType={FuelType}, MaxCapacity={MaxCapacity}");
+        }
     }
 }
