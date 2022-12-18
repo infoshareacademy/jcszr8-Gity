@@ -16,6 +16,6 @@ namespace CarRental.DAL
         public string Transmission { get; set; }
         public string FuelType { get; set; }
         public int MaxCapacity { get; set; }
-        public string Addons { get; set; }
+        public List<string> Addons { get; set; }
     }
 }
