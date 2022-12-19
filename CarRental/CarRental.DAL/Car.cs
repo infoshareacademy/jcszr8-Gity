@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,9 @@ namespace CarRental.DAL
         public string Color { get; set; }
         public bool Ac { get; set; } // Air Conditioner
         public string Transmission { get; set; }
+        [JsonProperty("fuel_type")]
         public string FuelType { get; set; }
+        [JsonProperty("max_capacity")]
         public int MaxCapacity { get; set; } // number of seats
         public List<string> Addons { get; set; }
 
