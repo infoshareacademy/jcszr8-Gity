@@ -11,13 +11,14 @@ namespace CarRental.DAL
     public static class DataReaderAndWriter
     {
         //private List<Car> cars = new();
-
+        const string DATA_PATH = @"..\..\..\..\CarRental.DAL\Data\";
+        const string CARS_JSON_FILENAME = "cars.json";
 
         public static List<Car> GetCarsFromJson()
         {
             List<Car> cars = new();
 
-            string carsSerialized = File.ReadAllText(@"..\..\..\..\CarRental.DAL\Data\cars.json");
+            string carsSerialized = File.ReadAllText(DATA_PATH + CARS_JSON_FILENAME);
             cars = JsonConvert.DeserializeObject<List<Car>>(carsSerialized);
 
             return cars;
@@ -43,24 +44,13 @@ namespace CarRental.DAL
 
             string carsSerialized = JsonConvert.SerializeObject(cars);
 
-            File.WriteAllText(@"..\..\..\..\CarRental.DAL\Data\carsSerialized.json", carsSerialized);
-
-
-
-
+            File.WriteAllText(DATA_PATH + "carsSerialized.json", carsSerialized);
         }
 
         public static Car GetCarFromJson()
         {
             Car car = new Car();
-
-
-
             return car;
         }
-
-
-
-
     }
 }

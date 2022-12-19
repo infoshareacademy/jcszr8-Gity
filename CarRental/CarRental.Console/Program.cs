@@ -6,16 +6,10 @@ namespace CarRental.ConsoleUI
     {
         static void Main(string[] args)
         {
-            DataReaderAndWriter.WriteCarsToJson();
+            //DataReaderAndWriter.WriteCarsToJson();
 
-            List<Car> cars = DataReaderAndWriter.GetCarsFromJson();
-            //Console.WriteLine($"Number of cars in database: {cars.Count}");
-            //foreach (Car car in cars)
-            //{
-            //    Console.WriteLine(car.Model);
-            //}
 
-            Menu();   
+            Menu();
         }
 
 
@@ -46,7 +40,9 @@ namespace CarRental.ConsoleUI
                     switch (read.Key)
                     {
                         case ConsoleKey.D1:
-                            Console.Clear(); PlaceHOlder();
+                            Console.Clear();
+                            PrintCarList(GetCarList());
+                            Console.ReadLine();
                             break;
                         case ConsoleKey.D2:
                             Console.Clear(); PlaceHOlder();
@@ -97,6 +93,22 @@ namespace CarRental.ConsoleUI
         {
             Console.WriteLine("PlaceHolder");
             Console.ReadKey();
+        }
+
+        public static List<Car> GetCarList()
+        {
+            List<Car> cars = DataReaderAndWriter.GetCarsFromJson();
+            return cars;
+        }
+
+        public static void PrintCarList(List<Car> cars)
+        {
+            Console.WriteLine($"Number of cars in database: {cars.Count}");
+            foreach (Car car in cars)
+            {
+                //Console.WriteLine(car.Model);
+                car.PrintCarDetails();
+            }
         }
     }
 }
