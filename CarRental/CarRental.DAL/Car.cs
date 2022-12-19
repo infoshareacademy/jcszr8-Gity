@@ -10,19 +10,26 @@ namespace CarRental.DAL
     {
         public string Model { get; set; }
         public string Make { get; set; }
-        public int Year { get; set; }
+        public int Year { get; set; } // production year
         public string Color { get; set; }
-        public bool Ac { get; set; }
+        public bool Ac { get; set; } // Air Conditioner
         public string Transmission { get; set; }
         public string FuelType { get; set; }
-        public int MaxCapacity { get; set; }
+        public int MaxCapacity { get; set; } // number of seats
         public List<string> Addons { get; set; }
+
+        public string VIN { get; set; } //Vehicle Identification Number
+
+        public string PlatesNumber { get; set; } // numer rejestracyjny pojazdu
+
+        public Dictionary<string, string> Images = new Dictionary<string, string>(); // dictionary for paths to car images
 
         public void PrintCarDetails()
         {
-            Console.WriteLine($"CarDetails: Model={Model} Make={Make}, " +
-                $"Year={Year} Color={Color} Ac={Ac}, " +
-                $"Transmission={Transmission}, FuelType={FuelType}, MaxCapacity={MaxCapacity}");
+            Console.WriteLine($"\n\nCarDetails: \nModel: {Model} \nMake: {Make} " +
+                $"\nYear: {Year} \nColor: {Color} \nAc: {Ac} " +
+                $"\nTransmission: {Transmission} \nFuelType: {FuelType} \nMaxCapacity: {MaxCapacity}" +
+                $"\nVIN: {VIN} \nPlates Number: {PlatesNumber}");
         }
     }
 }
