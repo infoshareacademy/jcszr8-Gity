@@ -104,7 +104,7 @@ namespace CarRental.ConsoleUI
             foreach (Car car in cars)
             {
                 //Console.WriteLine(car.Model);
-                car.PrintCarDetails();
+                car.PrintDetails();
             }
         }
     }

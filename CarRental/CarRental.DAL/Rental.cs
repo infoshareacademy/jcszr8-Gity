@@ -3,8 +3,10 @@
     public class Rental
     {
         public int CarId;
-        public DateTime DateFrom;
-        public DateTime DateTo;
-        public string Status; //ex. rented, available, in_service
+
+        public DateTime RentalStartDate;
+
+        public DateTime RentalEndDate;
+        public decimal RentalCost { get; set; } // in PLN
     }
 }

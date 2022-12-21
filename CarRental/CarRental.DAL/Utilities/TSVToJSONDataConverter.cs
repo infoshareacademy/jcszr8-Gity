@@ -59,7 +59,7 @@ namespace CarRental.DAL.Utilities
                     //Ac = carRecord["ac"] == "true" ? true : false,
                     Ac = bool.Parse(carRecord["ac"]),
                     Transmission = carRecord["transmission"].Trim(),
-                    MaxCapacity = int.Parse(carRecord["seats"]),
+                    SeatsNo = int.Parse(carRecord["seats"]),
                     LicencePlateNumber = carRecord["licence_plate_number"].Trim(),
                     Doors = int.Parse(carRecord["doors"]),
                     VIN = carRecord["VIN"].Trim(),
