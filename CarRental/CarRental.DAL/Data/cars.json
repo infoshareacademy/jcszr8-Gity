@@ -8,6 +8,9 @@
     "transmission": "Manual",
     "fuel_type": "Diesel",
     "max_capacity": 4,
+    "licence_plate_number": "GD RE01",
+    "doors": 5,
+    "VIN": "",
     "addons": [
       "child seat",
       "dog mat",
@@ -17,14 +20,17 @@
     ]
   },
   {
-    "make": "Mercedes-benz",
+    "make": "Mercedes-Benz",
     "model": "C 63 S Coupé",
     "year": 2020,
     "color": "Pearl white",
     "ac": "true",
     "transmission": "Automatic",
     "max_capacity": 2,
-    "fuel_type": "Regular",
+    "licence_plate_number": "GD RE02",
+    "doors": 3,
+    "VIN": "",
+    "fuel_type": "Gasoline",
     "addons": [
       "alloy wheels",
       "driver airbag",
@@ -40,7 +46,10 @@
     "ac": "true",
     "transmission": "Manual",
     "max_capacity": 5,
-    "fuel_type": "Regular",
+    "licence_plate_number": "GD RE03",
+    "doors": 3,
+    "VIN": "",
+    "fuel_type": "Gasoline",
     "addons": [
       "child seat",
       "dog mat",
@@ -49,5 +58,107 @@
       "power steering",
       "4x4"
     ]
+  },
+  {
+    "make": "Ford",
+    "model": "Fiesta",
+    "year": 2018,
+    "color": "White",
+    "ac": "true",
+    "transmission": "Manual",
+    "max_capacity": 5,
+    "licence_plate_number": "GD RE04",
+    "doors": 5,
+    "VIN": "",
+    "fuel_type": "Gasoline",
+    "addons": [
+      "driver airbag",
+      "power steering"
+    ]
+  },
+  {
+    "make": "Ford",
+    "model": "Fiesta",
+    "year": 2018,
+    "color": "Blue",
+    "ac": "true",
+    "transmission": "Manual",
+    "max_capacity": 5,
+    "licence_plate_number": "GD RE05",
+    "doors": 5,
+    "VIN": "",
+    "fuel_type": "Gasoline",
+    "addons": [
+      "driver airbag",
+      "power steering"
+    ]
+  },
+  {
+    "make": "Ford",
+    "model": "Fiesta",
+    "year": 2019,
+    "color": "White",
+    "ac": "true",
+    "transmission": "Manual",
+    "max_capacity": 5,
+    "licence_plate_number": "GD RE06",
+    "doors": 5,
+    "VIN": "",
+    "fuel_type": "Gasoline",
+    "addons": [
+      "driver airbag",
+      "power steering"
+    ]
+  },
+  {
+    "make": "Kia",
+    "model": "Ceed",
+    "year": 2017,
+    "color": "Blue",
+    "ac": "true",
+    "transmission": "Manual",
+    "max_capacity": 5,
+    "licence_plate_number": "GD RE07",
+    "doors": 5,
+    "VIN": "",
+    "fuel_type": "Gasoline",
+    "addons": [
+      "driver airbag",
+      "power steering"
+    ]
+  },
+  {
+    "make": "Kia",
+    "model": "Ceed",
+    "year": 2012,
+    "color": "Red",
+    "ac": "false",
+    "transmission": "Manual",
+    "max_capacity": 5,
+    "licence_plate_number": "GD RE08",
+    "doors": 5,
+    "VIN": "",
+    "fuel_type": "Gasoline",
+    "addons": [
+      "driver airbag"
+    ]
+  },
+  {
+    "make": "Kia",
+    "model": "Ceed",
+    "year": 2017,
+    "color": "Blue",
+    "ac": "true",
+    "transmission": "Manual",
+    "max_capacity": 5,
+    "licence_plate_number": "GD RE09",
+    "doors": 5,
+    "VIN": "",
+    "fuel_type": "Gasoline",
+    "addons": [
+      "driver airbag",
+      "power steering"
+    ]
   }
+
 ]
