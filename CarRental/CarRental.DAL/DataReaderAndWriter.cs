@@ -28,13 +28,13 @@ namespace CarRental.DAL
         {
             List<string> addons1 = new List<string>() { "child seat", "dog mat", "driver airbag", "power windows front", "front-drive" };
 
-            Car car1 = new Car { Make = "Toyota", Model = "Corolla", Year = 2015, Color = "Black", Ac = true, Transmission = "Manual", FuelType = "Diesel", MaxCapacity = 4,
+            Car car1 = new Car { Make = "Toyota", Model = "Corolla", Year = 2015, Color = "Black", Ac = true, Transmission = "Manual", EngineType = "Diesel", MaxCapacity = 4,
                 Addons = addons1
             };           
             
             List<string> addons2 = new List<string>() { "child seat", "front-drive" };
 
-            Car car2 = new Car { Make = "Toyota", Model = "Yaris", Year = 2007, Color = "Green", Ac = true, Transmission = "Manual", FuelType = "Gas", MaxCapacity = 5,
+            Car car2 = new Car { Make = "Toyota", Model = "Yaris", Year = 2007, Color = "Green", Ac = true, Transmission = "Manual", EngineType = "Gas", MaxCapacity = 5,
                 Addons = addons2
             };
 
@@ -52,5 +52,16 @@ namespace CarRental.DAL
             Car car = new Car();
             return car;
         }
+
+        public static List<List<string>> ReadCarsDataFromTSVFile(string filePath)
+        // TSV file - file with Tab Separated Values
+        {
+            var carsData = File.ReadAllLines(filePath).Select(line => line.Split('\t').ToList())
+                .ToList();
+
+            return carsData;
+        }
+
+
     }
 }

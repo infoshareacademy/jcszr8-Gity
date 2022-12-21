@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace CarRental.DAL.Enums
 {
-    public enum FuelType
+    public enum EngineType
     {
         Electric,
         Gasoline, // benzyna
         Diesel,
-        BioDiesel,
-        Ethanol,
         LPG,
-        Other = 0,
     }
 }
