@@ -1,1 +1,289 @@
-[{"Model":"Corolla","Make":"Toyota","Year":2015,"Color":"Black","Ac":true,"Transmission":"Manual","FuelType":"Diesel","MaxCapacity":4,"Addons":["child seat","dog mat","driver airbag","power windows front","front-drive"]},{"Model":"Yaris","Make":"Toyota","Year":2007,"Color":"Green","Ac":true,"Transmission":"Manual","FuelType":"Gas","MaxCapacity":5,"Addons":["child seat","front-drive"]}]
+[
+  {
+    "Images": {
+    },
+    "Model": "Corolla",
+    "Make": "Toyota",
+    "Year": 0,
+    "Color": "Black",
+    "Doors": 5,
+    "Ac": true,
+    "Transmission": "Manual",
+    "fuel_type": "Diesel",
+    "max_capacity": 4,
+    "Addons": [
+      "child seat",
+      " dog mat",
+      " driver airbag",
+      " power windows front",
+      " front-drive"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE01"
+  },
+  {
+    "Images": {
+    },
+    "Model": "Corolla",
+    "Make": "Toyota",
+    "Year": 0,
+    "Color": "Gray",
+    "Doors": 5,
+    "Ac": true,
+    "Transmission": "Automatic",
+    "fuel_type": "Hybryda",
+    "max_capacity": 4,
+    "Addons": [
+      "child seat",
+      " dog mat",
+      " driver airbag",
+      " power windows front",
+      " front-drive"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE02"
+  },
+  {
+    "Images": {
+    },
+    "Model": "Corolla",
+    "Make": "Toyota",
+    "Year": 0,
+    "Color": "Silver",
+    "Doors": 5,
+    "Ac": true,
+    "Transmission": "Automatic",
+    "fuel_type": "Hybryda",
+    "max_capacity": 4,
+    "Addons": [
+      "child seat",
+      " dog mat",
+      " driver airbag",
+      " power windows front",
+      " front-drive"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE03"
+  },
+  {
+    "Images": {
+    },
+    "Model": "Corolla",
+    "Make": "Toyota",
+    "Year": 0,
+    "Color": "White",
+    "Doors": 5,
+    "Ac": true,
+    "Transmission": "Automatic",
+    "fuel_type": "Hybryda",
+    "max_capacity": 4,
+    "Addons": [
+      "child seat",
+      " dog mat",
+      " driver airbag",
+      " power windows front",
+      " front-drive"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE04"
+  },
+  {
+    "Images": {
+    },
+    "Model": "C 63 S Coupé",
+    "Make": "Mercedes-Benz",
+    "Year": 0,
+    "Color": "Pearl white",
+    "Doors": 3,
+    "Ac": true,
+    "Transmission": "Automatic",
+    "fuel_type": "Gasoline",
+    "max_capacity": 2,
+    "Addons": [
+      "alloy wheels",
+      " driver airbag",
+      " power steering",
+      " rear drive"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE05"
+  },
+  {
+    "Images": {
+    },
+    "Model": "3",
+    "Make": "Mazda",
+    "Year": 0,
+    "Color": "Polymetal Gray Metallic",
+    "Doors": 3,
+    "Ac": true,
+    "Transmission": "Manual",
+    "fuel_type": "Gasoline",
+    "max_capacity": 5,
+    "Addons": [
+      "child seat",
+      " dog mat",
+      " driver airbag",
+      " power steering",
+      " 4x4"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE06"
+  },
+  {
+    "Images": {
+    },
+    "Model": "3",
+    "Make": "Mazda",
+    "Year": 0,
+    "Color": "Silver",
+    "Doors": 3,
+    "Ac": true,
+    "Transmission": "Manual",
+    "fuel_type": "Gasoline",
+    "max_capacity": 5,
+    "Addons": [
+      "child seat",
+      " dog mat",
+      " driver airbag",
+      " power steering",
+      " 4x4"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE07"
+  },
+  {
+    "Images": {
+    },
+    "Model": "3",
+    "Make": "Mazda",
+    "Year": 0,
+    "Color": "White",
+    "Doors": 3,
+    "Ac": true,
+    "Transmission": "Manual",
+    "fuel_type": "Gasoline",
+    "max_capacity": 5,
+    "Addons": [
+      "child seat",
+      " dog mat",
+      " driver airbag",
+      " power steering",
+      " 4x4"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE08"
+  },
+  {
+    "Images": {
+    },
+    "Model": "Fiesta",
+    "Make": "Ford",
+    "Year": 0,
+    "Color": "White",
+    "Doors": 5,
+    "Ac": true,
+    "Transmission": "Manual",
+    "fuel_type": "Gasoline",
+    "max_capacity": 5,
+    "Addons": [
+      "driver airbag",
+      " power steering"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE09"
+  },
+  {
+    "Images": {
+    },
+    "Model": "Fiesta",
+    "Make": "Ford",
+    "Year": 0,
+    "Color": "Blue",
+    "Doors": 5,
+    "Ac": true,
+    "Transmission": "Manual",
+    "fuel_type": "Gasoline",
+    "max_capacity": 5,
+    "Addons": [
+      "driver airbag",
+      " power steering"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE10"
+  },
+  {
+    "Images": {
+    },
+    "Model": "Fiesta",
+    "Make": "Ford",
+    "Year": 0,
+    "Color": "White",
+    "Doors": 5,
+    "Ac": true,
+    "Transmission": "Manual",
+    "fuel_type": "Gasoline",
+    "max_capacity": 5,
+    "Addons": [
+      "driver airbag",
+      " power steering"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE11"
+  },
+  {
+    "Images": {
+    },
+    "Model": "Ceed",
+    "Make": "Kia",
+    "Year": 0,
+    "Color": "Blue",
+    "Doors": 5,
+    "Ac": true,
+    "Transmission": "Manual",
+    "fuel_type": "Gasoline",
+    "max_capacity": 5,
+    "Addons": [
+      "driver airbag",
+      " power steering"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE12"
+  },
+  {
+    "Images": {
+    },
+    "Model": "Ceed",
+    "Make": "Kia",
+    "Year": 0,
+    "Color": "Red",
+    "Doors": 5,
+    "Ac": false,
+    "Transmission": "Manual",
+    "fuel_type": "Gasoline",
+    "max_capacity": 5,
+    "Addons": [
+      "driver airbag"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE13"
+  },
+  {
+    "Images": {
+    },
+    "Model": "Ceed",
+    "Make": "Kia",
+    "Year": 0,
+    "Color": "Blue",
+    "Doors": 5,
+    "Ac": true,
+    "Transmission": "Manual",
+    "fuel_type": "Gasoline",
+    "max_capacity": 5,
+    "Addons": [
+      "power steering"
+    ],
+    "VIN": "",
+    "LicencePlateNumber": "GD RE14"
+  }
+]

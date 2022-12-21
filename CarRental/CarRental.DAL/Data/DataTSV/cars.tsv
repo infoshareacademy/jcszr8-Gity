@@ -1,0 +1,15 @@
+﻿make	model	year	color	ac	transmission	seats	licence_plate_number	doors	VIN	engine_type	addons
+Toyota	Corolla	2015	Black	true	Manual	4	GD RE01	5		Diesel	child seat, dog mat, driver airbag, power windows front, front-drive
+Toyota	Corolla	2018	Gray	true	Automatic	4	GD RE02	5		Hybryda	child seat, dog mat, driver airbag, power windows front, front-drive
+Toyota	Corolla	2019	Silver	true	Automatic	4	GD RE03	5		Hybryda	child seat, dog mat, driver airbag, power windows front, front-drive
+Toyota	Corolla	2020	White	true	Automatic	4	GD RE04	5		Hybryda	child seat, dog mat, driver airbag, power windows front, front-drive
+Mercedes-Benz	C 63 S Coupé	2020	Pearl white	true	Automatic	2	GD RE05	3		Gasoline	alloy wheels, driver airbag, power steering, rear drive
+Mazda	3	2015	Polymetal Gray Metallic	true	Manual	5	GD RE06	3		Gasoline	child seat, dog mat, driver airbag, power steering, 4x4
+Mazda	3	2016	Silver	true	Manual	5	GD RE07	3		Gasoline	child seat, dog mat, driver airbag, power steering, 4x4
+Mazda	3	2017	White	true	Manual	5	GD RE08	3		Gasoline	child seat, dog mat, driver airbag, power steering, 4x4
+Ford	Fiesta	2018	White	true	Manual	5	GD RE09	5		Gasoline	driver airbag, power steering
+Ford	Fiesta	2018	Blue	true	Manual	5	GD RE10	5		Gasoline	driver airbag, power steering
+Ford	Fiesta	2019	White	true	Manual	5	GD RE11	5		Gasoline	driver airbag, power steering
+Kia	Ceed	2017	Blue	true	Manual	5	GD RE12	5		Gasoline	driver airbag, power steering
+Kia	Ceed	2012	Red	false	Manual	5	GD RE13	5		Gasoline	driver airbag
+Kia	Ceed	2017	Blue	true	Manual	5	GD RE14	5		Gasoline	power steering

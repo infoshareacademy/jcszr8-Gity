@@ -1,4 +1,5 @@
 ﻿using CarRental.DAL;
+using CarRental.DAL.Utilities;
 
 namespace CarRental.ConsoleUI
 {
@@ -6,12 +7,8 @@ namespace CarRental.ConsoleUI
     {
         static void Main(string[] args)
         {
-            //DataReaderAndWriter.WriteCarsToJson();
-
-
             Menu();
         }
-
 
         static void Menu()
         {
@@ -28,7 +25,7 @@ namespace CarRental.ConsoleUI
                 Console.WriteLine("6 - Wyszukaj samochód po wyposażeniu.");
                 Console.WriteLine("7 - Dodaj samochód.");
                 Console.WriteLine("8 - Pokaż wypożyczenia.");
-                Console.WriteLine("9 - Dodaj wypożeczenie.");
+                Console.WriteLine("9 - Dodaj wypożyczenie.");
                 Console.WriteLine("0 - Edytuj wypożyczenie.");
                 Console.WriteLine("F1 - Edytuj dane samochodu.");
                 ConsoleKeyInfo read = Console.ReadKey();

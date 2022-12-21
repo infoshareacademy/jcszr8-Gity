@@ -13,17 +13,19 @@ namespace CarRental.DAL
         public string Make { get; set; }
         public int Year { get; set; } // production year
         public string Color { get; set; }
+
+        public int Doors { get; set; }
         public bool Ac { get; set; } // Air Conditioner
         public string Transmission { get; set; }
         [JsonProperty("fuel_type")]
-        public string FuelType { get; set; }
+        public string EngineType { get; set; }
         [JsonProperty("max_capacity")]
         public int MaxCapacity { get; set; } // number of seats
         public List<string> Addons { get; set; }
 
         public string VIN { get; set; } //Vehicle Identification Number
 
-        public string PlatesNumber { get; set; } // numer rejestracyjny pojazdu
+        public string LicencePlateNumber { get; set; } // numer rejestracyjny pojazdu
 
         public Dictionary<string, string> Images = new Dictionary<string, string>(); // dictionary for paths to car images
 
@@ -31,8 +33,8 @@ namespace CarRental.DAL
         {
             Console.WriteLine($"\n\nCarDetails: \nModel: {Model} \nMake: {Make} " +
                 $"\nYear: {Year} \nColor: {Color} \nAc: {Ac} " +
-                $"\nTransmission: {Transmission} \nFuelType: {FuelType} \nMaxCapacity: {MaxCapacity}" +
-                $"\nVIN: {VIN} \nPlates Number: {PlatesNumber}");
+                $"\nTransmission: {Transmission} \nFuelType: {EngineType} \nMaxCapacity: {MaxCapacity}" +
+                $"\nVIN: {VIN} \nPlates Number: {LicencePlateNumber}");
         }
     }
 }
