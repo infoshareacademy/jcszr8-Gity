@@ -1,4 +1,5 @@
 ﻿using CarRental.DAL;
+using CarRental.DAL.Utilities;
 
 namespace CarRental.ConsoleUI
 {
@@ -6,6 +7,7 @@ namespace CarRental.ConsoleUI
     {
         static void Main(string[] args)
         {
+
             DataReaderAndWriter.WriteCarsToJson();
 
             List<Car> cars = DataReaderAndWriter.GetCarsFromJson();
@@ -18,6 +20,5 @@ namespace CarRental.ConsoleUI
             ConsoleMenu.Menu();
 
         }
-
     }
 }
