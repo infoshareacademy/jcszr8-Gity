@@ -1,15 +1,15 @@
-﻿make	model	year	color	ac	transmission	seats	licence_plate_number	doors	VIN	engine_type	addons
-Toyota	Corolla	2015	Black	true	Manual	4	GD RE01	5		Diesel	child seat, dog mat, driver airbag, power windows front, front-drive
-Toyota	Corolla	2018	Gray	true	Automatic	4	GD RE02	5		Hybryda	child seat, dog mat, driver airbag, power windows front, front-drive
-Toyota	Corolla	2019	Silver	true	Automatic	4	GD RE03	5		Hybryda	child seat, dog mat, driver airbag, power windows front, front-drive
-Toyota	Corolla	2020	White	true	Automatic	4	GD RE04	5		Hybryda	child seat, dog mat, driver airbag, power windows front, front-drive
-Mercedes-Benz	C 63 S Coupé	2020	Pearl white	true	Automatic	2	GD RE05	3		Gasoline	alloy wheels, driver airbag, power steering, rear drive
-Mazda	3	2015	Polymetal Gray Metallic	true	Manual	5	GD RE06	3		Gasoline	child seat, dog mat, driver airbag, power steering, 4x4
-Mazda	3	2016	Silver	true	Manual	5	GD RE07	3		Gasoline	child seat, dog mat, driver airbag, power steering, 4x4
-Mazda	3	2017	White	true	Manual	5	GD RE08	3		Gasoline	child seat, dog mat, driver airbag, power steering, 4x4
-Ford	Fiesta	2018	White	true	Manual	5	GD RE09	5		Gasoline	driver airbag, power steering
-Ford	Fiesta	2018	Blue	true	Manual	5	GD RE10	5		Gasoline	driver airbag, power steering
-Ford	Fiesta	2019	White	true	Manual	5	GD RE11	5		Gasoline	driver airbag, power steering
-Kia	Ceed	2017	Blue	true	Manual	5	GD RE12	5		Gasoline	driver airbag, power steering
-Kia	Ceed	2012	Red	false	Manual	5	GD RE13	5		Gasoline	driver airbag
-Kia	Ceed	2017	Blue	true	Manual	5	GD RE14	5		Gasoline	power steering
+﻿id	make	model	year	color	ac	transmission	seats	licence_plate_number	doors	engine.type	engine.power_kw	engine.power_km	engine.displacement	engine.torque	fuel_consumption_city	fuel_consumption_highway	airbags	segment	vin	addons
+1	Toyota	Corolla	2015	Black	true	Manual	4	GD RE01	5	Gasoline	97	132	1.6		7,3	5,6	7	C	8ACDVM8U5MFPU0220	ABS, hak holowniczy
+2	Toyota	Corolla	2018	Gray	true	Automatic	4	GD RE02	5	Hybrid	97	122	1.8		3,1	3,5	7	C	99ARVPJL8ESAT2607	ABS
+3	Toyota	Corolla	2019	Silver	true	Automatic	4	GD RE03	5	Hybrid	97	122	1.8		3,1	3,5	7	C	LC0USWJC1AN6R5381	ABS
+4	Toyota	Corolla	2020	White	true	Automatic	4	GD RE04	5	Hybrid	97	122	1.8		3,1	3,5	7	C	1M961LC887ENT3380	ABS
+5	Mercedes-Benz	C 63 S Coupé	2020	Pearl white	true	Automatic	4	GD RE05	2	Gasoline	375	510	4.0	700Nm	0	0	0	C	AHTTF8KS8FXST6312	ABS
+6	Mazda	3	2015	Polymetal Gray Metallic	true	Manual	5	GD RE06	3	Gasoline	0	0	0		0	0	0	C	TMB7NGWE1VVX01930	ABS
+7	Mazda	3	2016	Silver	true	Manual	5	GD RE07	3	Gasoline	0	0	0		0	0	0	C	5NP2ZVSY0CT6B5064	ABS
+8	Mazda	3	2017	White	true	Manual	5	GD RE08	3	Gasoline	0	0	0		0	0	0	C	W09Y6XGD5Y0849348	ABS
+9	Ford	Fiesta	2018	White	true	Manual	5	GD RE09	5	Gasoline	0	85	1.1		5,8	4,7	12	B	2HJCNR5Y8389S5283	ABS
+10	Ford	Fiesta	2018	Blue	true	Manual	5	GD RE10	5	Gasoline	0	85	1.1		5,8	4,7	12	B	SFE8208R0LJYZ5073	ABS
+11	Ford	Fiesta	2019	White	true	Manual	5	GD RE11	5	Gasoline	0	85	1.1		5,8	4,7	12	B	8AGXXEXC3F0FT2074	ABS
+12	Kia	Ceed	2017	Blue	true	Manual	5	GD RE12	5	Gasoline	0	160	1.5 T-GDI		6,3	5,1	6	C	9C6KZKAK3WP2E1498	ABS
+13	Kia	Ceed	2012	Red	false	Manual	5	GD RE13	5	Gasoline	0	0	1.5		0	0	0	C	LGX9YDY103LSZ4509	ABS
+14	Kia	Ceed	2017	Blue	true	Manual	5	GD RE14	5	Gasoline	0	160	1.5 T-GDI		6,3	5,1	6	C	1GDWKJGZ679G70798	ABS

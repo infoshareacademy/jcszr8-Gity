@@ -14,19 +14,23 @@ namespace CarRental.DAL.Models
 
         [JsonProperty("max_capacity")]
         public int SeatsNo { get; set; } // total number of seats (with driver seat included)
+        public int Airbags { get; set; }
+        public float FuelConsumptionCity { get; set; }
+        public float FuelConsumptionHighway { get; set; }
+        public string? Segment { get; set; }
         public List<string> Addons { get; set; } = new();
 
         public Dictionary<string, string> Pricing = new();
 
         public override string ToString()
         {
-            return $"{GetType()}: {Model} {Make} {Year} {Color} {Transmission} {EngineType} {LicencePlateNumber}";
+            return $"{GetType()}: {Make} {Model} {Year} {Color} {Transmission} {EngineType} {LicencePlateNumber}";
         }
 
-        public void PrintDetails()
+        public string GetDetails()
         {
-            Console.WriteLine($"#{Id}: M: {Model} M: {Make} Y:{Year} {Color} Ac:{Ac} {Transmission} {EngineType} Seats: {SeatsNo}" +
-                $"{VIN} Plates:{LicencePlateNumber}");
+            return $"#{Id}: Ma:{Make} Mo:{Model} Y:{Year} {Color} Ac:{Ac} {Transmission} {EngineType} Seats:{SeatsNo}" +
+                $"{VIN} Plates:{LicencePlateNumber}";
         }
     }
 }

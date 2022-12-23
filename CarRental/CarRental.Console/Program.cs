@@ -8,17 +8,22 @@ namespace CarRental.ConsoleUI
     {
         static void Main(string[] args)
         {
-
-            //DataReaderAndWriter.WriteCarsToJson(@"..\..\..\..\CarRental.DAL\Data\cars2.json");
-
-            List<Car> cars = DataReaderAndWriter.GetCarsFromJson();
-            //Console.WriteLine($"Number of cars in database: {cars.Count}");
-            //foreach (Car car in cars)
-            //{
-            //    Console.WriteLine(car.Model);
-            //}
             Console.Title = "Cud Auta";
-            ConsoleMenu.Menu();
+            //ConsoleMenu.Menu();
+
+            var carReader = new CarsTSVFileReader();
+            carReader.ReadTsv();
+            carReader.LoadItems();
+            List<Car> cars = carReader.cars;
+
+            string carsSerialized = CarSerializerDeserializer.Serialize(cars);
+            CarSerializerDeserializer.WriteToJsonFile(carsSerialized);
+
+            Console.WriteLine($"Number of cars in database: {cars.Count}");
+            foreach (Car car in cars)
+            {
+                Console.WriteLine(car.ToString());
+            }
         }
         public static void PrintCarList(List<Car> cars)
         {
@@ -26,7 +31,7 @@ namespace CarRental.ConsoleUI
             foreach (Car car in cars)
             {
                 //Console.WriteLine(car.Model);
-                car.PrintDetails();
+                car.GetDetails();
             }
         }
     }

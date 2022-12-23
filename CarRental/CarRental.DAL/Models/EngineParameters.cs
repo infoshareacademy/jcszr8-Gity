@@ -12,7 +12,7 @@ namespace CarRental.DAL.Models
         public float PowerInKiloWats { get; set; }
         public float PowerInKM { get; set; } // Horse Power - konie mechaniczne; 1KM=735,49875W=0,9863 HP; 1kW = 1.36KM
         public EngineType Type { get; set; }
-        public float Displacement { get; set; } // in cubic centimeters
+        public string Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
 
         public string Torque; // in Nm; moment obrotowy; np. 125 Nm przy 6500 obr./min.
     }
