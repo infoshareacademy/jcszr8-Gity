@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.DAL
+namespace CarRental.DAL.Models
 {
     public abstract class Person
     {
@@ -16,7 +16,9 @@ namespace CarRental.DAL
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
         public string Pesel { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateOnly DateOfBirth { get; set; }
+
+        public char Gender { get; set; } // F female, M male, O other
         public PostalAddress? PostalAddress { get; set; }
 
         public Person(int id, string firstName, string lastName, string emailAddress, string phoneNumber, string pesel)
@@ -31,7 +33,7 @@ namespace CarRental.DAL
 
         public override string ToString()
         {
-            return $"{this.GetType()}: {FirstName} {LastName} (id:{Id})";
+            return $"{GetType()}: {FirstName} {LastName} (id:{Id})";
         }
     }
 }

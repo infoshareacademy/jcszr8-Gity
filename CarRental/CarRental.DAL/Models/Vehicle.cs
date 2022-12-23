@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.DAL
+namespace CarRental.DAL.Models
 {
     public abstract class Vehicle
     {
@@ -24,10 +24,13 @@ namespace CarRental.DAL
 
         public Dictionary<string, string> Images = new Dictionary<string, string>(); // dictionary for paths to car images
 
+        public int KilometerCounter { get; set; }
+
+        public EngineParameters EngineParameters { get; set; }
 
         public override string ToString()
         {
-            return $"{this.GetType()}: {Model} {Make} {LicencePlateNumber} (id:{Id})";
+            return $"{GetType()}: {Model} {Make} {LicencePlateNumber} (id:{Id})";
         }
     }
 }

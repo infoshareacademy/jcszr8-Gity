@@ -1,0 +1,11 @@
+﻿id	first_name	last_name	gender	email_address	phone_number	pesel	date_of_birth
+1	Julia	Stępień	F	julia.stepien@onet.pl	+48501883134	85091700165	1985-09-17
+2	Anna	Gajewska	F	anna_gajewska@onet.pl	+4850264581	95812420881	1995-81-24
+3	Zuzanna	Witkowska	F	zuza_witkowska@gmail.com	+48503864336	75112427223	1975-11-24
+4	Anna	Kowalska	F	anna.kowalska@gmail.com	+4850423707	93071299961	1993-07-12
+5	Martyna	Dąbrowska	F	martyna.dabrowska@onet.pl	+48505712699	95052061183	1995-05-20
+6	Hubert	Kubiak	M	hubert_kubiak@interia.pl	+48551122988	63121718573	1963-12-17
+7	Roma	Gajewska	M	roma.gajewska@wp.pl	+485525689	77042806839	1977-04-28
+8	Ludwik	Kowalski	M	ludwik_kowalski@wp.pl	+48553150321	83061324573	1983-06-13
+9	Heronim	Czerwiński	M	heronim_czerwinski@wp.pl	+48554564776	93081792274	1993-08-17
+10	Marcin	Kowalski	M	marcin.kowalski@gazeta.pl	+48555217372	95052704378	1995-05-27

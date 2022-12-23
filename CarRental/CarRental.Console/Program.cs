@@ -1,4 +1,5 @@
 ﻿using CarRental.DAL;
+using CarRental.DAL.Models;
 using CarRental.DAL.Utilities;
 
 namespace CarRental.ConsoleUI
@@ -8,7 +9,7 @@ namespace CarRental.ConsoleUI
         static void Main(string[] args)
         {
 
-            DataReaderAndWriter.WriteCarsToJson();
+            //DataReaderAndWriter.WriteCarsToJson(@"..\..\..\..\CarRental.DAL\Data\cars2.json");
 
             List<Car> cars = DataReaderAndWriter.GetCarsFromJson();
             //Console.WriteLine($"Number of cars in database: {cars.Count}");
@@ -27,7 +28,6 @@ namespace CarRental.ConsoleUI
                 //Console.WriteLine(car.Model);
                 car.PrintDetails();
             }
-
         }
     }
 }

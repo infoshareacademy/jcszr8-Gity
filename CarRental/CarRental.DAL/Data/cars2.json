@@ -23,7 +23,14 @@
     "MaximumSpeed": 0,
     "fuel_type": "Diesel",
     "VIN": null,
-    "LicencePlateNumber": null
+    "LicencePlateNumber": null,
+    "EngineParameters": {
+      "Torque": null,
+      "PowerInHP": 0.0,
+      "PowerInWats": 0.0,
+      "Type": 0,
+      "Displacement": 0.0
+    }
   },
   {
     "Pricing": {
@@ -46,6 +53,13 @@
     "MaximumSpeed": 0,
     "fuel_type": "Gas",
     "VIN": null,
-    "LicencePlateNumber": null
+    "LicencePlateNumber": null,
+    "EngineParameters": {
+      "Torque": "2000 / 600",
+      "PowerInHP": 100.0,
+      "PowerInWats": 0.0,
+      "Type": 2,
+      "Displacement": 1800.0
+    }
   }
 ]

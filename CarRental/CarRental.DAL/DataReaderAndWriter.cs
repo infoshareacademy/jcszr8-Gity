@@ -4,6 +4,8 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.DAL.Enums;
+using CarRental.DAL.Models;
 using Newtonsoft.Json;
 
 namespace CarRental.DAL
@@ -16,15 +18,11 @@ namespace CarRental.DAL
 
         public static List<Car> GetCarsFromJson()
         {
-            List<Car> cars = new();
-
             string carsSerialized = File.ReadAllText(DATA_PATH + CARS_JSON_FILENAME);
-            cars = JsonConvert.DeserializeObject<List<Car>>(carsSerialized);
-
-            return cars;
+            return JsonConvert.DeserializeObject<List<Car>>(carsSerialized);
         }
 
-        public static void WriteCarsToJson()
+        public static void WriteCarsToJson(string filePath)
         {
             List<string> addons1 = new List<string>() { "child seat", "dog mat", "driver airbag", "power windows front", "front-drive" };
 
@@ -43,6 +41,12 @@ namespace CarRental.DAL
 
             List<string> addons2 = new List<string>() { "child seat", "front-drive" };
 
+            EngineParameters ep2 = new();
+            ep2.PowerInKM = 100;
+            ep2.Torque = "2000 / 600";
+            ep2.Type = EngineType.Diesel;
+            ep2.Displacement = 1800;
+
             Car car2 = new Car
             {
                 Make = "Toyota",
@@ -53,22 +57,13 @@ namespace CarRental.DAL
                 Transmission = "Manual",
                 EngineType = "Gas",
                 SeatsNo = 5,
-                Addons = addons2
+                Addons = addons2,
+                EngineParameters = ep2,
             };
 
             List<Car> cars = new List<Car>() { car1, car2 };
-
-            // serializacja
-
             string carsSerialized = JsonConvert.SerializeObject(cars);
-
-            File.WriteAllText(DATA_PATH + "carsSerialized.json", carsSerialized);
-        }
-
-        public static Car GetCarFromJson()
-        {
-            Car car = new();
-            return car;
+            File.WriteAllText(filePath, carsSerialized);
         }
 
         public static List<List<string>> ReadCarsDataFromTSVFile(string filePath)

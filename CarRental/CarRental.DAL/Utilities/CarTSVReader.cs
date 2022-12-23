@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CarRental.DAL.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace CarRental.DAL.Utilities
 {
-    public class TSVToJSONDataConverter
+    public class CarTSVReader
     {
         /*
          *  This is helper class for converting TSV formated data into JSON formated data
-         * 
          */
         private static List<Dictionary<string, string>> ReadTsv(string filePath)
         {
