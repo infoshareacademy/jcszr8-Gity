@@ -1,4 +1,5 @@
-﻿using CarRental.DAL;
+﻿using CarRental.ConsoleUI.Utils;
+using CarRental.DAL;
 using CarRental.DAL.Models;
 using CarRental.DAL.Utilities;
 
@@ -9,21 +10,9 @@ namespace CarRental.ConsoleUI
         static void Main(string[] args)
         {
             Console.Title = "Cud Auta";
-            //ConsoleMenu.Menu();
+            ConsoleMenu.Menu();
 
-            var carReader = new CarsTSVFileReader();
-            carReader.ReadTsv();
-            carReader.LoadItems();
-            List<Car> cars = carReader.cars;
-
-            string carsSerialized = CarSerializerDeserializer.Serialize(cars);
-            CarSerializerDeserializer.WriteToJsonFile(carsSerialized);
-
-            Console.WriteLine($"Number of cars in database: {cars.Count}");
-            foreach (Car car in cars)
-            {
-                Console.WriteLine(car.ToString());
-            }
+            // DataHelper.MigrateAll(); // migrates model data from TSV files to JSON files
         }
         public static void PrintCarList(List<Car> cars)
         {

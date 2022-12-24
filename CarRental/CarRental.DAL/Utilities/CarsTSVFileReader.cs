@@ -75,9 +75,9 @@ namespace CarRental.DAL.Utilities
                     FuelConsumptionHighway = float.Parse(item["fuel_consumption_highway"].Trim()),
                     Segment = item["segment"].Trim(),
                     Airbags = int.Parse(item["airbags"].Trim()),
+                    Kilometrage = int.Parse(item["kilometrage"].Trim()),
                     Addons = item["addons"].Split(',').ToList(),  // TODO: remove white spaces
-
-                    //Images
+                    //TODO: Images
 
                 });
             }

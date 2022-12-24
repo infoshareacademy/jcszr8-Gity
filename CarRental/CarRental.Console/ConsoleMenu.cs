@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarRental.ConsoleUI.Utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -27,7 +28,6 @@ namespace CarRental.ConsoleUI
         };
         public static void Menu()
         {
-
             while (true)
             {
                 Console.Clear();
@@ -43,7 +43,9 @@ namespace CarRental.ConsoleUI
                 switch (read.Key)
                 {
                     case ConsoleKey.D1:
-                        Confirmation(); Console.Clear(); Search.PlaceHolder();
+                        var cars = DataHelper.GetCars();
+                        DataHelper.PrintListOfCars(cars);
+                        Console.ReadKey();
                         break;
                     case ConsoleKey.D2:
                         Confirmation(); Console.Clear(); Search.PlaceHolder();
@@ -80,9 +82,7 @@ namespace CarRental.ConsoleUI
                         break;
                     default: break;
                 }
-
             }
-
         }
 
         public static void Confirmation()
