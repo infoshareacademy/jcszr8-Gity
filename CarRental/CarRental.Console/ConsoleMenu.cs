@@ -36,7 +36,20 @@ namespace CarRental.ConsoleUI
 
                 for (int i = 0; i < _menuOptions.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {_menuOptions.ElementAt(i).Value}");
+                    if (i == 9)
+                    {
+                        Console.WriteLine($"0. {_menuOptions.ElementAt(i).Value}");
+                    }
+                    else if (i == 10)
+                    {
+                        Console.WriteLine($"F1. {_menuOptions.ElementAt(i).Value}");
+                    }
+                    else if (i == 11)
+                    {
+                        Console.WriteLine($"ESC. {_menuOptions.ElementAt(i).Value}");
+                    }
+                    else
+                        Console.WriteLine($"{i + 1}. {_menuOptions.ElementAt(i).Value}");
                 }
                 ConsoleKeyInfo read = Console.ReadKey();
                 Console.WriteLine();
