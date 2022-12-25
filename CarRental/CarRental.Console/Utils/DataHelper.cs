@@ -9,7 +9,7 @@ namespace CarRental.ConsoleUI.Utils
         private const string CARS_JSON_FILE_NAME = "cars.json";
         private const string PATH_TO_JSON_FILES = @"..\..\..\..\CarRental.DAL\Data\";
 
-        public static void MigrateAll()
+        public static void MigrateAllFromTsvToJson()
         {
             MigrateCarsFromTsvToJson("cars.tsv");
             MigrateCustomersFromTsvToJson("customers.tsv");
