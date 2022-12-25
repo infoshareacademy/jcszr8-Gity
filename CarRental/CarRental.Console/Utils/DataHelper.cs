@@ -1,11 +1,6 @@
 ﻿using CarRental.DAL.Models;
 using CarRental.DAL.Utilities;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarRental.ConsoleUI.Utils
 {
@@ -16,17 +11,41 @@ namespace CarRental.ConsoleUI.Utils
 
         public static void MigrateAll()
         {
-            MigrateCarsFromTsvToJson();
+            MigrateCarsFromTsvToJson("cars.tsv");
+            MigrateCustomersFromTsvToJson("customers.tsv");
+            MigrateRentalsFromTsvToJson("rentals.tsv");
         }
-        public static void MigrateCarsFromTsvToJson()
+        public static void MigrateCarsFromTsvToJson(string fileName)
         {
-            var carReader = new CarsTSVFileReader();
-            carReader.ReadTsv();
-            carReader.LoadItems();
-            List<Car> cars = carReader.cars;
+            var reader = new CarsTSVFileReader();
+            reader.ReadTsv(fileName);
+            reader.LoadItems();
+            List<Car> cars = reader.cars;
 
-            string carsSerialized = CarSerializerDeserializer.Serialize(cars);
-            CarSerializerDeserializer.WriteToJsonFile(carsSerialized);
+            string itemSerialized = ItemSerializerDeserializer<Car>.Serialize(cars);
+            ItemSerializerDeserializer<Car>.WriteToJsonFile(itemSerialized, "carsSerialized.json");
+        }
+
+        public static void MigrateCustomersFromTsvToJson(string fileName)
+        {
+            var reader = new CustomersTSVFileReader();
+            reader.ReadTsv(fileName);
+            reader.LoadItems();
+            List<Customer> customers = reader.customers;
+
+            ItemSerializerDeserializer<Customer>
+                .SerializeAndWriteToJsonFile(customers, "customersSerialized.json");
+        }
+
+        public static void MigrateRentalsFromTsvToJson(string fileName)
+        {
+            var reader = new RentalsTSVFileReader();
+            reader.ReadTsv(fileName);
+            reader.LoadItems();
+            List<Rental> rentals = reader.rentals;
+
+            ItemSerializerDeserializer<Rental>
+                .SerializeAndWriteToJsonFile(rentals, "rentalsSerialized.json");
         }
 
         public static void PrintListOfCars(List<Car> cars)

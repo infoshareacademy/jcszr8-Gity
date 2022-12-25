@@ -1,0 +1,112 @@
+﻿[
+  {
+    "id": 1,
+    "first_name": "Julia",
+    "last_name": "Stępień",
+    "email_address": "julia.stepien@onet.pl",
+    "phone_number": "+48501883134",
+    "pesel": "85091700165",
+    "date_of_birth": "1985-09-17",
+    "gender": "F",
+    "postal_address": null
+  },
+  {
+    "id": 2,
+    "first_name": "Anna",
+    "last_name": "Gajewska",
+    "email_address": "anna_gajewska@onet.pl",
+    "phone_number": "+4850264581",
+    "pesel": "95032413827",
+    "date_of_birth": null,
+    "gender": "F",
+    "postal_address": null
+  },
+  {
+    "id": 3,
+    "first_name": "Zuzanna",
+    "last_name": "Witkowska",
+    "email_address": "zuza_witkowska@gmail.com",
+    "phone_number": "+48503864336",
+    "pesel": "75112427223",
+    "date_of_birth": "1975-11-24",
+    "gender": "F",
+    "postal_address": null
+  },
+  {
+    "id": 4,
+    "first_name": "Anna",
+    "last_name": "Kowalska",
+    "email_address": "anna.kowalska@gmail.com",
+    "phone_number": "+4850423707",
+    "pesel": "93071299961",
+    "date_of_birth": "1993-07-12",
+    "gender": "F",
+    "postal_address": null
+  },
+  {
+    "id": 5,
+    "first_name": "Martyna",
+    "last_name": "Dąbrowska",
+    "email_address": "martyna.dabrowska@onet.pl",
+    "phone_number": "+48505712699",
+    "pesel": "95052061183",
+    "date_of_birth": "1995-05-20",
+    "gender": "F",
+    "postal_address": null
+  },
+  {
+    "id": 6,
+    "first_name": "Hubert",
+    "last_name": "Kubiak",
+    "email_address": "hubert_kubiak@interia.pl",
+    "phone_number": "+48551122988",
+    "pesel": "63121718573",
+    "date_of_birth": "1963-12-17",
+    "gender": "M",
+    "postal_address": null
+  },
+  {
+    "id": 7,
+    "first_name": "Roma",
+    "last_name": "Gajewska",
+    "email_address": "roma.gajewska@wp.pl",
+    "phone_number": "+485525689",
+    "pesel": "77042806839",
+    "date_of_birth": "1977-04-28",
+    "gender": "M",
+    "postal_address": null
+  },
+  {
+    "id": 8,
+    "first_name": "Ludwik",
+    "last_name": "Kowalski",
+    "email_address": "ludwik_kowalski@wp.pl",
+    "phone_number": "+48553150321",
+    "pesel": "83061324573",
+    "date_of_birth": "1983-06-13",
+    "gender": "M",
+    "postal_address": null
+  },
+  {
+    "id": 9,
+    "first_name": "Heronim",
+    "last_name": "Czerwiński",
+    "email_address": "heronim_czerwinski@wp.pl",
+    "phone_number": "+48554564776",
+    "pesel": "93081792274",
+    "date_of_birth": "1993-08-17",
+    "gender": "M",
+    "postal_address": null
+  },
+  {
+    "id": 10,
+    "first_name": "Marcin",
+    "last_name": "Kowalski",
+    "email_address": "marcin.kowalski@gazeta.pl",
+    "phone_number": "+48555217372",
+    "pesel": "95052704378",
+    "date_of_birth": "1995-05-27",
+    "gender": "M",
+    "postal_address": null
+  }
+]

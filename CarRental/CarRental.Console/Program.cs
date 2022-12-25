@@ -10,9 +10,12 @@ namespace CarRental.ConsoleUI
         static void Main(string[] args)
         {
             Console.Title = "Cud Auta";
+            DateTime dt = DateTime.Now;
+            Console.WriteLine(dt);
+            Console.ReadKey();
+            DataHelper.MigrateAll(); // migrates model data from TSV files to JSON files
             ConsoleMenu.Menu();
 
-            // DataHelper.MigrateAll(); // migrates model data from TSV files to JSON files
         }
         public static void PrintCarList(List<Car> cars)
         {

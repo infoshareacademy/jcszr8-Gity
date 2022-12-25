@@ -1,39 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace CarRental.DAL.Models
 {
     public abstract class Person
     {
-        public int Id { get; init; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string EmailAddress { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Pesel { get; set; }
-        public DateOnly DateOfBirth { get; set; }
+        [JsonProperty("first_name")]
+        public string FirstName { get; set; } = string.Empty;
 
+        [JsonProperty("last_name")]
+        public string LastName { get; set; } = string.Empty;
+
+        [JsonProperty("email_address")]
+        public string EmailAddress { get; set; }
+
+        [JsonProperty("phone_number")]
+        public string PhoneNumber { get; set; } = string.Empty;
+
+        [JsonProperty("pesel")]
+        public string Pesel { get; set; }
+
+        [JsonProperty("date_of_birth")]
+        public DateOnly? DateOfBirth { get; set; }
+
+        [JsonProperty("gender")]
         public char Gender { get; set; } // F female, M male, O other
+
+        [JsonProperty("postal_address")]
         public PostalAddress? PostalAddress { get; set; }
 
-        public Person(int id, string firstName, string lastName, string emailAddress, string phoneNumber, string pesel)
+        public Person(string firstName, string lastName, string phoneNumber)
         {
-            Id = id;
             FirstName = firstName;
             LastName = lastName;
-            EmailAddress = emailAddress;
             PhoneNumber = phoneNumber;
-            Pesel = pesel;
         }
 
-        public override string ToString()
+        public string ToString()
         {
-            return $"{GetType()}: {FirstName} {LastName} (id:{Id})";
+            return $"{FirstName} {LastName} {PhoneNumber}";
         }
     }
 }
+
+
