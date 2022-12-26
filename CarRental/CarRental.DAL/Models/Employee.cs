@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.DAL
+namespace CarRental.DAL.Models
 {
     public sealed class Employee
     {

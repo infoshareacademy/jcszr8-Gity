@@ -9,6 +9,7 @@ namespace CarRental.DAL.Enums
     public enum EngineType
     {
         Electric,
+        Hybrid,
         Gasoline, // benzyna
         Diesel,
         LPG,
