@@ -12,33 +12,25 @@ namespace CarRental.ConsoleUI
     {
         public static void CarByMake()
         {
-            Console.WriteLine("Podaj nazwe auta:");
-            List<Car> cars = new List<Car>();
-            var make = Console.ReadLine();
-            if (string.IsNullOrEmpty(make))
+            while (true)
             {
-                cars = DataHelper.GetCars();
-            }
-            else
-            {
-                cars = DataHelper.GetCars().Where(c => c.Make?.ToLower() == make.ToLower()).ToList();
-            }
+                Console.WriteLine("Podaj nazwe auta:");
+                List<Car> cars = new List<Car>();
+                var make = Console.ReadLine();
+                if (string.IsNullOrEmpty(make))
+                {
+                    cars = DataHelper.GetCars();
+                }
+                else
+                {
+                    cars = DataHelper.GetCars().Where(c => c.Make?.ToLower() == make.ToLower()).ToList();
+                }
 
-            Print(cars);
-        }
-        public static void CarByModel()
-        {
-            List<Car> cars = new List<Car>();
-            var model = Console.ReadLine();
-            if (string.IsNullOrEmpty(model))
-            {
-                cars = DataHelper.GetCars();
+                Print(cars);
+                ConsoleKeyInfo read = Console.ReadKey();
+                if (read.Key == ConsoleKey.Escape) break;
             }
-            else
-            {
-                cars = DataHelper.GetCars().Where(c => c.Model?.ToLower() == model.ToLower()).ToList();
-            }
-            Print(cars);
+            
         }
         public static void PrintDetails(List<Car> cars)
         {
@@ -53,7 +45,6 @@ namespace CarRental.ConsoleUI
                     Console.WriteLine(car.GetDetails());
                 }
             }
-            Console.ReadKey();
         }
         public static void Print(List<Car> cars)
         {
@@ -68,7 +59,6 @@ namespace CarRental.ConsoleUI
                     Console.WriteLine(car.ToString());
                 }
             }
-            Console.ReadKey();
         }
         //Zastępstwo za przyszłe funkcje
         public static void PlaceHolder()
