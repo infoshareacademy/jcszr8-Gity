@@ -1,0 +1,9 @@
+﻿In this folder there are auxiliary files which 
+are used for creating source data files for application
+such as:
+
+cars.json
+customers.json
+rentals.json
+
+in "Data" folder.

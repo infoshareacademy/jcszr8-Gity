@@ -1,5 +1,4 @@
-﻿using CarRental.ConsoleUI.Utils;
-using CarRental.DAL.Models;
+﻿using CarRental.DAL.Models;
 using System;
 
 namespace CarRental.DAL.Utilities
