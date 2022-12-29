@@ -50,33 +50,20 @@ namespace CarRental.ConsoleUI.Utils
                 .SerializeAndWriteToJsonFile(rentals, AppConfig.RENTALS_SERIALIZED_JSON_FILE_NAME);
         }
 
-        public static void PrintListOfCars(List<Car> cars)
+        public static void PrintListOfItems<T>(List<T> items)
         {
-            foreach (Car car in cars)
+            foreach (T item in items)
             {
-                Console.WriteLine(car.ToString());
+                if (item != null)
+                    Console.WriteLine(item.ToString());
             }
         }
 
-        public static List<Car> GetCars()
+        public static List<T> GetItems<T>(string fileName)
         {
-            string filePath = PATH_TO_JSON_FILES + CARS_JSON_FILE_NAME;
-            string carsSerialized = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<List<Car>>(carsSerialized) ?? new List<Car>();
-        }
-
-        public static List<Customer> GetCustomers()
-        {
-            string filePath = PATH_TO_JSON_FILES + CUSTOMERS_JSON_FILE_NAME;
-            string customersSerialized = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<List<Customer>>(customersSerialized) ?? new List<Customer>();
-        }
-
-        public static List<Rental> GetRentals()
-        {
-            string filePath = PATH_TO_JSON_FILES + RENTALS_JSON_FILE_NAME;
-            string rentalsSerialized = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<List<Rental>>(rentalsSerialized) ?? new List<Rental>();
+            string filePath = PATH_TO_JSON_FILES + fileName;
+            string itemsSerialized = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<List<T>>(itemsSerialized) ?? new List<T>();
         }
     }
 }

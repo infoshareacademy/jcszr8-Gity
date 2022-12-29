@@ -14,9 +14,9 @@ namespace CarRental.ConsoleUI
             //DataHelper.MigrateAllFromTsvToJson(); // migrates model data from TSV files to JSON files
 
             // Loading data on startup
-            List<Car> cars = DataHelper.GetCars();
-            List<Rental> rentals = DataHelper.GetRentals();
-            List<Customer> customers = DataHelper.GetCustomers();
+            List<Car> cars = DataHelper.GetItems<Car>("cars.json");
+            List<Rental> rentals = DataHelper.GetItems<Rental>("rentals.json");
+            List<Customer> customers = DataHelper.GetItems<Customer>("customers.json");
 
             ConsoleMenu.Menu();
         }
