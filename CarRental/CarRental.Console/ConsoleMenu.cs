@@ -1,4 +1,5 @@
 ﻿using CarRental.ConsoleUI.Utils;
+using CarRental.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -56,8 +57,8 @@ namespace CarRental.ConsoleUI
                 switch (read.Key)
                 {
                     case ConsoleKey.D1:
-                        var cars = DataHelper.GetCars();
-                        DataHelper.PrintListOfCars(cars);
+                        var cars = DataHelper.GetItems<Car>("cars.json");
+                        DataHelper.PrintListOfItems<Car>(cars);
                         Console.ReadKey();
                         break;
                     case ConsoleKey.D2:

@@ -19,18 +19,18 @@ namespace CarRental.ConsoleUI
                 var make = Console.ReadLine();
                 if (string.IsNullOrEmpty(make))
                 {
-                    cars = DataHelper.GetCars();
+                    cars = DataHelper.GetItems<Car>("cars.json");
                 }
                 else
                 {
-                    cars = DataHelper.GetCars().Where(c => c.Make?.ToLower() == make.ToLower()).ToList();
+                    cars = DataHelper.GetItems<Car>("cars.json").Where(c => c.Make?.ToLower() == make.ToLower()).ToList();
                 }
 
                 Print(cars);
                 ConsoleKeyInfo read = Console.ReadKey();
                 if (read.Key == ConsoleKey.Escape) break;
             }
-            
+
         }
         public static void PrintDetails(List<Car> cars)
         {
