@@ -6,11 +6,10 @@ namespace CarRental.ConsoleUI.Utils
 {
     internal class DataHelper
     {
-        private const string CARS_JSON_FILE_NAME = "cars.json";
-        private const string CUSTOMERS_JSON_FILE_NAME = "customers.json";
-        private const string RENTALS_JSON_FILE_NAME = "rentals.json";
-
-        private const string PATH_TO_JSON_FILES = @"..\..\..\..\CarRental.DAL\Data\";
+        private const string CARS_JSON_FILE_NAME = AppConfig.CARS_JSON_FILE_NAME;
+        private const string CUSTOMERS_JSON_FILE_NAME = AppConfig.CUSTOMERS_JSON_FILE_NAME;
+        private const string RENTALS_JSON_FILE_NAME = AppConfig.RENTALS_JSON_FILE_NAME;
+        private const string PATH_TO_JSON_FILES = AppConfig.PATH_TO_JSON_FILES;
 
         public static void MigrateAllFromTsvToJson()
         {
@@ -26,7 +25,7 @@ namespace CarRental.ConsoleUI.Utils
             List<Car> cars = reader.cars;
 
             string itemSerialized = ItemSerializerDeserializer<Car>.Serialize(cars);
-            ItemSerializerDeserializer<Car>.WriteToJsonFile(itemSerialized, "carsSerialized.json");
+            ItemSerializerDeserializer<Car>.WriteToJsonFile(itemSerialized, AppConfig.CARS_SERIALIZED_JSON_FILE_NAME);
         }
 
         public static void MigrateCustomersFromTsvToJson(string fileName)
@@ -37,7 +36,7 @@ namespace CarRental.ConsoleUI.Utils
             List<Customer> customers = reader.customers;
 
             ItemSerializerDeserializer<Customer>
-                .SerializeAndWriteToJsonFile(customers, "customersSerialized.json");
+                .SerializeAndWriteToJsonFile(customers, AppConfig.CUSTOMERS_SERIALIZED_JSON_FILE_NAME);
         }
 
         public static void MigrateRentalsFromTsvToJson(string fileName)
@@ -48,7 +47,7 @@ namespace CarRental.ConsoleUI.Utils
             List<Rental> rentals = reader.rentals;
 
             ItemSerializerDeserializer<Rental>
-                .SerializeAndWriteToJsonFile(rentals, "rentalsSerialized.json");
+                .SerializeAndWriteToJsonFile(rentals, AppConfig.RENTALS_SERIALIZED_JSON_FILE_NAME);
         }
 
         public static void PrintListOfCars(List<Car> cars)

@@ -10,7 +10,7 @@ namespace CarRental.DAL.Utilities
     {
         protected const char SEPARATOR = '\t';
 
-        protected const string PATH_TO_TSV_FILES = @"..\..\..\..\CarRental.DAL\Data\DataTSV\";
+        protected const string PATH_TO_TSV_FILES = @"..\..\..\..\CarRental.DAL\Data\AuxiliaryData\";
 
         // Each dictionary represents a row, and dictionary key represents a column name
         public List<Dictionary<string, string>> elements = new();

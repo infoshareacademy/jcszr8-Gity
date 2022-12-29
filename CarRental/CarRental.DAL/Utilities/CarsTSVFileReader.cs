@@ -5,7 +5,7 @@ namespace CarRental.DAL.Utilities
 {
     public sealed class CarsTSVFileReader : TSVFileReader
     {
-        public static string TSV_FILE_NAME = "cars.tsv";
+        public static string CARS_TSV_FILE_NAME = "cars.tsv";
 
         public List<Car> cars = new();
 

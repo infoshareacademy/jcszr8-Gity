@@ -1,4 +1,0 @@
-﻿cars.tsv
-- this file was created to facilitate creation of cars (cars records are created in google sheets,
-than exported to .TSV file and pasted here)
-- data from this file is than used to create .JSON file 
