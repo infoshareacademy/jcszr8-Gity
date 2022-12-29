@@ -17,13 +17,25 @@ namespace CarRental.DAL.Utilities
         {
             foreach (var item in this.elements)
             {
+                DateTime beginDate = default;
+                DateTime endDate = default;
+
+                if (DateTimeFormatter.TryParseStringYYYY_MM_DDTHH_MMToDateTime(item["begin_datetime"], out DateTime beginDateTime))
+                {
+                    beginDate = beginDateTime;
+                }
+                if (DateTimeFormatter.TryParseStringYYYY_MM_DDTHH_MMToDateTime(item["end_datetime"], out DateTime endDateTime))
+                {
+                    endDate = endDateTime;
+                }
+
                 this.rentals.Add(new Rental()
                 {
                     Id = int.Parse(item["id"].Trim()),
                     CustomerId = int.Parse(item["customer_id"].Trim()),
                     CarId = int.Parse(item["car_id"].Trim()),
-                    //BeginDate
-                    //EndDate
+                    BeginDate = beginDate,
+                    EndDate = endDate,
                     TotalCost = decimal.Parse(item["total_cost"].Trim()),
                 });
             }

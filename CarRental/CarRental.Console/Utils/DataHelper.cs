@@ -7,6 +7,9 @@ namespace CarRental.ConsoleUI.Utils
     internal class DataHelper
     {
         private const string CARS_JSON_FILE_NAME = "cars.json";
+        private const string CUSTOMERS_JSON_FILE_NAME = "customers.json";
+        private const string RENTALS_JSON_FILE_NAME = "rentals.json";
+
         private const string PATH_TO_JSON_FILES = @"..\..\..\..\CarRental.DAL\Data\";
 
         public static void MigrateAllFromTsvToJson()
@@ -61,6 +64,20 @@ namespace CarRental.ConsoleUI.Utils
             string filePath = PATH_TO_JSON_FILES + CARS_JSON_FILE_NAME;
             string carsSerialized = File.ReadAllText(filePath);
             return JsonConvert.DeserializeObject<List<Car>>(carsSerialized) ?? new List<Car>();
+        }
+
+        public static List<Customer> GetCustomers()
+        {
+            string filePath = PATH_TO_JSON_FILES + CUSTOMERS_JSON_FILE_NAME;
+            string customersSerialized = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<List<Customer>>(customersSerialized) ?? new List<Customer>();
+        }
+
+        public static List<Rental> GetRentals()
+        {
+            string filePath = PATH_TO_JSON_FILES + RENTALS_JSON_FILE_NAME;
+            string rentalsSerialized = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<List<Rental>>(rentalsSerialized) ?? new List<Rental>();
         }
     }
 }
