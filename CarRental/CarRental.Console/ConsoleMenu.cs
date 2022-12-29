@@ -77,7 +77,8 @@ namespace CarRental.ConsoleUI
                         Confirmation(); Console.Clear(); Search.PlaceHolder();
                         break;
                     case ConsoleKey.D7:
-                        Confirmation(); Console.Clear(); Search.PlaceHolder();
+                        Console.Clear();
+                        CarManager.Menu();
                         break;
                     case ConsoleKey.D8:
                         Confirmation(); Console.Clear(); Search.PlaceHolder();
