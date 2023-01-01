@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.ConsoleUI
 {
-    internal static class CarManager
+    internal static class ConsoleCarManager
     {
 
         private static readonly Dictionary<ConsoleKey, string> _menuOptions = new()
@@ -65,38 +65,12 @@ namespace CarRental.ConsoleUI
             }
         }
 
-        public static Car CreateCar()
-        {
-            Car car = new Car();
-            return car;
-        }
-
-        public static void DeleteCar()
-        {
-
-        }
-
-        public static void EditCar()
-        {
-
-        }
-
         public static void RunCreator()
         {
             do
                 Console.ReadLine();
             //Menu();
             while (true);
-        }
-
-        public static void RunDeletor()
-        {
-
-        }
-
-        public static void RunEditor()
-        {
-
         }
     }
 }

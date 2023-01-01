@@ -25,7 +25,6 @@ namespace CarRental.ConsoleUI
             {ConsoleKey.D0, "Edytuj wypożyczenie."},
             {ConsoleKey.F1, "Edytuj dane samochodu."},
             {ConsoleKey.Escape, "Wyjdź"},
-
         };
         public static void Menu()
         {
@@ -78,7 +77,7 @@ namespace CarRental.ConsoleUI
                         break;
                     case ConsoleKey.D7:
                         Console.Clear();
-                        CarManager.Menu();
+                        ConsoleCarManager.Menu();
                         break;
                     case ConsoleKey.D8:
                         Confirmation(); Console.Clear(); Search.PlaceHolder();
