@@ -1,4 +1,5 @@
 ﻿using CarRental.ConsoleUI.Utils;
+using CarRental.DAL;
 using CarRental.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -19,18 +20,17 @@ namespace CarRental.ConsoleUI
                 var make = Console.ReadLine();
                 if (string.IsNullOrEmpty(make))
                 {
-                    cars = DataHelper.GetItems<Car>("cars.json");
+                    cars = CarRentalData.Cars;
                 }
                 else
                 {
-                    cars = DataHelper.GetItems<Car>("cars.json").Where(c => c.Make?.ToLower() == make.ToLower()).ToList();
+                    cars = CarRentalData.Cars.Where(c => c.Make?.ToLower() == make.ToLower()).ToList();
                 }
 
                 Print(cars);
                 ConsoleKeyInfo read = Console.ReadKey();
                 if (read.Key == ConsoleKey.Escape) break;
             }
-
         }
         public static void PrintDetails(List<Car> cars)
         {

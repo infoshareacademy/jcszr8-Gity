@@ -121,6 +121,10 @@ internal static class ConsoleCarManager
                     Console.WriteLine("Podaj liczbę miejsc z kierowcą: ");
                     carDto.SeatsNo = ConsoleCarParamsReader.ReadCarSeatsNo();
                     break;
+                case ConsoleKey.Z:
+                    Console.WriteLine("Tworzę nowy samochód w systemie...");
+                    RunCreator(carDto);
+                    break;
                 case ConsoleKey.Escape:
                     is_menu_on = false;
                     break;
@@ -129,11 +133,30 @@ internal static class ConsoleCarManager
         }
     }
 
-    public static void RunCreator()
+    public static Car RunCreator(CarDto carDto)
     {
-        do
-            Console.ReadLine();
-        //Menu();
-        while (true);
+        Car newCar = new()
+        {
+            Make = carDto.Make,
+            Model = carDto.Model,
+            Year = carDto.Year,
+            Doors = carDto.Doors,
+            Addons = carDto.Addons,
+            Airbags = carDto.Airbags,
+            Color = carDto.Color,
+            Ac = carDto.Ac,
+            EngineParameters = carDto.EngineParameters,
+            FuelConsumptionCity = carDto.FuelConsumptionCity,
+            FuelConsumptionHighway = carDto.FuelConsumptionHighway,
+            Kilometrage = carDto.Kilometrage,
+            LicencePlateNumber = carDto.LicencePlateNumber,
+            Pricing = carDto.Pricing,
+            SeatsNo = carDto.SeatsNo,
+            Segment = carDto.Segment,
+            Transmission = carDto.Transmission,
+            VIN = carDto.VIN,
+        };
+        return newCar;
     }
+
 }

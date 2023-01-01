@@ -39,10 +39,10 @@ namespace CarRental.ConsoleUI.Utils
                 .SerializeAndWriteToJsonFile(customers, AppConfig.CUSTOMERS_SERIALIZED_JSON_FILE_NAME);
         }
 
-        public static void MigrateRentalsFromTsvToJson(string fileName)
+        public static void MigrateRentalsFromTsvToJson(string tsvFileName)
         {
             var reader = new RentalsTSVFileReader();
-            reader.ReadTsv(fileName);
+            reader.ReadTsv(tsvFileName);
             reader.LoadItems();
             List<Rental> rentals = reader.rentals;
 
