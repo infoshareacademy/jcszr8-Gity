@@ -7,3 +7,7 @@ customers.json
 rentals.json
 
 in "Data" folder.
+
+Google Spreadsheet with source data:
+https://docs.google.com/spreadsheets/d/1a47YN768HBncPYBkYhSYpxczQGsbZKMmk9YNHUBKjW4/edit#gid=0
+

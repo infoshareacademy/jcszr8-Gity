@@ -1,12 +1,5 @@
-﻿using CarRental.ConsoleUI.Utils;
-using CarRental.DAL;
+﻿using CarRental.DAL;
 using CarRental.DAL.Models;
-using CarRental.Logic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarRental.ConsoleUI;
 internal static class ConsoleCarManager
@@ -19,33 +12,30 @@ internal static class ConsoleCarManager
             {ConsoleKey.B, "Model"},
             {ConsoleKey.C, "Rocznik"},
             {ConsoleKey.D, "Liczba drzwi"},
-            {ConsoleKey.E, "Cennik wynajęcia netto"},
+            {ConsoleKey.E, "Cena wypożyczenia samochodu"},
             {ConsoleKey.F, "Liczba poduszek powietrznych"},
             {ConsoleKey.G, "Kilometraż"},
             {ConsoleKey.H, "Kolor nadwozia"},
-            {ConsoleKey.I, "Zużycie paliwa - miasto"},
-            {ConsoleKey.J, "Zużycie paliwa - trasa"},
+            {ConsoleKey.I, "Zużycie paliwa miasto/trasa"},
+            {ConsoleKey.J, "---"},
             {ConsoleKey.K, "Skrzynia biegów - rodzaj"},
             {ConsoleKey.L, "Parametry silnika"},
             {ConsoleKey.M, "Numer rejestracyjny"},
             {ConsoleKey.N, "Numer VIN"},
             {ConsoleKey.O, "Klimatyzacja"},
-            {ConsoleKey.P, "Segment"},
+            {ConsoleKey.P, "---"},
             {ConsoleKey.Q, "Dodatki"},
-            {ConsoleKey.R, "Liczba miejsc z kierowcą"},
+            {ConsoleKey.R, "Liczba miejsc wraz z kierowcą"},
             {ConsoleKey.Z, "ZASTOSUJ PARAMETRY I DODAJ SAMOCHÓD DO ZASOBÓW"},
             {ConsoleKey.Escape, "Wyjdź"},
         };
     public static void Menu()
     {
-
         bool is_menu_on = true;
         while (is_menu_on)
         {
             Console.Clear();
             Console.WriteLine("Uzupełnij poszczególne dane samochodu:");
-
-            var tempMenuOptions = _menuOptions;
 
             foreach (KeyValuePair<ConsoleKey, string> kv in _menuOptions)
             {
@@ -59,6 +49,7 @@ internal static class ConsoleCarManager
             switch (read.Key)
             {
                 case ConsoleKey.A:
+                    Console.Write("Podaj producenta: ");
                     carDto.Make = ConsoleCarParamsReader.ReadCarMake();
                     break;
                 case ConsoleKey.B:
@@ -66,31 +57,32 @@ internal static class ConsoleCarManager
                     carDto.Model = ConsoleCarParamsReader.ReadCarModel();
                     break;
                 case ConsoleKey.C:
+                    Console.Write("Podaj rocznik: ");
                     carDto.Year = ConsoleCarParamsReader.ReadCarYear();
                     break;
                 case ConsoleKey.D:
+                    Console.Write("Podaj liczbę drzwi: ");
                     carDto.Doors = ConsoleCarParamsReader.ReadCarDoors();
                     break;
                 case ConsoleKey.E:
-                    //carDto.Pricing = ConsoleCarParamsReader.ReadCarPricing();
+                    Console.WriteLine("Podaj cenę wypożyczenia: ");
+                    carDto.Pricing = ConsoleCarParamsReader.ReadCarPricing();
                     break;
                 case ConsoleKey.F:
                     Console.Write("Podaj liczbę poduszek powietrznych: ");
                     carDto.Airbags = ConsoleCarParamsReader.ReadCarAirbags();
                     break;
                 case ConsoleKey.G:
+                    Console.Write("Podaj kilometraż: ");
                     carDto.Kilometrage = ConsoleCarParamsReader.ReadCarKilometrage();
                     break;
                 case ConsoleKey.H:
+                    Console.Write("Podaj kolor nadwozia: ");
                     carDto.Color = ConsoleCarParamsReader.ReadCarColor();
                     break;
                 case ConsoleKey.I:
-                    Console.Write("Podaj spalanie w mieście [l/100km]: ");
-                    carDto.FuelConsumptionCity = ConsoleCarParamsReader.ReadCarFuelConsumption();
-                    break;
-                case ConsoleKey.J:
-                    Console.Write("Podaj spalanie na trasie [l/100km]: ");
-                    carDto.FuelConsumptionHighway = ConsoleCarParamsReader.ReadCarFuelConsumption();
+                    Console.Write(@"Podaj spalanie miasto/trasa [l/100km] (np. ""6.5/4.5"": ");
+                    carDto.FuelConsumption = ConsoleCarParamsReader.ReadCarFuelConsumption();
                     break;
                 case ConsoleKey.K:
                     Console.WriteLine("Podaj rodzaj skrzyni biegów: ");
@@ -113,7 +105,6 @@ internal static class ConsoleCarManager
                     break;
                 case ConsoleKey.P:
                     Console.WriteLine("Podaj segment: --------");
-                    //carDto.Segment = ConsoleCarParamsReader.ReadCarSegment();
                     break;
                 case ConsoleKey.Q:
                     Console.WriteLine("Podaj dodatki: ----------");
@@ -127,7 +118,7 @@ internal static class ConsoleCarManager
                     Console.WriteLine("Tworzę nowy samochód w systemie...");
                     var newCar = RunCreator(carDto);
                     CarRentalData.Cars.Add(newCar);
-                    var listOfCars = CarRentalData.Cars;
+                    Console.WriteLine("Nowy samochód został dodany do zasobów.");
                     Console.ReadLine();
                     break;
                 case ConsoleKey.Escape:
@@ -152,13 +143,11 @@ internal static class ConsoleCarManager
             Color = carDto.Color,
             Ac = carDto.Ac,
             EngineParameters = carDto.EngineParameters,
-            FuelConsumptionCity = carDto.FuelConsumptionCity,
-            FuelConsumptionHighway = carDto.FuelConsumptionHighway,
+            FuelConsumption = carDto.FuelConsumption,
             Kilometrage = carDto.Kilometrage,
             LicencePlateNumber = carDto.LicencePlateNumber,
             Pricing = carDto.Pricing,
             SeatsNo = carDto.SeatsNo,
-            Segment = carDto.Segment,
             Transmission = carDto.Transmission,
             VIN = carDto.VIN,
         };

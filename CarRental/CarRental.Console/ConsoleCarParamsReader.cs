@@ -1,4 +1,6 @@
-﻿namespace CarRental.ConsoleUI;
+﻿using CarRental.DAL.Models;
+
+namespace CarRental.ConsoleUI;
 internal static class ConsoleCarParamsReader
 {
     // Class for getting car parameters values from console input
@@ -7,7 +9,6 @@ internal static class ConsoleCarParamsReader
         string make;
         do
         {
-            Console.Write("Podaj producenta: ");
             string? input = Console.ReadLine();
             make = input is not null ? input.Trim() : "";
         } while (false);
@@ -30,7 +31,6 @@ internal static class ConsoleCarParamsReader
         string color;
         do
         {
-            Console.Write("Podaj kolor nadwozia: ");
             string? input = Console.ReadLine();
             color = input is not null ? input.Trim() : "";
         } while (false);
@@ -95,6 +95,17 @@ internal static class ConsoleCarParamsReader
         return displacement;
     }
 
+    public static string ReadCarFuelConsumption()
+    {
+        string fuelConsumption;
+        do
+        {
+            string? input = Console.ReadLine();
+            fuelConsumption = input is not null ? input.Trim() : "";
+        } while (false);
+        return fuelConsumption;
+    }
+
     public static int ReadCarYear()
     {
         int presentYear = DateTime.Now.Year;
@@ -102,7 +113,6 @@ internal static class ConsoleCarParamsReader
         bool isAllGood;
         do
         {
-            Console.Write("Podaj rocznik: ");
             bool isParsedWell = int.TryParse(Console.ReadLine(), out year);
             isAllGood = isParsedWell && (year <= presentYear);
         } while (!isAllGood);
@@ -115,7 +125,6 @@ internal static class ConsoleCarParamsReader
         bool isAllGood;
         do
         {
-            Console.Write("Podaj kilometraż: ");
             bool isParsedWell = int.TryParse(Console.ReadLine(), out kilometrage);
             isAllGood = isParsedWell && (kilometrage > 0);
         } while (!isAllGood);
@@ -152,11 +161,26 @@ internal static class ConsoleCarParamsReader
         bool isAllGood;
         do
         {
-            Console.Write("Podaj liczbę drzwi: ");
             bool isParsedWell = int.TryParse(Console.ReadLine(), out doors);
             isAllGood = isParsedWell && (doors > 0);
         } while (!isAllGood);
         return doors;
+    }
+
+    public static Pricing ReadCarPricing()
+    {
+        Pricing pricing;
+        bool isAllGood;
+        do
+        {
+            bool isParsedWell = decimal.TryParse(Console.ReadLine(), out decimal price);
+            isAllGood = isParsedWell && (price > 0);
+            pricing = new Pricing()
+            {
+                Price = price
+            };
+        } while (!isAllGood);
+        return pricing;
     }
 
     public static float ReadCarPowerKw()
@@ -170,31 +194,6 @@ internal static class ConsoleCarParamsReader
             isAllGood = isParsedWell && (powerKw > 0);
         } while (!isAllGood);
         return powerKw;
-    }
-
-    public static float ReadCarFuelConsumption()
-    {
-        float fuelConsumption;
-        bool isAllGood;
-        do
-        {
-            bool isParsedWell = float.TryParse(Console.ReadLine(), out fuelConsumption);
-            isAllGood = isParsedWell && (fuelConsumption > 0);
-        } while (!isAllGood);
-        return fuelConsumption;
-    }
-
-    public static float ReadCarPowerKm()
-    {
-        float powerKm;
-        bool isAllGood;
-        do
-        {
-            Console.Write("Podaj moc silnika w koniach mechanicznych: ");
-            bool isParsedWell = float.TryParse(Console.ReadLine(), out powerKm);
-            isAllGood = isParsedWell && (powerKm > 0);
-        } while (!isAllGood);
-        return powerKm;
     }
 
     public static float ReadCarTorque()

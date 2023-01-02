@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarRental.DAL.Models
+﻿namespace CarRental.DAL.Models;
+public sealed class Motorcycle : Vehicle
 {
-    public sealed class Motorcycle : Vehicle
-    {
-        public int WeightInKg;
+    public int WeightInKg;
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
+    public override string ToString()
+    {
+        return base.ToString();
     }
 }
