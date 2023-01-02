@@ -1,4 +1,5 @@
-﻿using CarRental.DAL.Models;
+﻿using CarRental.DAL.Enums;
+using CarRental.DAL.Models;
 
 namespace CarRental.ConsoleUI;
 internal record CarDto
@@ -12,7 +13,9 @@ internal record CarDto
     public string? VIN { get; set; }
     public string? LicencePlateNumber { get; set; }
     public int Kilometrage { get; set; }
-    public EngineParameters EngineParameters { get; set; }
+    public string? EngineDisplacement { get; set; }
+    public EngineType EngineType { get; set; }
+    public float EnginePowerInKW { get; set; }
     public int Doors { get; set; }
     public bool Ac { get; set; }
     public int SeatsNo { get; set; }

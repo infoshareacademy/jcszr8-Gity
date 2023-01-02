@@ -10,13 +10,13 @@ public abstract class Person
     public string LastName { get; set; } = string.Empty;
 
     [JsonProperty("email_address")]
-    public string EmailAddress { get; set; }
+    public string? EmailAddress { get; set; }
 
     [JsonProperty("phone_number")]
     public string PhoneNumber { get; set; } = string.Empty;
 
     [JsonProperty("pesel")]
-    public string Pesel { get; set; }
+    public string? Pesel { get; set; }
 
     [JsonProperty("date_of_birth")]
     public DateOnly? DateOfBirth { get; set; }
@@ -34,7 +34,7 @@ public abstract class Person
         PhoneNumber = phoneNumber;
     }
 
-    public string ToString()
+    public override string ToString()
     {
         return $"{FirstName} {LastName} {PhoneNumber}";
     }

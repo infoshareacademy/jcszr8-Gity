@@ -12,7 +12,7 @@ public static class DateTimeFormatter
             dateOnly = new DateOnly(year, month, day);
             return true;
         }
-        catch (ArgumentOutOfRangeException ex)
+        catch (ArgumentOutOfRangeException)
         {
             return false;
         }
@@ -31,7 +31,7 @@ public static class DateTimeFormatter
             dateTime = new DateTime(year, month, day, hour, minute, 0);
             return true;
         }
-        catch (ArgumentOutOfRangeException ex)
+        catch (ArgumentOutOfRangeException)
         {
             dateTime = default;
             return false;

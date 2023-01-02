@@ -64,7 +64,6 @@ internal static class ConsoleCarParamsReader
         string transmissionType;
         do
         {
-            Console.Write("Podaj rodzaj skrzyni biegów: ");
             string? input = Console.ReadLine();
             transmissionType = input is not null ? input.Trim() : "";
         } while (false);
@@ -76,7 +75,6 @@ internal static class ConsoleCarParamsReader
         string fuelType;
         do
         {
-            Console.Write("Podaj rodzaj paliwa: ");
             string? input = Console.ReadLine();
             fuelType = input is not null ? input.Trim() : "";
         } while (false);
@@ -88,7 +86,6 @@ internal static class ConsoleCarParamsReader
         string displacement;
         do
         {
-            Console.Write("Podaj tekst pojemności silnika: ");
             string? input = Console.ReadLine();
             displacement = input is not null ? input.Trim() : "";
         } while (false);
@@ -189,23 +186,9 @@ internal static class ConsoleCarParamsReader
         bool isAllGood;
         do
         {
-            Console.Write("Podaj moc silnika w kilowatach: ");
             bool isParsedWell = float.TryParse(Console.ReadLine(), out powerKw);
             isAllGood = isParsedWell && (powerKw > 0);
         } while (!isAllGood);
         return powerKw;
-    }
-
-    public static float ReadCarTorque()
-    {
-        float torque;
-        bool isAllGood;
-        do
-        {
-            Console.Write("Podaj moment obrotowy silnika: ");
-            bool isParsedWell = float.TryParse(Console.ReadLine(), out torque);
-            isAllGood = isParsedWell && (torque > 0);
-        } while (!isAllGood);
-        return torque;
     }
 }

@@ -11,7 +11,7 @@ public struct EngineParameters
     public EngineType Type { get; set; }
 
     [JsonProperty("displacement")]
-    public string Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
+    public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
 
     public float GetPowerinKM()
     {

@@ -1,4 +1,5 @@
 ﻿using CarRental.DAL;
+using CarRental.DAL.Enums;
 using CarRental.DAL.Models;
 
 namespace CarRental.ConsoleUI;
@@ -23,9 +24,11 @@ internal static class ConsoleCarManager
             {ConsoleKey.M, "Numer rejestracyjny"},
             {ConsoleKey.N, "Numer VIN"},
             {ConsoleKey.O, "Klimatyzacja"},
-            {ConsoleKey.P, "---"},
+            {ConsoleKey.P, "Pojemność silnika"},
             {ConsoleKey.Q, "Dodatki"},
             {ConsoleKey.R, "Liczba miejsc wraz z kierowcą"},
+            {ConsoleKey.S, "Rodzaj paliwa"},
+            {ConsoleKey.T, "Moc w kilowatach"},
             {ConsoleKey.Z, "ZASTOSUJ PARAMETRY I DODAJ SAMOCHÓD DO ZASOBÓW"},
             {ConsoleKey.Escape, "Wyjdź"},
         };
@@ -104,7 +107,8 @@ internal static class ConsoleCarManager
                     //carDto.Ac = ConsoleCarParamsReader.ReadCarAc();
                     break;
                 case ConsoleKey.P:
-                    Console.WriteLine("Podaj segment: --------");
+                    Console.WriteLine("Podaj pojemność silnika: ");
+                    carDto.EngineDisplacement = ConsoleCarParamsReader.ReadCarDisplacement();
                     break;
                 case ConsoleKey.Q:
                     Console.WriteLine("Podaj dodatki: ----------");
@@ -113,6 +117,15 @@ internal static class ConsoleCarManager
                 case ConsoleKey.R:
                     Console.WriteLine("Podaj liczbę miejsc z kierowcą: ");
                     carDto.SeatsNo = ConsoleCarParamsReader.ReadCarSeatsNo();
+                    break;
+                case ConsoleKey.S:
+                    Console.WriteLine("Podaj rodzaj paliwa: ");
+                    carDto.EngineType = (EngineType)Enum.Parse(typeof(EngineType),
+                        ConsoleCarParamsReader.ReadCarFuelType());
+                    break;
+                case ConsoleKey.T:
+                    Console.WriteLine("Podaj moc w kilowatach: ");
+                    carDto.EnginePowerInKW = ConsoleCarParamsReader.ReadCarPowerKw();
                     break;
                 case ConsoleKey.Z:
                     Console.WriteLine("Tworzę nowy samochód w systemie...");
@@ -142,7 +155,12 @@ internal static class ConsoleCarManager
             Airbags = carDto.Airbags,
             Color = carDto.Color,
             Ac = carDto.Ac,
-            EngineParameters = carDto.EngineParameters,
+            EngineParameters = new()
+            {
+                Displacement = carDto.EngineDisplacement,
+                PowerInKiloWats = carDto.EnginePowerInKW,
+                Type = carDto.EngineType
+            },
             FuelConsumption = carDto.FuelConsumption,
             Kilometrage = carDto.Kilometrage,
             LicencePlateNumber = carDto.LicencePlateNumber,
