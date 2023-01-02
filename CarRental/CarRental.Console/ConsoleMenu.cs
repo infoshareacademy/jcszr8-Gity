@@ -57,7 +57,7 @@ namespace CarRental.ConsoleUI
                 switch (read.Key)
                 {
                     case ConsoleKey.D1:
-                        var cars = CarRentalData.GetItems<Car>("cars.json");
+                        var cars = CarRentalData.Cars;
                         DataHelper.PrintListOfItems<Car>(cars);
                         Console.ReadKey();
                         break;

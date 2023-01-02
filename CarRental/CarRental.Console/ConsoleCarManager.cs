@@ -1,5 +1,7 @@
 ﻿using CarRental.ConsoleUI.Utils;
+using CarRental.DAL;
 using CarRental.DAL.Models;
+using CarRental.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -123,7 +125,10 @@ internal static class ConsoleCarManager
                     break;
                 case ConsoleKey.Z:
                     Console.WriteLine("Tworzę nowy samochód w systemie...");
-                    RunCreator(carDto);
+                    var newCar = RunCreator(carDto);
+                    CarRentalData.Cars.Add(newCar);
+                    var listOfCars = CarRentalData.Cars;
+                    Console.ReadLine();
                     break;
                 case ConsoleKey.Escape:
                     is_menu_on = false;
@@ -137,6 +142,7 @@ internal static class ConsoleCarManager
     {
         Car newCar = new()
         {
+            Id = GetNextAvailableId(),
             Make = carDto.Make,
             Model = carDto.Model,
             Year = carDto.Year,
@@ -159,4 +165,8 @@ internal static class ConsoleCarManager
         return newCar;
     }
 
+    public static int GetNextAvailableId()
+    {
+        return CarRentalData.Cars.Max(x => x.Id) + 1;
+    }
 }
