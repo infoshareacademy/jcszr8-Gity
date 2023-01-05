@@ -25,6 +25,27 @@ public class Search
             if (read.Key == ConsoleKey.Escape) break;
         }
     }
+    public static void CarByAddons()
+    {
+        while (true)
+        {
+            Console.WriteLine("Podaj nazwe auta:");
+            List<Car> cars = new List<Car>();
+            var addons = Console.ReadLine();
+            if (string.IsNullOrEmpty(addons))
+            {
+                cars = CarRentalData.Cars;
+            }
+            else
+            {
+                cars = CarRentalData.Cars.Where(c => c.GetAddons().ToLower() == addons.ToLower()).ToList();
+            }
+
+            Print(cars);
+            ConsoleKeyInfo read = Console.ReadKey();
+            if (read.Key == ConsoleKey.Escape) break;
+        }
+    }
     public static void PrintDetails(List<Car> cars)
     {
         if (cars is null || cars.Count == 0)
