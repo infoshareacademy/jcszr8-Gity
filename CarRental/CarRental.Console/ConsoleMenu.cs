@@ -66,7 +66,7 @@ public class ConsoleMenu
                     Confirmation(); Console.Clear(); Search.PlaceHolder();
                     break;
                 case ConsoleKey.D6:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
+                    Confirmation(); Console.Clear(); Search.CarByAddons();
                     break;
                 case ConsoleKey.D7:
                     Console.Clear();
