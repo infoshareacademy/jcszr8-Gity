@@ -23,15 +23,26 @@ public sealed class Car : Vehicle
 
     [JsonProperty("pricing")]
     public Pricing Pricing { get; set; } = new();
+    public string Oczko { get; set; } 
+
 
     public override string ToString()
     {
-        return $"id:{Id} {Make} {Model} {Year} {Color} {Transmission} {EngineParameters.Type} {LicencePlateNumber}";
+        return $"id:{Id} {Make} {Model} {Year} {Color} {Transmission} {EngineParameters.Type} {LicencePlateNumber} {GetAddons()}";
     }
 
     public string GetDetails()
     {
         return $"#{Id}: Ma:{Make} Mo:{Model} Y:{Year} {Color} Ac:{Ac} {Transmission} {EngineParameters.Type} Seats:{SeatsNo}" +
             $"{VIN} Plates:{LicencePlateNumber}";
+    }
+
+    public string GetAddons()
+    {
+        foreach (var addons in Addons)
+        {
+            Console.WriteLine(addons);
+        }
+        return null; 
     }
 }
