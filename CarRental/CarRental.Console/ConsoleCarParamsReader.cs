@@ -1,7 +1,7 @@
 ﻿using CarRental.DAL.Models;
 
 namespace CarRental.ConsoleUI;
-internal static class ConsoleCarParamsReader
+public static class ConsoleCarParamsReader
 {
     // Class for getting car parameters values from console input
     public static string ReadCarMake()
