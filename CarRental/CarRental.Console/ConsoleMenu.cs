@@ -54,7 +54,7 @@ public class ConsoleMenu
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D2:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
+                    Confirmation(); Console.Clear(); Search.CarByProductionYear();
                     break;
                 case ConsoleKey.D3:
                     Confirmation(); Console.Clear(); Search.CarByMake();
