@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Text;
 
 namespace CarRental.DAL.Models;
 public sealed class Car : Vehicle
@@ -28,7 +29,7 @@ public sealed class Car : Vehicle
 
     public override string ToString()
     {
-        return $"id:{Id} {Make} {Model} {Year} {Color} {Transmission} {EngineParameters.Type} {LicencePlateNumber} {GetAddons()}";
+        return $"id:{Id} {Make} {Model} {Year} {Color} {Transmission} {EngineParameters.Type} {LicencePlateNumber} {GetAddonsToString()}";
     }
 
     public string GetDetails()
@@ -36,13 +37,30 @@ public sealed class Car : Vehicle
         return $"#{Id}: Ma:{Make} Mo:{Model} Y:{Year} {Color} Ac:{Ac} {Transmission} {EngineParameters.Type} Seats:{SeatsNo}" +
             $"{VIN} Plates:{LicencePlateNumber}";
     }
+    public string GetAddonsToString()
+    {
+        StringBuilder sb = new StringBuilder();
+                       
+        foreach (var item in Addons)
+        {
+            sb.AppendJoin(';',item.ToString());
+            sb.Append('\u002C');
+        }
+        
+        return sb.ToString();
+    }
+    public string FindAddons(string addon)
+    {      
+        var result =Addons.Where(x=>x.Contains(addon)).FirstOrDefault();
 
+        return result == null ? String.Empty : result;
+    }
     public string GetAddons()
     {
         foreach (var addons in Addons)
         {
             Console.WriteLine(addons);
         }
-        return null; 
+         return String.Empty;   
     }
 }
