@@ -25,20 +25,32 @@ public class Search
             if (read.Key == ConsoleKey.Escape) break;
         }
     }
-    public static void CarByAddons()
+    
+    public static void CarByAddon()
     {
         while (true)
         {
             Console.WriteLine("Podaj nazwe auta:");
             List<Car> cars = new List<Car>();
-            var addons = Console.ReadLine();
-            if (string.IsNullOrEmpty(addons))
+            var addon = Console.ReadLine();
+            if (string.IsNullOrEmpty(addon))
             {
                 cars = CarRentalData.Cars;
             }
             else
             {
-                cars = CarRentalData.Cars.Where(c => c.GetAddons().ToLower() == addons.ToLower()).ToList();
+                foreach (var car in CarRentalData.Cars)
+                {
+                    foreach (var item in car.Addons)
+                    {
+                        if (item.Contains(addon))
+                        {
+                            cars.Add(car);
+                            break;
+                        }
+                    }
+                }
+                //cars = CarRentalData.Cars.Where(c => c.Addons.Where(x => x.Contains(addon)).FirstOrDefault()
             }
 
             Print(cars);
@@ -46,20 +58,21 @@ public class Search
             if (read.Key == ConsoleKey.Escape) break;
         }
     }
-    public static void PrintDetails(List<Car> cars)
-    {
-        if (cars is null || cars.Count == 0)
+
+        public static void PrintDetails(List<Car> cars)
         {
-            Console.WriteLine("Brak samochodów o  tych parametrach");
-        }
-        else
-        {
-            foreach (var car in cars)
+            if (cars is null || cars.Count == 0)
             {
-                Console.WriteLine(car.GetDetails());
+                  Console.WriteLine("Brak samochodów o  tych parametrach");
+            }
+            else
+            {
+                foreach (var car in cars)
+                {
+                    Console.WriteLine(car.GetDetails());
+                }
             }
         }
-    }
     public static void Print(List<Car> cars)
     {
         if (cars is null || cars.Count == 0)
