@@ -25,7 +25,32 @@ public class Search
             if (read.Key == ConsoleKey.Escape) break;
         }
     }
+ 
     
+    public static void CarByProductionYear()
+    {
+        while (true)
+        {
+            Console.WriteLine("Podaj rok auta:");
+            List<Car> cars = new List<Car>();
+            var make = int.Parse(Console.ReadLine());
+            if (make == null)
+            {
+                cars = CarRentalData.Cars;
+            }
+            else
+            {
+                cars = CarRentalData.Cars.Where(c => c.Year == make).ToList();
+            }
+
+            Print(cars);
+            ConsoleKeyInfo read = Console.ReadKey();
+            if (read.Key == ConsoleKey.Escape) break;
+        }
+    }
+
+    
+
     public static void CarByAddon()
     {
         while (true)

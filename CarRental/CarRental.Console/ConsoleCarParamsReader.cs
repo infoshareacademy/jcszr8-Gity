@@ -1,7 +1,7 @@
 ﻿using CarRental.DAL.Models;
 
 namespace CarRental.ConsoleUI;
-internal static class ConsoleCarParamsReader
+public static class ConsoleCarParamsReader
 {
     // Class for getting car parameters values from console input
     public static string ReadCarMake()
@@ -105,14 +105,18 @@ internal static class ConsoleCarParamsReader
 
     public static int ReadCarYear()
     {
-        int presentYear = DateTime.Now.Year;
+        bool IsCarYearValid(bool isParsed, int year)
+        {
+            return isParsed && (year >= 2000 && year <= DateTime.Now.Year);
+        }
+
         int year;
-        bool isAllGood;
+        bool success;
         do
         {
-            bool isParsedWell = int.TryParse(Console.ReadLine(), out year);
-            isAllGood = isParsedWell && (year <= presentYear);
-        } while (!isAllGood);
+            bool isParsed = int.TryParse(Console.ReadLine(), out year);
+            success = IsCarYearValid(isParsed, year);
+        } while (!success);
         return year;
     }
 
