@@ -63,7 +63,7 @@ public class Search
         {
             if (cars is null || cars.Count == 0)
             {
-                  Console.WriteLine("Brak samochodów o  tych parametrach");
+                  Console.WriteLine("Brak samochodów o tych parametrach");
             }
             else
             {
@@ -77,7 +77,7 @@ public class Search
     {
         if (cars is null || cars.Count == 0)
         {
-            Console.WriteLine("Brak samochodów o  tych parametrach");
+            Console.WriteLine("Brak samochodów o tych parametrach");
         }
         else
         {
