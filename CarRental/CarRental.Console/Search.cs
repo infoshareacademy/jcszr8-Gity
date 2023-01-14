@@ -30,7 +30,7 @@ public class Search
     {
         while (true)
         {
-            Console.WriteLine("Podaj nazwe auta:");
+            Console.WriteLine("Podaj jakie wyposażenie cie interesuje:");
             List<Car> cars = new List<Car>();
             var addon = Console.ReadLine();
             if (string.IsNullOrEmpty(addon))
