@@ -24,12 +24,12 @@ public sealed class Car : Vehicle
 
     [JsonProperty("pricing")]
     public Pricing Pricing { get; set; } = new();
-    public string Oczko { get; set; } 
-
 
     public override string ToString()
     {
+
         return $"id:{Id} {Make} {Model} {Year} {Color} {Transmission} {EngineParameters.Type} {LicencePlateNumber} {GetAddonsToString()}";
+
     }
 
     public string GetDetails()
@@ -37,6 +37,7 @@ public sealed class Car : Vehicle
         return $"#{Id}: Ma:{Make} Mo:{Model} Y:{Year} {Color} Ac:{Ac} {Transmission} {EngineParameters.Type} Seats:{SeatsNo}" +
             $"{VIN} Plates:{LicencePlateNumber}";
     }
+
     public string GetAddonsToString()
     {
         StringBuilder sb = new StringBuilder();
@@ -48,19 +49,5 @@ public sealed class Car : Vehicle
         }
         
         return sb.ToString();
-    }
-    public string FindAddons(string addon)
-    {      
-        var result =Addons.Where(x=>x.Contains(addon)).FirstOrDefault();
-
-        return result == null ? String.Empty : result;
-    }
-    public string GetAddons()
-    {
-        foreach (var addons in Addons)
-        {
-            Console.WriteLine(addons);
-        }
-         return String.Empty;   
     }
 }
