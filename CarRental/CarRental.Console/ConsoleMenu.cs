@@ -54,10 +54,14 @@ public class ConsoleMenu
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D2:
-                    Confirmation(); Console.Clear(); Search.CarByProductionYear();
+                    Confirmation();
+                    Console.Clear();
+                    Search.CarByProductionYear();
                     break;
                 case ConsoleKey.D3:
-                    Confirmation(); Console.Clear(); Search.CarByMake();
+                    Confirmation();
+                    Console.Clear();
+                    Search.CarByMake();
                     break;
                 case ConsoleKey.D4:
                     Confirmation(); Console.Clear(); Search.PlaceHolder();
@@ -87,7 +91,8 @@ public class ConsoleMenu
                 case ConsoleKey.Escape:
                     Environment.Exit(0);
                     break;
-                default: break;
+                default:
+                    break;
             }
         }
     }
