@@ -25,6 +25,8 @@ public class Search
             if (read.Key == ConsoleKey.Escape) break;
         }
     }
+ 
+    
     public static void CarByProductionYear()
     {
         while (true)
@@ -47,25 +49,60 @@ public class Search
         }
     }
 
-    public static void PrintDetails(List<Car> cars)
+    
+
+    public static void CarByAddon()
     {
-        if (cars is null || cars.Count == 0)
+        while (true)
         {
-            Console.WriteLine("Brak samochodów o  tych parametrach");
-        }
-        else
-        {
-            foreach (var car in cars)
+            Console.WriteLine("Podaj jakie wyposażenie cie interesuje:");
+            List<Car> cars = new List<Car>();
+            var addon = Console.ReadLine();
+            if (string.IsNullOrEmpty(addon))
             {
-                Console.WriteLine(car.GetDetails());
+                cars = CarRentalData.Cars;
             }
+            else
+            {
+                foreach (var car in CarRentalData.Cars)
+                {
+                    foreach (var item in car.Addons)
+                    {
+                        if (item.Contains(addon))
+                        {
+                            cars.Add(car);
+                            break;
+                        }
+                    }
+                }
+                //cars = CarRentalData.Cars.Where(c => c.Addons.Where(x => x.Contains(addon)).FirstOrDefault()
+            }
+
+            Print(cars);
+            ConsoleKeyInfo read = Console.ReadKey();
+            if (read.Key == ConsoleKey.Escape) break;
         }
     }
+
+        public static void PrintDetails(List<Car> cars)
+        {
+            if (cars is null || cars.Count == 0)
+            {
+                  Console.WriteLine("Brak samochodów o tych parametrach");
+            }
+            else
+            {
+                foreach (var car in cars)
+                {
+                    Console.WriteLine(car.GetDetails());
+                }
+            }
+        }
     public static void Print(List<Car> cars)
     {
         if (cars is null || cars.Count == 0)
         {
-            Console.WriteLine("Brak samochodów o  tych parametrach");
+            Console.WriteLine("Brak samochodów o tych parametrach");
         }
         else
         {
