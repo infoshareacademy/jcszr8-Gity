@@ -4,10 +4,8 @@ using System.Text;
 namespace CarRental.DAL.Models;
 public sealed class Car : Vehicle
 {
-    [JsonProperty("doors")]
     public int Doors { get; set; }
 
-    [JsonProperty("ac")]
     public bool Ac { get; set; } // Air Conditioner
 
     [JsonProperty("max_capacity")]
@@ -27,9 +25,7 @@ public sealed class Car : Vehicle
 
     public override string ToString()
     {
-
         return $"id:{Id} {Make} {Model} {Year} {Color} {Transmission} {EngineParameters.Type} {LicencePlateNumber} {GetAddonsToString()}";
-
     }
 
     public string GetDetails()
@@ -41,13 +37,13 @@ public sealed class Car : Vehicle
     public string GetAddonsToString()
     {
         StringBuilder sb = new StringBuilder();
-                       
+
         foreach (var item in Addons)
         {
-            sb.AppendJoin(';',item.ToString());
+            sb.AppendJoin(';', item.ToString());
             sb.Append('\u002C');
         }
-        
+
         return sb.ToString();
     }
 }
