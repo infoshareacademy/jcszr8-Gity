@@ -2,6 +2,7 @@
 using CarRental.DAL.Models;
 
 namespace CarRental.ConsoleUI;
+//przeniesc do logic czesci odpowiadajace za logike
 public class Search
 {
     public static void CarByMake()
