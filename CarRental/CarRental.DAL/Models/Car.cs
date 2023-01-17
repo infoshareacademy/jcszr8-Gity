@@ -22,7 +22,7 @@ public sealed class Car
     public int Kilometrage { get; set; }
 
     [JsonProperty("engine_parameters")]
-    public EngineParameters EngineParameters { get; set; }
+    public EngineParameters? EngineParameters { get; set; }
 
     public int Doors { get; set; }
     public bool Ac { get; set; } // Air Conditioner

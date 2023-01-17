@@ -41,7 +41,7 @@ internal static class ConsoleCarManager
     public static void CarSubMenu()
     {
         Console.Clear();
-        Console.WriteLine("Tworzenie nowego samochodu (:q - przerywa)");
+        Console.WriteLine("Tworzenie nowego samochodu (:quit - przerywa)");
         Console.WriteLine();
 
         Dictionary<string, string> rawCar = new();
@@ -55,15 +55,22 @@ internal static class ConsoleCarManager
             if (Abort(temp)) break;
             rawCar.Add(propertyName, temp);
         }
+        var model = rawCar.GetValueOrDefault("model");
+        var make = rawCar.GetValueOrDefault("make");
+        var plates = rawCar.GetValueOrDefault("license-plate-number");
 
-        Console.WriteLine($"Dodać nowy samochód {rawCar["make"]} " +
-            $"{rawCar["model"]} {rawCar["licensePlateNumber"]} ? tak/nie");
+        Console.WriteLine($"Wpisane dane: marka:{make}, model:{model}, numer rejestracyjny:{plates}");
+
+        // TODO if all required params given
 
         Console.WriteLine("Czy chcesz uzupełnić opcjonalne parametry dla samochodu? (tak/nie): ");
         string input = Console.ReadLine().Trim().ToLower();
         if (input == "tak")
         {
-            List<string> optionalProperties = new() { };
+            List<string> optionalProperties = new() { "year", "kilometrage", "doors", "price",
+                "airbags", "color", "fuel-consumption", "transmission", "vin", "ac", "displacement",
+                "seats", "fuel-type", "kw",
+            };
 
             foreach (string propertyName in optionalProperties)
             {
@@ -74,7 +81,6 @@ internal static class ConsoleCarManager
         }
 
         Console.WriteLine("..........tworzenie samochodu");
-
 
         // TODO do you want to create a car with these params
         // TODO create the car
@@ -100,7 +106,7 @@ internal static class ConsoleCarManager
             {"price", "Podaj cenę wypożyczenia: "},
             {"airbags", "Podaj liczbę poduszek powietrznych: "},
             {"color", "Podaj kolor nadwozia: "},
-            {"fuel", @"Podaj spalanie miasto/trasa [l/100km] (np. ""6.5/4.5"": "},
+            {"fuel-consumption", @"Podaj spalanie miasto/trasa [l/100km] (np. ""6.5/4.5"": "},
             {"transmission", "Podaj rodzaj skrzyni biegów: "},
             {"vin", "Podaj numer VIN: "},
             {"ac", "Czy posiada klimatyzację (tak/nie): " },
@@ -112,7 +118,7 @@ internal static class ConsoleCarManager
             { "addons", "Podaj dodatki... :" },
         };
 
-        //carDto.EngineType = (EngineType)Enum.Parse(typeof(EngineType),
+        
         return prompts[propertyName];
     }
 
