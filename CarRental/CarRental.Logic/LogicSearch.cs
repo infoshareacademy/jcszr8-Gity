@@ -10,6 +10,7 @@ namespace CarRental.Logic
 {
     public class LogicSearch
     {
+
         public static List<Car> CarByMake(string make)
         {
             List<Car> cars = new List<Car>();
@@ -22,6 +23,31 @@ namespace CarRental.Logic
                 cars = CarRentalData.Cars.Where(c => c.Make?.ToLower() == make.ToLower() || 
                                                      c.Model?.ToLower() == make.ToLower()).ToList();
 
+            }
+            return cars;
+        }
+
+        public static List<Car> CarByAddons(string addon)
+        {
+            List<Car> cars = new List<Car>();
+            if (string.IsNullOrEmpty(addon))
+            {
+                cars = CarRentalData.Cars;
+            }
+            else
+            {
+                foreach (var car in CarRentalData.Cars)
+                {
+                    foreach (var item in car.Addons)
+                    {
+                        if (item.Contains(addon))
+                        {
+                            cars.Add(car);
+                            break;
+                        }
+                    }
+                }
+                //cars = CarRentalData.Cars.Where(c => c.Addons.Where(x => x.Contains(addon)).FirstOrDefault()
             }
             return cars;
         }
