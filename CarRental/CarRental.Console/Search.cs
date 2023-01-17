@@ -1,5 +1,6 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Models;
+using CarRental.Logic;
 
 namespace CarRental.ConsoleUI;
 public class Search
@@ -8,18 +9,10 @@ public class Search
     {
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Podaj nazwe auta:");
-            List<Car> cars = new List<Car>();
             var make = Console.ReadLine();
-            if (string.IsNullOrEmpty(make))
-            {
-                cars = CarRentalData.Cars;
-            }
-            else
-            {
-                cars = CarRentalData.Cars.Where(c => c.Make?.ToLower() == make.ToLower()).ToList();
-            }
-
+            var cars = LogicSearch.CarByMake(make);
             Print(cars);
             ConsoleKeyInfo read = Console.ReadKey();
             if (read.Key == ConsoleKey.Escape) break;
