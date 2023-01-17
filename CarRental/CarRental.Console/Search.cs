@@ -5,7 +5,6 @@ using CarRental.Logic;
 namespace CarRental.ConsoleUI;
 public class Search
 {
-    
 
     public static void CarByMake()
     {
@@ -16,6 +15,7 @@ public class Search
             var make = Console.ReadLine();
             var cars = LogicSearch.CarByMake(make);
             Print(cars);
+            Leave();
             ConsoleKeyInfo read = Console.ReadKey();
             if (read.Key == ConsoleKey.Escape) break;
         }
@@ -30,6 +30,7 @@ public class Search
             string readYear = Console.ReadLine();
             var cars = LogicSearch.CarByYear(readYear);
             Print(cars);
+            Leave();
             ConsoleKeyInfo read = Console.ReadKey();
             if (read.Key == ConsoleKey.Escape) break;
         }
@@ -44,6 +45,7 @@ public class Search
             var addon = Console.ReadLine();
             var cars = LogicSearch.CarByAddons(addon);
             Print(cars);
+            Leave();
             ConsoleKeyInfo read = Console.ReadKey();
             if (read.Key == ConsoleKey.Escape) break;
         }
@@ -81,6 +83,12 @@ public class Search
     public static void PlaceHolder()
     {
         Console.WriteLine("PlaceHolder");
+        Leave();
         Console.ReadKey();
+    }
+
+    internal static void Leave()
+    {
+        Console.WriteLine("Aby wyjść wciśnij dowolny kalwisz");
     }
 }
