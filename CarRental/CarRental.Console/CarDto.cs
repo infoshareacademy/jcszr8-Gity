@@ -2,7 +2,7 @@
 using CarRental.DAL.Models;
 
 namespace CarRental.ConsoleUI;
-internal record CarDto
+internal class CarDto
 {
     public int Id { get; set; }
     public string? Model { get; set; }

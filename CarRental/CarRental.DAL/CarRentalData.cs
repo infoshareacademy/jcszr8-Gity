@@ -1,5 +1,6 @@
 ﻿using CarRental.DAL.Models;
 using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace CarRental.DAL;
 public static class CarRentalData

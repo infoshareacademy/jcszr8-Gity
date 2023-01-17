@@ -58,7 +58,7 @@ public class ConsoleMenu
                     Search.CarByProductionYear();
                     break;
                 case ConsoleKey.D3:
-                    Console.Clear(); 
+                    Console.Clear();
                     Search.CarByMake();
                     break;
                 case ConsoleKey.D4:
@@ -96,7 +96,7 @@ public class ConsoleMenu
                 case ConsoleKey.Escape:
                     Environment.Exit(0);
                     break;
-                default: 
+                default:
                     break;
             }
         }
