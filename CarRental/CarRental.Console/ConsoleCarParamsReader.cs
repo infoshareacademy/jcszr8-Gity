@@ -195,4 +195,12 @@ public static class ConsoleCarParamsReader
         } while (!isAllGood);
         return powerKw;
     }
+
+    public static string ReadInputFromConsole()
+    {
+        string? input = Console.ReadLine();
+        if (input == null)
+            return string.Empty ;
+        return input.Trim();
+    }
 }
