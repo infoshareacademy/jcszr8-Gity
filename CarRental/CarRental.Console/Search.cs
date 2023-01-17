@@ -47,28 +47,8 @@ public class Search
         while (true)
         {
             Console.WriteLine("Podaj jakie wyposażenie cie interesuje:");
-            List<Car> cars = new List<Car>();
             var addon = Console.ReadLine();
-            if (string.IsNullOrEmpty(addon))
-            {
-                cars = CarRentalData.Cars;
-            }
-            else
-            {
-                foreach (var car in CarRentalData.Cars)
-                {
-                    foreach (var item in car.Addons)
-                    {
-                        if (item.Contains(addon))
-                        {
-                            cars.Add(car);
-                            break;
-                        }
-                    }
-                }
-                //cars = CarRentalData.Cars.Where(c => c.Addons.Where(x => x.Contains(addon)).FirstOrDefault()
-            }
-
+            var cars = LogicSearch.CarByAddons(addon);
             Print(cars);
             ConsoleKeyInfo read = Console.ReadKey();
             if (read.Key == ConsoleKey.Escape) break;
