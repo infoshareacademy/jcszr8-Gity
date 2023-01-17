@@ -44,7 +44,7 @@ public class ConsoleMenu
                 else
                     Console.WriteLine($"{i + 1}. {_menuOptions.ElementAt(i).Value}");
             }
-            ConsoleKeyInfo read = Console.ReadKey();
+            ConsoleKeyInfo read = Console.ReadKey(true);
             Console.WriteLine();
             switch (read.Key)
             {
