@@ -44,7 +44,7 @@ public class ConsoleMenu
                 else
                     Console.WriteLine($"{i + 1}. {_menuOptions.ElementAt(i).Value}");
             }
-            ConsoleKeyInfo read = Console.ReadKey();
+            ConsoleKeyInfo read = Console.ReadKey(true);
             Console.WriteLine();
             switch (read.Key)
             {
@@ -54,39 +54,44 @@ public class ConsoleMenu
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D2:
-                    Confirmation();
                     Console.Clear();
                     Search.CarByProductionYear();
                     break;
                 case ConsoleKey.D3:
-                    Confirmation();
                     Console.Clear();
                     Search.CarByMake();
                     break;
                 case ConsoleKey.D4:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
+                    Console.Clear(); 
+                    Search.PlaceHolder();
                     break;
                 case ConsoleKey.D5:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
+                    Console.Clear(); 
+                    Search.PlaceHolder();
                     break;
                 case ConsoleKey.D6:                    
-                    Confirmation(); Console.Clear(); Search.CarByAddon();
+                    Console.Clear(); 
+                    Search.CarByAddon();
                     break;
                 case ConsoleKey.D7:
                     Console.Clear();
                     ConsoleCarManager.Menu();
                     break;
                 case ConsoleKey.D8:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
+                    Console.Clear(); 
+                    Search.PlaceHolder();
                     break;
                 case ConsoleKey.D9:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
+                    Console.Clear(); 
+                    Search.PlaceHolder();
                     break;
                 case ConsoleKey.D0:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
+                    Console.Clear(); 
+                    Search.PlaceHolder();
                     break;
                 case ConsoleKey.F1:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
+                    Console.Clear(); 
+                    Search.PlaceHolder();
                     break;
                 case ConsoleKey.Escape:
                     Environment.Exit(0);
@@ -94,22 +99,6 @@ public class ConsoleMenu
                 default:
                     break;
             }
-        }
-    }
-
-    public static void Confirmation()
-    {
-        Console.WriteLine("Czy napewno chcesz wybrac ta opcje?: T/N");
-        ConsoleKeyInfo conf = Console.ReadKey();
-        while (true)
-        {
-            if (conf.Key == ConsoleKey.T) break;
-            else if (conf.Key == ConsoleKey.N) Menu();
-            else
-                Console.WriteLine();
-            Console.WriteLine("Nieprawidłowa komenda");
-            Thread.Sleep(600);
-            Menu();
         }
     }
 }
