@@ -1,50 +1,37 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Models;
+using CarRental.Logic;
 
 namespace CarRental.ConsoleUI;
 //przeniesc do logic czesci odpowiadajace za logike
 public class Search
 {
+
     public static void CarByMake()
     {
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Podaj nazwe auta:");
-            List<Car> cars = new List<Car>();
             var make = Console.ReadLine();
-            if (string.IsNullOrEmpty(make))
-            {
-                cars = CarRentalData.Cars;
-            }
-            else
-            {
-                cars = CarRentalData.Cars.Where(c => c.Make?.ToLower() == make.ToLower()).ToList();
-            }
-
+            var cars = LogicSearch.CarByMake(make);
             Print(cars);
+            Leave();
             ConsoleKeyInfo read = Console.ReadKey();
             if (read.Key == ConsoleKey.Escape) break;
         }
     }
- 
-    
+
     public static void CarByProductionYear()
     {
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Podaj rok auta:");
-            List<Car> cars = new List<Car>();
-            var make = int.Parse(Console.ReadLine());
-            if (make == null)
-            {
-                cars = CarRentalData.Cars;
-            }
-            else
-            {
-                cars = CarRentalData.Cars.Where(c => c.Year == make).ToList();
-            }
-
+            string readYear = Console.ReadLine();
+            var cars = LogicSearch.CarByYear(readYear);
             Print(cars);
+            Leave();
             ConsoleKeyInfo read = Console.ReadKey();
             if (read.Key == ConsoleKey.Escape) break;
         }
@@ -54,49 +41,31 @@ public class Search
     {
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Podaj jakie wyposażenie cie interesuje:");
-            List<Car> cars = new List<Car>();
             var addon = Console.ReadLine();
-            if (string.IsNullOrEmpty(addon))
-            {
-                cars = CarRentalData.Cars;
-            }
-            else
-            {
-                foreach (var car in CarRentalData.Cars)
-                {
-                    foreach (var item in car.Addons)
-                    {
-                        if (item.Contains(addon))
-                        {
-                            cars.Add(car);
-                            break;
-                        }
-                    }
-                }
-                //cars = CarRentalData.Cars.Where(c => c.Addons.Where(x => x.Contains(addon)).FirstOrDefault()
-            }
-
+            var cars = LogicSearch.CarByAddons(addon);
             Print(cars);
+            Leave();
             ConsoleKeyInfo read = Console.ReadKey();
             if (read.Key == ConsoleKey.Escape) break;
         }
     }
 
-        public static void PrintDetails(List<Car> cars)
+    public static void PrintDetails(List<Car> cars)
+    {
+        if (cars is null || cars.Count == 0)
         {
-            if (cars is null || cars.Count == 0)
+            Console.WriteLine("Brak samochodów o tych parametrach");
+        }
+        else
+        {
+            foreach (var car in cars)
             {
-                  Console.WriteLine("Brak samochodów o tych parametrach");
-            }
-            else
-            {
-                foreach (var car in cars)
-                {
-                    Console.WriteLine(car.GetDetails());
-                }
+                Console.WriteLine(car.GetDetails());
             }
         }
+    }
     public static void Print(List<Car> cars)
     {
         if (cars is null || cars.Count == 0)
@@ -115,6 +84,12 @@ public class Search
     public static void PlaceHolder()
     {
         Console.WriteLine("PlaceHolder");
+        Leave();
         Console.ReadKey();
+    }
+
+    internal static void Leave()
+    {
+        Console.WriteLine("Aby wyjść wciśnij dowolny kalwisz");
     }
 }
