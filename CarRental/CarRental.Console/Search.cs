@@ -3,6 +3,7 @@ using CarRental.DAL.Models;
 using CarRental.Logic;
 
 namespace CarRental.ConsoleUI;
+//przeniesc do logic czesci odpowiadajace za logike
 public class Search
 {
 
