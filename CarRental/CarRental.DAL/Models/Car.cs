@@ -42,7 +42,7 @@ public sealed class Car
 
     public override string ToString()
     {
-        return $"id:{Id} {Make} {Model} {Year} {Color} {Transmission} {EngineParameters.Type} {LicencePlateNumber} {GetAddonsToString()}";
+        return $"id:{Id} | {Make} | {Model} |{Year} | {Color} | {Transmission} | {EngineParameters.Type} | {LicencePlateNumber} | {GetAddonsToString()}";
     }
 
     public string GetDetails()
