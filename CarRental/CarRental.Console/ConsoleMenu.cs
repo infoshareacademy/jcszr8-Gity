@@ -21,7 +21,7 @@ public class ConsoleMenu
         {
             Console.Clear();
             Console.WriteLine("Witaj w naszej wypożyczalni");
-            Console.WriteLine("Choose option by writing the number:");
+            Console.WriteLine("Wybierz opcje podając numer");
 
             for (int i = 0; i < _menuOptions.Count; i++)
             {
