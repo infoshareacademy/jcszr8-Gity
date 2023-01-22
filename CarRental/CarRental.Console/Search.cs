@@ -90,6 +90,6 @@ public class Search
 
     internal static void Leave()
     {
-        Console.WriteLine("Aby wyjść wciśnij dowolny kalwisz");
+        Console.WriteLine("Aby wyjść wciśnij ESC");
     }
 }
