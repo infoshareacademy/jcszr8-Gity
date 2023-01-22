@@ -7,16 +7,12 @@ public class ConsoleMenu
     private static readonly Dictionary<ConsoleKey, string> _menuOptions = new()
         {
             {ConsoleKey.D1, "Pokaż listę samochodów."},
-            {ConsoleKey.D2, "Wyszukaj samochód po roczniku."},
-            {ConsoleKey.D3, "Wyszukaj samochód po nazwie."},
-            {ConsoleKey.D4, "Wyszukaj samochód po dacie dostępności."},
-            {ConsoleKey.D5, "Wyszukaj samochód do wypożyczenia po nazwie."},
-            {ConsoleKey.D6, "Wyszukaj samochód po wyposażeniu."},
-            {ConsoleKey.D7, "Dodaj samochód."},
-            {ConsoleKey.D8, "Pokaż wypożyczenia."},
-            {ConsoleKey.D9, "Dodaj wypożeczenie."},
-            {ConsoleKey.D0, "Edytuj wypożyczenie."},
-            {ConsoleKey.F1, "Edytuj dane samochodu."},
+            {ConsoleKey.D2, "Wyszukaj samochód"},
+            {ConsoleKey.D3, "Dodaj samochód."},
+            {ConsoleKey.D4, "Pokaż wypożyczenia."},
+            {ConsoleKey.D5, "Dodaj wypożeczenie."},
+            {ConsoleKey.D6, "Edytuj wypożyczenie."},
+            {ConsoleKey.D7, "Edytuj dane samochodu."},
             {ConsoleKey.Escape, "Wyjdź"},
         };
     public static void Menu()
@@ -25,86 +21,57 @@ public class ConsoleMenu
         {
             Console.Clear();
             Console.WriteLine("Witaj w naszej wypożyczalni");
-            Console.WriteLine("Choose option by writing the number:");
+            Console.WriteLine("Wybierz opcje podając numer");
 
             for (int i = 0; i < _menuOptions.Count; i++)
             {
-                if (i == 9)
-                {
-                    Console.WriteLine($"0. {_menuOptions.ElementAt(i).Value}");
-                }
-                else if (i == 10)
-                {
-                    Console.WriteLine($"F1. {_menuOptions.ElementAt(i).Value}");
-                }
-                else if (i == 11)
+                if (i == 7)
                 {
                     Console.WriteLine($"ESC. {_menuOptions.ElementAt(i).Value}");
                 }
                 else
                     Console.WriteLine($"{i + 1}. {_menuOptions.ElementAt(i).Value}");
             }
-            ConsoleKeyInfo read = Console.ReadKey();
+            ConsoleKeyInfo read = Console.ReadKey(true);
             Console.WriteLine();
             switch (read.Key)
             {
                 case ConsoleKey.D1:
+                    Console.Clear();
                     var cars = CarRentalData.Cars;
                     DataMigrator.PrintListOfItems<Car>(cars);
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D2:
-                    Confirmation(); Console.Clear(); Search.CarByProductionYear();
+                    Console.Clear();
+                    SearchConsoleMenu.Menu();
                     break;
                 case ConsoleKey.D3:
-                    Confirmation(); Console.Clear(); Search.CarByMake();
+                    Console.Clear();
+                    ConsoleCarManager.CarSubMenu();
                     break;
                 case ConsoleKey.D4:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
+                    Console.Clear();
+                    Search.PlaceHolder();
                     break;
                 case ConsoleKey.D5:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
+                    Console.Clear();
+                    Search.PlaceHolder();
                     break;
-                case ConsoleKey.D6:                    
-                    Confirmation(); Console.Clear(); Search.CarByAddon();
+                case ConsoleKey.D6:
+                    Console.Clear();
+                    Search.PlaceHolder();
                     break;
                 case ConsoleKey.D7:
                     Console.Clear();
-                    ConsoleCarManager.Menu();
-                    break;
-                case ConsoleKey.D8:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
-                    break;
-                case ConsoleKey.D9:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
-                    break;
-                case ConsoleKey.D0:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
-                    break;
-                case ConsoleKey.F1:
-                    Confirmation(); Console.Clear(); Search.PlaceHolder();
+                    ConsoleCarManager.CarSubMenu();
                     break;
                 case ConsoleKey.Escape:
                     Environment.Exit(0);
                     break;
-                default: break;
+                default:
+                    break;
             }
-        }
-    }
-
-    public static void Confirmation()
-    {
-        Console.WriteLine("Czy napewno chcesz wybrac ta opcje?: T/N");
-        ConsoleKeyInfo conf = Console.ReadKey();
-        while (true)
-        {
-            if (conf.Key == ConsoleKey.T) break;
-            else if (conf.Key == ConsoleKey.N) Menu();
-            else
-                Console.WriteLine();
-            Console.WriteLine("Nieprawidłowa komenda");
-            Thread.Sleep(600);
-            Menu();
         }
     }
 }

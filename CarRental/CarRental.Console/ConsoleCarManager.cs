@@ -1,175 +1,146 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Enums;
 using CarRental.DAL.Models;
+using CarRental.Logic;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace CarRental.ConsoleUI;
 internal static class ConsoleCarManager
 {
-    public static CarDto carDto = new();
-    private static readonly Dictionary<ConsoleKey, string> _menuOptions = new()
-        {
-            {ConsoleKey.A, $"Marka"},
-            // {ConsoleKey.A, $"Marka --- {carDto.Make}"}, <-- dlaczego to nie działa (nie aktualizuje Make)?
-            {ConsoleKey.B, "Model"},
-            {ConsoleKey.C, "Rocznik"},
-            {ConsoleKey.D, "Liczba drzwi"},
-            {ConsoleKey.E, "Cena wypożyczenia samochodu"},
-            {ConsoleKey.F, "Liczba poduszek powietrznych"},
-            {ConsoleKey.G, "Kilometraż"},
-            {ConsoleKey.H, "Kolor nadwozia"},
-            {ConsoleKey.I, "Zużycie paliwa miasto/trasa"},
-            {ConsoleKey.J, "---"},
-            {ConsoleKey.K, "Skrzynia biegów - rodzaj"},
-            {ConsoleKey.L, "Parametry silnika"},
-            {ConsoleKey.M, "Numer rejestracyjny"},
-            {ConsoleKey.N, "Numer VIN"},
-            {ConsoleKey.O, "Klimatyzacja"},
-            {ConsoleKey.P, "Pojemność silnika"},
-            {ConsoleKey.Q, "Dodatki"},
-            {ConsoleKey.R, "Liczba miejsc wraz z kierowcą"},
-            {ConsoleKey.S, "Rodzaj paliwa"},
-            {ConsoleKey.T, "Moc w kilowatach"},
-            {ConsoleKey.Z, "ZASTOSUJ PARAMETRY I DODAJ SAMOCHÓD DO ZASOBÓW"},
-            {ConsoleKey.Escape, "Wyjdź"},
-        };
-    public static void Menu()
+    public static void GetUserInputForNewCar()
     {
-        bool is_menu_on = true;
-        while (is_menu_on)
+        Console.Clear();
+        Console.WriteLine("Podaj dane samochodu: ");
+        Console.WriteLine();
+        Console.WriteLine("DANE OBOWIĄZKOWE:");
+
+        bool makeIsValid;
+        string? carMake;
+        do
         {
-            Console.Clear();
-            Console.WriteLine("Uzupełnij poszczególne dane samochodu:");
+            makeIsValid = ParseCarMake(out carMake);
+        } while (!makeIsValid);
 
-            foreach (KeyValuePair<ConsoleKey, string> kv in _menuOptions)
-            {
-                Console.WriteLine($"{kv.Key.ToString().ToUpper()}. {kv.Value}");
-            }
+        Console.WriteLine($"Car make is: {carMake}");
 
-            Console.WriteLine();
-            Console.WriteLine(carDto.ToString());
-
-            ConsoleKeyInfo read = Console.ReadKey(true);
-            switch (read.Key)
-            {
-                case ConsoleKey.A:
-                    Console.Write("Podaj producenta: ");
-                    carDto.Make = ConsoleCarParamsReader.ReadCarMake();
-                    break;
-                case ConsoleKey.B:
-                    Console.Write("Podaj model: ");
-                    carDto.Model = ConsoleCarParamsReader.ReadCarModel();
-                    break;
-                case ConsoleKey.C:
-                    Console.Write("Podaj rocznik: ");
-                    carDto.Year = ConsoleCarParamsReader.ReadCarYear();
-                    break;
-                case ConsoleKey.D:
-                    Console.Write("Podaj liczbę drzwi: ");
-                    carDto.Doors = ConsoleCarParamsReader.ReadCarDoors();
-                    break;
-                case ConsoleKey.E:
-                    Console.WriteLine("Podaj cenę wypożyczenia: ");
-                    carDto.Pricing = ConsoleCarParamsReader.ReadCarPricing();
-                    break;
-                case ConsoleKey.F:
-                    Console.Write("Podaj liczbę poduszek powietrznych: ");
-                    carDto.Airbags = ConsoleCarParamsReader.ReadCarAirbags();
-                    break;
-                case ConsoleKey.G:
-                    Console.Write("Podaj kilometraż: ");
-                    carDto.Kilometrage = ConsoleCarParamsReader.ReadCarKilometrage();
-                    break;
-                case ConsoleKey.H:
-                    Console.Write("Podaj kolor nadwozia: ");
-                    carDto.Color = ConsoleCarParamsReader.ReadCarColor();
-                    break;
-                case ConsoleKey.I:
-                    Console.Write(@"Podaj spalanie miasto/trasa [l/100km] (np. ""6.5/4.5"": ");
-                    carDto.FuelConsumption = ConsoleCarParamsReader.ReadCarFuelConsumption();
-                    break;
-                case ConsoleKey.K:
-                    Console.WriteLine("Podaj rodzaj skrzyni biegów: ");
-                    carDto.Transmission = ConsoleCarParamsReader.ReadCarTransmissionType();
-                    break;
-                case ConsoleKey.L:
-                    // parametry silnika
-                    break;
-                case ConsoleKey.M:
-                    Console.WriteLine("Podaj numer rejestracyjny: ");
-                    carDto.LicencePlateNumber = ConsoleCarParamsReader.ReadCarLicencePlate();
-                    break;
-                case ConsoleKey.N:
-                    Console.WriteLine("Podaj numer VIN: ");
-                    carDto.VIN = ConsoleCarParamsReader.ReadCarVIN();
-                    break;
-                case ConsoleKey.O:
-                    Console.WriteLine("Klimatyzacja (tak/nie): ------");
-                    //carDto.Ac = ConsoleCarParamsReader.ReadCarAc();
-                    break;
-                case ConsoleKey.P:
-                    Console.WriteLine("Podaj pojemność silnika: ");
-                    carDto.EngineDisplacement = ConsoleCarParamsReader.ReadCarDisplacement();
-                    break;
-                case ConsoleKey.Q:
-                    Console.WriteLine("Podaj dodatki: ----------");
-                    //carDto.Addons = ConsoleCarParamsReader.ReadCarAddons();
-                    break;
-                case ConsoleKey.R:
-                    Console.WriteLine("Podaj liczbę miejsc z kierowcą: ");
-                    carDto.SeatsNo = ConsoleCarParamsReader.ReadCarSeatsNo();
-                    break;
-                case ConsoleKey.S:
-                    Console.WriteLine("Podaj rodzaj paliwa: ");
-                    carDto.EngineType = (EngineType)Enum.Parse(typeof(EngineType),
-                        ConsoleCarParamsReader.ReadCarFuelType());
-                    break;
-                case ConsoleKey.T:
-                    Console.WriteLine("Podaj moc w kilowatach: ");
-                    carDto.EnginePowerInKW = ConsoleCarParamsReader.ReadCarPowerKw();
-                    break;
-                case ConsoleKey.Z:
-                    Console.WriteLine("Tworzę nowy samochód w systemie...");
-                    var newCar = RunCreator(carDto);
-                    CarRentalData.Cars.Add(newCar);
-                    Console.WriteLine("Nowy samochód został dodany do zasobów.");
-                    Console.ReadLine();
-                    break;
-                case ConsoleKey.Escape:
-                    is_menu_on = false;
-                    break;
-                default: break;
-            }
-        }
+        Console.WriteLine("DANE OPCJONALNE:");
     }
 
-    public static Car RunCreator(CarDto carDto)
+    private static bool ParseCarMake(out string carMake)
     {
-        Car newCar = new()
+        Console.WriteLine("Podaj producenta: ");
+
+        string input = Console.ReadLine();
+
+        carMake = "";
+
+        return false; // TODO 
+    }
+
+    public static void CarSubMenu()
+    {
+        Console.Clear();
+        Console.WriteLine("Tworzenie nowego samochodu (:quit - przerywa)");
+        Console.WriteLine();
+
+        Dictionary<string, string> rawCar = new();
+
+        List<string> requiredProperties
+            = new() { "make", "model", "license-plate-number" };
+
+        foreach (string propertyName in requiredProperties)
         {
-            Id = GetNextAvailableId(),
-            Make = carDto.Make,
-            Model = carDto.Model,
-            Year = carDto.Year,
-            Doors = carDto.Doors,
-            Addons = carDto.Addons,
-            Airbags = carDto.Airbags,
-            Color = carDto.Color,
-            Ac = carDto.Ac,
-            EngineParameters = new()
+            string temp = ReadConsoleInputForCar(propertyName);
+            if (Abort(temp)) break;
+            rawCar.Add(propertyName, temp);
+        }
+        var model = rawCar.GetValueOrDefault("model");
+        var make = rawCar.GetValueOrDefault("make");
+        var plates = rawCar.GetValueOrDefault("license-plate-number");
+
+        Console.WriteLine($"Wpisane dane: marka:{make}, model:{model}, numer rejestracyjny:{plates}");
+
+        // TODO if all required params given
+
+        Console.WriteLine("Czy chcesz uzupełnić opcjonalne parametry dla samochodu? (tak/nie): ");
+        string input = Console.ReadLine().Trim().ToLower();
+        if (input == "tak")
+        {
+            List<string> optionalProperties = new() { "year", "kilometrage", "doors", "price",
+                "airbags", "color", "fuel-consumption", "transmission", "vin", "ac", "displacement",
+                "seats", "fuel-type", "kw",
+            };
+
+            foreach (string propertyName in optionalProperties)
             {
-                Displacement = carDto.EngineDisplacement,
-                PowerInKiloWats = carDto.EnginePowerInKW,
-                Type = carDto.EngineType
-            },
-            FuelConsumption = carDto.FuelConsumption,
-            Kilometrage = carDto.Kilometrage,
-            LicencePlateNumber = carDto.LicencePlateNumber,
-            Pricing = carDto.Pricing,
-            SeatsNo = carDto.SeatsNo,
-            Transmission = carDto.Transmission,
-            VIN = carDto.VIN,
+                string temp = ReadConsoleInputForCar(propertyName);
+                if (Abort(temp)) break;
+                rawCar.Add(propertyName, temp);
+            }
+        }
+
+        Console.WriteLine("..........tworzenie samochodu");
+
+        // TODO do you want to create a car with these params
+        // TODO create the car
+    }
+
+    public static bool Abort(string quit)
+    {
+        return quit.Trim() == ":quit";
+    }
+
+    public static string GetConsolePromptsForCar(string propertyName)
+    {
+        Dictionary<string, string> prompts = new()
+        {
+            // properties required for creating new car
+            {"make", "Podaj markę samochodu: "},
+            {"model", "Podaj model samochodu: " },
+            {"license-plate-number", "Podaj numer rejestracyjny samochodu: " },
+            // optional properties
+            {"year", "Podaj rok produkcji: "},
+            {"kilometrage", "Podaj stan licznika w kilometrach: "},
+            {"doors", "Podaj liczbę drzwi: "},
+            {"price", "Podaj cenę wypożyczenia: "},
+            {"airbags", "Podaj liczbę poduszek powietrznych: "},
+            {"color", "Podaj kolor nadwozia: "},
+            {"fuel-consumption", @"Podaj spalanie miasto/trasa [l/100km] (np. ""6.5/4.5"": "},
+            {"transmission", "Podaj rodzaj skrzyni biegów: "},
+            {"vin", "Podaj numer VIN: "},
+            {"ac", "Czy posiada klimatyzację (tak/nie): " },
+            {"displacement", "Podaj pojemność/oznaczenie silnika: " },
+            {"seats", "Podaj liczbę miejsc z kierowcą: "},
+            {"fuel-type", "Podaj rodzaj paliwa: " },
+            { "kw", "Podaj moc w kilowatach: "},
+             // TODO addons
+            { "addons", "Podaj dodatki... :" },
         };
-        return newCar;
+
+        
+        return prompts[propertyName];
+    }
+
+    public static string ReadConsoleInputForCar(string carProperty)
+    {
+        var prompts = GetConsolePromptsForCar(carProperty);
+        string promptForInput = prompts;
+        string? propertyValue;
+        bool success;
+        do
+        {
+            Console.WriteLine(promptForInput);
+            string? input = Console.ReadLine();
+            propertyValue = input is not null ? input.Trim() : "";
+
+            success = CarPropertyValidator.IsCarPropertyValid(carProperty, propertyValue);
+            if (success)
+                break;
+            Console.WriteLine("Błędna wartość, spróbuj ponownie...");
+        } while (!success);
+
+        return propertyValue;
     }
 
     public static int GetNextAvailableId()
