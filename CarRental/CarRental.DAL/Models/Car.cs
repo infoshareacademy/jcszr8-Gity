@@ -22,10 +22,9 @@ public sealed class Car
     public int Kilometrage { get; set; }
 
     [JsonProperty("engine_parameters")]
-    public EngineParameters EngineParameters { get; set; }
+    public EngineParameters? EngineParameters { get; set; }
 
     public int Doors { get; set; }
-
     public bool Ac { get; set; } // Air Conditioner
 
     [JsonProperty("max_capacity")]
@@ -60,7 +59,6 @@ public sealed class Car
             sb.AppendJoin(';', item.ToString());
             sb.Append('\u002C');
         }
-
         return sb.ToString();
     }
 }

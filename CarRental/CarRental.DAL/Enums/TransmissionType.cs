@@ -8,8 +8,8 @@ namespace CarRental.DAL.Enums
 {
     public enum TransmissionType
     {
-        Manual,
         Automatic,
+        Manual,
         Other,  // for example CVT transmission
     }
 }

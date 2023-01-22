@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 
 namespace CarRental.DAL.Models;
-public struct EngineParameters
+public class EngineParameters
 {
     [JsonProperty("power_kw")]
     public float PowerInKiloWats { get; set; }
