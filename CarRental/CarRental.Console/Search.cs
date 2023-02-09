@@ -42,7 +42,7 @@ public class Search
         }
     }
 
-
+    //ToLogic
     public static List<int> GetAvailableCarIds(DateTime start, DateTime end)
     {
 
@@ -59,10 +59,12 @@ public class Search
 
         foreach (var carId in carIds)
         {
-            var car = CarRentalData.Cars.Where(c => c.Id == carId);
-            carsToRent.Concat(car);
+            var car = CarRentalData.Cars.Where(c => c.Id == carId).ToList();
+            foreach(var item in car) 
+            {
+                carsToRent.Add(item);
+            }
         }
-        carsToRent ??= new List<Car>();
         return carsToRent;
     }
 
@@ -89,6 +91,7 @@ public class Search
            ).Select(r => r.CarId).ToList(); // W efekcie dostaniemy listę wypożyczeń poza zadanym czasem
         return found;
     }
+    //ToLogic
 
 
 
@@ -113,6 +116,11 @@ public class Search
             else
             {
                 var value = ListOfAvailableCarForRent(carIds);
+                foreach(var car in value) 
+                {
+                    Console.WriteLine(car.ToString());
+
+                }
                 Console.ReadLine();
                 
 
