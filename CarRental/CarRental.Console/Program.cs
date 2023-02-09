@@ -3,7 +3,7 @@
 namespace CarRental.ConsoleUI;
 internal class Program
 {
-    static void Main(string[] args)
+        static void Main(string[] args)
     {
         Console.Title = AppConfig.APP_NAME;
 

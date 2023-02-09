@@ -23,7 +23,6 @@ public class ReadCarYearTests
         // Assert
         Assert.Equal(expectedYear, actualYear);
     }
-
     [Fact]
     public void ReadCarYear_InvalidYear_PromptsForInputAgain()
     {

@@ -48,7 +48,7 @@ namespace CarRental.ConsoleUI
                         break;
                     case ConsoleKey.D3:
                         Console.Clear();
-                        Search.PlaceHolder();
+                        Search.CarByAvailable();
                         break;
                     case ConsoleKey.D4:
                         Console.Clear();
