@@ -6,7 +6,14 @@ namespace CarRental.ConsoleUI;
 //przeniesc do logic czesci odpowiadajace za logike
 public class Search
 {
-
+    public static void PrintListOfItems<T>(List<T> items)
+    {
+        foreach (T item in items)
+        {
+            if (item != null)
+                Console.WriteLine(item.ToString());
+        }
+    }
     public static void CarByMake()
     {
         while (true)

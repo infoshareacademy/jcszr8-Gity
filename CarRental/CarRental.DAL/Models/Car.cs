@@ -6,7 +6,7 @@ public sealed class Car
 {
     public int Id { get; set; }
 
-    public string? Model { get; set; }
+    public string? CarModel { get; set; }
 
     public string? Make { get; set; }
 
@@ -15,7 +15,7 @@ public sealed class Car
     public string? Color { get; set; }
 
     public string? Transmission { get; set; }
-    public string? VIN { get; set; } // Vehicle Identification Number
+    
     [JsonProperty("licence_plate_number")]
     public string? LicencePlateNumber { get; set; } // numer rejestracyjny pojazdu
 
@@ -25,7 +25,6 @@ public sealed class Car
     public EngineParameters? EngineParameters { get; set; }
 
     public int Doors { get; set; }
-    public bool Ac { get; set; } // Air Conditioner
 
     [JsonProperty("max_capacity")]
     public int SeatsNo { get; set; } // total number of seats (with driver seat included)
@@ -37,17 +36,17 @@ public sealed class Car
 
     public List<string> Addons { get; set; } = new();
 
-    public Pricing Pricing { get; set; } = new();
+    public decimal Price { get; set; }
 
     public override string ToString()
     {
-        return $"id:{Id} | {Make} | {Model} |{Year} | {Color} | {Transmission} | {EngineParameters.Type} | {LicencePlateNumber} | {GetAddonsToString()}";
+        return $"id:{Id} | {Make} | {CarModel} |{Year} | {Color} | {Transmission} | {EngineParameters.Type} | {LicencePlateNumber} | {GetAddonsToString()}";
     }
 
     public string GetDetails()
     {
-        return $"#{Id}: Ma:{Make} Mo:{Model} Y:{Year} {Color} Ac:{Ac} {Transmission} {EngineParameters.Type} Seats:{SeatsNo}" +
-            $"{VIN} Plates:{LicencePlateNumber}";
+        return $"#{Id}: Ma:{Make} Mo:{CarModel} Y:{Year} {Color} {Transmission} {EngineParameters.Type} Seats:{SeatsNo}" +
+            $" Plates:{LicencePlateNumber}";
     }
 
     public string GetAddonsToString()

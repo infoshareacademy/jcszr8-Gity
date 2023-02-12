@@ -1,11 +1,6 @@
 [
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 5,
     "ac": true,
     "max_capacity": 4,
@@ -35,12 +30,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 5,
     "ac": true,
     "max_capacity": 4,
@@ -69,12 +59,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 5,
     "ac": true,
     "max_capacity": 4,
@@ -103,12 +88,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 5,
     "ac": true,
     "max_capacity": 4,
@@ -137,12 +117,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 2,
     "ac": true,
     "max_capacity": 4,
@@ -171,12 +146,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 3,
     "ac": true,
     "max_capacity": 5,
@@ -205,12 +175,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 3,
     "ac": true,
     "max_capacity": 5,
@@ -239,12 +204,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 3,
     "ac": true,
     "max_capacity": 5,
@@ -273,12 +233,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 5,
     "ac": true,
     "max_capacity": 5,
@@ -307,12 +262,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 5,
     "ac": true,
     "max_capacity": 5,
@@ -341,12 +291,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 5,
     "ac": true,
     "max_capacity": 5,
@@ -375,12 +320,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 5,
     "ac": true,
     "max_capacity": 5,
@@ -409,12 +349,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 5,
     "ac": false,
     "max_capacity": 5,
@@ -443,12 +378,7 @@
     }
   },
   {
-    "pricing": {
-
-    },
-    "images": {
-
-    },
+    "price": 100,
     "doors": 5,
     "ac": true,
     "max_capacity": 5,

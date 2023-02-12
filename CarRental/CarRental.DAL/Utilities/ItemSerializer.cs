@@ -15,15 +15,4 @@ public static class ItemSerializer<T>
         return JsonConvert.DeserializeObject<List<T>>(itemsSerialized) ?? new List<T>();
     }
 
-    public static void WriteToJsonFile(string objectsSerialized, string fileName)
-    {
-        string filePath = PATH_TO_JSON_FILES + fileName;
-        File.WriteAllText(filePath, objectsSerialized);
-    }
-
-    public static void SerializeAndWriteToJsonFile(List<T> objects, string fileName)
-    {
-        string objectsSerialized = Serialize(objects);
-        WriteToJsonFile(objectsSerialized, fileName);
-    }
 }

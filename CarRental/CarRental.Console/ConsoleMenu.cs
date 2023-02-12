@@ -39,7 +39,7 @@ public class ConsoleMenu
                 case ConsoleKey.D1:
                     Console.Clear();
                     var cars = CarRentalData.Cars;
-                    DataMigrator.PrintListOfItems<Car>(cars);
+                    Search.PrintListOfItems<Car>(cars);
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D2:

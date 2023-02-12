@@ -22,7 +22,7 @@ namespace CarRental.Logic
             else
             {
                 cars = CarRentalData.Cars.Where(c => c.Make?.ToLower() == make.ToLower() || 
-                                                     c.Model?.ToLower() == make.ToLower()).ToList();
+                                                     c.CarModel?.ToLower() == make.ToLower()).ToList();
 
             }
             return cars;
