@@ -21,7 +21,7 @@ public class Search
             Console.Clear();
             Console.WriteLine("Podaj nazwe auta:");
             var make = Console.ReadLine();
-            var cars = LogicSearch.CarByMake(make);
+            var cars = LogicSearch.CarByName(make);
             Print(cars);
             Leave();
             ConsoleKeyInfo read = Console.ReadKey();

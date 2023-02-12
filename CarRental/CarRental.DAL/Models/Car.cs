@@ -6,6 +6,7 @@ public sealed class Car
 {
     public int Id { get; set; }
 
+    [JsonProperty(PropertyName = "model")]
     public string? CarModel { get; set; }
 
     public string? Make { get; set; }

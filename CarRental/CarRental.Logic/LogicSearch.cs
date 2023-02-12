@@ -21,9 +21,26 @@ namespace CarRental.Logic
             }
             else
             {
-                cars = CarRentalData.Cars.Where(c => c.Make?.ToLower() == make.ToLower() || 
+                cars = CarRentalData.Cars.Where(c => c.Make?.ToLower() == make.ToLower() ||
                                                      c.CarModel?.ToLower() == make.ToLower()).ToList();
 
+            }
+            return cars;
+        }
+
+        public static List<Car> CarByName(string name)
+        {
+            List<Car> cars = new List<Car>();
+            if (string.IsNullOrEmpty(name))
+            {
+                cars = CarRentalData.Cars;
+            }
+            else
+            {
+
+                cars = CarRentalData.Cars.Where(c => c.Make.Contains(name, StringComparison.CurrentCultureIgnoreCase)
+                    || c.CarModel.Contains(name, StringComparison.CurrentCultureIgnoreCase)
+                ).ToList();
             }
             return cars;
         }

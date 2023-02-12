@@ -2,13 +2,13 @@
   {
     "price": 100,
     "doors": 5,
-    "ac": true,
     "max_capacity": 4,
     "airbags": 7,
     "fuel_consumption_city": 7.3,
     "fuel_consumption_highway": 5.6,
     "segment": "C",
     "addons": [
+      "Ac",
       "ABS",
       " hak holowniczy"
     ],
@@ -32,13 +32,13 @@
   {
     "price": 100,
     "doors": 5,
-    "ac": true,
     "max_capacity": 4,
     "airbags": 7,
     "fuel_consumption_city": 3.1,
     "fuel_consumption_highway": 3.5,
     "segment": "C",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 2,
@@ -61,13 +61,13 @@
   {
     "price": 100,
     "doors": 5,
-    "ac": true,
     "max_capacity": 4,
     "airbags": 7,
     "fuel_consumption_city": 3.1,
     "fuel_consumption_highway": 3.5,
     "segment": "C",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 3,
@@ -90,13 +90,13 @@
   {
     "price": 100,
     "doors": 5,
-    "ac": true,
     "max_capacity": 4,
     "airbags": 7,
     "fuel_consumption_city": 3.1,
     "fuel_consumption_highway": 3.5,
     "segment": "C",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 4,
@@ -119,13 +119,13 @@
   {
     "price": 100,
     "doors": 2,
-    "ac": true,
     "max_capacity": 4,
     "airbags": 0,
     "fuel_consumption_city": 0.0,
     "fuel_consumption_highway": 0.0,
     "segment": "C",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 5,
@@ -148,13 +148,13 @@
   {
     "price": 100,
     "doors": 3,
-    "ac": true,
     "max_capacity": 5,
     "airbags": 0,
     "fuel_consumption_city": 0.0,
     "fuel_consumption_highway": 0.0,
     "segment": "C",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 6,
@@ -177,13 +177,13 @@
   {
     "price": 100,
     "doors": 3,
-    "ac": true,
     "max_capacity": 5,
     "airbags": 0,
     "fuel_consumption_city": 0.0,
     "fuel_consumption_highway": 0.0,
     "segment": "C",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 7,
@@ -206,13 +206,13 @@
   {
     "price": 100,
     "doors": 3,
-    "ac": true,
     "max_capacity": 5,
     "airbags": 0,
     "fuel_consumption_city": 0.0,
     "fuel_consumption_highway": 0.0,
     "segment": "C",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 8,
@@ -235,13 +235,13 @@
   {
     "price": 100,
     "doors": 5,
-    "ac": true,
     "max_capacity": 5,
     "airbags": 12,
     "fuel_consumption_city": 5.8,
     "fuel_consumption_highway": 4.7,
     "segment": "B",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 9,
@@ -264,13 +264,13 @@
   {
     "price": 100,
     "doors": 5,
-    "ac": true,
     "max_capacity": 5,
     "airbags": 12,
     "fuel_consumption_city": 5.8,
     "fuel_consumption_highway": 4.7,
     "segment": "B",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 10,
@@ -293,13 +293,13 @@
   {
     "price": 100,
     "doors": 5,
-    "ac": true,
     "max_capacity": 5,
     "airbags": 12,
     "fuel_consumption_city": 5.8,
     "fuel_consumption_highway": 4.7,
     "segment": "B",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 11,
@@ -322,13 +322,13 @@
   {
     "price": 100,
     "doors": 5,
-    "ac": true,
     "max_capacity": 5,
     "airbags": 6,
     "fuel_consumption_city": 6.3,
     "fuel_consumption_highway": 5.1,
     "segment": "C",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 12,
@@ -351,13 +351,13 @@
   {
     "price": 100,
     "doors": 5,
-    "ac": false,
     "max_capacity": 5,
     "airbags": 0,
     "fuel_consumption_city": 0.0,
     "fuel_consumption_highway": 0.0,
     "segment": "C",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 13,
@@ -380,13 +380,13 @@
   {
     "price": 100,
     "doors": 5,
-    "ac": true,
     "max_capacity": 5,
     "airbags": 6,
     "fuel_consumption_city": 6.3,
     "fuel_consumption_highway": 5.1,
     "segment": "C",
     "addons": [
+      "Ac",
       "ABS"
     ],
     "id": 14,
