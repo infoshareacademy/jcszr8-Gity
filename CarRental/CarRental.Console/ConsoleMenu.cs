@@ -7,7 +7,7 @@ public class ConsoleMenu
     private static readonly Dictionary<ConsoleKey, string> _menuOptions = new()
         {
             {ConsoleKey.D1, "Pokaż listę samochodów."},
-            {ConsoleKey.D2, "Wyszukaj samochód"},
+            {ConsoleKey.D2, "Wyszukaj samochód."},
             {ConsoleKey.D3, "Dodaj samochód."},
             {ConsoleKey.D4, "Pokaż wypożyczenia."},
             {ConsoleKey.D5, "Dodaj wypożeczenie."},
@@ -21,7 +21,7 @@ public class ConsoleMenu
         {
             Console.Clear();
             Console.WriteLine("Witaj w naszej wypożyczalni");
-            Console.WriteLine("Wybierz opcje podając numer");
+            Console.WriteLine("Wybierz opcję podając numer");
 
             for (int i = 0; i < _menuOptions.Count; i++)
             {
@@ -48,7 +48,7 @@ public class ConsoleMenu
                     break;
                 case ConsoleKey.D3:
                     Console.Clear();
-                    ConsoleCarManager.CarSubMenu();
+                    ConsoleCarManager.Menu();
                     break;
                 case ConsoleKey.D4:
                     Console.Clear();

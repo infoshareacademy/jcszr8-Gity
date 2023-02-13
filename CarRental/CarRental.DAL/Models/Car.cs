@@ -16,7 +16,7 @@ public sealed class Car
     public string? Color { get; set; }
 
     public string? Transmission { get; set; }
-    
+
     [JsonProperty("licence_plate_number")]
     public string? LicencePlateNumber { get; set; } // numer rejestracyjny pojazdu
 
@@ -39,9 +39,17 @@ public sealed class Car
 
     public decimal Price { get; set; }
 
+    public Car(int id, string make, string model, string licensePlate)
+    {
+        Id = id;
+        Make = make;
+        CarModel = model;
+        LicencePlateNumber = licensePlate;
+    }
+
     public override string ToString()
     {
-        return $"id:{Id} | {Make} | {CarModel} |{Year} | {Color} | {Transmission} | {EngineParameters.Type} | {LicencePlateNumber} | {GetAddonsToString()}";
+        return $"id:{Id} | {Make} | {CarModel} | {LicencePlateNumber} | {GetAddonsToString()}";
     }
 
     public string GetDetails()

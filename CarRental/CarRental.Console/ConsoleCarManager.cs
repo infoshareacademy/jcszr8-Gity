@@ -1,41 +1,75 @@
-﻿using CarRental.DAL;
-using CarRental.DAL.Enums;
-using CarRental.DAL.Models;
+﻿using CarRental.DAL.Models;
+using CarRental.DAL;
 using CarRental.Logic;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 
 namespace CarRental.ConsoleUI;
-internal static class ConsoleCarManager
+internal class ConsoleCarManager
 {
-    public static void GetUserInputForNewCar()
+    public static void Menu()
     {
         Console.Clear();
-        Console.WriteLine("Podaj dane samochodu: ");
-        Console.WriteLine();
-        Console.WriteLine("DANE OBOWIĄZKOWE:");
-
-        bool makeIsValid;
-        string? carMake;
-        do
-        {
-            makeIsValid = ParseCarMake(out carMake);
-        } while (!makeIsValid);
-
-        Console.WriteLine($"Car make is: {carMake}");
-
-        Console.WriteLine("DANE OPCJONALNE:");
+        string carMake = ReadMake();
+        string carModel = ReadModel();
+        string carLicensePlate = ReadLicensePlate();
+        
+        LogicCarManager.CreateCar(carMake, carModel, carLicensePlate);
     }
 
-    private static bool ParseCarMake(out string carMake)
+    public static string ReadMake()
     {
-        Console.WriteLine("Podaj producenta: ");
+        bool success;
+        string propertyValue;
+        do
+        {
+            Console.WriteLine("Podaj markę: ");
+            string? input = Console.ReadLine();
+            propertyValue = input is not null ? input.Trim() : "";
 
-        string input = Console.ReadLine();
+            success = CarPropertyValidator.IsCarPropertyValid("make", propertyValue);
+            if (success)
+                break;
+            Console.WriteLine("Błędna wartość, spróbuj ponownie...");
+        } while (!success);
 
-        carMake = "";
+        return propertyValue;
+    }
 
-        return false; // TODO 
+    public static string ReadModel()
+    {
+        bool success;
+        string propertyValue;
+        do
+        {
+            Console.WriteLine("Podaj model: ");
+            string? input = Console.ReadLine();
+            propertyValue = input is not null ? input.Trim() : "";
+
+            success = CarPropertyValidator.IsCarPropertyValid("model", propertyValue);
+            if (success)
+                break;
+            Console.WriteLine("Błędna wartość, spróbuj ponownie...");
+        } while (!success);
+
+        return propertyValue;
+    }
+
+    public static string ReadLicensePlate()
+    {
+        bool success;
+        string propertyValue;
+        do
+        {
+            Console.WriteLine("Podaj numer rejestracyjny: ");
+            string? input = Console.ReadLine();
+            propertyValue = input is not null ? input.Trim() : "";
+
+            success = CarPropertyValidator.IsCarPropertyValid("license-plate-number", propertyValue);
+            if (success)
+                break;
+            Console.WriteLine("Błędna wartość, spróbuj ponownie...");
+        } while (!success);
+
+        return propertyValue;
     }
 
     public static void CarSubMenu()
@@ -68,7 +102,7 @@ internal static class ConsoleCarManager
         if (input == "tak")
         {
             List<string> optionalProperties = new() { "year", "kilometrage", "doors", "price",
-                "airbags", "color", "fuel-consumption", "transmission", "vin", "ac", "displacement",
+                "airbags", "color", "fuel-consumption", "transmission", "vin", "displacement",
                 "seats", "fuel-type", "kw",
             };
 
@@ -106,10 +140,9 @@ internal static class ConsoleCarManager
             {"price", "Podaj cenę wypożyczenia: "},
             {"airbags", "Podaj liczbę poduszek powietrznych: "},
             {"color", "Podaj kolor nadwozia: "},
-            {"fuel-consumption", @"Podaj spalanie miasto/trasa [l/100km] (np. ""6.5/4.5"": "},
+            {"fuel-consumption", @"Podaj spalanie miasto/trasa [l/100km] (np. ""6.5/4.5""): "},
             {"transmission", "Podaj rodzaj skrzyni biegów: "},
             {"vin", "Podaj numer VIN: "},
-            {"ac", "Czy posiada klimatyzację (tak/nie): " },
             {"displacement", "Podaj pojemność/oznaczenie silnika: " },
             {"seats", "Podaj liczbę miejsc z kierowcą: "},
             {"fuel-type", "Podaj rodzaj paliwa: " },
@@ -118,7 +151,7 @@ internal static class ConsoleCarManager
             { "addons", "Podaj dodatki... :" },
         };
 
-        
+
         return prompts[propertyName];
     }
 
@@ -141,10 +174,5 @@ internal static class ConsoleCarManager
         } while (!success);
 
         return propertyValue;
-    }
-
-    public static int GetNextAvailableId()
-    {
-        return CarRentalData.Cars.Max(x => x.Id) + 1;
     }
 }
