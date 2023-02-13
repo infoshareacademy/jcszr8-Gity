@@ -48,7 +48,7 @@ public class ConsoleMenu
                     break;
                 case ConsoleKey.D3:
                     Console.Clear();
-                    ConsoleCarManager.Menu();
+                    ConsoleCarManager.AddNewCarMenu();
                     break;
                 case ConsoleKey.D4:
                     Console.Clear();
@@ -64,7 +64,7 @@ public class ConsoleMenu
                     break;
                 case ConsoleKey.D7:
                     Console.Clear();
-                    ConsoleCarManager.CarSubMenu();
+                    ConsoleCarManager.EditMenu();
                     break;
                 case ConsoleKey.Escape:
                     Environment.Exit(0);
