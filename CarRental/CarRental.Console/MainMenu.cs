@@ -34,7 +34,6 @@ public class MainMenu
             RunOption();
         }
     }
-
     public static void DisplayMenu()
     {
         const ConsoleColor BG = ConsoleColor.Gray;
@@ -136,7 +135,7 @@ public class MainMenu
                 break;
             case 2:
                 Console.Clear();
-                SearchConsoleMenu.StartMenu();
+                SearchMenu.StartMenu();
                 break;
             case 3:
                 Console.Clear();
@@ -162,6 +161,5 @@ public class MainMenu
                 Environment.Exit(0);
                 break;
         }
-
     }
 }

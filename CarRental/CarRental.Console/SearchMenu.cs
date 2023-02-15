@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.ConsoleUI
 {
-    public class SearchConsoleMenu
+    public class SearchMenu
     {
         private static readonly Dictionary<ConsoleKey, string> _menuOptions = new()
         {
@@ -17,9 +17,7 @@ namespace CarRental.ConsoleUI
             {ConsoleKey.D5, "Wyszukaj samochód po wyposażeniu."},
             {ConsoleKey.Escape, "Wyjdź"},
         };
-
         private static int activePosition = 1;
-
         public static void StartMenu()
         {
             Console.CursorVisible = false;
@@ -30,7 +28,6 @@ namespace CarRental.ConsoleUI
                 RunOption();
             }
         }
-
         public static void DisplayMenu()
         {
             const ConsoleColor BG = ConsoleColor.Gray;
@@ -150,7 +147,6 @@ namespace CarRental.ConsoleUI
                 default:
                     break;
             }
-
         }
     }
 }
