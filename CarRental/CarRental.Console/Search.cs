@@ -42,59 +42,6 @@ public class Search
         }
     }
 
-    //ToLogic
-    public static List<int> GetAvailableCarIds(DateTime start, DateTime end)
-    {
-
-        var cars1 = GetNotRented();
-        var cars2 = GetAvailableInGivenTime(start, end);
-        var allIdCars = cars1.Concat(cars2).Distinct().ToList();
-        return allIdCars;
-    }
-
-    public static List<Car> ListOfAvailableCarForRent(List<int> carIds)
-
-    {
-        var carsToRent = new List<Car>();
-
-        foreach (var carId in carIds)
-        {
-            var car = CarRentalData.Cars.Where(c => c.Id == carId).ToList();
-            foreach(var item in car) 
-            {
-                carsToRent.Add(item);
-            }
-        }
-        return carsToRent;
-    }
-
-
-    public static List<int> GetNotRented()
-    {
-        // zwraca te, które w ogóle nie występują  w liście wypożyczonych
-        // te auta, których id nie występują w liście wypożyczonych
-        var rentedIds = CarRentalData.Rentals.Select(r => r.CarId).ToList();
-        var carIds = CarRentalData.Cars.Select(c => c.Id).ToList();
-
-        var availableCars = carIds.Except(rentedIds).ToList();
-
-        return availableCars;
-
-    }
-
-    public static List<int> GetAvailableInGivenTime(DateTime start, DateTime end)
-    {
-
-        var found = CarRentalData.Rentals.Where(r =>
-           (end < r.BeginDate) ||
-           (start > r.EndDate)
-           ).Select(r => r.CarId).ToList(); // W efekcie dostaniemy listę wypożyczeń poza zadanym czasem
-        return found;
-    }
-    //ToLogic
-
-
-
     public static void CarByAvailable()
     {
         while (true)
@@ -104,36 +51,23 @@ public class Search
             var start = DateTime.ParseExact(Console.ReadLine(), "yyyy.MM.dd", CultureInfo.InvariantCulture);
             Console.WriteLine("Wpisz datę w której chciałbyś zakończyć wynajęcie: YYYY.MM.DD");
             DateTime end = DateTime.ParseExact(Console.ReadLine(), "yyyy.MM.dd", CultureInfo.InvariantCulture);
-            List<Rental> rentals = new List<Rental>();
-            List<Car> cars = new List<Car>();
-
-            var allRentals = CarRentalData.Rentals;
-
-            var carIds = GetAvailableCarIds(start, end);
+            var carIds = Rentals.GetAvailableCarIds(start, end);
 
             if (start == null)
+            {
                 Console.WriteLine("Nie uzupełniłeś daty");
+            }
             else
             {
-                var value = ListOfAvailableCarForRent(carIds);
+                var value = Rentals.ListOfAvailableCarForRent(carIds);
                 foreach(var car in value) 
                 {
                     Console.WriteLine(car.ToString());
 
                 }
                 Console.ReadLine();
-                
-
-
-                // r.Start Start r.End End
-
-                //rentals = CarRentalData.Rentals.Where(r => r.EndDate >= start && r => ).ToList();
             }
-            //foreach (var ren in rentals)
-            //{
-
-            //      (cars.Where(c => c.Id == ren);
-            //};
+            
 
 
 
