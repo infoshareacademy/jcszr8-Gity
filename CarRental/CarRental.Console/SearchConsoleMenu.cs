@@ -17,54 +17,139 @@ namespace CarRental.ConsoleUI
             {ConsoleKey.D5, "Wyszukaj samochód po wyposażeniu."},
             {ConsoleKey.Escape, "Wyjdź"},
         };
-        public static void Menu()
+
+        private static int activePosition = 1;
+
+        public static void StartMenu()
         {
+            Console.CursorVisible = false;
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("Witaj w naszej wypożyczalni");
-                Console.WriteLine("Wybierz opcję:");
+                DisplayMenu();
+                SelectOption();
+                RunOption();
+            }
+        }
 
-                for (int i = 0; i < _menuOptions.Count; i++)
+        public static void DisplayMenu()
+        {
+            const ConsoleColor BG = ConsoleColor.Gray;
+            const ConsoleColor BG_ACTIVE = ConsoleColor.DarkCyan;
+            const ConsoleColor FG = ConsoleColor.DarkCyan;
+            const ConsoleColor FG_ACTIVE = ConsoleColor.White;
+
+            Console.BackgroundColor = BG;
+            Console.Clear();
+            Console.ForegroundColor = FG;
+
+            string welcome = "Wyszukuj auta!";
+            Console.WriteLine();
+            Console.SetCursorPosition((Console.WindowWidth - welcome.Length) / 2, Console.CursorTop);
+            Console.WriteLine(welcome);
+            Console.WriteLine();
+            Console.WriteLine(" Wybierz opcję:");
+            Console.WriteLine();
+
+            for (int i = 1; i <= _menuOptions.Count; i++)
+            {
+                if (activePosition == i)
                 {
-                    if (i == 5)
+                    Console.BackgroundColor = BG_ACTIVE;
+                    Console.ForegroundColor = FG_ACTIVE;
+                    if (i == _menuOptions.Count)
                     {
-                        Console.WriteLine($"ESC. {_menuOptions.ElementAt(i).Value}");
+                        Console.Write(" ESC. ");
                     }
                     else
-                        Console.WriteLine($"{i + 1}. {_menuOptions.ElementAt(i).Value}"); ;
+                    {
+                        Console.Write($" {i}. ");
+                    }
+                    Console.WriteLine("{0,-35}", _menuOptions.ElementAt(i - 1).Value);
+                    Console.BackgroundColor = BG;
+                    Console.ForegroundColor = FG;
                 }
-                ConsoleKeyInfo read = Console.ReadKey(true);
-                Console.WriteLine();
-                switch (read.Key)
+                else
                 {
-                    case ConsoleKey.D1:
-                        Console.Clear();
-                        Search.CarByProductionYear();
-                        break;
-                    case ConsoleKey.D2:
-                        Console.Clear();
-                        Search.CarByMake();
-                        break;
-                    case ConsoleKey.D3:
-                        Console.Clear();
-                        Search.PlaceHolder();
-                        break;
-                    case ConsoleKey.D4:
-                        Console.Clear();
-                        Search.PlaceHolder();
-                        break;
-                    case ConsoleKey.D5:
-                        Console.Clear();
-                        Search.PlaceHolder();
-                        break;
-                    case ConsoleKey.Escape:
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        break;
+                    if (i == _menuOptions.Count)
+                    {
+                        Console.Write(" ESC.");
+                    }
+                    else
+                    {
+                        Console.Write($" {i}. ");
+                    }
+                    Console.WriteLine(_menuOptions.ElementAt(i - 1).Value);
                 }
             }
+        }
+        public static void SelectOption()
+        {
+            do
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.UpArrow)
+                {
+                    activePosition = (activePosition > 1) ? --activePosition : _menuOptions.Count;
+                    DisplayMenu();
+                }
+                else if (key.Key == ConsoleKey.DownArrow)
+                {
+                    activePosition = (activePosition % _menuOptions.Count) + 1;
+                    DisplayMenu();
+                }
+                else if (key.Key == ConsoleKey.Escape)
+                {
+                    activePosition = _menuOptions.Count;
+                    break;
+                }
+                else if (key.Key == ConsoleKey.Enter)
+                {
+                    break;
+                }
+                else
+                {
+                    if (key.Key == ConsoleKey.D1) activePosition = 1;
+                    if (key.Key == ConsoleKey.D2) activePosition = 2;
+                    if (key.Key == ConsoleKey.D3) activePosition = 3;
+                    if (key.Key == ConsoleKey.D4) activePosition = 4;
+                    if (key.Key == ConsoleKey.D5) activePosition = 5;
+                    if (key.Key == ConsoleKey.D6) activePosition = 6;
+                    if (key.Key == ConsoleKey.D7) activePosition = 7;
+                    if (key.Key == ConsoleKey.D8) activePosition = 8;
+                    break;
+                }
+            } while (true);
+        }
+        public static void RunOption()
+        {
+            switch (activePosition)
+            {
+                case 1:
+                    Console.Clear();
+                    Search.CarByProductionYear();
+                    break;
+                case 2:
+                    Console.Clear();
+                    Search.CarByMake();
+                    break;
+                case 3:
+                    Console.Clear();
+                    Search.PlaceHolder();
+                    break;
+                case 4:
+                    Console.Clear();
+                    Search.PlaceHolder();
+                    break;
+                case 5:
+                    Console.Clear();
+                    Search.PlaceHolder();
+                    break;
+                case 6:
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 }
