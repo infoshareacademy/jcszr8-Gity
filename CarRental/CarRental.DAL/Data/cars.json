@@ -10,7 +10,7 @@
     "addons": [
       "Ac",
       "ABS",
-      " hak holowniczy"
+      "towbar"
     ],
     "id": 1,
     "model": "Corolla",
@@ -39,7 +39,8 @@
     "segment": "C",
     "addons": [
       "Ac",
-      "ABS"
+      "ABS",
+      "roof rack"
     ],
     "id": 2,
     "model": "Corolla",
@@ -97,7 +98,8 @@
     "segment": "C",
     "addons": [
       "Ac",
-      "ABS"
+      "ABS",
+      "roof rack"
     ],
     "id": 4,
     "model": "Corolla",
@@ -242,7 +244,9 @@
     "segment": "B",
     "addons": [
       "Ac",
-      "ABS"
+      "ABS",
+      "towbar",
+      "roof rack"
     ],
     "id": 9,
     "model": "Fiesta",
@@ -329,7 +333,8 @@
     "segment": "C",
     "addons": [
       "Ac",
-      "ABS"
+      "ABS",
+      "towbar"
     ],
     "id": 12,
     "model": "Ceed",
@@ -358,7 +363,8 @@
     "segment": "C",
     "addons": [
       "Ac",
-      "ABS"
+      "ABS",
+      "roof rack"
     ],
     "id": 13,
     "model": "Ceed",
