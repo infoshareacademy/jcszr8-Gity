@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.VisualBasic;
+using Newtonsoft.Json;
 using System.Text;
 
 namespace CarRental.DAL.Models;
@@ -38,6 +39,10 @@ public sealed class Car
     public List<string> Addons { get; set; } = new();
 
     public decimal Price { get; set; }
+
+    private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" };
+
+    public static List<string> GetAvailableAddons() { return _availableAddons; }
 
     public Car(int id, string make, string model, string licensePlate)
     {
@@ -93,6 +98,53 @@ Addons: {GetAddonsToString()}
         {
             sb.AppendJoin(';', item.ToString());
             sb.Append('\u002C');
+        }
+        return sb.ToString();
+    }
+
+    public static int[] ParseIndexes(string indexesString)
+    {
+        char[] separators = { ',', ' ', '\t' };
+        int[] ints;
+        try
+        {
+            var strings = indexesString.Split(separators);
+            ints = Array.ConvertAll(strings, s => int.Parse(s) - 1);
+
+            Console.WriteLine();
+            return ints;
+        }
+        catch (Exception)
+        {
+            return new int[] { };
+        }
+    }
+
+    public void AddAddon(int index)
+    {
+        string addon = _availableAddons[index];
+        this.Addons.Add(addon);
+    }
+
+    public void RemoveAddon(int index)
+    {
+        try
+        {
+            this.Addons.RemoveAt(index);
+        }
+        catch (Exception)
+        {
+
+        }
+    }
+
+    public string AddonsToString()
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (string addon in Addons)
+        {
+            sb.Append(addon);
+            sb.Append(", ");
         }
         return sb.ToString();
     }

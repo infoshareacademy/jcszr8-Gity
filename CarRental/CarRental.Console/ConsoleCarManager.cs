@@ -42,7 +42,7 @@ internal class ConsoleCarManager
         string propertyValue;
         do
         {
-            Console.WriteLine(prompt);
+            Console.Write(prompt);
             string? input = Console.ReadLine();
             propertyValue = input is not null ? input.Trim() : "";
 
@@ -82,12 +82,12 @@ internal class ConsoleCarManager
 
             for (int i = 0; i < _menuOptions.Count; i++)
             {
-                if (i == _menuOptions.Count - 1)
+                if (i <= 8)
                 {
-                    Console.WriteLine($"ESC. {_menuOptions.ElementAt(i).Value}");
+                    Console.WriteLine($"{i + 1}. {_menuOptions.ElementAt(i).Value}");
                 }
                 else
-                    Console.WriteLine($"{i + 1}. {_menuOptions.ElementAt(i).Value}"); ;
+                    Console.WriteLine($"{_menuOptions.ElementAt(i).Key}. {_menuOptions.ElementAt(i).Value}");
             }
             ConsoleKeyInfo read = Console.ReadKey(true);
             Console.WriteLine();
@@ -155,7 +155,9 @@ internal class ConsoleCarManager
                     break;
                 case ConsoleKey.D:
                     Console.Clear();
-                    AddonsMenu();
+                    ShowAddonsHeading(car);
+                    AddonsMenu(car);
+                    Console.ReadLine();
                     break;
                 case ConsoleKey.Escape:
                     menu_on = false;
@@ -166,8 +168,44 @@ internal class ConsoleCarManager
         }
     }
 
-    public static void AddonsMenu()
+    public static void AddonsMenu(Car car)
     {
-        // TODO
+        var addons = Car.GetAvailableAddons();
+
+        int index = 1;
+        foreach (var addon in addons)
+        {
+            Console.WriteLine($"{index++}. {addon.ToString()}");
+        }
+
+        Console.WriteLine("Podaj numery dodatków do usunięcia: ");
+        string input1 = Console.ReadLine();
+        int[] indexesToRemove = Car.ParseIndexes(input1);
+        foreach (int indexToRemove in indexesToRemove)
+        {
+            car.RemoveAddon(indexToRemove);
+        }
+        Console.WriteLine();
+        Console.WriteLine(car.AddonsToString());
+
+        Console.WriteLine("Podaj numery dodatków do dodania: ");
+        string input2 = Console.ReadLine();
+        int[] indexesToAdd = Car.ParseIndexes(input2);
+        foreach (int indexToAdd in indexesToAdd)
+        {
+            car.AddAddon(indexToAdd);
+        }
+        Console.WriteLine();
+        Console.WriteLine(car.AddonsToString());
+    }
+
+    public static void ShowAddonsHeading(Car car)
+    {
+        Console.Write("Car addons: ");
+        foreach (var addon in car.Addons)
+        {
+            Console.Write($"{addon}, ");
+        }
+        Console.WriteLine();
     }
 }
