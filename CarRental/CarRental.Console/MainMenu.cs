@@ -159,6 +159,7 @@ public class MainMenu
                 ConsoleCarManager.EditMenu();
                 break;
             default:
+                Environment.Exit(0);
                 break;
         }
 

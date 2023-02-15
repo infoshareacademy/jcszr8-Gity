@@ -145,6 +145,7 @@ namespace CarRental.ConsoleUI
                     Search.PlaceHolder();
                     break;
                 case 6:
+                    MainMenu.StartMenu();
                     break;
                 default:
                     break;
