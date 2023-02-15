@@ -1,29 +1,28 @@
-﻿using CarRental.DAL.Models;
+﻿using CarRental.DAL;
+using CarRental.DAL.Models;
+using System.Runtime.CompilerServices;
 
 namespace CarRental.Logic;
-public static class LogicCarManager
+public class LogicCarManager
 {
-    public static Car CreateCar()
+    private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
+
+    private static List<Car> _cars = CarRentalData.Cars;
+    public static Car CreateCar(string make, string model, string licensePlate)
     {
-        Car car = new Car();
+        int id = GetNextId();
+        var car = new Car(id, make, model, licensePlate);
+        CarRentalData.Cars.Add(car);
         return car;
     }
 
-    public static void DeleteCar()
+    public static Car GetById(int carId)
     {
-        // TODO
-        throw new NotImplementedException();
+        return _cars.FirstOrDefault(c => c.Id == carId);
     }
 
-    public static void EditCar()
+    private static int GetNextId()
     {
-        //TODO
-        throw new NotImplementedException();
-    }
-
-    public static Car GetCarById(int carId)
-    {
-        // TODO
-        throw new NotImplementedException();
+        return ++_idCounter;
     }
 }

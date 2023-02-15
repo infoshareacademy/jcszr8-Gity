@@ -7,8 +7,6 @@ internal class Program
     {
         Console.Title = AppConfig.APP_NAME;
 
-        //DataMigrator.MigrateAllFromTsvToJson(); // migrates model data from TSV files to JSON files
-
         ConsoleMenu.Menu();
     }
 }

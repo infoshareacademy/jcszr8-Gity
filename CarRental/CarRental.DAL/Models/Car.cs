@@ -16,7 +16,7 @@ public sealed class Car
     public string? Color { get; set; }
 
     public string? Transmission { get; set; }
-    
+
     [JsonProperty("licence_plate_number")]
     public string? LicencePlateNumber { get; set; } // numer rejestracyjny pojazdu
 
@@ -39,15 +39,50 @@ public sealed class Car
 
     public decimal Price { get; set; }
 
+    public Car(int id, string make, string model, string licensePlate)
+    {
+        Id = id;
+        Make = make;
+        CarModel = model;
+        LicencePlateNumber = licensePlate;
+    }
+
     public override string ToString()
     {
-        return $"id:{Id} | {Make} | {CarModel} |{Year} | {Color} | {Transmission} | {EngineParameters.Type} | {LicencePlateNumber} | {GetAddonsToString()}";
+        return $"id:{Id} | {Make} | {CarModel} | {LicencePlateNumber} | {GetAddonsToString()}";
     }
 
     public string GetDetails()
     {
-        return $"#{Id}: Ma:{Make} Mo:{CarModel} Y:{Year} {Color} {Transmission} {EngineParameters.Type} Seats:{SeatsNo}" +
-            $" Plates:{LicencePlateNumber}";
+        var year = Year.ToString() ?? "-";
+        var color = Color?.ToString() ?? "-";
+        var transmission = Transmission?.ToString() ?? "-";
+        var engineType = EngineParameters?.Type.ToString() ?? "-";
+        var engineDisplacement = EngineParameters?.Displacement?.ToString() ?? "-";
+        var enginePowerKw = EngineParameters?.PowerInKiloWats.ToString() ?? "-";
+        var seats = SeatsNo.ToString() ?? "-";
+        var airbags = Airbags.ToString() ?? "-";
+        var kilometrage = Kilometrage.ToString() ?? "-";
+        var doors = Doors.ToString() ?? "-";
+        var fuelConsumption = FuelConsumption?.ToString() ?? "-";
+        var price = Price.ToString() ?? "-";
+
+        return @$"Id: {Id}
+Make: {Make}
+Model: {CarModel}
+License plate: {LicencePlateNumber}
+Year: {year}
+Color: {color}
+Transmission: {transmission}
+EngineParameters: {engineType}, {engineDisplacement}, {enginePowerKw}
+Seats:{seats}
+Airbags: {airbags}
+Kilometrage: {kilometrage}
+Doors: {doors}
+Fuel consumption: {fuelConsumption}
+Price: {price}
+Addons: {GetAddonsToString()}
+";
     }
 
     public string GetAddonsToString()
