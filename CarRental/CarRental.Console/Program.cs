@@ -7,6 +7,6 @@ internal class Program
     {
         Console.Title = AppConfig.APP_NAME;
 
-        ConsoleMenu.Menu();
+        MainMenu.StartMenu();
     }
 }
