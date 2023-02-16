@@ -7,5 +7,6 @@ public static class AppConfig
     public const string CUSTOMERS_JSON_FILE_NAME = "customers.json";
     public const string RENTALS_JSON_FILE_NAME = "rentals.json";
 
-    public const string PATH_TO_JSON_FILES = @"..\..\..\..\CarRental.DAL\Data\";
+    //public const string PATH_TO_JSON_FILES = @"..\..\..\..\CarRental.DAL\Data\";
+    public const string PATH_TO_JSON_FILES = @".\Data\";
 }
