@@ -1,5 +1,6 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Models;
+using CarRental.Logic;
 
 namespace CarRental.ConsoleUI;
 public class ConsoleMenu
@@ -39,7 +40,8 @@ public class ConsoleMenu
                 case ConsoleKey.D1:
                     Console.Clear();
                     var cars = CarRentalData.Cars;
-                    Search.PrintListOfItems<Car>(cars);
+                    //Search.PrintListOfItems<Car>(cars);
+                    Console.WriteLine(LogicCarManager.CarsToTableString());
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D2:
