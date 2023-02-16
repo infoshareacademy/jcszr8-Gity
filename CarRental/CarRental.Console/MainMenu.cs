@@ -10,7 +10,7 @@ public class MainMenu
             {ConsoleKey.D2, "Wyszukaj samochód."},
             {ConsoleKey.D3, "Dodaj samochód."},
             {ConsoleKey.D4, "Pokaż wypożyczenia."},
-            {ConsoleKey.D5, "Dodaj wypożeczenie."},
+            {ConsoleKey.D5, "Dodaj wypożyczenie."},
             {ConsoleKey.D6, "Edytuj wypożyczenie."},
             {ConsoleKey.D7, "Edytuj dane samochodu."},
             {ConsoleKey.Escape, "Wyjdź"},
