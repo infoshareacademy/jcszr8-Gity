@@ -139,7 +139,7 @@ namespace CarRental.ConsoleUI
                     break;
                 case 5:
                     Console.Clear();
-                    Search.PlaceHolder();
+                    Search.CarByAddon();
                     break;
                 case 6:
                     MainMenu.StartMenu();

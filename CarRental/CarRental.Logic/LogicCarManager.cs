@@ -1,6 +1,7 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Models;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace CarRental.Logic;
 public class LogicCarManager
@@ -24,5 +25,18 @@ public class LogicCarManager
     private static int GetNextId()
     {
         return ++_idCounter;
+    }
+
+    public static string CarsToTableString()
+    {
+        StringBuilder sb = new();
+        sb.Append(String.Format("\n{0,4}.| {1,-20}| {2,-25}| {3,-10}\n", "Id", "Make", "Model", "License plate"));
+        sb.Append(new String('-', sb.Length));
+        sb.Append('\n');
+        foreach (var car in _cars)
+        {
+            sb.Append($"{car.Id,4}.| {car.Make,-20}| {car.CarModel,-25}| {car.LicencePlateNumber,-10}{Environment.NewLine}");
+        }
+        return sb.ToString();
     }
 }
