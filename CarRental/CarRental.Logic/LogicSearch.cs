@@ -88,7 +88,7 @@ namespace CarRental.Logic
         public static string Print(List<Car> cars)
         {
             StringBuilder sb = new();
-            sb.Append(String.Format("\n{0,4}.| {1,-20}| {2,-25}| {3,-10}| {4,-5}\n", "Id", "Make", "Model", "License plate", "Addons"));
+            sb.Append(String.Format("\n{0,4}.| {1,-20}| {2,-25}| {3,-10}| {4,-20}\n", "Id", "Make", "Model", "License plate", "Addons"));
             sb.Append(new String('-', sb.Length));
             sb.Append('\n');
             foreach (var car in cars)
