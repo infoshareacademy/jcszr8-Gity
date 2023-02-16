@@ -10,13 +10,14 @@ public class MainMenu
             {ConsoleKey.D2, "Wyszukaj samochód."},
             {ConsoleKey.D3, "Dodaj samochód."},
             {ConsoleKey.D4, "Pokaż wypożyczenia."},
-            {ConsoleKey.D5, "Dodaj wypożeczenie."},
+            {ConsoleKey.D5, "Dodaj wypożyczenie."},
             {ConsoleKey.D6, "Edytuj wypożyczenie."},
             {ConsoleKey.D7, "Edytuj dane samochodu."},
             {ConsoleKey.Escape, "Wyjdź"},
         };
     private static int activePosition = 1;
-    public static string logo = @"   _____             _____            _        _ 
+    public static string logo = @"  
+   _____             _____            _        _ 
   / ____|           |  __ \          | |      | |
  | |     __ _ _ __  | |__) |___ _ __ | |_ __ _| |
  | |    / _` | '__| |  _  // _ \ '_ \| __/ _` | |
