@@ -16,7 +16,8 @@ public class MainMenu
             {ConsoleKey.Escape, "Wyjdź"},
         };
     private static int activePosition = 1;
-    public static string logo = @"   _____             _____            _        _ 
+    public static string logo = @"  
+   _____             _____            _        _ 
   / ____|           |  __ \          | |      | |
  | |     __ _ _ __  | |__) |___ _ __ | |_ __ _| |
  | |    / _` | '__| |  _  // _ \ '_ \| __/ _` | |
