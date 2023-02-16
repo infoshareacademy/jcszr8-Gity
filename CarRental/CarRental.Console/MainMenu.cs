@@ -1,5 +1,6 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Models;
+using CarRental.Logic;
 
 namespace CarRental.ConsoleUI;
 public class MainMenu
@@ -131,7 +132,8 @@ public class MainMenu
             case 1:
                 Console.Clear();
                 var cars = CarRentalData.Cars;
-                Search.PrintListOfItems<Car>(cars);
+                //Search.PrintListOfItems<Car>(cars);
+                Console.WriteLine(LogicCarManager.CarsToTableString());
                 Console.ReadKey();
                 break;
             case 2:
