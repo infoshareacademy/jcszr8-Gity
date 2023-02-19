@@ -9,11 +9,9 @@ public static class CarRentalData
     public static List<Customer> Customers { get; set; } = GetItems<Customer>("customers.json");
     public static List<Rental> Rentals { get; set; } = GetItems<Rental>("rentals.json");
 
-    private const string PATH_TO_JSON_FILES = @".\Data\";
-
     public static List<T> GetItems<T>(string fileName)
     {
-        string filePath = PATH_TO_JSON_FILES + fileName;
+        var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
         string itemsSerialized = File.ReadAllText(filePath);
         return JsonConvert.DeserializeObject<List<T>>(itemsSerialized) ?? new List<T>();
     }

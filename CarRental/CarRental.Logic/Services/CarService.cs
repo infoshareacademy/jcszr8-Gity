@@ -3,18 +3,23 @@ using CarRental.DAL.Models;
 
 namespace CarRental.Logic.Services;
 
-public class CarService
+public interface ICarService
 {
-    private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
-    private static List<Car> _cars = CarRentalData.Cars;
-    public static List<Car> GetAll()
+    List<Car> GetAll();
+}
+
+public class CarService : ICarService
+{
+    private int _idCounter = CarRentalData.Cars.Max(c => c.Id);
+
+    public List<Car> GetAll()
     {
-        return _cars;
+        return CarRentalData.Cars;
     }
 
-    public static Car GetById(int carId)
+    public Car GetById(int carId)
     {
-        return _cars.FirstOrDefault(c => c.Id == carId);
+        return CarRentalData.Cars.FirstOrDefault(c => c.Id == carId);
     }
 
     private int GetNextId()
