@@ -85,6 +85,7 @@ namespace CarRental.Logic
             }
             return cars;
         }
+
         public static string Print(List<Car> cars)
         {
             StringBuilder sb = new();

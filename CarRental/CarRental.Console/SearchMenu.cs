@@ -135,7 +135,7 @@ namespace CarRental.ConsoleUI
                     break;
                 case 4:
                     Console.Clear();
-                    Search.PlaceHolder();
+                    Search.CarByAvailable();
                     break;
                 case 5:
                     Console.Clear();
