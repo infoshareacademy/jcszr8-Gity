@@ -4,7 +4,6 @@ using CarRental.Logic;
 using System.Collections.Immutable;
 using System.Data;
 using System.Globalization;
-using System.Text;
 
 namespace CarRental.ConsoleUI;
 //przeniesc do logic czesci odpowiadajace za logike
@@ -12,14 +11,7 @@ namespace CarRental.ConsoleUI;
 
 public class Search
 {
-    public static void PrintListOfItems<T>(List<T> items)
-    {
-        foreach (T item in items)
-        {
-            if (item != null)
-                Console.WriteLine(item.ToString());
-        }
-    }
+
     public static void CarByMake()
     {
         while (true)
@@ -27,7 +19,7 @@ public class Search
             Console.Clear();
             Console.WriteLine("Podaj nazwe auta:");
             var make = Console.ReadLine();
-            var cars = LogicSearch.CarByName(make);
+            var cars = LogicSearch.CarByMake(make);
             Print(cars);
             Leave();
             ConsoleKeyInfo read = Console.ReadKey();
@@ -75,10 +67,6 @@ public class Search
                 }
                 Console.ReadLine();
             }
-            
-
-
-
             ConsoleKeyInfo read = Console.ReadKey();
             if (read.Key == ConsoleKey.Escape) break;
         }
@@ -121,7 +109,10 @@ public class Search
         }
         else
         {
-            Console.WriteLine(LogicSearch.Print(cars));
+            foreach (var car in cars)
+            {
+                Console.WriteLine(car.ToString());
+            }
         }
     }
     //Zastępstwo za przyszłe funkcje
