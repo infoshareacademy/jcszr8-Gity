@@ -7,10 +7,17 @@ namespace CarRental.Web.Controllers
 {
     public class CarController : Controller
     {
+        private readonly ICarService _carService;
+
+        public CarController(ICarService carService) 
+        {
+            this._carService = carService;
+        }
+
         // GET: CarController
         public ActionResult Index()
         {
-            var cars = CarService.GetAll();
+            var cars = this._carService.GetAll();
             var mapper = new CarMapper();
             var model = mapper.Map(cars);
             return View(model);
