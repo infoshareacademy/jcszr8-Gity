@@ -145,7 +145,8 @@ public class MainMenu
                 break;
             case 4:
                 Console.Clear();
-                Search.PlaceHolder();
+                Console.WriteLine(RentalManager.RentalsToTableString());
+                Console.ReadLine();
                 break;
             case 5:
                 Console.Clear();
