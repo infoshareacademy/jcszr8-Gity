@@ -109,10 +109,7 @@ public class Search
         }
         else
         {
-            foreach (var car in cars)
-            {
-                Console.WriteLine(car.ToString());
-            }
+            Console.WriteLine(LogicSearch.Print(cars));
         }
     }
     //Zastępstwo za przyszłe funkcje
