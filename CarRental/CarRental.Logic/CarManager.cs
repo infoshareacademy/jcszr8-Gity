@@ -16,7 +16,7 @@ public class CarManager
         return car;
     }
 
-    public static Rental GetById(int carId)
+    public static Car GetById(int carId)
     {
         return _cars.FirstOrDefault(c => c.Id == carId);
     }

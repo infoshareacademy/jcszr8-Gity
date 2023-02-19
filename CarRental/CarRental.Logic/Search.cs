@@ -12,9 +12,9 @@ namespace CarRental.Logic
     public class Search
     {
 
-        public static List<Rental> CarByMake(string make)
+        public static List<Car> CarByMake(string make)
         {
-            List<Rental> cars = new List<Rental>();
+            List<Car> cars = new List<Car>();
             if (string.IsNullOrEmpty(make))
             {
                 cars = CarRentalData.Cars;
@@ -28,9 +28,9 @@ namespace CarRental.Logic
             return cars;
         }
 
-        public static List<Rental> CarByName(string name)
+        public static List<Car> CarByName(string name)
         {
-            List<Rental> cars = new List<Rental>();
+            List<Car> cars = new List<Car>();
             if (string.IsNullOrEmpty(name))
             {
                 cars = CarRentalData.Cars;
@@ -45,11 +45,11 @@ namespace CarRental.Logic
             return cars;
         }
 
-        public static List<Rental> CarByYear(string read)
+        public static List<Car> CarByYear(string read)
         {
             int year;
             bool makes = int.TryParse(read, out year);
-            List<Rental> cars = new List<Rental>();
+            List<Car> cars = new List<Car>();
             if (read == null)
             {
                 cars = CarRentalData.Cars;
@@ -61,9 +61,9 @@ namespace CarRental.Logic
             return cars;
         }
 
-        public static List<Rental> CarByAddons(string addon)
+        public static List<Car> CarByAddons(string addon)
         {
-            List<Rental> cars = new List<Rental>();
+            List<Car> cars = new List<Car>();
             if (string.IsNullOrEmpty(addon))
             {
                 cars = CarRentalData.Cars;
