@@ -26,10 +26,11 @@ public sealed class Customer
     public char Gender { get; set; } // F female, M male, O other
 
     [JsonPropertyName("postal_address")]
-    public string PostalAddress { get; set; }
+    public string? PostalAddress { get; set; }
 
-    public Customer(string firstName, string lastName, string phoneNumber)
+    public Customer(int id, string firstName, string lastName, string phoneNumber)
     {
+        Id = id;
         FirstName = firstName;
         LastName = lastName;
         PhoneNumber = phoneNumber;
