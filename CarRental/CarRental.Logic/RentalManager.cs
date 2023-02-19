@@ -23,10 +23,10 @@ namespace CarRental.Logic
         {
             return ++_idCounter;
         }
-        //public static List<Rental> GetAll()
-        //{
-        //    return _rentals;
-        //}
+        public static List<Rental> GetAll()
+        {
+            return _rentals;
+        }
         public static string RentalsToTableString()
         {
             StringBuilder sb = new();
@@ -35,7 +35,7 @@ namespace CarRental.Logic
             sb.Append('\n');
             foreach (var rental in _rentals)
             {
-                sb.Append($"{car.Id,4}.| {car.Make,-20}| {car.CarModel,-25}| {car.LicencePlateNumber,-10}{Environment.NewLine}");
+                sb.Append($"{rental.Id,4}.| {rental.BeginDate,-20}| {rental.BeginDate,-25}| {rental.CarId,-10}{Environment.NewLine}");
             }
             return sb.ToString();
         }

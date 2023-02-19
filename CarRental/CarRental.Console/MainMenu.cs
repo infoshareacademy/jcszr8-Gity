@@ -145,7 +145,7 @@ public class MainMenu
                 break;
             case 4:
                 Console.Clear();
-                Console.WriteLine(RentalHelper.RentalsToString());
+                Console.WriteLine(RentalManager.RentalsToTableString());
                 Console.ReadLine();
                 break;
             case 5:
