@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CarRental.Logic.Services;
+using CarRental.Web.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers
@@ -8,7 +10,10 @@ namespace CarRental.Web.Controllers
         // GET: CarController
         public ActionResult Index()
         {
-            return View();
+            var cars = CarService.GetAll();
+            var mapper = new CarMapper();
+            var model = mapper.Map(cars);
+            return View(model);
         }
 
         // GET: CarController/Details/5

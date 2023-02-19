@@ -7,12 +7,12 @@ public class CarService
 {
     private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
     private static List<Car> _cars = CarRentalData.Cars;
-    public List<Car> GetAll()
+    public static List<Car> GetAll()
     {
         return _cars;
     }
 
-    public Car GetById(int carId)
+    public static Car GetById(int carId)
     {
         return _cars.FirstOrDefault(c => c.Id == carId);
     }

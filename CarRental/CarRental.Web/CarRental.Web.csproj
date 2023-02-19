@@ -7,6 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Data\cars.json" />
+    <Content Remove="Data\customers.json" />
+    <Content Remove="Data\rentals.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Data\cars.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\customers.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\rentals.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
   </ItemGroup>
 
