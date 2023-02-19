@@ -85,5 +85,17 @@ namespace CarRental.Logic
             }
             return cars;
         }
+        public static string Print(List<Car> cars)
+        {
+            StringBuilder sb = new();
+            sb.Append(String.Format("\n{0,4}.| {1,-20}| {2,-25}| {3,-20}| {4,-20}\n", "Id", "Make", "Model", "License plate", "Addons"));
+            sb.Append(new String('-', sb.Length));
+            sb.Append('\n');
+            foreach (var car in cars)
+            {
+                sb.Append($"{car.Id,4}.| {car.Make,-20}| {car.CarModel,-25}| {car.LicencePlateNumber,-20}| {car.GetAddonsToString(),-20}{Environment.NewLine}");
+            }
+            return sb.ToString();
+        }
     }
 }
