@@ -3,8 +3,6 @@
 namespace CarRental.DAL.Utilities;
 public static class ItemSerializer<T>
 {
-    private const string PATH_TO_JSON_FILES = @"..\..\..\..\CarRental.DAL\Data\AuxiliaryData\";
-
     public static string Serialize(List<T> objects)
     {
         return JsonConvert.SerializeObject(objects);
@@ -14,5 +12,4 @@ public static class ItemSerializer<T>
     {
         return JsonConvert.DeserializeObject<List<T>>(itemsSerialized) ?? new List<T>();
     }
-
 }

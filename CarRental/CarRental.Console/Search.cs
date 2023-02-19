@@ -1,6 +1,7 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Models;
 using CarRental.Logic;
+using System.Text;
 
 namespace CarRental.ConsoleUI;
 //przeniesc do logic czesci odpowiadajace za logike
@@ -81,10 +82,7 @@ public class Search
         }
         else
         {
-            foreach (var car in cars)
-            {
-                Console.WriteLine(car.ToString());
-            }
+            Console.WriteLine(LogicSearch.Print(cars));
         }
     }
     //Zastępstwo za przyszłe funkcje
