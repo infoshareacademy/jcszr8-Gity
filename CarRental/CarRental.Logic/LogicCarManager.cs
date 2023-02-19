@@ -1,29 +1,42 @@
-﻿using CarRental.DAL.Models;
+﻿using CarRental.DAL;
+using CarRental.DAL.Models;
+using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace CarRental.Logic;
-public static class LogicCarManager
+public class LogicCarManager
 {
-    public static Car CreateCar()
+    private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
+
+    private static List<Car> _cars = CarRentalData.Cars;
+    public static Car CreateCar(string make, string model, string licensePlate)
     {
-        Car car = new Car();
+        int id = GetNextId();
+        var car = new Car(id, make, model, licensePlate);
+        CarRentalData.Cars.Add(car);
         return car;
     }
 
-    public static void DeleteCar()
+    public static Car GetById(int carId)
     {
-        // TODO
-        throw new NotImplementedException();
+        return _cars.FirstOrDefault(c => c.Id == carId);
     }
 
-    public static void EditCar()
+    private static int GetNextId()
     {
-        //TODO
-        throw new NotImplementedException();
+        return ++_idCounter;
     }
 
-    public static Car GetCarById(int carId)
+    public static string CarsToTableString()
     {
-        // TODO
-        throw new NotImplementedException();
+        StringBuilder sb = new();
+        sb.Append(String.Format("\n{0,4}.| {1,-20}| {2,-25}| {3,-10}\n", "Id", "Make", "Model", "License plate"));
+        sb.Append(new String('-', sb.Length));
+        sb.Append('\n');
+        foreach (var car in _cars)
+        {
+            sb.Append($"{car.Id,4}.| {car.Make,-20}| {car.CarModel,-25}| {car.LicencePlateNumber,-10}{Environment.NewLine}");
+        }
+        return sb.ToString();
     }
 }

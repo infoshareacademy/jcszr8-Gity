@@ -9,7 +9,7 @@ public static class CarRentalData
     public static List<Customer> Customers { get; set; } = GetItems<Customer>("customers.json");
     public static List<Rental> Rentals { get; set; } = GetItems<Rental>("rentals.json");
 
-    private const string PATH_TO_JSON_FILES = @"..\..\..\..\CarRental.DAL\Data\";
+    private const string PATH_TO_JSON_FILES = @".\Data\";
 
     public static List<T> GetItems<T>(string fileName)
     {

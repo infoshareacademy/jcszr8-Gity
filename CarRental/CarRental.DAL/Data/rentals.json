@@ -3,6 +3,7 @@
     "id": 1,
     "customer_id": 1,
     "car_id": 1,
+    "PriceModifier": 0.9,
     "begin_datetime": "2022-07-01T10:00:00",
     "end_datetime": "2022-07-14T10:23:00",
     "total_cost": 2800.0

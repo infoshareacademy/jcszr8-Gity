@@ -21,9 +21,26 @@ namespace CarRental.Logic
             }
             else
             {
-                cars = CarRentalData.Cars.Where(c => c.Make?.ToLower() == make.ToLower() || 
-                                                     c.Model?.ToLower() == make.ToLower()).ToList();
+                cars = CarRentalData.Cars.Where(c => c.Make?.ToLower() == make.ToLower() ||
+                                                     c.CarModel?.ToLower() == make.ToLower()).ToList();
 
+            }
+            return cars;
+        }
+
+        public static List<Car> CarByName(string name)
+        {
+            List<Car> cars = new List<Car>();
+            if (string.IsNullOrEmpty(name))
+            {
+                cars = CarRentalData.Cars;
+            }
+            else
+            {
+
+                cars = CarRentalData.Cars.Where(c => c.Make.Contains(name, StringComparison.CurrentCultureIgnoreCase)
+                    || c.CarModel.Contains(name, StringComparison.CurrentCultureIgnoreCase)
+                ).ToList();
             }
             return cars;
         }
@@ -68,7 +85,18 @@ namespace CarRental.Logic
             }
             return cars;
         }
-        
-        
+
+        public static string Print(List<Car> cars)
+        {
+            StringBuilder sb = new();
+            sb.Append(String.Format("\n{0,4}.| {1,-20}| {2,-25}| {3,-20}| {4,-20}\n", "Id", "Make", "Model", "License plate", "Addons"));
+            sb.Append(new String('-', sb.Length));
+            sb.Append('\n');
+            foreach (var car in cars)
+            {
+                sb.Append($"{car.Id,4}.| {car.Make,-20}| {car.CarModel,-25}| {car.LicencePlateNumber,-20}| {car.GetAddonsToString(),-20}{Environment.NewLine}");
+            }
+            return sb.ToString();
+        }
     }
 }

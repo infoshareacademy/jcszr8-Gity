@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.VisualBasic;
+using Newtonsoft.Json;
 using System.Text;
 
 namespace CarRental.DAL.Models;
@@ -6,7 +7,8 @@ public sealed class Car
 {
     public int Id { get; set; }
 
-    public string? Model { get; set; }
+    [JsonProperty(PropertyName = "model")]
+    public string? CarModel { get; set; }
 
     public string? Make { get; set; }
 
@@ -15,7 +17,7 @@ public sealed class Car
     public string? Color { get; set; }
 
     public string? Transmission { get; set; }
-    public string? VIN { get; set; } // Vehicle Identification Number
+
     [JsonProperty("licence_plate_number")]
     public string? LicencePlateNumber { get; set; } // numer rejestracyjny pojazdu
 
@@ -25,7 +27,6 @@ public sealed class Car
     public EngineParameters? EngineParameters { get; set; }
 
     public int Doors { get; set; }
-    public bool Ac { get; set; } // Air Conditioner
 
     [JsonProperty("max_capacity")]
     public int SeatsNo { get; set; } // total number of seats (with driver seat included)
@@ -37,17 +38,56 @@ public sealed class Car
 
     public List<string> Addons { get; set; } = new();
 
-    public Pricing Pricing { get; set; } = new();
+    public decimal Price { get; set; }
+
+    private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" };
+
+    public static List<string> GetAvailableAddons() { return _availableAddons; }
+
+    public Car(int id, string make, string model, string licensePlate)
+    {
+        Id = id;
+        Make = make;
+        CarModel = model;
+        LicencePlateNumber = licensePlate;
+    }
 
     public override string ToString()
     {
-        return $"id:{Id} | {Make} | {Model} |{Year} | {Color} | {Transmission} | {EngineParameters.Type} | {LicencePlateNumber} | {GetAddonsToString()}";
+        return $"id:{Id} | {Make} | {CarModel} | {LicencePlateNumber} | {GetAddonsToString()}";
     }
 
     public string GetDetails()
     {
-        return $"#{Id}: Ma:{Make} Mo:{Model} Y:{Year} {Color} Ac:{Ac} {Transmission} {EngineParameters.Type} Seats:{SeatsNo}" +
-            $"{VIN} Plates:{LicencePlateNumber}";
+        var year = Year.ToString() ?? "-";
+        var color = Color?.ToString() ?? "-";
+        var transmission = Transmission?.ToString() ?? "-";
+        var engineType = EngineParameters?.Type.ToString() ?? "-";
+        var engineDisplacement = EngineParameters?.Displacement?.ToString() ?? "-";
+        var enginePowerKw = EngineParameters?.PowerInKiloWats.ToString() ?? "-";
+        var seats = SeatsNo.ToString() ?? "-";
+        var airbags = Airbags.ToString() ?? "-";
+        var kilometrage = Kilometrage.ToString() ?? "-";
+        var doors = Doors.ToString() ?? "-";
+        var fuelConsumption = FuelConsumption?.ToString() ?? "-";
+        var price = Price.ToString() ?? "-";
+
+        return @$"Id: {Id}
+Make: {Make}
+Model: {CarModel}
+License plate: {LicencePlateNumber}
+Year: {year}
+Color: {color}
+Transmission: {transmission}
+EngineParameters: {engineType}, {engineDisplacement}, {enginePowerKw}
+Seats:{seats}
+Airbags: {airbags}
+Kilometrage: {kilometrage}
+Doors: {doors}
+Fuel consumption: {fuelConsumption}
+Price: {price}
+Addons: {GetAddonsToString()}
+";
     }
 
     public string GetAddonsToString()
@@ -58,6 +98,53 @@ public sealed class Car
         {
             sb.AppendJoin(';', item.ToString());
             sb.Append('\u002C');
+        }
+        return sb.ToString();
+    }
+
+    public static int[] ParseIndexes(string indexesString)
+    {
+        char[] separators = { ',', ' ', '\t' };
+        int[] ints;
+        try
+        {
+            var strings = indexesString.Split(separators);
+            ints = Array.ConvertAll(strings, s => int.Parse(s) - 1);
+
+            Console.WriteLine();
+            return ints;
+        }
+        catch (Exception)
+        {
+            return new int[] { };
+        }
+    }
+
+    public void AddAddon(int index)
+    {
+        string addon = _availableAddons[index];
+        this.Addons.Add(addon);
+    }
+
+    public void RemoveAddon(int index)
+    {
+        try
+        {
+            this.Addons.RemoveAt(index);
+        }
+        catch (Exception)
+        {
+
+        }
+    }
+
+    public string AddonsToString()
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (string addon in Addons)
+        {
+            sb.Append(addon);
+            sb.Append(", ");
         }
         return sb.ToString();
     }
