@@ -1,12 +1,11 @@
 ﻿using CarRental.DAL.Models;
 using CarRental.Web.Models;
-using CarRental.Logic.Services;
 
 namespace CarRental.Web.Services
 {
     public class CarMapper
     {
-        public List<CarListModel> Map(IEnumerable <Car> cars)
+        public List<CarListModel> Map(IEnumerable<Car> cars)
         {
             List<CarListModel> carListModels = new();
             foreach (var car in cars)
