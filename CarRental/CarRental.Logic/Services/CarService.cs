@@ -3,11 +3,6 @@ using CarRental.DAL.Models;
 
 namespace CarRental.Logic.Services;
 
-public interface ICarService
-{
-    List<Car> GetAll();
-}
-
 public class CarService : ICarService
 {
     private int _idCounter = CarRentalData.Cars.Max(c => c.Id);
