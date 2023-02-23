@@ -1,31 +1,33 @@
 ﻿using System.Text.Json.Serialization;
+using System.Text;
+using Newtonsoft.Json;
 
 
 namespace CarRental.DAL.Models;
 public sealed class Customer
 {
-    [JsonPropertyName("id")]
+    [JsonProperty("id")]
     public int Id;
 
-    [JsonPropertyName("first_name")]
-    public string FirstName { get; set; } = string.Empty;
+    [JsonProperty("first_name")]
+    public string FirstName { get; set; }
 
-    [JsonPropertyName("last_name")]
-    public string LastName { get; set; } = string.Empty;
+    [JsonProperty("last_name")]
+    public string LastName { get; set; }
 
-    [JsonPropertyName("email_address")]
+    [JsonProperty("email_address")]
     public string? EmailAddress { get; set; }
 
-    [JsonPropertyName("phone_number")]
-    public string PhoneNumber { get; set; } = string.Empty;
+    [JsonProperty("phone_number")]
+    public string PhoneNumber { get; set; }
 
-    [JsonPropertyName("pesel")]
+    [JsonProperty("pesel")]
     public string? Pesel { get; set; }
 
-    [JsonPropertyName("gender")]
+    [JsonProperty("gender")]
     public char Gender { get; set; } // F female, M male, O other
 
-    [JsonPropertyName("postal_address")]
+    [JsonProperty("postal_address")]
     public string? PostalAddress { get; set; }
 
     public Customer(int id, string firstName, string lastName, string phoneNumber)
