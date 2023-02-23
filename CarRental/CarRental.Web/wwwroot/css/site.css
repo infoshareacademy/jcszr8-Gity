@@ -19,4 +19,25 @@ html {
 
 body {
   margin-bottom: 60px;
+  display: grid;
+}
+
+.navbar {
+   background-color: dimgray;
+}
+
+.container-main {
+    min-height: 600px;
+    }
+    .col-12 {
+        justify-content:center;
+    }
+
+
+.searchbox {
+    max-width: 600px;
+}
+
+.btn {
+    background-color: antiquewhite;
 }
