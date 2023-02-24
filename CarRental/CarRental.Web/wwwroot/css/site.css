@@ -25,19 +25,15 @@ body {
 .navbar {
    background-color: dimgray;
 }
+.navbar-brand {
+    word-break:keep-all!important;
+}
 
 .container-main {
     min-height: 600px;
-    }
-    .col-12 {
-        justify-content:center;
-    }
-
-
-.searchbox {
-    max-width: 600px;
 }
 
+
 .btn {
-    background-color: antiquewhite;
+    background-color: antiquewhite!important;
 }
