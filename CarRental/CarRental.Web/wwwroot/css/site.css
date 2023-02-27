@@ -33,7 +33,13 @@ body {
 .container-main {
     min-height: 600px;
 }
+.search {
+    max-width: 300px;
+}
 
+.d-flex {
+    justify-content:center;
+}
 
 .btn {
     background-color: antiquewhite!important;
