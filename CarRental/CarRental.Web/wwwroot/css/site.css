@@ -25,6 +25,7 @@ body {
 .navbar {
    background-color: dimgray;
 }
+
 .navbar-brand {
     word-break:keep-all!important;
 }
