@@ -7,4 +7,6 @@ public interface ICustomerService
     List<Customer> GetAll();
 
     Customer? GetById(int customerId);
+
+    void Create(Customer customer);
 }
