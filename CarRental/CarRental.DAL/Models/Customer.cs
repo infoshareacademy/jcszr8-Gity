@@ -38,6 +38,8 @@ public sealed class Customer
         PhoneNumber = phoneNumber;
     }
 
+    public Customer() { }
+
     public override string ToString()
     {
         return $"{FirstName} {LastName} {PhoneNumber}";
