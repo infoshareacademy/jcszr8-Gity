@@ -2,7 +2,22 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="p-0 text-center bg-image" style="
+      background-image: url('images/bg_1.jpg');
+      height: 500px;
+    ">
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.6); height: 500px;">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+                <h1>Car Rental – Search, Compare & Save</h1>
+                <h2>Free cancellations on most bookings 60,000+ locations Customer support in 40+ languages</h2>
+                <form class="d-flex">
+                    <input class="form-control me-2 search" id="search" type="text" placeholder="Search" aria-label="Search">
+                    <input type="date" class="form-control;" id="start-date"/>
+                    <input type="date" class="form-control;" id="end-date"/>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
