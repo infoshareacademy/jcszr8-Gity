@@ -12,6 +12,22 @@ public class CarService : ICarService
         return CarRentalData.Cars;
     }
 
+    public List<Car> CarByMake(string make)
+    {
+        List<Car> cars = new List<Car>();
+        if (string.IsNullOrEmpty(make))
+        {
+            cars = CarRentalData.Cars;
+        }
+        else
+        {
+            cars = CarRentalData.Cars.Where(c => c.Make?.ToLower() == make.ToLower() ||
+                                                 c.CarModel?.ToLower() == make.ToLower()).ToList();
+
+        }
+        return cars;
+    }
+
     public Car GetById(int carId)
     {
         return CarRentalData.Cars.FirstOrDefault(c => c.Id == carId);

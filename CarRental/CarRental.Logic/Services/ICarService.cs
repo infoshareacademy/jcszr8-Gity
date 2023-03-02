@@ -6,4 +6,5 @@ public interface ICarService
 {
     List<Car> GetAll();
     Car GetById(int carId);
+    List<Car> CarByMake(string make);
 }
