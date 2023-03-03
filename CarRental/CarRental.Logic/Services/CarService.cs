@@ -40,7 +40,7 @@ public class CarService : ICarService
         }
         else
         {
-            cars = CarRentalData.Cars.Where(c => c.Year == year).ToList();
+            cars = CarRentalData.Cars.Where(c => c.Year == year || c.CarModel.ToLower().Contains(read.ToLower())).ToList();
         }
         return cars;
     }
