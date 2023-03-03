@@ -97,7 +97,7 @@ namespace CarRental.Web.Controllers
         public ActionResult Search()
         {
             string search = Request.Form["search"];
-            var cars = _carService.CarByMake(search);
+            var cars = _carService.SearchList(search);
             return View(cars);
         }
         
