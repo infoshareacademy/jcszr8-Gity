@@ -93,18 +93,13 @@ namespace CarRental.Web.Controllers
             }
         }
 
-
-        public ActionResult Search(string search)
+        [HttpPost]
+        public ActionResult Search()
         {
+            string search = Request.Form["search"];
             var cars = _carService.CarByMake(search);
             return View(cars);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Search(int id)
-        {
-            var cars = _carService.GetById(id);
-            return View(cars);
-        }
+        
     }
 }
