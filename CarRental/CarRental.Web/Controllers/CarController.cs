@@ -1,4 +1,5 @@
-﻿using CarRental.Logic.Services;
+﻿using CarRental.DAL.Models;
+using CarRental.Logic.Services;
 using CarRental.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -91,5 +92,14 @@ namespace CarRental.Web.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        public ActionResult Search()
+        {
+            string search = Request.Form["search"];
+            var cars = _carService.SearchList(search);
+            return View(cars);
+        }
+        
     }
 }
