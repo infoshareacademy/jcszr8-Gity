@@ -65,26 +65,25 @@ public class CarService : ICarService
                     }
                 }
             }
-            
+
         }
         return cars;
     }
 
-    public List<Car> SearchList(string search) 
+    public List<Car> SearchList(string search)
     {
         List<Car> results = new List<Car>();
-        if (int.TryParse(search, out int year))
-        {
-            results.AddRange(CarByYear(search));
-        }
-        else
-        {
-            results.AddRange(CarByName(search));
-            results.AddRange(CarByAddons(search));
-        }
+
+        results.AddRange(CarByName(search));
+        results.AddRange(CarByAddons(search));
         return results;
     }
 
+    public void Create(Car car)
+    {
+        car.Id = GetNextId();
+        CarRentalData.Cars.Add(car);
+    }
 
     public Car GetById(int carId)
     {
