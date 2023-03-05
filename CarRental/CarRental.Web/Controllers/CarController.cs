@@ -27,7 +27,8 @@ namespace CarRental.Web.Controllers
         // GET: CarController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var model = _carService.GetById(id);
+            return View(model);
         }
 
         // GET: CarController/Create

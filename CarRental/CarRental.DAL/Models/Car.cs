@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace CarRental.DAL.Models;
@@ -8,6 +9,7 @@ public sealed class Car
     public int Id { get; set; }
 
     [JsonProperty(PropertyName = "model")]
+    [Display(Name = "Model")]
     public string? CarModel { get; set; }
 
     public string? Make { get; set; }
@@ -19,6 +21,7 @@ public sealed class Car
     public string? Transmission { get; set; }
 
     [JsonProperty("licence_plate_number")]
+    [Display (Name = "Licence Plate")]
     public string? LicencePlateNumber { get; set; } // numer rejestracyjny pojazdu
 
     public int Kilometrage { get; set; }
