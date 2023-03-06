@@ -36,6 +36,11 @@ public class CustomerService : ICustomerService
         customer.Gender = model.Gender;
     }
 
+    public void Delete(int customerId) {
+        var customer = GetById(customerId);
+        _customers.Remove(customer);
+    }  
+
     private int GetNextId()
     {
         return ++_idCounter;

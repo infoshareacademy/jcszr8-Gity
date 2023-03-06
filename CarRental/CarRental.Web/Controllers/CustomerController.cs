@@ -82,7 +82,8 @@ public class CustomerController : Controller
     // GET: CustomerController/Delete/5
     public IActionResult Delete(int id)
     {
-        return View();
+        var customer = _customerService.GetById(id);
+        return View(customer);
     }
 
     // POST: CustomerController/Delete/5
@@ -92,6 +93,7 @@ public class CustomerController : Controller
     {
         try
         {
+            _customerService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
         catch
