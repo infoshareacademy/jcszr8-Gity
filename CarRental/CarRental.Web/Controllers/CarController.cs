@@ -1,4 +1,5 @@
 ﻿using CarRental.DAL.Models;
+using CarRental.Web.Models;
 using CarRental.Logic.Services;
 using CarRental.Web.Services;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +28,8 @@ namespace CarRental.Web.Controllers
         // GET: CarController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var model = _carService.GetById(id);
+            return View(model);
         }
 
         // GET: CarController/Create
@@ -39,10 +41,11 @@ namespace CarRental.Web.Controllers
         // POST: CarController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Car model)
         {
             try
             {
+                _carService.Create(model);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -94,10 +97,10 @@ namespace CarRental.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search()
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(SearchViewModel vm)
         {
-            string search = Request.Form["search"];
-            var cars = _carService.SearchList(search);
+            var cars = _carService.SearchList(vm.Search);
             return View(cars);
         }
         

@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IRentalService, RentalService>();
 builder.Services.AddTransient<ICarService, CarService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 
