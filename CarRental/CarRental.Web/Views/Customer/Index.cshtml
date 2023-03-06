@@ -30,9 +30,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Gender)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostalAddress)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -56,9 +53,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostalAddress)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
