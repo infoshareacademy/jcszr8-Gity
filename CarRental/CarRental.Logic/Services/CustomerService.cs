@@ -24,6 +24,18 @@ public class CustomerService : ICustomerService
         CarRentalData.Customers.Add(customer);
     }
 
+    public void Update(Customer model)
+    {
+        var customer = GetById(model.Id);
+
+        customer.FirstName = model.FirstName;
+        customer.LastName = model.LastName;
+        customer.PhoneNumber = model.PhoneNumber;
+        customer.EmailAddress = model.EmailAddress;
+        customer.Pesel =  model.Pesel;
+        customer.Gender = model.Gender;
+    }
+
     private int GetNextId()
     {
         return ++_idCounter;
