@@ -107,6 +107,20 @@ public class CarService : ICarService
         var car = GetById(model.Id);
 
         car.CarModel = model.CarModel;
-        //TODO dokończyć
+        car.Make = model.Make;
+        car.Kilometrage = model.Kilometrage;
+        car.Year = model.Year;
+        car.Airbags = model.Airbags;
+        car.Addons = model.Addons;
+        car.Color = model.Color;
+        car.Doors = model.Doors;
+        car.Displacement = model.Displacement;
+        car.EngineType = model.EngineType;
+        car.FuelConsumption = model.FuelConsumption;
+        car.LicencePlateNumber = model.LicencePlateNumber;
+        car.SeatsNo = model.SeatsNo;
+        car.PowerInKiloWats = model.PowerInKiloWats;
+        car.Price = model.Price;
+        car.Transmission = model.Transmission;
     }
 }
