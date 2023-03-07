@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using CarRental.DAL.Enums;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -26,8 +27,14 @@ public sealed class Car
 
     public int Kilometrage { get; set; }
 
-    [JsonProperty("engine_parameters")]
-    public EngineParameters? EngineParameters { get; set; }
+    [JsonProperty("power_kw")]
+    public float PowerInKiloWats { get; set; }
+
+    [JsonProperty("fuel_type")]
+    public string EngineType { get; set; }
+
+    [JsonProperty("displacement")]
+    public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
 
     public int Doors { get; set; }
 
@@ -65,9 +72,9 @@ public sealed class Car
         var year = Year.ToString() ?? "-";
         var color = Color?.ToString() ?? "-";
         var transmission = Transmission?.ToString() ?? "-";
-        var engineType = EngineParameters?.Type.ToString() ?? "-";
-        var engineDisplacement = EngineParameters?.Displacement?.ToString() ?? "-";
-        var enginePowerKw = EngineParameters?.PowerInKiloWats.ToString() ?? "-";
+        var engineType = EngineType?.ToString() ?? "-";
+        var engineDisplacement = Displacement?.ToString() ?? "-";
+        var enginePowerKw = PowerInKiloWats.ToString() ?? "-";
         var seats = SeatsNo.ToString() ?? "-";
         var airbags = Airbags.ToString() ?? "-";
         var kilometrage = Kilometrage.ToString() ?? "-";
@@ -82,7 +89,9 @@ License plate: {LicencePlateNumber}
 Year: {year}
 Color: {color}
 Transmission: {transmission}
-EngineParameters: {engineType}, {engineDisplacement}, {enginePowerKw}
+EngineType: {engineType}
+EngineDisplacement: {engineDisplacement}
+EnginePowerKw: {enginePowerKw}
 Seats:{seats}
 Airbags: {airbags}
 Kilometrage: {kilometrage}
