@@ -6,9 +6,23 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div>
+    @await Component.InvokeAsync("ButtonComponent", new { text = "Click me", color = "secondary" })
+</div>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Customer List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Customer" asp-action="Create" class="btn btn-primary text-dark">
+                <i class="bi bi-plus-circle text-dark"></i> &nbsp; Add New Customer
+            </a>
+        </div>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -29,9 +43,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostalAddress)
             </th>
             <th></th>
         </tr>
@@ -58,12 +69,9 @@
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostalAddress)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
             </td>
         </tr>
 }

@@ -27,9 +27,6 @@ public sealed class Customer
     [JsonProperty("gender")]
     public char Gender { get; set; } // F female, M male, O other
 
-    [JsonProperty("postal_address")]
-    public string? PostalAddress { get; set; }
-
     public Customer(int id, string firstName, string lastName, string phoneNumber)
     {
         Id = id;

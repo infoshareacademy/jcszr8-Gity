@@ -17,7 +17,7 @@ namespace CarRental.Web.Controllers
         }
 
         // GET: CarController
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var cars = this._carService.GetAll();
             var mapper = new CarMapper();
@@ -26,14 +26,14 @@ namespace CarRental.Web.Controllers
         }
 
         // GET: CarController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             var model = _carService.GetById(id);
             return View(model);
         }
 
         // GET: CarController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -41,7 +41,7 @@ namespace CarRental.Web.Controllers
         // POST: CarController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Car model)
+        public IActionResult Create(Car model)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace CarRental.Web.Controllers
         }
 
         // GET: CarController/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             return View();
         }
@@ -63,7 +63,7 @@ namespace CarRental.Web.Controllers
         // POST: CarController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace CarRental.Web.Controllers
         }
 
         // GET: CarController/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             return View();
         }
@@ -84,7 +84,7 @@ namespace CarRental.Web.Controllers
         // POST: CarController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace CarRental.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Search(SearchViewModel vm)
+        public IActionResult Search(SearchViewModel vm)
         {
             var cars = _carService.SearchList(vm.Search);
             return View(cars);
