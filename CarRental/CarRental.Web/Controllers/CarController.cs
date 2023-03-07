@@ -10,10 +10,12 @@ namespace CarRental.Web.Controllers
     public class CarController : Controller
     {
         private readonly ICarService _carService;
+        private readonly ISearchService _searchService;
 
-        public CarController(ICarService carService) 
+        public CarController(ICarService carService,ISearchService searchService) 
         {
             this._carService = carService;
+            this._searchService = searchService;
         }
 
         // GET: CarController
@@ -100,7 +102,7 @@ namespace CarRental.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Search(SearchViewModel vm)
         {
-            var cars = _carService.SearchList(vm.Search);
+            var cars = _searchService.SearchList(vm.Search);
             return View(cars);
         }
         

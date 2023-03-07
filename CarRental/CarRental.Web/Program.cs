@@ -7,7 +7,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IRentalService, RentalService>();
 builder.Services.AddTransient<ICarService, CarService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
-
+builder.Services.AddTransient<ISearchService, SearchService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

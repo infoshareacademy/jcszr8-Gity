@@ -70,15 +70,6 @@ public class CarService : ICarService
         return cars;
     }
 
-    public List<Car> SearchList(string search)
-    {
-        List<Car> results = new List<Car>();
-
-        results.AddRange(CarByName(search));
-        results.AddRange(CarByAddons(search));
-        return results;
-    }
-
     public void Create(Car car)
     {
         car.Id = GetNextId();
