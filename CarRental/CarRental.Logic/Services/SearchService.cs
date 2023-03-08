@@ -33,7 +33,6 @@ namespace CarRental.Logic.Services
                     results.Add(item);
                 }
             }
-            //return results.DistinctBy(x => x.Id).ToList();
             return results;
         }
     }
