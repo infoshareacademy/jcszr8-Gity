@@ -10,16 +10,30 @@ namespace CarRental.Logic.Services
     public class SearchService : ISearchService
     {
         private readonly ICarService _carService;
-        public SearchService(ICarService carService)
+        private readonly IRentalService _rentalService;
+        public SearchService(ICarService carService, IRentalService rentalService)
         {
             _carService = carService;
+            _rentalService = rentalService;
         }
-        public List<Car> SearchList(string search)
+        public List<Car> SearchList(SearchViewModeleDto search)
         {
             List<Car> results = new List<Car>();
+            var cars = _carService.CarByName(search.Search);
 
-            results.AddRange(_carService.CarByName(search));
-            results.AddRange(_carService.CarByAddons(search));
+            if (search.ProductionYearTo > 0 && search.ProductionYearTo >= search.ProductionYearFrom)
+            {
+                cars = cars.Where(c => c.Year >= search.ProductionYearFrom && c.Year <= search.ProductionYearTo).ToList();
+            }
+            List<int> getCarId = _rentalService.GetAvailableCarIds(search.StartDate, search.EndDate);
+            foreach (var item in cars)
+            {
+                if (getCarId.Exists(x => x == item.Id))
+                {
+                    results.Add(item);
+                }
+            }
+            //return results.DistinctBy(x => x.Id).ToList();
             return results;
         }
     }

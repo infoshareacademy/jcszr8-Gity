@@ -9,7 +9,6 @@ namespace CarRental.Logic.Services
 {
     public interface ISearchService
     {
-        List<Car> SearchList(string text);
-
+        List<Car> SearchList(SearchViewModeleDto search);
     }
 }

@@ -4,6 +4,7 @@ using CarRental.Logic.Services;
 using CarRental.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CarRental.Logic;
 
 namespace CarRental.Web.Controllers
 {
@@ -100,9 +101,9 @@ namespace CarRental.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Search(SearchViewModel vm)
+        public IActionResult Search(SearchViewModeleDto vm)
         {
-            var cars = _searchService.SearchList(vm.Search);
+            var cars = _searchService.SearchList(vm);
             return View(cars);
         }
         
