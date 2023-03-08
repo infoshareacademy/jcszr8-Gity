@@ -10,4 +10,8 @@ public interface ICarService
     List<Car> CarByYear(string read);
     List<Car> CarByAddons(string addon);
     void Create(Car car);
+
+    void Update(Car car);
+
+    void Delete(int  carId);
 }

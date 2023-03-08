@@ -1,11 +1,11 @@
-﻿using CarRental.DAL.Models;
+using CarRental.DAL.Models;
 using CarRental.Web.Models;
 using CarRental.Logic.Services;
 using CarRental.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CarRental.Logic;
-
+using AspNetCore;
 namespace CarRental.Web.Controllers
 {
     public class CarController : Controller
@@ -60,16 +60,19 @@ namespace CarRental.Web.Controllers
         // GET: CarController/Edit/5
         public IActionResult Edit(int id)
         {
-            return View();
+            var car = _carService.GetById(id);
+            return View(car);
         }
 
         // POST: CarController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(Car car)
         {
             try
             {
+                _carService.Update(car);
+
                 return RedirectToAction(nameof(Index));
             }
             catch

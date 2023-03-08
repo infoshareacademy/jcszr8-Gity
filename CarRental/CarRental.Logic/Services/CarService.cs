@@ -6,6 +6,7 @@ namespace CarRental.Logic.Services;
 public class CarService : ICarService
 {
     private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
+    private List<Car> _cars = CarRentalData.Cars;
 
     public List<Car> GetAll()
     {
@@ -81,8 +82,22 @@ public class CarService : ICarService
         return CarRentalData.Cars.FirstOrDefault(c => c.Id == carId);
     }
 
+    public void Delete(int carId)
+    {
+        var car = GetById(carId);
+        _cars.Remove(car);
+    }
+
     private int GetNextId()
     {
         return ++_idCounter;
+    }
+
+    public void Update(Car model)
+    {
+        var car = GetById(model.Id);
+
+        car.CarModel = model.CarModel;
+        //TODO dokończyć
     }
 }
