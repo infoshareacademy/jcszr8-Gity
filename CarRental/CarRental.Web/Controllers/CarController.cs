@@ -104,7 +104,7 @@ namespace CarRental.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Search(SearchViewModeleDto vm)
+        public IActionResult Search(SearchViewModelDto vm)
         {
             var cars = _searchService.SearchList(vm);
             return View(cars);

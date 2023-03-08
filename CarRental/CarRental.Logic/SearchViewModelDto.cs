@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Logic
 {
-    public class SearchViewModeleDto
+    public class SearchViewModelDto
     {
         public string Search { get; set; }
         public int ProductionYearFrom { get; set; }

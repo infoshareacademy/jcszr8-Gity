@@ -16,7 +16,7 @@ namespace CarRental.Logic.Services
             _carService = carService;
             _rentalService = rentalService;
         }
-        public List<Car> SearchList(SearchViewModeleDto search)
+        public List<Car> SearchList(SearchViewModelDto search)
         {
             List<Car> results = new List<Car>();
             var cars = _carService.CarByName(search.Search);
