@@ -1,0 +1,56 @@
+﻿@model CarRental.Web.Models.SearchViewModel
+
+@{
+
+    ViewData["Title"] = "Index";
+    var dto = Model.SearchViewModelDto;
+}
+
+<h1>Index</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@dto.ModelAndMake" class="control-label"></label>
+                <input asp-for="@dto.ModelAndMake" class="form-control" />
+                <span asp-validation-for="@dto.ModelAndMake" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@dto.StartDate" class="control-label"></label>
+                <input asp-for="@dto.StartDate" class="form-control" />
+                <span asp-validation-for="@dto.StartDate"  class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@dto.EndDate"  class="control-label"></label>
+                <input asp-for="@dto.EndDate" class="form-control" />
+                <span asp-validation-for="@dto.EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@dto.ProductionYearFrom" class="control-label"></label>
+                <input asp-for="@dto.ProductionYearFrom" class="form-control" />
+                <span asp-validation-for="@dto.ProductionYearFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@dto.ProductionYearTo" class="control-label"></label>
+                <input asp-for="@dto.ProductionYearTo" class="form-control" />
+                <span asp-validation-for="@dto.ProductionYearTo" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </form>
+        @foreach (var item in Model.Cars)
+        {
+        <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="images/car-1.jpg" alt="Card image cap">
+            <div class="card-body">
+                    <h5 class="card-title">@item.CarModel title</h5>
+                <p class="card-text">@item.Make @item.Id</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        }
+    </div>
+</div>

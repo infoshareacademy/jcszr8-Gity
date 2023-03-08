@@ -8,7 +8,7 @@ namespace CarRental.Logic
 {
     public class SearchViewModelDto
     {
-        public string Search { get; set; }
+        public string ModelAndMake { get; set; }
         public int ProductionYearFrom { get; set; }
         public int ProductionYearTo { get; set; }
         public DateTime StartDate { get; set; }
