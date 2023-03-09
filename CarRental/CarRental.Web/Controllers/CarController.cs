@@ -5,6 +5,7 @@ using CarRental.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CarRental.Logic;
+using CarRental.Logic.Interfaces;
 
 namespace CarRental.Web.Controllers
 {

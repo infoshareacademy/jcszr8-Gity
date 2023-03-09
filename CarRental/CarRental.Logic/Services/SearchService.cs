@@ -1,4 +1,5 @@
 ﻿using CarRental.DAL.Models;
+using CarRental.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace CarRental.Logic.Services
         public List<Car> SearchList(SearchViewModelDto search)
         {
             List<Car> results = new List<Car>();
-            var cars = _carService.CarByName(search.ModelAndMake);
+            var cars = _carService.GetByName(search.ModelAndMake);
 
             if (search.ProductionYearTo > 0 && search.ProductionYearTo >= search.ProductionYearFrom)
             {
