@@ -16,8 +16,10 @@ namespace CarRental.Web.Controllers
 
         public CarController(ICarService carService,ISearchService searchService) 
         {
-            this._carService = carService;
-            this._searchService = searchService;
+            this._carService = carService ?? 
+                throw new ArgumentNullException(nameof(carService));
+            this._searchService = searchService ?? 
+                throw new ArgumentNullException(nameof(searchService));
         }
 
         // GET: CarController

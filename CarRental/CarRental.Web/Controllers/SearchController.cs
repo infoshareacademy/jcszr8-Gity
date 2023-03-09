@@ -1,8 +1,6 @@
-﻿using CarRental.DAL.Models;
-using CarRental.Logic;
+﻿using CarRental.Logic;
 using CarRental.Logic.Interfaces;
 using CarRental.Web.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers
@@ -10,11 +8,13 @@ namespace CarRental.Web.Controllers
     public class SearchController : Controller
     {
         private readonly ISearchService _searchService;
-        private readonly ICarService   _carService;
-        public SearchController(ISearchService searchService,ICarService carService)
+        private readonly ICarService _carService;
+        public SearchController(ISearchService searchService, ICarService carService)
         {
-            _searchService = searchService;
-            _carService = carService;
+            _searchService = searchService ??
+                throw new ArgumentNullException(nameof(searchService));
+            _carService = carService ??
+                throw new ArgumentNullException(nameof(carService));
         }
 
         // GET: SearchController
@@ -41,6 +41,6 @@ namespace CarRental.Web.Controllers
         {
             return View();
         }
-        
+
     }
 }
