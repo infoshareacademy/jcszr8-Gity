@@ -1,0 +1,23 @@
+﻿@using MeetingApp.Models
+@model Meeting
+
+@{
+
+}
+
+<tr>
+    <td>
+        @Model.Name
+    </td>
+    <td>
+        @Model.StartTime.ToString("yyyy-MM-dd HH:mm")
+    </td>
+    <td>
+        @Model.NumberOfParticipants
+    </td>
+    <td>
+        <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+    </td>
+</tr>
