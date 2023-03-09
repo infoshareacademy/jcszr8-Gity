@@ -41,6 +41,11 @@ namespace CarRental.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Cops(SearchViewModel viewModelDto)
+        {
+            return View(viewModelDto.SearchViewModelDto.SelectedMakes);
+        }
         
     }
 }
