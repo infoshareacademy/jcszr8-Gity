@@ -37,6 +37,18 @@ body {
     max-width: 300px;
 }
 
+.year {
+    max-width: 150px;
+    margin-right: 1.5px;
+    margin-left: 1.5px;
+}
+
+.date {
+    max-width: 100px;
+    margin-right: 1.5px;
+    margin-left: 1.5px;
+}
+
 .d-flex {
     justify-content:center;
 }

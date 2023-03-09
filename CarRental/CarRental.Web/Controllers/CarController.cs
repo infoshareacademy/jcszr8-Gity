@@ -1,22 +1,26 @@
-﻿using CarRental.DAL.Models;
+using CarRental.DAL.Models;
+using CarRental.Web.Models;
 using CarRental.Logic.Services;
 using CarRental.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CarRental.Logic;
 
 namespace CarRental.Web.Controllers
 {
     public class CarController : Controller
     {
         private readonly ICarService _carService;
+        private readonly ISearchService _searchService;
 
-        public CarController(ICarService carService) 
+        public CarController(ICarService carService,ISearchService searchService) 
         {
             this._carService = carService;
+            this._searchService = searchService;
         }
 
         // GET: CarController
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var cars = this._carService.GetAll();
             var mapper = new CarMapper();
@@ -25,13 +29,14 @@ namespace CarRental.Web.Controllers
         }
 
         // GET: CarController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
-            return View();
+            var model = _carService.GetById(id);
+            return View(model);
         }
 
         // GET: CarController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -39,10 +44,11 @@ namespace CarRental.Web.Controllers
         // POST: CarController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Create(Car model)
         {
             try
             {
+                _carService.Create(model);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -52,18 +58,21 @@ namespace CarRental.Web.Controllers
         }
 
         // GET: CarController/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
-            return View();
+            var car = _carService.GetById(id);
+            return View(car);
         }
 
         // POST: CarController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(Car car)
         {
             try
             {
+                _carService.Update(car);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -73,18 +82,20 @@ namespace CarRental.Web.Controllers
         }
 
         // GET: CarController/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
-            return View();
+            var car = _carService.GetById(id);
+            return View(car);
         }
 
         // POST: CarController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, int empty = 0)
         {
             try
             {
+                _carService.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -94,12 +105,11 @@ namespace CarRental.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search()
+        [ValidateAntiForgeryToken]
+        public IActionResult Search(SearchViewModelDto vm)
         {
-            string search = Request.Form["search"];
-            var cars = _carService.SearchList(search);
+            var cars = _searchService.SearchList(vm);
             return View(cars);
-        }
-        
+        }        
     }
 }

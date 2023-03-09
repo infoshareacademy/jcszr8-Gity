@@ -6,6 +6,7 @@ namespace CarRental.Logic.Services;
 public class CarService : ICarService
 {
     private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
+    private List<Car> _cars = CarRentalData.Cars;
 
     public List<Car> GetAll()
     {
@@ -65,34 +66,52 @@ public class CarService : ICarService
                     }
                 }
             }
-            
+
         }
         return cars;
     }
 
-    public List<Car> SearchList(string search) 
+    public void Create(Car car)
     {
-        List<Car> results = new List<Car>();
-        if (int.TryParse(search, out int year))
-        {
-            results.AddRange(CarByYear(search));
-        }
-        else
-        {
-            results.AddRange(CarByName(search));
-            results.AddRange(CarByAddons(search));
-        }
-        return results;
+        car.Id = GetNextId();
+        CarRentalData.Cars.Add(car);
     }
-
 
     public Car GetById(int carId)
     {
         return CarRentalData.Cars.FirstOrDefault(c => c.Id == carId);
     }
 
+    public void Delete(int carId)
+    {
+        var car = GetById(carId);
+        _cars.Remove(car);
+    }
+
     private int GetNextId()
     {
         return ++_idCounter;
+    }
+
+    public void Update(Car model)
+    {
+        var car = GetById(model.Id);
+
+        car.CarModel = model.CarModel;
+        car.Make = model.Make;
+        car.Kilometrage = model.Kilometrage;
+        car.Year = model.Year;
+        car.Airbags = model.Airbags;
+        car.Addons = model.Addons;
+        car.Color = model.Color;
+        car.Doors = model.Doors;
+        car.Displacement = model.Displacement;
+        car.EngineType = model.EngineType;
+        car.FuelConsumption = model.FuelConsumption;
+        car.LicencePlateNumber = model.LicencePlateNumber;
+        car.SeatsNo = model.SeatsNo;
+        car.PowerInKiloWats = model.PowerInKiloWats;
+        car.Price = model.Price;
+        car.Transmission = model.Transmission;
     }
 }

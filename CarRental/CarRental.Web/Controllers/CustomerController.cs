@@ -16,21 +16,21 @@ public class CustomerController : Controller
     }
 
     // GET: CustomerController
-    public ActionResult Index()
+    public IActionResult Index()
     {
         var model = _customerService.GetAll();
         return View(model);
     }
 
     // GET: CustomerController/Details/5
-    public ActionResult Details(int id)
+    public IActionResult Details(int id)
     {
         var model = _customerService.GetById(id);
         return View(model);
     }
 
     // GET: CustomerController/Create
-    public ActionResult Create()
+    public IActionResult Create()
     {
         return View();
     }
@@ -38,7 +38,7 @@ public class CustomerController : Controller
     // POST: CustomerController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(Customer customer)
+    public IActionResult Create(Customer customer)
     {
         try
         {
@@ -58,15 +58,16 @@ public class CustomerController : Controller
     }
 
     // GET: CustomerController/Edit/5
-    public ActionResult Edit(int id)
+    public IActionResult Edit(int id)
     {
-        return View();
+        var customer = _customerService.GetById(id);
+        return View(customer);
     }
 
     // POST: CustomerController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public IActionResult Edit(int id, IFormCollection collection)
     {
         try
         {
@@ -79,18 +80,20 @@ public class CustomerController : Controller
     }
 
     // GET: CustomerController/Delete/5
-    public ActionResult Delete(int id)
+    public IActionResult Delete(int id)
     {
-        return View();
+        var customer = _customerService.GetById(id);
+        return View(customer);
     }
 
     // POST: CustomerController/Delete/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
+    public IActionResult Delete(int id, IFormCollection collection)
     {
         try
         {
+            _customerService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
         catch

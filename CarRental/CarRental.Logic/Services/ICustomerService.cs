@@ -6,7 +6,9 @@ public interface ICustomerService
 {
     List<Customer> GetAll();
 
-    Customer? GetById(int customerId);
+    Customer? GetById(int id);
 
     void Create(Customer customer);
+
+    void Delete(int id);
 }

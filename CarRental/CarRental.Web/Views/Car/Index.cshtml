@@ -3,27 +3,48 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<div class="container">
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<
-<div class="row">
-@foreach (var item in Model)
-    {
-        <div class="card m-3" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">@item.CarModel</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@item.Make</h6>
-                <p class="card-text">@item.CarModel</p>
-                <a class="btn btn-primary" asp-controller="CarController" asp-action="Details">Details</a>
-            </div>
-        </div>
-    }
-    </div>
-
-    
-
-
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Make)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id}) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id}) |
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
