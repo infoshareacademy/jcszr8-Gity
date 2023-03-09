@@ -32,8 +32,9 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-      <partial name="_CustomerRow",model="item"/>
-}
+        @foreach (var item in Model)
+        {
+            <partial name="_CustomerRow", model="item" />
+        }
     </tbody>
 </table>
