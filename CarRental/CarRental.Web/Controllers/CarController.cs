@@ -1,19 +1,22 @@
-﻿using CarRental.DAL.Models;
+using CarRental.DAL.Models;
 using CarRental.Web.Models;
 using CarRental.Logic.Services;
 using CarRental.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CarRental.Logic;
 
 namespace CarRental.Web.Controllers
 {
     public class CarController : Controller
     {
         private readonly ICarService _carService;
+        private readonly ISearchService _searchService;
 
-        public CarController(ICarService carService) 
+        public CarController(ICarService carService,ISearchService searchService) 
         {
             this._carService = carService;
+            this._searchService = searchService;
         }
 
         // GET: CarController
@@ -101,9 +104,9 @@ namespace CarRental.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Search(SearchViewModel vm)
+        public IActionResult Search(SearchViewModelDto vm)
         {
-            var cars = _carService.SearchList(vm.Search);
+            var cars = _searchService.SearchList(vm);
             return View(cars);
         }
         

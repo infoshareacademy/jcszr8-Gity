@@ -9,7 +9,6 @@ public interface ICarService
     List<Car> CarByName(string make);
     List<Car> CarByYear(string read);
     List<Car> CarByAddons(string addon);
-    List<Car> SearchList(string text);
     void Create(Car car);
 
     void Update(Car car);
