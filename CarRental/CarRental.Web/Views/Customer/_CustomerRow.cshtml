@@ -1,5 +1,5 @@
-﻿@using MeetingApp.Models
-@model Meeting
+﻿@using CarRental.DAL.Models;
+@model Customer
 
 @{
 
@@ -7,13 +7,19 @@
 
 <tr>
     <td>
-        @Model.Name
+        @Model.FirstName
     </td>
     <td>
-        @Model.StartTime.ToString("yyyy-MM-dd HH:mm")
+        @Model.LastName
     </td>
     <td>
-        @Model.NumberOfParticipants
+        @Model.EmailAddress
+    </td>
+    <td>
+        @Model.PhoneNumber
+    </td>
+    <td>
+        @Model.Pesel
     </td>
     <td>
         <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
