@@ -1,6 +1,6 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Models;
-using CarRental.Logic.Services;
+using CarRental.Logic.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
