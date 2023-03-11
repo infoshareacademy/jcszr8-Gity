@@ -1,5 +1,4 @@
-﻿using CarRental.DAL.Models;
-using CarRental.Logic;
+﻿using CarRental.Logic;
 
 namespace CarRental.Web.Models
 {
