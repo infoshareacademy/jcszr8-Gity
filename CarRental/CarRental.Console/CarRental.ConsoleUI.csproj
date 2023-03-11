@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CarRental.DAL\CarRental.DAL.csproj" />
     <ProjectReference Include="..\CarRental.Logic\CarRental.Logic.csproj" />
   </ItemGroup>
