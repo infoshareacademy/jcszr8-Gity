@@ -1,9 +1,12 @@
-﻿namespace CarRental.Web.Models
+﻿using CarRental.DAL.Models;
+using CarRental.Logic;
+
+namespace CarRental.Web.Models
 {
     public class SearchViewModel
     {
-        public string Search { get; set; }
-        public int ProductionYearFrom { get; set; }
-        public int ProductionYearTo { get; set; }
+        public SearchViewModelDto SearchViewModelDto { get; set; }
+        public IEnumerable<Car> Cars { get; set; } = new List<Car>();
+        
     }
 }

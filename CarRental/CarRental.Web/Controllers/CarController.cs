@@ -1,19 +1,23 @@
-﻿using CarRental.DAL.Models;
+using CarRental.DAL.Models;
 using CarRental.Web.Models;
 using CarRental.Logic.Services;
 using CarRental.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CarRental.Logic;
+using CarRental.Logic.Interfaces;
 
 namespace CarRental.Web.Controllers
 {
     public class CarController : Controller
     {
         private readonly ICarService _carService;
+        private readonly ISearchService _searchService;
 
-        public CarController(ICarService carService) 
+        public CarController(ICarService carService,ISearchService searchService) 
         {
             this._carService = carService;
+            this._searchService = searchService;
         }
 
         // GET: CarController
@@ -57,16 +61,19 @@ namespace CarRental.Web.Controllers
         // GET: CarController/Edit/5
         public IActionResult Edit(int id)
         {
-            return View();
+            var car = _carService.GetById(id);
+            return View(car);
         }
 
         // POST: CarController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(Car car)
         {
             try
             {
+                _carService.Update(car);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -78,16 +85,18 @@ namespace CarRental.Web.Controllers
         // GET: CarController/Delete/5
         public IActionResult Delete(int id)
         {
-            return View();
+            var car = _carService.GetById(id);
+            return View(car);
         }
 
         // POST: CarController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, int empty = 0)
         {
             try
             {
+                _carService.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -98,11 +107,10 @@ namespace CarRental.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Search(SearchViewModel vm)
+        public IActionResult Search(SearchViewModelDto vm)
         {
-            var cars = _carService.SearchList(vm.Search);
+            var cars = _searchService.SearchList(vm);
             return View(cars);
-        }
-        
+        }        
     }
 }

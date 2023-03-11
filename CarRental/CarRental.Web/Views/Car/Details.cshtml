@@ -4,94 +4,118 @@
     ViewData["Title"] = "Details";
 }
 <div class="container">
-<h1>Details</h1>
+    <h1>Details</h1>
 
-<div>
-    <h4>Car</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CarModel)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CarModel)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Make)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Make)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Transmission)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Transmission)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LicencePlateNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LicencePlateNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Kilometrage)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Kilometrage)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Doors)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Doors)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SeatsNo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SeatsNo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Airbags)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Airbags)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FuelConsumption)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FuelConsumption)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <h4>Car</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CarModel)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CarModel)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Make)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Make)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Year)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Year)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Color)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Transmission)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Transmission)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LicencePlateNumber)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LicencePlateNumber)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Kilometrage)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Kilometrage)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Doors)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Doors)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SeatsNo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SeatsNo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Airbags)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Airbags)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FuelConsumption)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FuelConsumption)
+            </dd>
+
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EngineType)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EngineType)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Displacement)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Displacement)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PowerInKiloWats)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PowerInKiloWats)
+            </dd>
+
+
+
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
