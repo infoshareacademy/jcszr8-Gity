@@ -1,3 +1,5 @@
+using CarRental.DAL.Models;
+using CarRental.DAL.Repositories;
 using CarRental.Logic.Interfaces;
 using CarRental.Logic.Services;
 
@@ -9,6 +11,8 @@ builder.Services.AddTransient<IRentalService, RentalService>();
 builder.Services.AddTransient<ICarService, CarService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<ISearchService, SearchService>();
+// Repositories
+builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

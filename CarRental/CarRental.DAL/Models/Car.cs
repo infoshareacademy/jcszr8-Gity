@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace CarRental.DAL.Models;
-public sealed class Car
+public sealed class Car : EntityBase
 {
     #region Properties/Fields
     public int Id { get; set; }

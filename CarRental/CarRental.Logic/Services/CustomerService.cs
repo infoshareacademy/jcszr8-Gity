@@ -1,51 +1,49 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Models;
+using CarRental.DAL.Repositories;
 using CarRental.Logic.Interfaces;
 
 namespace CarRental.Logic.Services;
 
 public class CustomerService : ICustomerService
 {
+    private readonly IRepository<Customer> _customerRepository;
     private static int _idCounter;
-    private List<Customer> _customers = CarRentalData.Customers;
+    //private List<Customer> _customers = CarRentalData.Customers;
 
-    public CustomerService()
+    public CustomerService(IRepository<Customer> customerRepository)
     {
-        _idCounter = CarRentalData.Customers.Max(c => c.Id);
+        _customerRepository = customerRepository;
+
+        _idCounter = CarRentalData.Customers.Max(c => c.Id);  // TODO  _idCounter = CarRentalData.Customers.Max(c => c.Id);
     }
 
     public IEnumerable<Customer> GetAll()
     {
-        return _customers;
+        return _customerRepository.GetAll();
     }
 
     public Customer? GetById(int customerId)
     {
-        return _customers.FirstOrDefault(c => c.Id == customerId);
+        return _customerRepository.GetAll().FirstOrDefault(c => c.Id == customerId);
     }
 
     public void Create(Customer customer)
     {
         customer.Id = GetNextId();
-        _customers.Add(customer);
+        _customerRepository.Add(customer);
     }
 
     public void Update(Customer model)
     {
-        var customer = GetById(model.Id);
-
-        customer.FirstName = model.FirstName;
-        customer.LastName = model.LastName;
-        customer.PhoneNumber = model.PhoneNumber;
-        customer.EmailAddress = model.EmailAddress;
-        customer.Pesel =  model.Pesel;
-        customer.Gender = model.Gender;
+        _customerRepository.Update(model);
     }
 
     public void Delete(int customerId) {
-        var customer = GetById(customerId);
-        _customers.Remove(customer);
+
+        var customer = _customerRepository.GetById(customerId);
+        _customerRepository.Delete(customer);
     }  
 
-    private int GetNextId() => ++_idCounter;
+    private int GetNextId() => ++_idCounter;  // TODO GenNextId()
 }

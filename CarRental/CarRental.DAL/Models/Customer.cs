@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.DAL.Models;
-public sealed class Customer
+public sealed class Customer : EntityBase
 {
     [JsonProperty("id")]
     public int Id;
