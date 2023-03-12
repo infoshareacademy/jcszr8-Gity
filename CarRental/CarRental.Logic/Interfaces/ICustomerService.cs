@@ -4,7 +4,7 @@ namespace CarRental.Logic.Interfaces;
 
 public interface ICustomerService
 {
-    List<Customer> GetAll();
+    IEnumerable<Customer> GetAll();
 
     Customer? GetById(int id);
 

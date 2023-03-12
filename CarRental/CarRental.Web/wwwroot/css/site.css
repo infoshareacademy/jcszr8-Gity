@@ -56,3 +56,13 @@ body {
 .btn {
     background-color: antiquewhite!important;
 }
+
+.btn-secondary {
+    color: blue;
+}
+
+
+/* custom styles */
+.custom-background {
+    background-color: green!important;
+}

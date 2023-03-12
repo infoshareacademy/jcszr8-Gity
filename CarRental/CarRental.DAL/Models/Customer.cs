@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.DAL.Models;

@@ -1,61 +1,67 @@
-﻿using CarRental.DAL.Models;
-using CarRental.DAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CarRental.DAL;
+using CarRental.DAL.Models;
 using CarRental.Logic.Interfaces;
 
-namespace CarRental.Logic.Services
+namespace CarRental.Logic.Services;
+
+public class RentalService : IRentalService
 {
-    public class RentalService : IRentalService
+    private readonly ICarService _carService;
+    private List<Car> _cars;
+    private List<Rental> _rentals = CarRentalData.Rentals;
+
+    public RentalService(ICarService carService)
     {
-        public List<int> GetAvailableCarIds(DateTime start, DateTime end)
+        this._carService = carService ?? throw new ArgumentNullException(nameof(carService));
+
+        _cars = _carService.GetAll().ToList();
+    }
+
+    public IEnumerable<int> GetAvailableCarIds(DateTime start, DateTime end)
+    {
+        var cars1 = GetNotRented();
+        var cars2 = GetAvailableInGivenTime(start, end);
+        var allIdCars = cars1.Concat(cars2).Distinct().ToList();
+        return allIdCars;
+    }
+
+    public IEnumerable<Car> ListOfAvailableCarForRent(List<int> carIds)
+
+    {
+        List<Car> carsToRent = new();
+
+        foreach (var carId in carIds)
         {
-
-            var cars1 = GetNotRented();
-            var cars2 = GetAvailableInGivenTime(start, end);
-            var allIdCars = cars1.Concat(cars2).Distinct().ToList();
-            return allIdCars;
-        }
-
-        public List<Car> ListOfAvailableCarForRent(List<int> carIds)
-
-        {
-            var carsToRent = new List<Car>();
-
-            foreach (var carId in carIds)
+            var cars = _cars.Where(c => c.Id == carId).ToList();
+            foreach (var item in cars)
             {
-                var car = CarRentalData.Cars.Where(c => c.Id == carId).ToList();
-                foreach (var item in car)
-                {
-                    carsToRent.Add(item);
-                }
+                carsToRent.Add(item);
             }
-            return carsToRent;
         }
+        return carsToRent;
+    }
 
+    public IEnumerable<int> GetNotRented()
+    {
+        var rentedIds = _rentals.Select(r => r.CarId).ToList();
+        var carIds = _cars.Select(c => c.Id).ToList();
 
-        public List<int> GetNotRented()
-        {
-            var rentedIds = CarRentalData.Rentals.Select(r => r.CarId).ToList();
-            var carIds = CarRentalData.Cars.Select(c => c.Id).ToList();
+        var availableCarIds = carIds.Except(rentedIds).ToList();
 
-            var availableCars = carIds.Except(rentedIds).ToList();
+        return availableCarIds;
+    }
 
-            return availableCars;
+    public IEnumerable<int> GetAvailableInGivenTime(DateTime start, DateTime end)
+    {
+        var found = _rentals.Where(r =>
+           (end < r.BeginDate) ||
+           (start > r.EndDate)
+           ).Select(r => r.CarId).ToList();
+        return found;
+    }
 
-        }
-
-        public List<int> GetAvailableInGivenTime(DateTime start, DateTime end)
-        {
-
-            var found = CarRentalData.Rentals.Where(r =>
-               (end < r.BeginDate) ||
-               (start > r.EndDate)
-               ).Select(r => r.CarId).ToList();
-            return found;
-        }
+    public List<Rental> GetAll()
+    {
+        return _rentals;
     }
 }
