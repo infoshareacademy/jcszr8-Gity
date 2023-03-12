@@ -1,4 +1,3 @@
-using CarRental.Logic.Interfaces;
 using CarRental.Logic.Services;
 
 var builder = WebApplication.CreateBuilder(args);

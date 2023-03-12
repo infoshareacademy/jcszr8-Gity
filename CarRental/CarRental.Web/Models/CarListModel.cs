@@ -1,10 +1,23 @@
-﻿namespace CarRental.Web.Models;
+﻿using CarRental.DAL.Models;
+using Newtonsoft.Json;
 
-public class CarListModel
+namespace CarRental.Web.Models
 {
-    public int Id { get; set; }
+    public class CarListModel
+    {
+        public int Id { get; set; }
 
-    public string? CarModel { get; set; }
+        public string? CarModel { get; set; }
 
-    public string? Make { get; set; }
+        public string? Make { get; set; }
+
+        public CarListModel FillModel(Car baseModel)
+        {
+            this.Id = baseModel.Id;
+            this.CarModel = baseModel.CarModel;
+            this.Make = baseModel.Make;
+
+            return this;
+        }
+    }
 }

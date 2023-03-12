@@ -1,23 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace CarRental.Web.ViewComponents;
-
-public class ButtonComponent : ViewComponent
+namespace CarRental.Web.ViewComponents
 {
-    public async Task<IViewComponentResult> InvokeAsync(string text, string color)
+    public class ButtonComponent : ViewComponent
     {
-        var model = new ButtonModel
+        public async Task<IViewComponentResult> InvokeAsync(string text, string color)
         {
-            Text = text,
-            Color = color
-        };
+            var model = new ButtonModel
+            {
+                Text = text,
+                Color = color
+            };
 
-        return View(model);
+            return View(model);
+        }
     }
-}
 
-public class ButtonModel
-{
-    public string Text { get; set; }
-    public string Color { get; set; }
+    public class ButtonModel
+    {
+        public string Text { get; set; }
+        public string Color { get; set; }
+    }
 }

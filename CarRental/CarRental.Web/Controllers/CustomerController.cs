@@ -1,6 +1,7 @@
-﻿using CarRental.DAL.Models;
-using CarRental.Logic.Interfaces;
-using CarRental.Web.Models;
+﻿using CarRental.DAL;
+using CarRental.DAL.Models;
+using CarRental.Logic.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -17,14 +18,7 @@ public class CustomerController : Controller
     // GET: CustomerController
     public IActionResult Index()
     {
-        var customers = _customerService.GetAll();
-
-        var model = new List<CustomerListModel>();
-
-        foreach(var customer in customers)
-        {
-            model.Add(new CustomerListModel().FillModel(customer));
-        }
+        var model = _customerService.GetAll();
         return View(model);
     }
 

@@ -1,6 +1,5 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Models;
-using CarRental.Logic.Interfaces;
 
 namespace CarRental.Logic.Services;
 
@@ -9,20 +8,21 @@ public class CarService : ICarService
     private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
     private List<Car> _cars = CarRentalData.Cars;
 
-    public IEnumerable<Car> GetAll()
+    public List<Car> GetAll()
     {
         return CarRentalData.Cars;
     }
 
-    public IEnumerable<Car> GetByName(string name)
+    public List<Car> CarByName(string name)
     {
-        List<Car> cars = new();
+        List<Car> cars = new List<Car>();
         if (string.IsNullOrEmpty(name))
         {
-            cars = GetAll().ToList();
+            cars = CarRentalData.Cars;
         }
         else
         {
+
             cars = CarRentalData.Cars.Where(c => c.Make.Contains(name, StringComparison.CurrentCultureIgnoreCase)
                 || c.CarModel.Contains(name, StringComparison.CurrentCultureIgnoreCase)
             ).ToList();
@@ -30,23 +30,23 @@ public class CarService : ICarService
         return cars;
     }
 
-    public List<Car> GetByYear(string read)
+    public List<Car> CarByYear(string read)
     {
         int year;
         bool makes = int.TryParse(read, out year);
-        List<Car> cars = new();
+        List<Car> cars = new List<Car>();
         if (read == null)
         {
-            cars = GetAll().ToList();
+            cars = CarRentalData.Cars;
         }
         else
         {
-            cars = GetAll().Where(c => c.Year == year || c.CarModel.ToLower().Contains(read.ToLower())).ToList();
+            cars = CarRentalData.Cars.Where(c => c.Year == year || c.CarModel.ToLower().Contains(read.ToLower())).ToList();
         }
         return cars;
     }
 
-    public List<Car> GetByAddons(string addon)
+    public List<Car> CarByAddons(string addon)
     {
         List<Car> cars = new List<Car>();
         if (string.IsNullOrEmpty(addon))
@@ -98,20 +98,6 @@ public class CarService : ICarService
         var car = GetById(model.Id);
 
         car.CarModel = model.CarModel;
-        car.Make = model.Make;
-        car.Kilometrage = model.Kilometrage;
-        car.Year = model.Year;
-        car.Airbags = model.Airbags;
-        car.Addons = model.Addons;
-        car.Color = model.Color;
-        car.Doors = model.Doors;
-        car.Displacement = model.Displacement;
-        car.EngineType = model.EngineType;
-        car.FuelConsumption = model.FuelConsumption;
-        car.LicencePlateNumber = model.LicencePlateNumber;
-        car.SeatsNo = model.SeatsNo;
-        car.PowerInKiloWats = model.PowerInKiloWats;
-        car.Price = model.Price;
-        car.Transmission = model.Transmission;
+        //TODO dokończyć
     }
 }

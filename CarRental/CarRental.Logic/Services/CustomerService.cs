@@ -1,33 +1,27 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Models;
-using CarRental.Logic.Interfaces;
 
 namespace CarRental.Logic.Services;
 
 public class CustomerService : ICustomerService
 {
-    private static int _idCounter;
+    private static int _idCounter = CarRentalData.Customers.Max(c => c.Id);
     private List<Customer> _customers = CarRentalData.Customers;
 
-    public CustomerService()
-    {
-        _idCounter = CarRentalData.Customers.Max(c => c.Id);
-    }
-
-    public IEnumerable<Customer> GetAll()
+    public List<Customer> GetAll()
     {
         return _customers;
     }
 
     public Customer? GetById(int customerId)
     {
-        return _customers.FirstOrDefault(c => c.Id == customerId);
+        return CarRentalData.Customers.FirstOrDefault(c => c.Id == customerId);
     }
 
     public void Create(Customer customer)
     {
         customer.Id = GetNextId();
-        _customers.Add(customer);
+        CarRentalData.Customers.Add(customer);
     }
 
     public void Update(Customer model)
@@ -47,5 +41,8 @@ public class CustomerService : ICustomerService
         _customers.Remove(customer);
     }  
 
-    private int GetNextId() => ++_idCounter;
+    private int GetNextId()
+    {
+        return ++_idCounter;
+    }
 }
