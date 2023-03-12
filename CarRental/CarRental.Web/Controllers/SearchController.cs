@@ -4,6 +4,7 @@ using CarRental.Logic.Services;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace CarRental.Web.Controllers
 {
@@ -18,7 +19,7 @@ namespace CarRental.Web.Controllers
         }
 
         // GET: SearchController
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var model = new SearchViewModel()
             {
@@ -37,14 +38,15 @@ namespace CarRental.Web.Controllers
         }
 
         // GET: SearchController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             return View();
         }
 
-        public ActionResult Cops(SearchViewModel viewModelDto)
+        public IActionResult Cops(SearchViewModel searchViewModel)
         {
-            return View(viewModelDto.SearchViewModelDto.SelectedMakes);
+
+            return View(searchViewModel.SearchViewModelDto);
         }
         
     }

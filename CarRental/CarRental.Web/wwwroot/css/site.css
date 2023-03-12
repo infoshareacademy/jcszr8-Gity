@@ -17,8 +17,8 @@ html {
   min-height: 100%;
 }
 
-.carss{ 
-    justify-content: space-between;
+.search-container{ 
+    
 }
 body {
   margin-bottom: 60px;
@@ -57,10 +57,12 @@ body {
 }
 
 .btn {
-    background-color: blueviolet;
+    background-color: brown;
+    color :aliceblue
 }
-.custom-kolorek{
-    background-color: brown!important;
+.footer {
+    background-color: gray;
+    color: white;
 }
 
 .checkbox-menu li label {
