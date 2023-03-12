@@ -11,10 +11,8 @@ namespace CarRental.Web.Controllers
         private readonly ICarService _carService;
         public SearchController(ISearchService searchService, ICarService carService)
         {
-            _searchService = searchService ??
-                throw new ArgumentNullException(nameof(searchService));
-            _carService = carService ??
-                throw new ArgumentNullException(nameof(carService));
+            _searchService = searchService;
+            _carService = carService;
         }
 
         // GET: SearchController
