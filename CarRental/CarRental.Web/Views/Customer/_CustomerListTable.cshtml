@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CarRental.Web.Models.CustomerListModel>
+
+<div class="container">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">
+                    <label asp-for="First().FirstName"></label>
+                </th>
+                <th scope="col">
+                    <label asp-for="First().LastName"></label>
+                </th>
+                <th scope="col">
+                    <label asp-for="First().EmailAddress"></label>
+                </th>
+                <th scope="col">
+                    <label asp-for="First().PhoneNumber"></label>
+                </th>
+                <th scope="col">
+                    <label asp-for="First().Pesel"></label>
+                </th>
+                <th scope="col">
+                    <label asp-for="First().Gender"></label>
+                </th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.EmailAddress</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.Pesel</td>
+                    <td>@item.Gender</td>
+                    <td>
+                        <button type="button" class="btn">
+                            <i class="fa fa-trash"></i>
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        </button> |
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
