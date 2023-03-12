@@ -18,7 +18,6 @@ public class LogicSearch
         {
             cars = CarRentalData.Cars.Where(c => c.Make?.ToLower() == make.ToLower() ||
                                                  c.CarModel?.ToLower() == make.ToLower()).ToList();
-
         }
         return cars;
     }
