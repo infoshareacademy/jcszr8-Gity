@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CarRental.DAL.Models;
+using Newtonsoft.Json;
 
 namespace CarRental.Web.Models
 {
@@ -9,5 +10,14 @@ namespace CarRental.Web.Models
         public string? CarModel { get; set; }
 
         public string? Make { get; set; }
+
+        public CarListModel FillModel(Car baseModel)
+        {
+            this.Id = baseModel.Id;
+            this.CarModel = baseModel.CarModel;
+            this.Make = baseModel.Make;
+
+            return this;
+        }
     }
 }

@@ -1,7 +1,6 @@
 using CarRental.DAL.Models;
 using CarRental.Web.Models;
 using CarRental.Logic.Services;
-using CarRental.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CarRental.Logic;
@@ -23,9 +22,12 @@ namespace CarRental.Web.Controllers
         public IActionResult Index()
         {
             var cars = this._carService.GetAll();
-            var mapper = new CarMapper();
-            var model = mapper.Map(cars);
-            return View(model);
+            var models = new List<CarListModel>();
+            foreach(var car in cars)
+            {
+                models.Add(new CarListModel().FillModel(car));
+            }
+            return View(models);
         }
 
         // GET: CarController/Details/5

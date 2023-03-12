@@ -1,11 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 using System.Text;
 using Newtonsoft.Json;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.DAL.Models;
 public sealed class Customer
 {
+    [Range(0, 100, ErrorMessage = "Zwaliłeś sprawe!")]
     [JsonProperty("id")]
     public int Id;
 

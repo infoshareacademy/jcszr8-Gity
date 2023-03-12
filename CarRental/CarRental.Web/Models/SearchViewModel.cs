@@ -6,7 +6,6 @@ namespace CarRental.Web.Models
     public class SearchViewModel
     {
         public SearchViewModelDto SearchViewModelDto { get; set; } =  new SearchViewModelDto();
-        public Dictionary<string, bool> SelectedMakes { get; set; }
         public IEnumerable<Car> Cars { get; set; } = new List<Car>();
         
     }

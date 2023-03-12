@@ -9,18 +9,32 @@
     <h1>Index</h1>
     <form method="post">
         <div class="input-group mb-3">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
-            <ul class="dropdown-menu checkbox-menu allow-focus">
-                @foreach (var make in Model.Cars.Select(car => car.Make).Distinct())
-                {
-                    <li>
-                        <label>
-                            <input type="checkbox" asp-for="SearchViewModelDto.SelectedMakes[make]" value="@make">@make
-                        </label>
-                    </li>
-                }
-            </ul>
-            <button class="btn" type="submit" asp-action="Cops">Ngr</button>
+            <div class="carsss">
+                <a>Cars</a>
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Chose</button>
+                <ul class="dropdown-menu checkbox-menu allow-focus">
+                    @foreach (var make in Model.Cars.Select(car => car.Make).Distinct())
+                    {
+                        <li>
+                            <label>
+                                <input type="checkbox" asp-for="SearchViewModelDto.SelectedMakes[make]" value="{@make @true}">@make
+                            </label>
+                        </li>
+                    }
+                </ul>
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Chose</button>
+                <ul class="dropdown-menu checkbox-menu allow-focus">
+                    @foreach (var car in Model.Cars.Select(car => car.CarModel).Distinct())
+                    {
+                        <li>
+                            <label>
+                                <input type="checkbox" asp-for="SearchViewModelDto.SelectedMakes[car]" value="{@car @true}">@car
+                            </label>
+                        </li>
+                    }
+                </ul>
+                <button class="btn" type="submit" asp-action="Cops">bbb</button>
+            </div>
         </div>
     </form>
     @foreach (var item in Model.Cars)

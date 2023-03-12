@@ -17,6 +17,9 @@ html {
   min-height: 100%;
 }
 
+.carss{ 
+    justify-content: space-between;
+}
 body {
   margin-bottom: 60px;
   display: grid;
@@ -54,7 +57,10 @@ body {
 }
 
 .btn {
-    background-color: antiquewhite!important;
+    background-color: blueviolet;
+}
+.custom-kolorek{
+    background-color: brown!important;
 }
 
 .checkbox-menu li label {

@@ -1,4 +1,5 @@
-﻿using CarRental.DAL.Models;
+﻿
+using CarRental.DAL.Models;
 using Newtonsoft.Json;
 using System.Text.Json;
 
