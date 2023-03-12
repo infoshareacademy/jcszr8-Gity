@@ -1,6 +1,4 @@
-﻿using CarRental.DAL.Enums;
-using Microsoft.VisualBasic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 

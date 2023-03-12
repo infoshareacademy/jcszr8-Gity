@@ -1,5 +1,4 @@
 ﻿using CarRental.DAL.Enums;
-using System.Diagnostics;
 
 namespace CarRental.Logic;
 

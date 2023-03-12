@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarRental.DAL.Models.Customer>
+﻿@model IEnumerable<CarRental.Web.Models.CustomerListModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -27,14 +27,35 @@
     <thead>
         <tr>
             <th>
-                <label asp-for="First().FirstName"></label>)
+                <label asp-for="First().Id"></label>
+            </th>
+            <th>
+                <label asp-for="First().FirstName"></label>
+            </th>
+            <th>
+                <label asp-for="First().LastName"></label>
+            </th>
+            <th>
+                <label asp-for="First().EmailAddress"></label>
+            </th>
+            <th>
+                <label asp-for="First().PhoneNumber"></label>
+            </th>
+            <th>
+                <label asp-for="First().Pesel"></label>
+            </th>
+            <th>
+                <label asp-for="First().EmailAddress"></label>
+            </th>
+            <th>
+                <label asp-for="First().Gender"></label>
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <partial name="_CustomerRow", model="item" />
+            <partial name="_CustomerRow" , model="item" />
         }
     </tbody>
 </table>

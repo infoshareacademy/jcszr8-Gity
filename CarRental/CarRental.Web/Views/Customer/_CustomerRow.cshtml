@@ -1,11 +1,10 @@
-﻿@using CarRental.DAL.Models;
-@model Customer
-
-@{
-
-}
+﻿@using CarRental.Web.Models;
+@model CustomerListModel
 
 <tr>
+    <td>
+        @Model.Id
+    </td>
     <td>
         @Model.FirstName
     </td>
@@ -20,6 +19,9 @@
     </td>
     <td>
         @Model.Pesel
+    </td>
+    <td>
+        @Model.Gender
     </td>
     <td>
         <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
