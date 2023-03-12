@@ -59,4 +59,9 @@ public class RentalService : IRentalService
            ).Select(r => r.CarId).ToList();
         return found;
     }
+
+    public List<Rental> GetAll()
+    {
+        return _rentals;
+    }
 }
