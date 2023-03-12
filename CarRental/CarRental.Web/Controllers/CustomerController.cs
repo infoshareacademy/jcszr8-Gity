@@ -1,7 +1,5 @@
-﻿using CarRental.DAL;
-using CarRental.DAL.Models;
+﻿using CarRental.DAL.Models;
 using CarRental.Logic.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
