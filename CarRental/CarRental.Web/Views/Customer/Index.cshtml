@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarRental.DAL.Models.Customer>
+﻿@model IEnumerable<CarRental.Web.Models.CustomerListModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -27,53 +27,35 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                <label asp-for="First().Id"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                <label asp-for="First().FirstName"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmailAddress)
+                <label asp-for="First().LastName"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
+                <label asp-for="First().EmailAddress"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pesel)
+                <label asp-for="First().PhoneNumber"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gender)
+                <label asp-for="First().Pesel"></label>
             </th>
-            <th></th>
+            <th>
+                <label asp-for="First().EmailAddress"></label>
+            </th>
+            <th>
+                <label asp-for="First().Gender"></label>
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pesel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <partial name="_CustomerRow" , model="item" />
+        }
     </tbody>
 </table>

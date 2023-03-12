@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CarRental.Logic;
 
-namespace CarRental.Logic
+public class SearchViewModelDto
 {
     public class SearchViewModelDto
     {
