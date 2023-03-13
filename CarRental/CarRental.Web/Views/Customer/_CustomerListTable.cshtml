@@ -3,7 +3,7 @@
 <div class="container">
 
     <table class="table table-hover">
-        <thead>
+        <thead class="">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">
@@ -18,12 +18,6 @@
                 <th scope="col">
                     <label asp-for="First().PhoneNumber"></label>
                 </th>
-                <th scope="col">
-                    <label asp-for="First().Pesel"></label>
-                </th>
-                <th scope="col">
-                    <label asp-for="First().Gender"></label>
-                </th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -36,19 +30,25 @@
                     <td>@item.LastName</td>
                     <td>@item.EmailAddress</td>
                     <td>@item.PhoneNumber</td>
-                    <td>@item.Pesel</td>
-                    <td>@item.Gender</td>
                     <td>
-                        <button type="button" class="btn">
+                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
                             <i class="fa fa-trash"></i>
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                        </button> |
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </button>
 
+                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit element">
+                            <a asp-action="Edit" asp-route-id="@item.Id">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </button>
 
-                        <a asp-action="Delete" asp-route-id="@item.Id">
-                            <i class="bi bi-trash"> </i>
-                        </a>
+                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete element">
+                            <a asp-action="Delete" asp-route-id="@item.Id">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </button>
                     </td>
                 </tr>
             }
