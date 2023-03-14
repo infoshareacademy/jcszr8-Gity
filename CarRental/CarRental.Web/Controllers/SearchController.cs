@@ -18,9 +18,18 @@ public class SearchController : Controller
     // GET: SearchController
     public ActionResult Index()
     {
+        var cars = _carService.GetAll();
+        var carViewModels = new List<CarListModel>();
+
+        foreach (var car in cars)
+        {
+            carViewModels.Add(new CarListModel().FillModel(car));
+        }
+
         var model = new SearchViewModel()
         {
-            Cars = _carService.GetAll(),
+            Cars = carViewModels,
+
             SearchViewModelDto = new SearchViewModelDto()
             {
                 EndDate = DateTime.Now,
@@ -29,7 +38,6 @@ public class SearchController : Controller
                 ProductionYearFrom = 0,
                 ProductionYearTo = 0,
             }
-
         };
         return View(model);
     }

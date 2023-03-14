@@ -39,11 +39,9 @@
             </div>
              <div class="form-group">
                 <input type="submit" value="Search" class="btn btn-primary" />
-            </div>
+             </div>
         </form>
-        @foreach (var item in Model.Cars)
-        {
-         <partial name="_CarTiles", model="item" />
-        }
+        
+        <partial name="_CarTiles" model="Model.Cars" />
     </div>
 </div>
