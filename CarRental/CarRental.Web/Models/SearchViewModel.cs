@@ -7,6 +7,5 @@ namespace CarRental.Web.Models
     {
         public SearchViewModelDto SearchViewModelDto { get; set; } =  new SearchViewModelDto();
         public IEnumerable<Car> Cars { get; set; } = new List<Car>();
-        
     }
 }

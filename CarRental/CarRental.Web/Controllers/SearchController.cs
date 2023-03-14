@@ -1,9 +1,11 @@
-﻿using CarRental.DAL.Models;
+﻿using CarRental.DAL;
+using CarRental.DAL.Models;
 using CarRental.Logic;
 using CarRental.Logic.Services;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Reflection;
 
 namespace CarRental.Web.Controllers
@@ -23,16 +25,7 @@ namespace CarRental.Web.Controllers
         {
             var model = new SearchViewModel()
             {
-                Cars = _carService.GetAll(),
-                SearchViewModelDto = new SearchViewModelDto()
-                {
-                    EndDate = DateTime.Now,
-                    ModelAndMake = "asd",
-                    StartDate = DateTime.Now.AddDays(-7),
-                    ProductionYearFrom = 0,
-                    ProductionYearTo = 0,
-                }
-
+                Cars = _carService.GetAll()
             };
             return View(model);
         }
@@ -43,10 +36,12 @@ namespace CarRental.Web.Controllers
             return View();
         }
 
-        public IActionResult Cops(SearchViewModel searchViewModel)
+        public IActionResult Search(SearchViewModel search)
         {
-
-            return View(searchViewModel.SearchViewModelDto);
+            var dto = search.SearchViewModelDto;
+            var model = _searchService.SearchList(dto);
+            search.Cars= model;
+            return View(search);
         }
         
     }

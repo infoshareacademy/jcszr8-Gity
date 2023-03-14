@@ -35,5 +35,12 @@ namespace CarRental.Logic.Services
             }
             return results;
         }
+
+        //public List<Car> SearchMenu(SearchViewModelDto search) 
+        //
+        //    //List<Car> results = new List<Car>();
+        //    var results = _carService.CarByMaker();
+        //    return results;
+        //}
     }
 }

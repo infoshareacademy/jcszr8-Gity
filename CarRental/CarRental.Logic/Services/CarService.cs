@@ -30,6 +30,16 @@ public class CarService : ICarService
         return cars;
     }
 
+    //public List<Car> CarByMaker(Dictionary<string, bool> searchDto)
+    //{
+    //    List<Car> cars = new List<Car>();
+    //    if (searchDto.Makes != null && searchDto.Makes.Count > 0)
+    //    {
+    //        cars = cars.Where(c => searchDto.Makes.ContainsKey(c.Make) && searchDto.Makes[c.Make]).ToList();
+    //    }
+    //    return cars;
+    //}
+
     public List<Car> CarByYear(string read)
     {
         int year;

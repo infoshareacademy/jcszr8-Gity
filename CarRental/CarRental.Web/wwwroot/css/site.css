@@ -17,8 +17,13 @@ html {
   min-height: 100%;
 }
 
-.search-container{ 
-    
+.search-container {
+  background: rgb(105,105,105,0.5);
+  min-height: 10rem;
+
+}
+.row {
+    --bs-gutter-x: 0;
 }
 body {
   margin-bottom: 60px;
@@ -34,22 +39,23 @@ body {
 }
 
 .container-main {
-    min-height: 600px;
+    min-height: 37.5rem;
+
 }
 .search {
-    max-width: 300px;
+    max-width: 18.75rem;
 }
 
 .year {
-    max-width: 150px;
-    margin-right: 1.5px;
-    margin-left: 1.5px;
+    max-width: 9.375rem;
+    margin-right: 0.094rem;
+    margin-left: 0.094rem;
 }
 
 .date {
-    max-width: 100px;
-    margin-right: 1.5px;
-    margin-left: 1.5px;
+    max-width: 6.25rem;
+    margin-right: 0.094rem;
+    margin-left: 0.094rem;
 }
 
 .d-flex {
@@ -60,14 +66,20 @@ body {
     background-color: brown;
     color :aliceblue
 }
+.makes{
+    max-width: 5rem;
+}
 .footer {
     background-color: gray;
     color: white;
 }
 
+.dropdown-menu{
+    max-width: 5rem;
+}
 .checkbox-menu li label {
     display: block;
-    padding: 3px 10px;
+    padding: 0.188rem 0.625rem;
     clear: both;
     font-weight: normal;
     line-height: 1.42857143;
@@ -77,8 +89,8 @@ body {
     transition: background-color .4s ease;
 }
 .checkbox-menu li input {
-    margin: 0px 5px;
-    top: 2px;
+    margin: 0rem 0.313rem;
+    top: 0.125rem;
     position: relative;
 }
 
