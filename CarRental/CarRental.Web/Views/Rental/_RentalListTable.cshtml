@@ -1,33 +1,51 @@
-﻿@model IEnumerable<CarRental.Web.Models.CustomerListModel>
+﻿@model IEnumerable<CarRental.Web.Models.RentalViewModel>
 
-<table class="table table-hover">
-    <thead class="">
+<table class="table">
+    <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">
-                <label asp-for="First().FirstName"></label>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
             </th>
-            <th scope="col">
-                <label asp-for="First().LastName"></label>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
             </th>
-            <th scope="col">
-                <label asp-for="First().EmailAddress"></label>
+            <th>
+                @Html.DisplayNameFor(model => model.CarId)
             </th>
-            <th scope="col">
-                <label asp-for="First().PhoneNumber"></label>
+            <th>
+                @Html.DisplayNameFor(model => model.BeginDate)
             </th>
-            <th scope="col">Actions</th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalCost)
+            </th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <th scope="row">@item.Id</th>
-                <td>@item.FirstName</td>
-                <td>@item.LastName</td>
-                <td>@item.EmailAddress</td>
-                <td>@item.PhoneNumber</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BeginDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalCost)
+                </td>
                 <td>
                     <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
                         <i class="fa fa-trash"></i>
