@@ -4,16 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<div>
-    @await Component.InvokeAsync("ButtonComponent", new { text = "Click me", color = "secondary" })
-</div>
-
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Customer List</h2>
+            <h2 class="text-primary">List of Customers</h2>
         </div>
         <div class="col-6 text-end">
             <a asp-controller="Customer" asp-action="Create" class="btn btn-primary text-dark">
@@ -23,39 +17,4 @@
     </div>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <label asp-for="First().Id"></label>
-            </th>
-            <th>
-                <label asp-for="First().FirstName"></label>
-            </th>
-            <th>
-                <label asp-for="First().LastName"></label>
-            </th>
-            <th>
-                <label asp-for="First().EmailAddress"></label>
-            </th>
-            <th>
-                <label asp-for="First().PhoneNumber"></label>
-            </th>
-            <th>
-                <label asp-for="First().Pesel"></label>
-            </th>
-            <th>
-                <label asp-for="First().EmailAddress"></label>
-            </th>
-            <th>
-                <label asp-for="First().Gender"></label>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <partial name="_CustomerRow" , model="item" />
-        }
-    </tbody>
-</table>
+<partial name="_CustomerListTable" , model="Model" />
