@@ -1,6 +1,4 @@
-﻿using CarRental.DAL.Enums;
-using Microsoft.VisualBasic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
@@ -34,7 +32,7 @@ public sealed class Car
     [Display (Name = "Licence Plate")]
     [Required]
     [MaxLength(8)]
-    public string? LicencePlateNumber { get; set; } // numer rejestracyjny pojazdu
+    public string? LicencePlateNumber { get; set; }
 
     [Range(0, 500_000,
         ErrorMessage = "Value for {0} must be between {1} and {2}.")]

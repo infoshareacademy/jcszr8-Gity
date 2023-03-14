@@ -1,6 +1,5 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Models;
-using System.Runtime.CompilerServices;
 
 namespace CarRental.Logic;
 public class CarManager

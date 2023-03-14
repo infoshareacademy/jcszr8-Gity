@@ -1,7 +1,6 @@
-﻿using CarRental.DAL;
-using CarRental.DAL.Models;
+﻿using CarRental.DAL.Models;
 using CarRental.Logic.Interfaces;
-using Microsoft.AspNetCore.Http;
+using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -18,7 +17,14 @@ public class CustomerController : Controller
     // GET: CustomerController
     public IActionResult Index()
     {
-        var model = _customerService.GetAll();
+        var customers = _customerService.GetAll();
+
+        var model = new List<CustomerListModel>();
+
+        foreach(var customer in customers)
+        {
+            model.Add(new CustomerListModel().FillModel(customer));
+        }
         return View(model);
     }
 
@@ -67,10 +73,12 @@ public class CustomerController : Controller
     // POST: CustomerController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(int id, IFormCollection collection)
+    public IActionResult Edit(Customer customer)
     {
         try
         {
+            _customerService.Update(customer);
+
             return RedirectToAction(nameof(Index));
         }
         catch
