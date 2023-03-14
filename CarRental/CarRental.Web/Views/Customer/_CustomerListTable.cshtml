@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CarRental.Web.Models.CustomerListModel>
+
+<table class="table table-hover">
+    <thead class="">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">
+                <label asp-for="First().FirstName"></label>
+            </th>
+            <th scope="col">
+                <label asp-for="First().LastName"></label>
+            </th>
+            <th scope="col">
+                <label asp-for="First().EmailAddress"></label>
+            </th>
+            <th scope="col">
+                <label asp-for="First().PhoneNumber"></label>
+            </th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.EmailAddress</td>
+                <td>@item.PhoneNumber</td>
+                <td>
+                    <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
+                        <i class="fa fa-trash"></i>
+                        <a asp-action="Details" asp-route-id="@item.Id">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                    </button>
+
+                    <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit element">
+                        <a asp-action="Edit" asp-route-id="@item.Id">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </button>
+
+                    <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete element">
+                        <a asp-action="Delete" asp-route-id="@item.Id">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

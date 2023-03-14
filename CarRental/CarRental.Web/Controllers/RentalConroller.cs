@@ -1,4 +1,6 @@
-﻿using CarRental.Logic.Interfaces;
+﻿using CarRental.DAL.Models;
+using CarRental.Logic.Interfaces;
+using CarRental.Logic.Services;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +20,11 @@ public class RentalController : Controller
     {
         var rentals = _rentalService.GetAll();
 
-        var model = new List<RentalListModel>();
+        var model = new List<RentalViewModel>();
 
         foreach(var rental in rentals)
         {
-            model.Add(new RentalListModel().FillModel(rental));
+            model.Add(new RentalViewModel().FillModel(rental));
         }
 
         return View(model);
@@ -31,7 +33,9 @@ public class RentalController : Controller
     // GET: RentalConroller/Details/5
     public IActionResult Details(int id)
     {
-        return View();
+        var rental = _rentalService.GetById(id);
+        var model = new RentalListModel().FillModel(rental);
+        return View(model);
     }
 
     // GET: RentalConroller/Create
@@ -43,10 +47,16 @@ public class RentalController : Controller
     // POST: RentalConroller/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(IFormCollection collection)
+    public IActionResult Create(Rental rental)
     {
         try
         {
+            if (!ModelState.IsValid)
+            {
+                return View(rental);
+            }
+            _rentalService.Create(rental);
+
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -58,16 +68,18 @@ public class RentalController : Controller
     // GET: RentalConroller/Edit/5
     public IActionResult Edit(int id)
     {
-        return View();
+        var rental = _rentalService.GetById(id);
+        return View(rental);
     }
 
     // POST: RentalConroller/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(int id, IFormCollection collection)
+    public IActionResult Edit(Rental rental)
     {
         try
         {
+            _rentalService.Update(rental);
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -79,7 +91,8 @@ public class RentalController : Controller
     // GET: RentalConroller/Delete/5
     public IActionResult Delete(int id)
     {
-        return View();
+        var rental = _rentalService.GetById(id);
+        return View(rental);
     }
 
     // POST: RentalConroller/Delete/5
@@ -89,6 +102,7 @@ public class RentalController : Controller
     {
         try
         {
+            _rentalService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
         catch

@@ -25,5 +25,5 @@ public sealed class Rental : EntityBase
 
     [JsonProperty("total_cost")]
     [Display (Name = "Total Cost")]
-    public decimal TotalCost { get; set; } // in PLN
+    public decimal TotalCost { get; set; }
 }
