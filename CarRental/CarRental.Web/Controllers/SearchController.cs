@@ -30,19 +30,13 @@ namespace CarRental.Web.Controllers
             return View(model);
         }
 
-        // GET: SearchController/Details/5
-        public IActionResult Details(int id)
-        {
-            return View();
-        }
-
         public IActionResult Search(SearchViewModel search)
         {
             var dto = search.SearchViewModelDto;
             var model = _searchService.FilterList(dto);
             search.Cars= model;
             return View(search);
-        }`
+        }
         
     }
 }

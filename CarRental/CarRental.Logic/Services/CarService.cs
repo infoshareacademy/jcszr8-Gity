@@ -24,8 +24,23 @@ public class CarService : ICarService
         {
 
             cars = CarRentalData.Cars.Where(c => c.Make.Contains(name, StringComparison.CurrentCultureIgnoreCase)
-                
+                || c.CarModel.Contains(name, StringComparison.CurrentCultureIgnoreCase)
             ).ToList();
+        }
+        return cars;
+    }
+
+    public List<Car> CarByModel(string name)
+    {
+        List<Car> cars = new List<Car>();
+        if (string.IsNullOrEmpty(name))
+        {
+            cars = CarRentalData.Cars;
+        }
+        else
+        {
+
+            cars = CarRentalData.Cars.Where(c => c.CarModel.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
         }
         return cars;
     }

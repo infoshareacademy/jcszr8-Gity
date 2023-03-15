@@ -11,7 +11,7 @@ namespace CarRental.Logic
     {
         public string ModelAndMake { get; set; }
         public Dictionary<string, bool> Makes { get; set; }
-        public Dictionary<string, bool> Models { get; set; }
+        public string Model { get; set; }
 
         public int ProductionYearFrom { get; set; }
         public int ProductionYearTo { get; set; }

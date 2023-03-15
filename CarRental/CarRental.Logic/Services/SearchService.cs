@@ -46,9 +46,13 @@ namespace CarRental.Logic.Services
                 var selectedMakes = searchDto.Makes.Where(m => m.Value == true).Select(m => m.Key);
                 cars = CarRentalData.Cars.Where(c => selectedMakes.Contains(c.Make, StringComparer.CurrentCultureIgnoreCase)).ToList();
             }
-            else
+            if (searchDto.ProductionYearFrom > 0 && searchDto.ProductionYearTo > 0)
             {
-                cars = CarRentalData.Cars;
+                cars = cars.Where(c => c.Year >= searchDto.ProductionYearFrom && c.Year <= searchDto.ProductionYearTo).ToList();
+            }
+            if (!string.IsNullOrEmpty(searchDto.Model))
+            {
+                cars = cars.Where(c => c.CarModel.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase)).ToList();
             }
 
             return cars;
