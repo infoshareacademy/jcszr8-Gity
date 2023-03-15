@@ -39,10 +39,10 @@ namespace CarRental.Web.Controllers
         public IActionResult Search(SearchViewModel search)
         {
             var dto = search.SearchViewModelDto;
-            var model = _searchService.SearchList(dto);
+            var model = _searchService.FilterList(dto);
             search.Cars= model;
             return View(search);
-        }
+        }`
         
     }
 }

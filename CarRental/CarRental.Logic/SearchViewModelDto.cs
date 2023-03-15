@@ -18,12 +18,17 @@ namespace CarRental.Logic
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
+        public SearchViewModelDto() 
+        {
+            Makes = PremadeDic();
+        }
+
         public Dictionary<string, bool> PremadeDic()
         {
             Dictionary<string, bool> make = new Dictionary<string, bool>();
-            foreach (var maker in CarRentalData.Cars) 
+            foreach (var carMake in CarRentalData.Cars.Select(car => car.Make).Distinct())
             {
-                make.Add(maker.ToString(),false);
+                make.Add(carMake, false);
             }
             return make;
         }

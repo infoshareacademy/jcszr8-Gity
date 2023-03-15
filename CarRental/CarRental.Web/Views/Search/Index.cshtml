@@ -13,7 +13,7 @@
                 <div class="row">
                     <button class="btn btn-outline-secondary dropdown-toggle makes col-sm-auto" type="button" data-bs-toggle="dropdown" aria-expanded="false">Make</button>
                     <ul class="dropdown-menu checkbox-menu allow-focus">
-                        @foreach (var make in Model.Cars.Select(car => car.Make).Distinct())
+                        @foreach (var make in dto.Makes.Keys)
                         {
                             <li>
                                 <label>

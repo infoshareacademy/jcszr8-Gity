@@ -1,4 +1,5 @@
-﻿using CarRental.DAL.Models;
+﻿using CarRental.DAL;
+using CarRental.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,11 +37,21 @@ namespace CarRental.Logic.Services
             return results;
         }
 
-        //public List<Car> SearchMenu(SearchViewModelDto search) 
-        //
-        //    //List<Car> results = new List<Car>();
-        //    var results = _carService.CarByMaker();
-        //    return results;
-        //}
+        public List<Car> FilterList(SearchViewModelDto searchDto)
+        {
+            List<Car> cars = new List<Car>();
+
+            if (searchDto.Makes.Values.Any(v => v == true))
+            {
+                var selectedMakes = searchDto.Makes.Where(m => m.Value == true).Select(m => m.Key);
+                cars = CarRentalData.Cars.Where(c => selectedMakes.Contains(c.Make, StringComparer.CurrentCultureIgnoreCase)).ToList();
+            }
+            else
+            {
+                cars = CarRentalData.Cars;
+            }
+
+            return cars;
+        }
     }
 }
