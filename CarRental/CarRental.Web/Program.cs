@@ -1,5 +1,7 @@
 using CarRental.Logic.Interfaces;
 using CarRental.Logic.Services;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,5 +31,14 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+// For fixing comma vs dot problem
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en-US"),
+    SupportedCultures = new List<CultureInfo> { new("en-US") },
+    SupportedUICultures = new List<CultureInfo> { new("en-US") }
+});
 
 app.Run();
