@@ -87,16 +87,18 @@ namespace CarRental.Web.Controllers
         // GET: CarController/Delete/5
         public IActionResult Delete(int id)
         {
-            return View();
+            var car = _carService.GetById(id);
+            return View(car);
         }
 
         // POST: CarController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, int empty = 0)
         {
             try
             {
+                _carService.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
