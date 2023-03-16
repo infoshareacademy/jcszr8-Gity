@@ -9,7 +9,7 @@ public class CustomerService : ICustomerService
     private static int _idCounter = CarRentalData.Customers.Max(c => c.Id);
     private List<Customer> _customers = CarRentalData.Customers;
 
-    public List<Customer> GetAll()
+    public IEnumerable<Customer> GetAll()
     {
         return _customers;
     }

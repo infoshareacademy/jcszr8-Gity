@@ -27,10 +27,10 @@ namespace CarRental.Logic.Services
             {
                 cars = cars.Where(c => c.Year >= search.ProductionYearFrom && c.Year <= search.ProductionYearTo).ToList();
             }
-            List<int> getCarId = _rentalService.GetAvailableCarIds(search.StartDate, search.EndDate);
+            IEnumerable<int> getCarId = _rentalService.GetAvailableCarIds(search.StartDate, search.EndDate);
             foreach (var item in cars)
             {
-                if (getCarId.Exists(x => x == item.Id))
+                if (getCarId.Any(x => x == item.Id))
                 {
                     results.Add(item);
                 }
