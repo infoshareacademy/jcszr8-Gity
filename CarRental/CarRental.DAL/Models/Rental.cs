@@ -19,5 +19,6 @@ public sealed class Rental
     public DateTime EndDate { get; set; }
 
     [JsonProperty("total_cost")]
-    public decimal TotalCost { get; set; } // in PLN
+    [Display (Name = "Total Cost")]
+    public decimal TotalCost { get; set; }
 }

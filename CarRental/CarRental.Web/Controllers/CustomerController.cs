@@ -67,10 +67,12 @@ public class CustomerController : Controller
     // POST: CustomerController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(int id, IFormCollection collection)
+    public IActionResult Edit(Customer customer)
     {
         try
         {
+            _customerService.Update(customer);
+
             return RedirectToAction(nameof(Index));
         }
         catch

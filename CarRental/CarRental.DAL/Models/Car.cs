@@ -23,7 +23,9 @@ public sealed class Car
 
     [JsonProperty("licence_plate_number")]
     [Display (Name = "Licence Plate")]
-    public string? LicencePlateNumber { get; set; } // numer rejestracyjny pojazdu
+    [Required]
+    [MaxLength(8)]
+    public string? LicencePlateNumber { get; set; }
 
     public int Kilometrage { get; set; }
 
