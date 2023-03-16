@@ -66,7 +66,7 @@ public sealed class Car
     public int Airbags { get; set; }
 
     [JsonProperty("fuel_consumption")]
-    [Display (Name = "Fuel Consummption")]
+    [Display (Name = "Fuel Consumption")]
     [MaxLength(5)]
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
 
