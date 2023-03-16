@@ -1,0 +1,31 @@
+﻿@using CarRental.Web.Models;
+@model CustomerListModel
+
+<tr>
+    <td>
+        @Model.Id
+    </td>
+    <td>
+        @Model.FirstName
+    </td>
+    <td>
+        @Model.LastName
+    </td>
+    <td>
+        @Model.EmailAddress
+    </td>
+    <td>
+        @Model.PhoneNumber
+    </td>
+    <td>
+        @Model.Pesel
+    </td>
+    <td>
+        @Model.Gender
+    </td>
+    <td>
+        <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+    </td>
+</tr>

@@ -1,7 +1,7 @@
+using CarRental.Logic.Interfaces;
 using CarRental.Logic.Services;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-using CarRental.Logic.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
