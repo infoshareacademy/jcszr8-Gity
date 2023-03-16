@@ -69,15 +69,12 @@ body {
 }
 
 /* trash icon button */
-.bi-trash, .bi-pencil-square, .bi-eye {
+.bi-trash, .bi-pencil-square, .bi-eye, .bi-arrow-left, .bi-database-add {
     color: black;
     font-size: 1.2em;
     padding: 0px;
     /*border: 1px solid black;*/
     margin-right: 0px;
-}
-
-.bi-pencil-square {
 }
 
 .app-button {
