@@ -1,111 +1,119 @@
 using CarRental.DAL.Models;
+using CarRental.Web.Models;
+using CarRental.Logic.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using CarRental.Logic;
 using CarRental.Logic.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 
-namespace CarRental.Web.Controllers;
-
-public class CarController : Controller
+namespace CarRental.Web.Controllers
 {
-    private readonly ICarService _carService;
-    private readonly ISearchService _searchService;
-
-    public CarController(ICarService carService,ISearchService searchService) 
+    public class CarController : Controller
     {
-        this._carService = carService;
-        this._searchService = searchService;
-    }
+        private readonly ICarService _carService;
+        private readonly ISearchService _searchService;
 
-    // GET: CarController
-    public IActionResult Index()
-    {
-        var cars = this._carService.GetAll();
-        var mapper = new CarMapper();
-        var model = mapper.Map(cars);
-        return View(model);
-    }
-
-    // GET: CarController/Details/5
-    public IActionResult Details(int id)
-    {
-        var model = _carService.GetById(id);
-        return View(model);
-    }
-
-    // GET: CarController/Create
-    public IActionResult Create()
-    {
-        return View();
-    }
-
-    // POST: CarController/Create
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Create(Car model)
-    {
-        try
+        public CarController(ICarService carService,ISearchService searchService) 
         {
-            _carService.Create(model);
-            return RedirectToAction(nameof(Index));
+            this._carService = carService;
+            this._searchService = searchService;
         }
-        catch
+
+        // GET: CarController
+        public IActionResult Index()
+        {
+            var cars = this._carService.GetAll();
+            var models = new List<CarListModel>();
+            foreach(var car in cars)
+            {
+                models.Add(new CarListModel().FillModel(car));
+            }
+            return View(models);
+        }
+
+        // GET: CarController/Details/5
+        public IActionResult Details(int id)
+        {
+            var model = _carService.GetById(id);
+            return View(model);
+        }
+
+        // GET: CarController/Create
+        public IActionResult Create()
         {
             return View();
         }
-    }
 
-    // GET: CarController/Edit/5
-    public IActionResult Edit(int id)
-    {
-        var car = _carService.GetById(id);
-        return View(car);
-    }
-
-    // POST: CarController/Edit/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Edit(Car car)
-    {
-        try
+        // POST: CarController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Car model)
         {
-            _carService.Update(car);
-
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                _carService.Create(model);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
-        catch
+
+        // GET: CarController/Edit/5
+        public IActionResult Edit(int id)
         {
-            return View();
+            var car = _carService.GetById(id);
+            return View(car);
         }
-    }
 
-    // GET: CarController/Delete/5
-    public IActionResult Delete(int id)
-    {
-        var car = _carService.GetById(id);
-        return View(car);
-    }
-
-    // POST: CarController/Delete/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Delete(int id, int empty = 0)
-    {
-        try
+        // POST: CarController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Car car)
         {
-            _carService.Delete(id);
-            return RedirectToAction(nameof(Index));
-        }
-        catch
-        {
-            return View();
-        }
-    }
+            try
+            {
+                _carService.Update(car);
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Search(SearchViewModelDto vm)
-    {
-        var cars = _searchService.SearchList(vm);
-        return View(cars);
-    }        
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: CarController/Delete/5
+        public IActionResult Delete(int id)
+        {
+            var car = _carService.GetById(id);
+            return View(car);
+        }
+
+        // POST: CarController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id, int empty = 0)
+        {
+            try
+            {
+                _carService.Delete(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Search(SearchViewModelDto vm)
+        {
+            var cars = _searchService.SearchList(vm);
+            return View(cars);
+        }
+        
+    }
 }

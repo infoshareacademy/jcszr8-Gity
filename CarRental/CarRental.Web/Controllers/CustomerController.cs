@@ -21,7 +21,7 @@ public class CustomerController : Controller
 
         var model = new List<CustomerListModel>();
 
-        foreach(var customer in customers)
+        foreach (var customer in customers)
         {
             model.Add(new CustomerListModel().FillModel(customer));
         }

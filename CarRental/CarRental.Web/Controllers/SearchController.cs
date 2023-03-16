@@ -1,43 +1,43 @@
-﻿using CarRental.Logic;
-using CarRental.Logic.Interfaces;
+﻿using CarRental.DAL;
+using CarRental.DAL.Models;
+using CarRental.Logic;
+using CarRental.Logic.Services;
 using CarRental.Web.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Reflection;
+using CarRental.Logic.Interfaces;
 
-namespace CarRental.Web.Controllers;
-
-public class SearchController : Controller
+namespace CarRental.Web.Controllers
 {
-    private readonly ISearchService _searchService;
-    private readonly ICarService _carService;
-    public SearchController(ISearchService searchService, ICarService carService)
+    public class SearchController : Controller
     {
-        _searchService = searchService;
-        _carService = carService;
-    }
-
-    // GET: SearchController
-    public ActionResult Index()
-    {
-        var model = new SearchViewModel()
+        private readonly ISearchService _searchService;
+        private readonly ICarService   _carService;
+        public SearchController(ISearchService searchService,ICarService carService)
         {
-            Cars = _carService.GetAll(),
-            SearchViewModelDto = new SearchViewModelDto()
+            _searchService = searchService;
+            _carService = carService;
+        }
+
+        // GET: SearchController
+        public IActionResult Index()
+        {
+            var model = new SearchViewModel()
             {
-                EndDate = DateTime.Now,
-                ModelAndMake = "asd",
-                StartDate = DateTime.Now.AddDays(-7),
-                ProductionYearFrom = 0,
-                ProductionYearTo = 0,
-            }
+                Cars = _carService.GetAll()
+            };
+            return View(model);
+        }
 
-        };
-        return View(model);
+        public IActionResult Search(SearchViewModel search)
+        {
+            var dto = search.SearchViewModelDto;
+            var model = _searchService.FilterList(dto);
+            search.Cars= model;
+            return View(search);
+        }
+        
     }
-
-    // GET: SearchController/Details/5
-    public ActionResult Details(int id)
-    {
-        return View();
-    }
-
 }

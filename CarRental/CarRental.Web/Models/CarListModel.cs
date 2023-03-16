@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CarRental.DAL.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Web.Models;
 
@@ -15,4 +16,11 @@ public class CarListModel
 
     [Display(Name = "Licence Plate")]
     public string? LicencePlateNumber { get; set; }
+    public CarListModel FillModel(Car baseModel)
+    {
+        this.Id = baseModel.Id;
+        this.CarModel = baseModel.CarModel;
+        this.Make = baseModel.Make;
+        return this;
+    }
 }
