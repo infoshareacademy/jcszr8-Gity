@@ -1,36 +1,36 @@
 ﻿@model IEnumerable<CarRental.Web.Models.RentalViewModel>
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
+            <th scope="col">
+                #
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.CustomerId)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.CarId)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.BeginDate)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.TotalCost)
             </th>
-            <th>Actions</th>
+            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <th scope="row">
                     @Html.DisplayFor(modelItem => item.Id)
-                </td>
+                </th>
                 <td>
                     @Html.DisplayFor(modelItem => item.CustomerId)
                 </td>
@@ -48,7 +48,6 @@
                 </td>
                 <td>
                     <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
-                        <i class="fa fa-trash"></i>
                         <a asp-action="Details" asp-route-id="@item.Id">
                             <i class="bi bi-eye"></i>
                         </a>
