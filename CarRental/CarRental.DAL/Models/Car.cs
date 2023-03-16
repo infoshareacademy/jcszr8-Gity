@@ -29,7 +29,7 @@ public sealed class Car
     public string? Transmission { get; set; }
 
     [JsonProperty("licence_plate_number")]
-    [Display(Name = "Licence Plate")]
+    [Display (Name = "Licence Plate")]
     [Required]
     [MaxLength(8)]
     public string? LicencePlateNumber { get; set; }
@@ -39,11 +39,11 @@ public sealed class Car
     public int Kilometrage { get; set; }
 
     [JsonProperty("power_kw")]
-    [Display(Name = "Power in kWs")]
+    [Display (Name = "Power in kWs")]
     public float PowerInKiloWats { get; set; }
 
     [JsonProperty("fuel_type")]
-    [Display(Name = "Engine Type")]
+    [Display (Name = "Engine Type")]
     public string EngineType { get; set; }
 
     [JsonProperty("displacement")]
@@ -55,27 +55,27 @@ public sealed class Car
     public int Doors { get; set; }
 
     [JsonProperty("max_capacity")]
-    [Display(Name = "No. of Seats")]
+    [Display (Name = "No. of Seats")]
     [Range(2, 50,
         ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public int SeatsNo { get; set; } // total number of seats (with driver seat included)
 
-    [Display(Name = "No. of Airbags")]
+    [Display (Name = "No. of Airbags")]
     [Range(0, 10,
         ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public int Airbags { get; set; }
 
     [JsonProperty("fuel_consumption")]
-    [Display(Name = "Fuel Consumption")]
+    [Display (Name = "Fuel Consumption")]
     [MaxLength(5)]
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
 
-    [Display(Name = "Addons")]
+    [Display (Name = "Addons")]
     public List<string> Addons { get; set; } = new();
 
-    [Range(100, 1000,
+    [Range(100,1000,
         ErrorMessage = "Value for {0} must be between {1} and {2}.")]
-    [Display(Name = "Price/day")]
+    [Display (Name = "Price/day")]
     public decimal Price { get; set; }
 
     private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" };
