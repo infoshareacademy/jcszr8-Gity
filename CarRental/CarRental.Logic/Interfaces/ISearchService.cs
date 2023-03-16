@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.Logic.Services
+namespace CarRental.Logic.Interfaces
 {
     public interface ISearchService
     {

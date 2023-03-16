@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Reflection;
+using CarRental.Logic.Interfaces;
 
 namespace CarRental.Web.Controllers
 {
