@@ -67,9 +67,15 @@ body {
     background-color: brown;
     color :aliceblue
 }
+
+.btn-secondary {
+    color: blue;
+}
+
 .makes{
     max-width: 5rem;
 }
+
 .footer {
     background-color: gray;
     color: white;
@@ -78,6 +84,7 @@ body {
 .dropdown-menu{
     max-width: 5rem;
 }
+
 .checkbox-menu li label {
     display: block;
     padding: 0.188rem 0.625rem;
@@ -89,6 +96,7 @@ body {
     margin: 0;
     transition: background-color .4s ease;
 }
+
 .checkbox-menu li input {
     margin: 0rem 0.313rem;
     top: 0.125rem;
