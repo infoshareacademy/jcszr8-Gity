@@ -9,7 +9,7 @@ namespace CarRental.Logic.Interfaces
 {
     public interface ISearchService
     {
-        List<Car> SearchList(SearchViewModelDto search);
-        List<Car> FilterList(SearchViewModelDto searchDto);
+        List<Car> SearchList(SearchlDto search);
+        List<Car> FilterList(SearchlDto searchDto);
     }
 }

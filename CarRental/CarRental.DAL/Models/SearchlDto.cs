@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Logic
 {
-    public class SearchViewModelDto
+    public class SearchlDto
     {
         public string ModelAndMake { get; set; }
         public Dictionary<string, bool> Makes { get; set; }
@@ -18,12 +18,12 @@ namespace CarRental.Logic
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public SearchViewModelDto() 
+        public SearchlDto() 
         {
-            Makes = PremadeDic();
+            Makes = PremadeDictionary();
         }
 
-        public Dictionary<string, bool> PremadeDic()
+        public Dictionary<string, bool> PremadeDictionary()
         {
             Dictionary<string, bool> make = new Dictionary<string, bool>();
             foreach (var carMake in CarRentalData.Cars.Select(car => car.Make).Distinct())

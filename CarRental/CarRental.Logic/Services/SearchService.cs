@@ -18,7 +18,7 @@ namespace CarRental.Logic.Services
             _carService = carService;
             _rentalService = rentalService;
         }
-        public List<Car> SearchList(SearchViewModelDto search)
+        public List<Car> SearchList(SearchlDto search)
         {
             List<Car> results = new List<Car>();
             var cars = _carService.GetByName(search.ModelAndMake);
@@ -38,7 +38,7 @@ namespace CarRental.Logic.Services
             return results;
         }
 
-        public List<Car> FilterList(SearchViewModelDto searchDto)
+        public List<Car> FilterList(SearchlDto searchDto)
         {
             List<Car> cars = new List<Car>();
 

@@ -103,7 +103,7 @@ public class CarController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Search(SearchViewModelDto vm)
+    public IActionResult Search(SearchlDto vm)
     {
         var cars = _searchService.SearchList(vm);
         return View(cars);
