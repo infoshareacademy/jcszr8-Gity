@@ -13,19 +13,19 @@ public class SearchService : ISearchService
         _carService = carService;
         _rentalService = rentalService;
     }
-    public List<Car> SearchList(SearchlDto search)
+    public List<Car> SearchList(SearchlDto searchModel)
     {
         List<Car> results = new List<Car>();
-        var cars = _carService.GetByName(search.ModelAndMake);
+        var cars = _carService.GetByName(searchModel.ModelAndMake);
 
-        if (search.ProductionYearTo > 0 && search.ProductionYearTo >= search.ProductionYearFrom)
+        if (searchModel.ProductionYearTo > 0 && searchModel.ProductionYearTo >= searchModel.ProductionYearFrom)
         {
-            cars = cars.Where(c => c.Year >= search.ProductionYearFrom && c.Year <= search.ProductionYearTo).ToList();
+            cars = cars.Where(c => c.Year >= searchModel.ProductionYearFrom && c.Year <= searchModel.ProductionYearTo).ToList();
         }
-        IEnumerable<int> getCarId = _rentalService.GetAvailableCarIds(search.StartDate, search.EndDate);
+        IEnumerable<int> carIds = _rentalService.GetAvailableCarIds(searchModel.StartDate, searchModel.EndDate);
         foreach (var item in cars)
         {
-            if (getCarId.Any(x => x == item.Id))
+            if (carIds.Any(x => x == item.Id))
             {
                 results.Add(item);
             }
