@@ -33,28 +33,6 @@ public class SearchService : ISearchService
         return results;
     }
 
-    //public List<Car> FilterList(SearchDto searchDto)
-    //{
-    //    List<Car> cars = new List<Car>();
-
-    //    if (searchDto.Makes.Values.Any(v => v == true))
-    //    {
-    //        var selectedMakes = searchDto.Makes.Where(m => m.Value == true).Select(m => m.Key);
-    //        cars = CarRentalData.Cars.Where(c => selectedMakes.Contains(c.Make, StringComparer.CurrentCultureIgnoreCase)).ToList();
-    //    }
-    //    if (searchDto.ProductionYearFrom > 0 && searchDto.ProductionYearTo > 0)
-    //    {
-    //        cars = cars.Where(c => c.Year >= searchDto.ProductionYearFrom && c.Year <= searchDto.ProductionYearTo).ToList();
-    //    }
-    //    if (!string.IsNullOrEmpty(searchDto.Model))
-    //    {
-    //        cars = cars.Where(c => c.CarModel.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase)).ToList();
-    //    }
-
-    //    return cars;
-    //}
-
-
     public List<Car> FilterList(SearchDto searchDto)
     {
         List<Car> cars = new List<Car>();
@@ -73,10 +51,10 @@ public class SearchService : ISearchService
             cars = cars.Where(c => c.Year >= searchDto.ProductionYearFrom && c.Year <= searchDto.ProductionYearTo).ToList();
         }
 
-        if (!string.IsNullOrEmpty(searchDto.ModelAndMake))
+        if (!string.IsNullOrEmpty(searchDto.Model))
         {
-            cars = cars.Where(c => c.Make.Contains(searchDto.ModelAndMake, StringComparison.CurrentCultureIgnoreCase) ||
-                                   c.CarModel.Contains(searchDto.ModelAndMake, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            cars = cars.Where(c => c.Make.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase) ||
+                                   c.CarModel.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase)).ToList();
         }
 
         if (searchDto.StartDate != null && searchDto.EndDate != null)
