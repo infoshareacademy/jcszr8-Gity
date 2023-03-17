@@ -31,9 +31,21 @@ namespace CarRental.Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SearchFromHome(SearchViewModel search)
+        {
+            var dto = search.SearchDto;
+            var cars = _searchService.SearchList(dto);
+            search.Cars = cars;
+            return View(search);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Search(SearchViewModel search)
         {
-            var dto = search.SearchViewModelDto;
+            var dto = search.SearchDto;
             var model = _searchService.FilterList(dto);
             search.Cars= model;
             return View(search);

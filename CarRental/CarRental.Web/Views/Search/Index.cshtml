@@ -3,7 +3,7 @@
 @{
 
     ViewData["Title"] = "Index";
-    var dto = Model.SearchViewModelDto;
+    var dto = Model.SearchDto;
 }
 <div class="container">
     <h1>Index</h1>
@@ -17,26 +17,26 @@
                         {
                             <li>
                                 <label>
-                                    <input type="checkbox" asp-for="SearchViewModelDto.Makes[make]" value="@true">@make
+                                    <input type="checkbox" asp-for="SearchDto.Makes[make]" value="@true">@make
                                 </label>
                             </li>
                         }
                     </ul>
                     <div class="col-sm-auto">
-                        <input class="form-control me-2 search" asp-for="SearchViewModelDto.ModelAndMake" type="text" placeholder="Search" aria-label="Search">
+                        <input class="form-control me-2 search" asp-for="SearchDto.ModelAndMake" type="text" placeholder="Search" aria-label="Search">
                     </div>
                     <div class="col-sm-auto">
-                        <input class="form-control year" asp-for="SearchViewModelDto.ProductionYearFrom" />
+                        <input class="form-control year" asp-for="SearchDto.ProductionYearFrom" />
                     </div>
                     <div class="col-sm-auto">
-                        <input class="form-control year" asp-for="SearchViewModelDto.ProductionYearTo" />
+                        <input class="form-control year" asp-for="SearchDto.ProductionYearTo" />
                     </div>
                     <div class="row">
                         <div class="col-sm-auto">
-                        <input type="date" class="form-control date" asp-for="SearchViewModelDto.StartDate" />
+                        <input type="date" class="form-control date" asp-for="SearchDto.StartDate" />
                     </div>
                         <div class="col-sm-auto">
-                        <input type="date" class="form-control date" asp-for="SearchViewModelDto.EndDate" />
+                        <input type="date" class="form-control date" asp-for="SearchDto.EndDate" />
                     </div>
                         <div class="col-sm-auto">
                         <button class="btn" type="submit" asp-action="Search">Search</button>

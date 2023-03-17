@@ -100,12 +100,4 @@ public class CarController : Controller
             return View();
         }
     }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Search(SearchlDto vm)
-    {
-        var cars = _searchService.SearchList(vm);
-        return View(cars);
-    }        
 }

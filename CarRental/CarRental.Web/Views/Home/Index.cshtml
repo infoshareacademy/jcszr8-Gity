@@ -1,5 +1,5 @@
 ﻿@using CarRental.Web.Controllers;
-@model CarRental.Logic.SearchlDto;
+@model CarRental.Web.Models.SearchViewModel;
 
 @{
     ViewData["Title"] = "Home Page";
@@ -15,12 +15,12 @@
             <div class="text-white">
                 <h1>Car Rental – Search, Compare & Save</h1>
                 <h2>Free cancellations on most bookings 60,000+ locations Customer support in 40+ languages</h2>
-                <form class="d-flex" asp-controller="Car" asp-action="Search" method="post">
-                    <input class="form-control me-2 search" asp-for="ModelAndMake" type="text" placeholder="Search" aria-label="Search">
-                    <input class="form-control year" asp-for="ProductionYearFrom" />
-                    <input class="form-control year" asp-for="ProductionYearTo" />
-                    <input type="date" class="form-control date" asp-for="StartDate"/>
-                    <input type="date" class="form-control date" asp-for="EndDate"/>
+                <form class="d-flex" asp-controller="Search" asp-action="SearchFromHome" method="post">
+                    <input class="form-control me-2 search" asp-for="SearchDto.ModelAndMake" type="text" placeholder="Search" aria-label="Search">
+                    <input class="form-control year" asp-for="SearchDto.ProductionYearFrom" />
+                    <input class="form-control year" asp-for="SearchDto.ProductionYearTo" />
+                    <input type="date" class="form-control date" asp-for="SearchDto.StartDate" />
+                    <input type="date" class="form-control date" asp-for="SearchDto.EndDate" />
                     <button class="btn btn-outline-success" type="submit" >Search</button>
                 </form>
             </div>

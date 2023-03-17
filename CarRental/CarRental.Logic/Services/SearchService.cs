@@ -13,7 +13,7 @@ public class SearchService : ISearchService
         _carService = carService;
         _rentalService = rentalService;
     }
-    public List<Car> SearchList(SearchlDto searchModel)
+    public List<Car> SearchList(SearchDto searchModel)
     {
         List<Car> results = new List<Car>();
         var cars = _carService.GetByName(searchModel.ModelAndMake);
@@ -33,11 +33,37 @@ public class SearchService : ISearchService
         return results;
     }
 
-    public List<Car> FilterList(SearchlDto searchDto)
+    //public List<Car> FilterList(SearchDto searchDto)
+    //{
+    //    List<Car> cars = new List<Car>();
+
+    //    if (searchDto.Makes.Values.Any(v => v == true))
+    //    {
+    //        var selectedMakes = searchDto.Makes.Where(m => m.Value == true).Select(m => m.Key);
+    //        cars = CarRentalData.Cars.Where(c => selectedMakes.Contains(c.Make, StringComparer.CurrentCultureIgnoreCase)).ToList();
+    //    }
+    //    if (searchDto.ProductionYearFrom > 0 && searchDto.ProductionYearTo > 0)
+    //    {
+    //        cars = cars.Where(c => c.Year >= searchDto.ProductionYearFrom && c.Year <= searchDto.ProductionYearTo).ToList();
+    //    }
+    //    if (!string.IsNullOrEmpty(searchDto.Model))
+    //    {
+    //        cars = cars.Where(c => c.CarModel.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase)).ToList();
+    //    }
+
+    //    return cars;
+    //}
+
+
+    public List<Car> FilterList(SearchDto searchDto)
     {
         List<Car> cars = new List<Car>();
 
-        if (searchDto.Makes.Values.Any(v => v == true))
+        if (searchDto.Makes.Values.All(m => m == false))
+        {
+            cars = CarRentalData.Cars;
+        }
+        if (searchDto.Makes.Values.Contains(true))
         {
             var selectedMakes = searchDto.Makes.Where(m => m.Value == true).Select(m => m.Key);
             cars = CarRentalData.Cars.Where(c => selectedMakes.Contains(c.Make, StringComparer.CurrentCultureIgnoreCase)).ToList();
@@ -46,11 +72,20 @@ public class SearchService : ISearchService
         {
             cars = cars.Where(c => c.Year >= searchDto.ProductionYearFrom && c.Year <= searchDto.ProductionYearTo).ToList();
         }
-        if (!string.IsNullOrEmpty(searchDto.Model))
+
+        if (!string.IsNullOrEmpty(searchDto.ModelAndMake))
         {
-            cars = cars.Where(c => c.CarModel.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            cars = cars.Where(c => c.Make.Contains(searchDto.ModelAndMake, StringComparison.CurrentCultureIgnoreCase) ||
+                                   c.CarModel.Contains(searchDto.ModelAndMake, StringComparison.CurrentCultureIgnoreCase)).ToList();
+        }
+
+        if (searchDto.StartDate != null && searchDto.EndDate != null)
+        {
+            var availableCarIds = _rentalService.GetAvailableCarIds(searchDto.StartDate, searchDto.EndDate);
+            cars = cars.Where(c => availableCarIds.Contains(c.Id)).ToList();
         }
 
         return cars;
     }
+
 }
