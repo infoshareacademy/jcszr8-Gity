@@ -1,15 +1,9 @@
 ﻿using CarRental.DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CarRental.Logic.Interfaces
+namespace CarRental.Logic.Interfaces;
+
+public interface ISearchService
 {
-    public interface ISearchService
-    {
-        List<Car> SearchList(SearchlDto search);
-        List<Car> FilterList(SearchlDto searchDto);
-    }
+    List<Car> SearchList(SearchlDto search);
+    List<Car> FilterList(SearchlDto searchDto);
 }

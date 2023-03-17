@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Web.Models;
 
-public class CarListModel
+public class CarViewModel
 {
     public int Id { get; set; }
 
@@ -16,7 +16,7 @@ public class CarListModel
 
     [Display(Name = "Licence Plate")]
     public string? LicencePlateNumber { get; set; }
-    public CarListModel FillModel(Car baseModel)
+    public CarViewModel FillModel(Car baseModel)
     {
         this.Id = baseModel.Id;
         this.CarModel = baseModel.CarModel;
