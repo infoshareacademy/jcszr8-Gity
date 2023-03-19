@@ -5,13 +5,13 @@ namespace CarRental.Web;
 
 public class CarMapper
 {
-    public List<CarListModel> Map(IEnumerable<Car> cars)
+    public List<CarViewModel> Map(IEnumerable<Car> cars)
     {
-        List<CarListModel> carListModels = new();
+        List<CarViewModel> carListModels = new();
         foreach (var car in cars)
         {
             carListModels.Add(
-                new CarListModel
+                new CarViewModel
                 {
                     Id = car.Id,
                     CarModel = car.CarModel,
