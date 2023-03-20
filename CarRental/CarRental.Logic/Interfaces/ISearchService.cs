@@ -4,5 +4,6 @@ namespace CarRental.Logic.Interfaces;
 
 public interface ISearchService
 {
-    List<Car> SearchList(SearchViewModelDto search);
+    List<Car> SearchList(SearchDto search);
+    List<Car> FilterList(SearchDto searchDto);
 }
