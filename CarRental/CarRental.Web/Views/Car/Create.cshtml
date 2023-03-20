@@ -1,4 +1,4 @@
-﻿@model CarRental.DAL.Models.Car
+﻿@model CarRental.Web.Models.CarViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -34,7 +34,9 @@
 
                     <div class="form-group">
                         <label asp-for="Year" class="control-label"></label>
-                        <input asp-for="Year" class="form-control" />
+                        <select asp-for="Year" id="" name="Year">
+                            <partial name="_AvailableOptionsForYear" />
+                        </select>
                         <span asp-validation-for="Year" class="text-danger"></span>
                     </div>
 
@@ -96,7 +98,7 @@
                 </div>
             </form>
             <div>
-                <a asp-action="Index">Back to List</a>
+                <partial name="Buttons/_ButtonBackToList" />
             </div>
         </div>
     </div>

@@ -1,20 +1,24 @@
 ﻿@model IEnumerable<CarRental.Web.Models.CustomerViewModel>
 
+    @{
+        var firstName = Model.First().FirstName;
+    }
+
 <table class="table table-hover">
     <thead class="">
         <tr>
             <th scope="col">#</th>
             <th scope="col">
-                <label asp-for="First().FirstName"></label>
+                <input type="text" class="search-input" placeholder="@Html.DisplayNameFor(model => model.FirstName)"/>
             </th>
             <th scope="col">
-                <label asp-for="First().LastName"></label>
+                <input type="text" class="search-input" placeholder="@Html.DisplayNameFor(model => model.LastName)" />
             </th>
             <th scope="col">
-                <label asp-for="First().EmailAddress"></label>
+                <input type="text" class="search-input" placeholder="@Html.DisplayNameFor(model => model.EmailAddress)" />
             </th>
             <th scope="col">
-                <label asp-for="First().PhoneNumber"></label>
+                <input type="text" class="search-input" placeholder="@Html.DisplayNameFor(model => model.PhoneNumber)" />
             </th>
             <th scope="col">Actions</th>
         </tr>

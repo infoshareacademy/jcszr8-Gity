@@ -1,0 +1,14 @@
+﻿@{
+    List<int> years = new();
+    int presentYear = DateTime.Now.Year;
+
+    for (int year = presentYear - 15; year <= presentYear; year++)
+    {
+        years.Add(year);
+    }
+}
+
+@foreach(var year in years)
+{
+<option value="@year">@year</option>
+}
