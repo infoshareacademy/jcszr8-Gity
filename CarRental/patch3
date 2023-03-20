@@ -1,0 +1,2028 @@
+diff --git a/CarRental/CarRental.DAL/CarRentalData.cs b/CarRental/CarRental.DAL/CarRentalData.cs
+index 6c5dcdc..df99a9b 100644
+--- a/CarRental/CarRental.DAL/CarRentalData.cs
++++ b/CarRental/CarRental.DAL/CarRentalData.cs
+@@ -1,5 +1,4 @@
+-﻿
+-using CarRental.DAL.Models;
++﻿using CarRental.DAL.Models;
+ using Newtonsoft.Json;
+ using System.Text.Json;
+ 
+diff --git a/CarRental/CarRental.DAL/Models/Car.cs b/CarRental/CarRental.DAL/Models/Car.cs
+index 3fae97c..f0cf590 100644
+--- a/CarRental/CarRental.DAL/Models/Car.cs
++++ b/CarRental/CarRental.DAL/Models/Car.cs
+@@ -1,24 +1,31 @@
+-﻿using CarRental.DAL.Enums;
+-using Microsoft.VisualBasic;
+-using Newtonsoft.Json;
++﻿using Newtonsoft.Json;
+ using System.ComponentModel.DataAnnotations;
+ using System.Text;
+ 
+ namespace CarRental.DAL.Models;
+ public sealed class Car
+ {
++    #region Properties/Fields
+     public int Id { get; set; }
+ 
+     [JsonProperty(PropertyName = "model")]
+     [Display(Name = "Model")]
++    [Required]
+     public string? CarModel { get; set; }
+ 
++    [MaxLength(100)]
++    [Required]
+     public string? Make { get; set; }
+ 
++    // TODO fix end year
++    [Range(2000, 2050,
++       ErrorMessage = "Value for {0} must be between {1} and {2}.")]
+     public int Year { get; set; } // production year
+ 
++    [MaxLength(20)]
+     public string? Color { get; set; }
+ 
++    [MaxLength(20)]
+     public string? Transmission { get; set; }
+ 
+     [JsonProperty("licence_plate_number")]
+@@ -27,22 +34,35 @@ public sealed class Car
+     [MaxLength(8)]
+     public string? LicencePlateNumber { get; set; }
+ 
++    [Range(0, 500_000,
++        ErrorMessage = "Value for {0} must be between {1} and {2}.")]
+     public int Kilometrage { get; set; }
+ 
+     [JsonProperty("power_kw")]
++    [Display (Name = "Power in kWs")]
+     public float PowerInKiloWats { get; set; }
+ 
+     [JsonProperty("fuel_type")]
++    [Display (Name = "Engine Type")]
+     public string EngineType { get; set; }
+ 
+     [JsonProperty("displacement")]
++    [MaxLength(10)]
+     public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
+ 
++    [Range(3, 10,
++        ErrorMessage = "Value for {0} must be between {1} and {2}.")]
+     public int Doors { get; set; }
+ 
+     [JsonProperty("max_capacity")]
++    [Display (Name = "No. of Seats")]
++    [Range(2, 50,
++        ErrorMessage = "Value for {0} must be between {1} and {2}.")]
+     public int SeatsNo { get; set; } // total number of seats (with driver seat included)
+ 
++    [Display (Name = "No. of Airbags")]
++    [Range(0, 10,
++        ErrorMessage = "Value for {0} must be between {1} and {2}.")]
+     public int Airbags { get; set; }
+ 
+     [JsonProperty("fuel_consumption")]
+@@ -50,14 +70,20 @@ public sealed class Car
+     [MaxLength(5)]
+     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
+ 
++    [Display (Name = "Addons")]
+     public List<string> Addons { get; set; } = new();
+ 
++    [Range(100,1000,
++        ErrorMessage = "Value for {0} must be between {1} and {2}.")]
++    [Display (Name = "Price/day")]
+     public decimal Price { get; set; }
+ 
+     private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" };
+ 
+     public static List<string> GetAvailableAddons() { return _availableAddons; }
+ 
++    #endregion
++
+     public Car(int id, string make, string model, string licensePlate)
+     {
+         Id = id;
+@@ -66,6 +92,8 @@ public sealed class Car
+         LicencePlateNumber = licensePlate;
+     }
+ 
++    public Car() { }
++
+     public override string ToString()
+     {
+         return $"id:{Id} | {Make} | {CarModel} | {LicencePlateNumber} | {GetAddonsToString()}";
+diff --git a/CarRental/CarRental.DAL/Models/Customer.cs b/CarRental/CarRental.DAL/Models/Customer.cs
+index 5f37970..cdad0e5 100644
+--- a/CarRental/CarRental.DAL/Models/Customer.cs
++++ b/CarRental/CarRental.DAL/Models/Customer.cs
+@@ -1,32 +1,45 @@
+-﻿using System.Text.Json.Serialization;
+-using System.Text;
+-using Newtonsoft.Json;
++﻿using Newtonsoft.Json;
+ using System.ComponentModel.DataAnnotations;
+ 
+ namespace CarRental.DAL.Models;
+ public sealed class Customer
+ {
+-    [Range(0, 100, ErrorMessage = "Zwaliłeś sprawe!")]
+     [JsonProperty("id")]
+     public int Id;
+ 
+     [JsonProperty("first_name")]
++    [Display (Name = "First Name")]
++    [MaxLength (30)]
++    [Required]
+     public string FirstName { get; set; }
+ 
+     [JsonProperty("last_name")]
++    [Display (Name = "Last Name")]
++    [MaxLength (30)]
++    [Required]
+     public string LastName { get; set; }
+ 
+     [JsonProperty("email_address")]
++    [Display (Name = "Email")]
++    [EmailAddress]
++    [Required]
++    [MaxLength (50)]
+     public string? EmailAddress { get; set; }
+ 
+     [JsonProperty("phone_number")]
++    [Display (Name = "Phone Number")]
++    [Phone]
++    [Required]
+     public string PhoneNumber { get; set; }
+ 
++    [MinLength(11)]
++    [MaxLength (11)]
+     [JsonProperty("pesel")]
+     public string? Pesel { get; set; }
+ 
++    [MaxLength (10)]
+     [JsonProperty("gender")]
+-    public char Gender { get; set; } // F female, M male, O other
++    public char Gender { get; set; }
+ 
+     public Customer(int id, string firstName, string lastName, string phoneNumber)
+     {
+diff --git a/CarRental/CarRental.DAL/Models/Rental.cs b/CarRental/CarRental.DAL/Models/Rental.cs
+index 6300da1..ad20841 100644
+--- a/CarRental/CarRental.DAL/Models/Rental.cs
++++ b/CarRental/CarRental.DAL/Models/Rental.cs
+@@ -8,15 +8,19 @@ public sealed class Rental
+     public int Id { get; set; }
+ 
+     [JsonProperty("customer_id")]
++    [Display (Name = "Customer Id")]
+     public int CustomerId { get; set; }
+ 
+     [JsonProperty("car_id")]
++    [Display (Name = "Car Id")]
+     public int CarId { get; set; }
+ 
+     [JsonProperty("begin_datetime")]
++    [Display (Name = "Start of Rental")]
+     public DateTime BeginDate { get; set; }
+ 
+     [JsonProperty("end_datetime")]
++    [Display (Name = "End of Rental")]
+     public DateTime EndDate { get; set; }
+ 
+     [JsonProperty("total_cost")]
+diff --git a/CarRental/CarRental.DAL/Utilities/CheckingCarAvailable.cs b/CarRental/CarRental.DAL/Utilities/CheckingCarAvailable.cs
+new file mode 100644
+index 0000000..924de5c
+--- /dev/null
++++ b/CarRental/CarRental.DAL/Utilities/CheckingCarAvailable.cs
+@@ -0,0 +1,38 @@
++﻿using CarRental.DAL.Models;
++
++namespace CarRental.DAL.Utilities;
++
++public sealed class CheckingCarAvailable
++{
++    public DateTime TimestampToDateTime(string timestamp)
++    {
++        var isValidDate = DateTime.TryParse(timestamp, out var parsedTime);
++
++        if (isValidDate)
++        {
++            return parsedTime;
++        }
++        throw new ArgumentException($"Wrong format of timestamp: {timestamp}");
++    }
++    public bool IsCarAvailable(DateTime start, DateTime end, int carId, List<Rental> rentals)
++    {
++        bool result = false; 
++        var rental = rentals.FirstOrDefault(r => r.CarId == carId);
++        if (rental is null)
++        {
++            return true;
++        }
++
++
++        if (start > rental.BeginDate && end < rental.EndDate)
++        {
++            result = false;
++        }
++        return result;
++    }
++    public void RunIsCarAvailable()
++    {
++      //  var available = IsCarAvailable(new DateTime(2023, 1, 10), DateTime.Now, 4);
++
++    }
++}
+diff --git a/CarRental/CarRental.DAL/Utilities/ItemSerializer.cs b/CarRental/CarRental.DAL/Utilities/ItemSerializer.cs
+new file mode 100644
+index 0000000..c350424
+--- /dev/null
++++ b/CarRental/CarRental.DAL/Utilities/ItemSerializer.cs
+@@ -0,0 +1,15 @@
++﻿using Newtonsoft.Json;
++
++namespace CarRental.DAL.Utilities;
++public static class ItemSerializer<T>
++{
++    public static string Serialize(List<T> objects)
++    {
++        return JsonConvert.SerializeObject(objects);
++    }
++
++    public static List<T> Deserialize(string itemsSerialized)
++    {
++        return JsonConvert.DeserializeObject<List<T>>(itemsSerialized) ?? new List<T>();
++    }
++}
+diff --git a/CarRental/CarRental.Logic/CarManager.cs b/CarRental/CarRental.Logic/CarManager.cs
+new file mode 100644
+index 0000000..0028552
+--- /dev/null
++++ b/CarRental/CarRental.Logic/CarManager.cs
+@@ -0,0 +1,27 @@
++﻿using CarRental.DAL;
++using CarRental.DAL.Models;
++
++namespace CarRental.Logic;
++public class CarManager
++{
++    private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
++
++    private static List<Car> _cars = CarRentalData.Cars;
++    public static Car CreateCar(string make, string model, string licensePlate)
++    {
++        int id = GetNextId();
++        var car = new Car(id, make, model, licensePlate);
++        CarRentalData.Cars.Add(car);
++        return car;
++    }
++
++    public static Car GetById(int carId)
++    {
++        return _cars.FirstOrDefault(c => c.Id == carId);
++    }
++
++    private static int GetNextId()
++    {
++        return ++_idCounter;
++    }
++}
+diff --git a/CarRental/CarRental.Logic/CarPropertyValidator.cs b/CarRental/CarRental.Logic/CarPropertyValidator.cs
+new file mode 100644
+index 0000000..566620b
+--- /dev/null
++++ b/CarRental/CarRental.Logic/CarPropertyValidator.cs
+@@ -0,0 +1,156 @@
++﻿using CarRental.DAL.Enums;
++
++namespace CarRental.Logic;
++
++public sealed class CarPropertyValidator
++{
++    public static bool IsCarPropertyValid(string propertyName, string propertyValue)
++    {
++        switch (propertyName)
++        {
++            case "make":
++                return IsCarMakeValid(propertyValue);
++            case "model":
++                return IsCarModelValid(propertyValue);
++            case "license-plate-number":
++                return IsCarLicensePlateNumberValid(propertyValue);
++            case "year":
++                return IsCarYearValid(propertyValue);
++            case "kilometrage":
++                return IsKilometrageValid(propertyValue);
++            case "airbags":
++                return IsAirbagsNumberValid(propertyValue);
++            case "seats":
++                return IsSeatsNumberValid(propertyValue);
++            case "doors":
++                return IsDoorsNumberValid(propertyValue);
++            case "price":
++                return IsPriceValid(propertyValue);
++            case "color":
++                return IsColorValid(propertyValue);
++            case "fuel-consumption":
++                return IsFuelConsumptionValid(propertyValue);
++            case "transmission":
++                return IsTransmissionTypeValid(propertyValue);
++            case "ac":
++                return IsAcValid(propertyValue);
++            case "displacement":
++                return IsDisplacementValid(propertyValue);
++            case "fuel-type":
++                return IsFuelTypeValid(propertyValue);
++            case "kw":
++                return IsPowerInKwValid(propertyValue);
++            case "vin":
++                return IsVinValid(propertyValue);
++            default:
++                return false;
++        }
++    }
++
++    public static bool IsCarLicensePlateNumberValid(string licensePlateNumber)
++    {
++        // TODO better validation, ex. against some chars like {$%^! etc.
++        if (licensePlateNumber.Length >= 4 && licensePlateNumber.Length <= 10)
++            return true;
++        return false;
++    }
++    public static bool IsCarMakeValid(string carMake)
++    {
++        // TODO better validation, ex. against some list of car makers
++        if (carMake.Length >= 3 && carMake.Length < 30)
++            return true;
++        return false;
++    }
++
++    public static bool IsCarModelValid(string carModel)
++    {
++        // TODO better validation, ex. against some list of car models
++        if (carModel.Length >= 3 && carModel.Length < 30)
++            return true;
++        return false;
++    }
++
++    public static bool IsCarYearValid(string year)
++    {
++        return int.TryParse(year, out int y)
++            && (y >= 2000 && y <= DateTime.Now.Year);
++    }
++
++    public static bool IsKilometrageValid(string kilometrage)
++    {
++        return int.TryParse(kilometrage, out int k)
++            && (k >= 0 && k <= 1_000_000);
++    }
++
++    public static bool IsAirbagsNumberValid(string airbags)
++    {
++        return int.TryParse(airbags, out int a)
++            && (a >= 0 && a <= 20);
++    }
++
++    public static bool IsDoorsNumberValid(string doors)
++    {
++        return int.TryParse(doors, out int d)
++            && (d >= 3 && d <= 10);
++    }
++
++    public static bool IsSeatsNumberValid(string seats)
++    {
++        return int.TryParse(seats, out int s)
++            && (s >= 2 && s <= 30);
++    }
++
++    public static bool IsPriceValid(string price)
++    {
++        return decimal.TryParse(price, out decimal p)
++            && (p >= 0 && p <= 600);
++    }
++
++    //fuel kw
++    public static bool IsColorValid(string color)
++    {
++        return color.Length >= 3 && color.Length < 20;
++    }
++
++    public static bool IsFuelTypeValid(string fuelType)
++    {
++        var isParsed = Enum.TryParse<EngineType>(fuelType, out var parsed);
++        return isParsed;
++    }
++
++    public static bool IsTransmissionTypeValid(string transmissionType)
++    {
++        bool isParsed = 
++            Enum.TryParse<TransmissionType>(transmissionType, out TransmissionType tt);
++        return isParsed;
++    }
++
++    public static bool IsVinValid(string vin)
++    {
++        // TODO real validation
++        return vin.Length >= 10 && vin.Length <= 20;
++    }
++
++    public static bool IsAcValid(string ac)
++    {
++        // TODO
++        return true;
++    }
++
++    public static bool IsDisplacementValid(string displacement)
++    {
++        return displacement.Length >= 1 && displacement.Length <= 10;
++    }
++
++    public static bool IsPowerInKwValid(string kilowats)
++    {
++        return float.TryParse(kilowats, out float k)
++            && (k >= 50 && k <= 500);
++    }
++
++    public static bool IsFuelConsumptionValid(string fuelConsumption)
++    {
++        // TODO improve this validation
++        return fuelConsumption.Length >= 3 && fuelConsumption.Length <= 10;
++    }
++}
+diff --git a/CarRental/CarRental.Logic/CustomerManager.cs b/CarRental/CarRental.Logic/CustomerManager.cs
+new file mode 100644
+index 0000000..1f0efc6
+--- /dev/null
++++ b/CarRental/CarRental.Logic/CustomerManager.cs
+@@ -0,0 +1,60 @@
++﻿using CarRental.DAL;
++using CarRental.DAL.Models;
++
++namespace CarRental.Logic;
++
++public class CustomerManager
++{
++    private static int _idCounter = CarRentalData.Customers
++        .Max(c => c.Id);
++    private static List<Customer> _customers = CarRentalData.Customers;
++
++    public static Customer Create(string firstName, string lastName, string phoneNumber)
++    {
++        int id = GetNextId();
++        var customer = new Customer(id, firstName, lastName, phoneNumber);
++        _customers.Add(customer);
++        return customer;
++    }
++
++    public static List<Customer> GetAll()
++    {
++        return _customers;
++    }
++
++    public static Customer GetById(int id)
++    {
++        return _customers.FirstOrDefault(c => c.Id == id);
++    }
++
++    public static void Update(Customer customer)
++    {
++        //TODO
++    }
++
++    public static void DeleteById(int id)
++    {
++        //TODO
++    }
++
++    private static int GetNextId()
++    {
++        return ++_idCounter;
++    }
++
++    public static string ToTableString()
++    {
++        //TODO ToTableString()
++        throw new NotImplementedException();
++    }
++
++    public Customer Create(Customer customer)
++    {
++        throw new NotImplementedException();
++    }
++
++    public void Add(Customer customer)
++    {
++        throw new NotImplementedException();
++    }
++}
+diff --git a/CarRental/CarRental.Logic/ICustomerManager.cs b/CarRental/CarRental.Logic/ICustomerManager.cs
+new file mode 100644
+index 0000000..06f308d
+--- /dev/null
++++ b/CarRental/CarRental.Logic/ICustomerManager.cs
+@@ -0,0 +1,18 @@
++﻿using CarRental.DAL.Models;
++
++namespace CarRental.Logic;
++
++public interface ICustomerManager
++{
++    List<Customer> GetAll();
++
++    Customer GetById(int id);
++
++    Customer Create(Customer customer);
++
++    Customer Update(Customer customer);
++
++    Customer DeleteById(int id);
++
++    void Add(Customer customer);
++}
+diff --git a/CarRental/CarRental.Logic/Interfaces/ICarService.cs b/CarRental/CarRental.Logic/Interfaces/ICarService.cs
+index 3cd47b2..cac3412 100644
+--- a/CarRental/CarRental.Logic/Interfaces/ICarService.cs
++++ b/CarRental/CarRental.Logic/Interfaces/ICarService.cs
+@@ -4,15 +4,16 @@ namespace CarRental.Logic.Interfaces;
+ 
+ public interface ICarService
+ {
+-    List<Car> GetAll();
+-    Car GetById(int carId);
+-    List<Car> CarByName(string make);
+-    List<Car> CarByModel(string name);
+-    List<Car> CarByYear(string read);
+-    List<Car> CarByAddons(string addon);
++    IEnumerable<Car> GetAll();
++    Car GetById(int id);
++
++    // TODO czy te 3 poniższe nie powinny pójść do serwisu wyszukiwania
++    IEnumerable<Car> GetByName(string make);
++    List<Car> GetByYear(string read);
++    List<Car> GetByAddons(string addon);
+     void Create(Car car);
+ 
+     void Update(Car car);
+ 
+-    void Delete(int  carId);
++    void Delete(int id);
+ }
+diff --git a/CarRental/CarRental.Logic/Interfaces/ISearchService.cs b/CarRental/CarRental.Logic/Interfaces/ISearchService.cs
+index 51090de..60a99e7 100644
+--- a/CarRental/CarRental.Logic/Interfaces/ISearchService.cs
++++ b/CarRental/CarRental.Logic/Interfaces/ISearchService.cs
+@@ -1,15 +1,8 @@
+ ﻿using CarRental.DAL.Models;
+-using System;
+-using System.Collections.Generic;
+-using System.Linq;
+-using System.Text;
+-using System.Threading.Tasks;
+ 
+-namespace CarRental.Logic.Interfaces
++namespace CarRental.Logic.Interfaces;
++
++public interface ISearchService
+ {
+-    public interface ISearchService
+-    {
+-        List<Car> SearchList(SearchViewModelDto search);
+-        List<Car> FilterList(SearchViewModelDto searchDto);
+-    }
++    List<Car> SearchList(SearchViewModelDto search);
+ }
+diff --git a/CarRental/CarRental.Logic/LogicCarManager.cs b/CarRental/CarRental.Logic/LogicCarManager.cs
+new file mode 100644
+index 0000000..9324faf
+--- /dev/null
++++ b/CarRental/CarRental.Logic/LogicCarManager.cs
+@@ -0,0 +1,41 @@
++﻿using CarRental.DAL;
++using CarRental.DAL.Models;
++using System.Text;
++
++namespace CarRental.Logic;
++public class LogicCarManager
++{
++    private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
++
++    private static List<Car> _cars = CarRentalData.Cars;
++    public static Car CreateCar(string make, string model, string licensePlate)
++    {
++        int id = GetNextId();
++        var car = new Car(id, make, model, licensePlate);
++        CarRentalData.Cars.Add(car);
++        return car;
++    }
++
++    public static Car GetById(int carId)
++    {
++        return _cars.FirstOrDefault(c => c.Id == carId);
++    }
++
++    private static int GetNextId()
++    {
++        return ++_idCounter;
++    }
++
++    public static string CarsToTableString()
++    {
++        StringBuilder sb = new();
++        sb.Append(String.Format("\n{0,4}.| {1,-20}| {2,-25}| {3,-10}\n", "Id", "Make", "Model", "License plate"));
++        sb.Append(new String('-', sb.Length));
++        sb.Append('\n');
++        foreach (var car in _cars)
++        {
++            sb.Append($"{car.Id,4}.| {car.Make,-20}| {car.CarModel,-25}| {car.LicencePlateNumber,-10}{Environment.NewLine}");
++        }
++        return sb.ToString();
++    }
++}
+diff --git a/CarRental/CarRental.Logic/LogicSearch.cs b/CarRental/CarRental.Logic/LogicSearch.cs
+new file mode 100644
+index 0000000..4691bab
+--- /dev/null
++++ b/CarRental/CarRental.Logic/LogicSearch.cs
+@@ -0,0 +1,95 @@
++﻿using CarRental.DAL;
++using CarRental.DAL.Models;
++using System.Text;
++
++namespace CarRental.Logic;
++
++public class LogicSearch
++{
++
++    public static List<Car> CarByMake(string make)
++    {
++        List<Car> cars = new List<Car>();
++        if (string.IsNullOrEmpty(make))
++        {
++            cars = CarRentalData.Cars;
++        }
++        else
++        {
++            cars = CarRentalData.Cars.Where(c => c.Make?.ToLower() == make.ToLower() ||
++                                                 c.CarModel?.ToLower() == make.ToLower()).ToList();
++        }
++        return cars;
++    }
++
++    public static List<Car> CarByName(string name)
++    {
++        List<Car> cars = new List<Car>();
++        if (string.IsNullOrEmpty(name))
++        {
++            cars = CarRentalData.Cars;
++        }
++        else
++        {
++
++            cars = CarRentalData.Cars.Where(c => c.Make.Contains(name, StringComparison.CurrentCultureIgnoreCase)
++                || c.CarModel.Contains(name, StringComparison.CurrentCultureIgnoreCase)
++            ).ToList();
++        }
++        return cars;
++    }
++
++    public static List<Car> CarByYear(string read)
++    {
++        int year;
++        bool makes = int.TryParse(read, out year);
++        List<Car> cars = new List<Car>();
++        if (read == null)
++        {
++            cars = CarRentalData.Cars;
++        }
++        else
++        {
++            cars = CarRentalData.Cars.Where(c => c.Year == year).ToList();
++        }
++        return cars;
++    }
++
++    public static List<Car> CarByAddons(string addon)
++    {
++        List<Car> cars = new List<Car>();
++        if (string.IsNullOrEmpty(addon))
++        {
++            cars = CarRentalData.Cars;
++        }
++        else
++        {
++            foreach (var car in CarRentalData.Cars)
++            {
++                foreach (var item in car.Addons)
++                {
++                    if (item.Contains(addon))
++                    {
++                        cars.Add(car);
++                        break;
++                    }
++                }
++            }
++            //cars = CarRentalData.Cars.Where(c => c.Addons.Where(x => x.Contains(addon)).FirstOrDefault()
++        }
++        return cars;
++    }
++
++    public static string Print(List<Car> cars)
++    {
++        StringBuilder sb = new();
++        sb.Append(String.Format("\n{0,4}.| {1,-20}| {2,-25}| {3,-20}| {4,-20}\n", "Id", "Make", "Model", "License plate", "Addons"));
++        sb.Append(new String('-', sb.Length));
++        sb.Append('\n');
++        foreach (var car in cars)
++        {
++            sb.Append($"{car.Id,4}.| {car.Make,-20}| {car.CarModel,-25}| {car.LicencePlateNumber,-20}| {car.GetAddonsToString(),-20}{Environment.NewLine}");
++        }
++        return sb.ToString();
++    }
++}
+diff --git a/CarRental/CarRental.Logic/RentalManager.cs b/CarRental/CarRental.Logic/RentalManager.cs
+new file mode 100644
+index 0000000..9978c11
+--- /dev/null
++++ b/CarRental/CarRental.Logic/RentalManager.cs
+@@ -0,0 +1,38 @@
++﻿using CarRental.DAL;
++using CarRental.DAL.Models;
++using System.Text;
++
++namespace CarRental.Logic;
++
++public class RentalManager
++{
++    private static int _idCounter = CarRentalData.Rentals.Max(r => r.Id);
++
++    private static List<Rental> _rentals = CarRentalData.Rentals;
++
++    public static Rental GetById(int rentalId)
++    {
++        return _rentals.FirstOrDefault(r => r.Id == rentalId);
++    }
++
++    private static int GetNextId()
++    {
++        return ++_idCounter;
++    }
++    public static List<Rental> GetAll()
++    {
++        return _rentals;
++    }
++    public static string RentalsToTableString()
++    {
++        StringBuilder sb = new();
++        sb.Append(String.Format("\n{0,4}.| {1,-20}| {2,-25}| {3,-10}\n", "Id", "Make", "Model", "License plate"));
++        sb.Append(new String('-', sb.Length));
++        sb.Append('\n');
++        foreach (var rental in _rentals)
++        {
++            sb.Append($"{rental.Id,4}.| {rental.BeginDate,-20}| {rental.BeginDate,-25}| {rental.CarId,-10}{Environment.NewLine}");
++        }
++        return sb.ToString();
++    }
++}   
+diff --git a/CarRental/CarRental.Logic/Rentals.cs b/CarRental/CarRental.Logic/Rentals.cs
+new file mode 100644
+index 0000000..3277ee0
+--- /dev/null
++++ b/CarRental/CarRental.Logic/Rentals.cs
+@@ -0,0 +1,56 @@
++﻿using CarRental.DAL;
++using CarRental.DAL.Models;
++
++namespace CarRental.Logic;
++
++public class Rentals
++{
++    public static List<int> GetAvailableCarIds(DateTime start, DateTime end)
++    {
++
++        var cars1 = GetNotRented();
++        var cars2 = GetAvailableInGivenTime(start, end);
++        var allIdCars = cars1.Concat(cars2).Distinct().ToList();
++        return allIdCars;
++    }
++
++    public static List<Car> ListOfAvailableCarForRent(List<int> carIds)
++
++    {
++        var carsToRent = new List<Car>();
++
++        foreach (var carId in carIds)
++        {
++            var car = CarRentalData.Cars.Where(c => c.Id == carId).ToList();
++            foreach (var item in car)
++            {
++                carsToRent.Add(item);
++            }
++        }
++        return carsToRent;
++    }
++
++
++    public static List<int> GetNotRented()
++    {
++        // zwraca te, które w ogóle nie występują  w liście wypożyczonych
++        // te auta, których id nie występują w liście wypożyczonych
++        var rentedIds = CarRentalData.Rentals.Select(r => r.CarId).ToList();
++        var carIds = CarRentalData.Cars.Select(c => c.Id).ToList();
++
++        var availableCars = carIds.Except(rentedIds).ToList();
++
++        return availableCars;
++
++    }
++
++    public static List<int> GetAvailableInGivenTime(DateTime start, DateTime end)
++    {
++
++        var found = CarRentalData.Rentals.Where(r =>
++           (end < r.BeginDate) ||
++           (start > r.EndDate)
++           ).Select(r => r.CarId).ToList(); // W efekcie dostaniemy listę wypożyczeń poza zadanym czasem
++        return found;
++    }
++}
+diff --git a/CarRental/CarRental.Logic/SearchViewModelDto.cs b/CarRental/CarRental.Logic/SearchViewModelDto.cs
+index b1b5e31..0180523 100644
+--- a/CarRental/CarRental.Logic/SearchViewModelDto.cs
++++ b/CarRental/CarRental.Logic/SearchViewModelDto.cs
+@@ -1,36 +1,10 @@
+-﻿using CarRental.DAL;
+-using System;
+-using System.Collections.Generic;
+-using System.Linq;
+-using System.Text;
+-using System.Threading.Tasks;
++﻿namespace CarRental.Logic;
+ 
+-namespace CarRental.Logic
++public class SearchViewModelDto
+ {
+-    public class SearchViewModelDto
+-    {
+-        public string ModelAndMake { get; set; }
+-        public Dictionary<string, bool> Makes { get; set; }
+-        public string Model { get; set; }
+-
+-        public int ProductionYearFrom { get; set; }
+-        public int ProductionYearTo { get; set; }
+-        public DateTime StartDate { get; set; }
+-        public DateTime EndDate { get; set; }
+-
+-        public SearchViewModelDto() 
+-        {
+-            Makes = PremadeDic();
+-        }
+-
+-        public Dictionary<string, bool> PremadeDic()
+-        {
+-            Dictionary<string, bool> make = new Dictionary<string, bool>();
+-            foreach (var carMake in CarRentalData.Cars.Select(car => car.Make).Distinct())
+-            {
+-                make.Add(carMake, false);
+-            }
+-            return make;
+-        }
+-    }
++    public string ModelAndMake { get; set; }
++    public int ProductionYearFrom { get; set; }
++    public int ProductionYearTo { get; set; }
++    public DateTime StartDate { get; set; }
++    public DateTime EndDate { get; set; }
+ }
+diff --git a/CarRental/CarRental.Logic/Services/CarService.cs b/CarRental/CarRental.Logic/Services/CarService.cs
+index 6aa11c6..9a378e2 100644
+--- a/CarRental/CarRental.Logic/Services/CarService.cs
++++ b/CarRental/CarRental.Logic/Services/CarService.cs
+@@ -9,21 +9,20 @@ public class CarService : ICarService
+     private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
+     private List<Car> _cars = CarRentalData.Cars;
+ 
+-    public List<Car> GetAll()
++    public IEnumerable<Car> GetAll()
+     {
+         return CarRentalData.Cars;
+     }
+ 
+-    public List<Car> CarByName(string name)
++    public IEnumerable<Car> GetByName(string name)
+     {
+-        List<Car> cars = new List<Car>();
++        List<Car> cars = new();
+         if (string.IsNullOrEmpty(name))
+         {
+-            cars = CarRentalData.Cars;
++            cars = GetAll().ToList();
+         }
+         else
+         {
+-
+             cars = CarRentalData.Cars.Where(c => c.Make.Contains(name, StringComparison.CurrentCultureIgnoreCase)
+                 || c.CarModel.Contains(name, StringComparison.CurrentCultureIgnoreCase)
+             ).ToList();
+@@ -31,38 +30,23 @@ public class CarService : ICarService
+         return cars;
+     }
+ 
+-    public List<Car> CarByModel(string name)
+-    {
+-        List<Car> cars = new List<Car>();
+-        if (string.IsNullOrEmpty(name))
+-        {
+-            cars = CarRentalData.Cars;
+-        }
+-        else
+-        {
+-
+-            cars = CarRentalData.Cars.Where(c => c.CarModel.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
+-        }
+-        return cars;
+-    }
+-
+-    public List<Car> CarByYear(string read)
++    public List<Car> GetByYear(string read)
+     {
+         int year;
+         bool makes = int.TryParse(read, out year);
+-        List<Car> cars = new List<Car>();
++        List<Car> cars = new();
+         if (read == null)
+         {
+-            cars = CarRentalData.Cars;
++            cars = GetAll().ToList();
+         }
+         else
+         {
+-            cars = CarRentalData.Cars.Where(c => c.Year == year || c.CarModel.ToLower().Contains(read.ToLower())).ToList();
++            cars = GetAll().Where(c => c.Year == year || c.CarModel.ToLower().Contains(read.ToLower())).ToList();
+         }
+         return cars;
+     }
+ 
+-    public List<Car> CarByAddons(string addon)
++    public List<Car> GetByAddons(string addon)
+     {
+         List<Car> cars = new List<Car>();
+         if (string.IsNullOrEmpty(addon))
+@@ -114,6 +98,20 @@ public class CarService : ICarService
+         var car = GetById(model.Id);
+ 
+         car.CarModel = model.CarModel;
+-        //TODO dokończyć
++        car.Make = model.Make;
++        car.Kilometrage = model.Kilometrage;
++        car.Year = model.Year;
++        car.Airbags = model.Airbags;
++        car.Addons = model.Addons;
++        car.Color = model.Color;
++        car.Doors = model.Doors;
++        car.Displacement = model.Displacement;
++        car.EngineType = model.EngineType;
++        car.FuelConsumption = model.FuelConsumption;
++        car.LicencePlateNumber = model.LicencePlateNumber;
++        car.SeatsNo = model.SeatsNo;
++        car.PowerInKiloWats = model.PowerInKiloWats;
++        car.Price = model.Price;
++        car.Transmission = model.Transmission;
+     }
+ }
+diff --git a/CarRental/CarRental.Logic/Services/CustomerService.cs b/CarRental/CarRental.Logic/Services/CustomerService.cs
+index bc65c61..30ecf41 100644
+--- a/CarRental/CarRental.Logic/Services/CustomerService.cs
++++ b/CarRental/CarRental.Logic/Services/CustomerService.cs
+@@ -6,9 +6,14 @@ namespace CarRental.Logic.Services;
+ 
+ public class CustomerService : ICustomerService
+ {
+-    private static int _idCounter = CarRentalData.Customers.Max(c => c.Id);
++    private static int _idCounter;
+     private List<Customer> _customers = CarRentalData.Customers;
+ 
++    public CustomerService()
++    {
++        _idCounter = CarRentalData.Customers.Max(c => c.Id);
++    }
++
+     public IEnumerable<Customer> GetAll()
+     {
+         return _customers;
+@@ -16,13 +21,13 @@ public class CustomerService : ICustomerService
+ 
+     public Customer? GetById(int customerId)
+     {
+-        return CarRentalData.Customers.FirstOrDefault(c => c.Id == customerId);
++        return _customers.FirstOrDefault(c => c.Id == customerId);
+     }
+ 
+     public void Create(Customer customer)
+     {
+         customer.Id = GetNextId();
+-        CarRentalData.Customers.Add(customer);
++        _customers.Add(customer);
+     }
+ 
+     public void Update(Customer model)
+@@ -42,8 +47,5 @@ public class CustomerService : ICustomerService
+         _customers.Remove(customer);
+     }  
+ 
+-    private int GetNextId()
+-    {
+-        return ++_idCounter;
+-    }
++    private int GetNextId() => ++_idCounter;
+ }
+diff --git a/CarRental/CarRental.Logic/Services/SearchService.cs b/CarRental/CarRental.Logic/Services/SearchService.cs
+index 0612774..4a90cab 100644
+--- a/CarRental/CarRental.Logic/Services/SearchService.cs
++++ b/CarRental/CarRental.Logic/Services/SearchService.cs
+@@ -1,62 +1,37 @@
+-﻿using CarRental.DAL;
+-using CarRental.DAL.Models;
+-using System;
+-using System.Collections.Generic;
+-using System.Linq;
+-using System.Text;
+-using System.Threading.Tasks;
++﻿using CarRental.DAL.Models;
+ using CarRental.Logic.Interfaces;
+ 
+-namespace CarRental.Logic.Services
++namespace CarRental.Logic.Services;
++
++public class SearchService : ISearchService
+ {
+-    public class SearchService : ISearchService
++    private readonly ICarService _carService;
++    private readonly IRentalService _rentalService;
++    public SearchService(ICarService carService, IRentalService rentalService)
++    {
++        _carService = carService;
++        _rentalService = rentalService;
++    }
++    public List<Car> SearchList(SearchViewModelDto search)
+     {
+-        private readonly ICarService _carService;
+-        private readonly IRentalService _rentalService;
+-        public SearchService(ICarService carService, IRentalService rentalService)
++        List<Car> results = new List<Car>();
++
++        var cars = _carService.GetByName(search.ModelAndMake);
++
++        if (search.ProductionYearTo > 0 && search.ProductionYearTo >= search.ProductionYearFrom)
+         {
+-            _carService = carService;
+-            _rentalService = rentalService;
++            cars = cars.Where(c => c.Year >= search.ProductionYearFrom && c.Year <= search.ProductionYearTo).ToList();
+         }
+-        public List<Car> SearchList(SearchViewModelDto search)
+-        {
+-            List<Car> results = new List<Car>();
+-            var cars = _carService.CarByName(search.ModelAndMake);
+ 
+-            if (search.ProductionYearTo > 0 && search.ProductionYearTo >= search.ProductionYearFrom)
+-            {
+-                cars = cars.Where(c => c.Year >= search.ProductionYearFrom && c.Year <= search.ProductionYearTo).ToList();
+-            }
+-            IEnumerable<int> getCarId = _rentalService.GetAvailableCarIds(search.StartDate, search.EndDate);
+-            foreach (var item in cars)
+-            {
+-                if (getCarId.Any(x => x == item.Id))
+-                {
+-                    results.Add(item);
+-                }
+-            }
+-            return results;
+-        }
++        List<int> getCarId = _rentalService.GetAvailableCarIds(search.StartDate, search.EndDate).ToList();
+ 
+-        public List<Car> FilterList(SearchViewModelDto searchDto)
++        foreach (var item in cars)
+         {
+-            List<Car> cars = new List<Car>();
+-
+-            if (searchDto.Makes.Values.Any(v => v == true))
+-            {
+-                var selectedMakes = searchDto.Makes.Where(m => m.Value == true).Select(m => m.Key);
+-                cars = CarRentalData.Cars.Where(c => selectedMakes.Contains(c.Make, StringComparer.CurrentCultureIgnoreCase)).ToList();
+-            }
+-            if (searchDto.ProductionYearFrom > 0 && searchDto.ProductionYearTo > 0)
+-            {
+-                cars = cars.Where(c => c.Year >= searchDto.ProductionYearFrom && c.Year <= searchDto.ProductionYearTo).ToList();
+-            }
+-            if (!string.IsNullOrEmpty(searchDto.Model))
++            if (getCarId.Exists(x => x == item.Id))
+             {
+-                cars = cars.Where(c => c.CarModel.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase)).ToList();
++                results.Add(item);
+             }
+-
+-            return cars;
+         }
++        return results;
+     }
+ }
+diff --git a/CarRental/CarRental.Web/CarRental.Web.csproj b/CarRental/CarRental.Web/CarRental.Web.csproj
+index ba8bcd3..71cfb24 100644
+--- a/CarRental/CarRental.Web/CarRental.Web.csproj
++++ b/CarRental/CarRental.Web/CarRental.Web.csproj
+@@ -25,10 +25,4 @@
+     <ProjectReference Include="..\CarRental.Logic\CarRental.Logic.csproj" />
+   </ItemGroup>
+ 
+-  <ItemGroup>
+-    <Content Update="wwwroot\css\site.css">
+-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+-    </Content>
+-  </ItemGroup>
+-
+ </Project>
+diff --git a/CarRental/CarRental.Web/Controllers/CarController.cs b/CarRental/CarRental.Web/Controllers/CarController.cs
+index 9363f9c..1bb1b3b 100644
+--- a/CarRental/CarRental.Web/Controllers/CarController.cs
++++ b/CarRental/CarRental.Web/Controllers/CarController.cs
+@@ -1,119 +1,111 @@
+ using CarRental.DAL.Models;
+-using CarRental.Web.Models;
+-using CarRental.Logic.Services;
+-using Microsoft.AspNetCore.Http;
+-using Microsoft.AspNetCore.Mvc;
+ using CarRental.Logic;
+ using CarRental.Logic.Interfaces;
++using Microsoft.AspNetCore.Mvc;
++
++namespace CarRental.Web.Controllers;
+ 
+-namespace CarRental.Web.Controllers
++public class CarController : Controller
+ {
+-    public class CarController : Controller
++    private readonly ICarService _carService;
++    private readonly ISearchService _searchService;
++
++    public CarController(ICarService carService,ISearchService searchService) 
+     {
+-        private readonly ICarService _carService;
+-        private readonly ISearchService _searchService;
++        this._carService = carService;
++        this._searchService = searchService;
++    }
+ 
+-        public CarController(ICarService carService,ISearchService searchService) 
+-        {
+-            this._carService = carService;
+-            this._searchService = searchService;
+-        }
++    // GET: CarController
++    public IActionResult Index()
++    {
++        var cars = this._carService.GetAll();
++        var mapper = new CarMapper();
++        var model = mapper.Map(cars);
++        return View(model);
++    }
+ 
+-        // GET: CarController
+-        public IActionResult Index()
+-        {
+-            var cars = this._carService.GetAll();
+-            var models = new List<CarListModel>();
+-            foreach(var car in cars)
+-            {
+-                models.Add(new CarListModel().FillModel(car));
+-            }
+-            return View(models);
+-        }
++    // GET: CarController/Details/5
++    public IActionResult Details(int id)
++    {
++        var model = _carService.GetById(id);
++        return View(model);
++    }
+ 
+-        // GET: CarController/Details/5
+-        public IActionResult Details(int id)
+-        {
+-            var model = _carService.GetById(id);
+-            return View(model);
+-        }
++    // GET: CarController/Create
++    public IActionResult Create()
++    {
++        return View();
++    }
+ 
+-        // GET: CarController/Create
+-        public IActionResult Create()
++    // POST: CarController/Create
++    [HttpPost]
++    [ValidateAntiForgeryToken]
++    public IActionResult Create(Car model)
++    {
++        try
+         {
+-            return View();
++            _carService.Create(model);
++            return RedirectToAction(nameof(Index));
+         }
+-
+-        // POST: CarController/Create
+-        [HttpPost]
+-        [ValidateAntiForgeryToken]
+-        public IActionResult Create(Car model)
++        catch
+         {
+-            try
+-            {
+-                _carService.Create(model);
+-                return RedirectToAction(nameof(Index));
+-            }
+-            catch
+-            {
+-                return View();
+-            }
++            return View();
+         }
++    }
+ 
+-        // GET: CarController/Edit/5
+-        public IActionResult Edit(int id)
+-        {
+-            var car = _carService.GetById(id);
+-            return View(car);
+-        }
++    // GET: CarController/Edit/5
++    public IActionResult Edit(int id)
++    {
++        var car = _carService.GetById(id);
++        return View(car);
++    }
+ 
+-        // POST: CarController/Edit/5
+-        [HttpPost]
+-        [ValidateAntiForgeryToken]
+-        public IActionResult Edit(Car car)
++    // POST: CarController/Edit/5
++    [HttpPost]
++    [ValidateAntiForgeryToken]
++    public IActionResult Edit(Car car)
++    {
++        try
+         {
+-            try
+-            {
+-                _carService.Update(car);
++            _carService.Update(car);
+ 
+-                return RedirectToAction(nameof(Index));
+-            }
+-            catch
+-            {
+-                return View();
+-            }
++            return RedirectToAction(nameof(Index));
+         }
+-
+-        // GET: CarController/Delete/5
+-        public IActionResult Delete(int id)
++        catch
+         {
+-            var car = _carService.GetById(id);
+-            return View(car);
++            return View();
+         }
++    }
+ 
+-        // POST: CarController/Delete/5
+-        [HttpPost]
+-        [ValidateAntiForgeryToken]
+-        public IActionResult Delete(int id, int empty = 0)
++    // GET: CarController/Delete/5
++    public IActionResult Delete(int id)
++    {
++        var car = _carService.GetById(id);
++        return View(car);
++    }
++
++    // POST: CarController/Delete/5
++    [HttpPost]
++    [ValidateAntiForgeryToken]
++    public IActionResult Delete(int id, int empty = 0)
++    {
++        try
+         {
+-            try
+-            {
+-                _carService.Delete(id);
+-                return RedirectToAction(nameof(Index));
+-            }
+-            catch
+-            {
+-                return View();
+-            }
++            _carService.Delete(id);
++            return RedirectToAction(nameof(Index));
+         }
+-
+-        [HttpPost]
+-        [ValidateAntiForgeryToken]
+-        public IActionResult Search(SearchViewModelDto vm)
++        catch
+         {
+-            var cars = _searchService.SearchList(vm);
+-            return View(cars);
++            return View();
+         }
+-        
+     }
++
++    [HttpPost]
++    [ValidateAntiForgeryToken]
++    public IActionResult Search(SearchViewModelDto vm)
++    {
++        var cars = _searchService.SearchList(vm);
++        return View(cars);
++    }        
+ }
+diff --git a/CarRental/CarRental.Web/Controllers/CustomerController.cs b/CarRental/CarRental.Web/Controllers/CustomerController.cs
+index 7a43870..13901a6 100644
+--- a/CarRental/CarRental.Web/Controllers/CustomerController.cs
++++ b/CarRental/CarRental.Web/Controllers/CustomerController.cs
+@@ -21,7 +21,7 @@ public class CustomerController : Controller
+ 
+         var model = new List<CustomerListModel>();
+ 
+-        foreach (var customer in customers)
++        foreach(var customer in customers)
+         {
+             model.Add(new CustomerListModel().FillModel(customer));
+         }
+diff --git a/CarRental/CarRental.Web/Controllers/HomeController.cs b/CarRental/CarRental.Web/Controllers/HomeController.cs
+index 7a00dbf..289ecbc 100644
+--- a/CarRental/CarRental.Web/Controllers/HomeController.cs
++++ b/CarRental/CarRental.Web/Controllers/HomeController.cs
+@@ -2,31 +2,30 @@
+ using Microsoft.AspNetCore.Mvc;
+ using System.Diagnostics;
+ 
+-namespace CarRental.Web.Controllers
++namespace CarRental.Web.Controllers;
++
++public class HomeController : Controller
+ {
+-    public class HomeController : Controller
+-    {
+-        private readonly ILogger<HomeController> _logger;
++    private readonly ILogger<HomeController> _logger;
+ 
+-        public HomeController(ILogger<HomeController> logger)
+-        {
+-            _logger = logger;
+-        }
++    public HomeController(ILogger<HomeController> logger)
++    {
++        _logger = logger;
++    }
+ 
+-        public IActionResult Index()
+-        {
+-            return View();
+-        }
++    public IActionResult Index()
++    {
++        return View();
++    }
+ 
+-        public IActionResult Privacy()
+-        {
+-            return View();
+-        }
++    public IActionResult Privacy()
++    {
++        return View();
++    }
+ 
+-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+-        public IActionResult Error()
+-        {
+-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+-        }
++    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
++    public IActionResult Error()
++    {
++        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+     }
+ }
+\ No newline at end of file
+diff --git a/CarRental/CarRental.Web/Controllers/SearchController.cs b/CarRental/CarRental.Web/Controllers/SearchController.cs
+index 543c5a8..26a4436 100644
+--- a/CarRental/CarRental.Web/Controllers/SearchController.cs
++++ b/CarRental/CarRental.Web/Controllers/SearchController.cs
+@@ -1,43 +1,43 @@
+-﻿using CarRental.DAL;
+-using CarRental.DAL.Models;
+-using CarRental.Logic;
+-using CarRental.Logic.Services;
++﻿using CarRental.Logic;
++using CarRental.Logic.Interfaces;
+ using CarRental.Web.Models;
+-using Microsoft.AspNetCore.Http;
+ using Microsoft.AspNetCore.Mvc;
+-using Microsoft.CodeAnalysis.CSharp.Syntax;
+-using System.Reflection;
+-using CarRental.Logic.Interfaces;
+ 
+-namespace CarRental.Web.Controllers
++namespace CarRental.Web.Controllers;
++
++public class SearchController : Controller
+ {
+-    public class SearchController : Controller
++    private readonly ISearchService _searchService;
++    private readonly ICarService _carService;
++    public SearchController(ISearchService searchService, ICarService carService)
+     {
+-        private readonly ISearchService _searchService;
+-        private readonly ICarService   _carService;
+-        public SearchController(ISearchService searchService,ICarService carService)
+-        {
+-            _searchService = searchService;
+-            _carService = carService;
+-        }
++        _searchService = searchService;
++        _carService = carService;
++    }
+ 
+-        // GET: SearchController
+-        public IActionResult Index()
++    // GET: SearchController
++    public ActionResult Index()
++    {
++        var model = new SearchViewModel()
+         {
+-            var model = new SearchViewModel()
++            Cars = _carService.GetAll(),
++            SearchViewModelDto = new SearchViewModelDto()
+             {
+-                Cars = _carService.GetAll()
+-            };
+-            return View(model);
+-        }
++                EndDate = DateTime.Now,
++                ModelAndMake = "asd",
++                StartDate = DateTime.Now.AddDays(-7),
++                ProductionYearFrom = 0,
++                ProductionYearTo = 0,
++            }
+ 
+-        public IActionResult Search(SearchViewModel search)
+-        {
+-            var dto = search.SearchViewModelDto;
+-            var model = _searchService.FilterList(dto);
+-            search.Cars= model;
+-            return View(search);
+-        }
+-        
++        };
++        return View(model);
+     }
++
++    // GET: SearchController/Details/5
++    public ActionResult Details(int id)
++    {
++        return View();
++    }
++
+ }
+diff --git a/CarRental/CarRental.Web/Models/CarListModel.cs b/CarRental/CarRental.Web/Models/CarListModel.cs
+index 71870d8..7b4a934 100644
+--- a/CarRental/CarRental.Web/Models/CarListModel.cs
++++ b/CarRental/CarRental.Web/Models/CarListModel.cs
+@@ -1,5 +1,4 @@
+-﻿using CarRental.DAL.Models;
+-using System.ComponentModel.DataAnnotations;
++﻿using System.ComponentModel.DataAnnotations;
+ 
+ namespace CarRental.Web.Models;
+ 
+@@ -16,11 +15,4 @@ public class CarListModel
+ 
+     [Display(Name = "Licence Plate")]
+     public string? LicencePlateNumber { get; set; }
+-    public CarListModel FillModel(Car baseModel)
+-    {
+-        this.Id = baseModel.Id;
+-        this.CarModel = baseModel.CarModel;
+-        this.Make = baseModel.Make;
+-        return this;
+-    }
+-}
+\ No newline at end of file
++}
+diff --git a/CarRental/CarRental.Web/Models/CustomerListModel.cs b/CarRental/CarRental.Web/Models/CustomerListModel.cs
+index 146a48c..f76b925 100644
+--- a/CarRental/CarRental.Web/Models/CustomerListModel.cs
++++ b/CarRental/CarRental.Web/Models/CustomerListModel.cs
+@@ -36,4 +36,4 @@ public class CustomerListModel
+ 
+         return this;
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/CarRental/CarRental.Web/Models/ErrorViewModel.cs b/CarRental/CarRental.Web/Models/ErrorViewModel.cs
+index 6d4f001..8f45c7d 100644
+--- a/CarRental/CarRental.Web/Models/ErrorViewModel.cs
++++ b/CarRental/CarRental.Web/Models/ErrorViewModel.cs
+@@ -1,9 +1,8 @@
+-namespace CarRental.Web.Models
++namespace CarRental.Web.Models;
++
++public class ErrorViewModel
+ {
+-    public class ErrorViewModel
+-    {
+-        public string? RequestId { get; set; }
++    public string? RequestId { get; set; }
+ 
+-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+-    }
++    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+ }
+\ No newline at end of file
+diff --git a/CarRental/CarRental.Web/Models/RentalListModel.cs b/CarRental/CarRental.Web/Models/RentalListModel.cs
+index d0c2f26..9e84c7b 100644
+--- a/CarRental/CarRental.Web/Models/RentalListModel.cs
++++ b/CarRental/CarRental.Web/Models/RentalListModel.cs
+@@ -34,4 +34,4 @@ public class RentalListModel
+ 
+         return this;
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/CarRental/CarRental.Web/Models/SearchViewModel.cs b/CarRental/CarRental.Web/Models/SearchViewModel.cs
+index bdf7454..6eb2d94 100644
+--- a/CarRental/CarRental.Web/Models/SearchViewModel.cs
++++ b/CarRental/CarRental.Web/Models/SearchViewModel.cs
+@@ -1,11 +1,10 @@
+ ﻿using CarRental.DAL.Models;
+ using CarRental.Logic;
+ 
+-namespace CarRental.Web.Models
++namespace CarRental.Web.Models;
++
++public class SearchViewModel
+ {
+-    public class SearchViewModel
+-    {
+-        public SearchViewModelDto SearchViewModelDto { get; set; } =  new SearchViewModelDto();
+-        public IEnumerable<Car> Cars { get; set; } = new List<Car>();
+-    }
+-}
+\ No newline at end of file
++    public SearchViewModelDto SearchViewModelDto { get; set; }
++    public IEnumerable<Car> Cars { get; set; } = new List<Car>();    
++}
+diff --git a/CarRental/CarRental.Web/Program.cs b/CarRental/CarRental.Web/Program.cs
+index 9b55aae..311b64b 100644
+--- a/CarRental/CarRental.Web/Program.cs
++++ b/CarRental/CarRental.Web/Program.cs
+@@ -1,7 +1,7 @@
++using CarRental.Logic.Interfaces;
+ using CarRental.Logic.Services;
+ using Microsoft.AspNetCore.Localization;
+ using System.Globalization;
+-using CarRental.Logic.Interfaces;
+ 
+ var builder = WebApplication.CreateBuilder(args);
+ 
+diff --git a/CarRental/CarRental.Web/Utils/CarMapper.cs b/CarRental/CarRental.Web/Utils/CarMapper.cs
+new file mode 100644
+index 0000000..36f5918
+--- /dev/null
++++ b/CarRental/CarRental.Web/Utils/CarMapper.cs
+@@ -0,0 +1,23 @@
++﻿using CarRental.DAL.Models;
++using CarRental.Web.Models;
++
++namespace CarRental.Web;
++
++public class CarMapper
++{
++    public List<CarListModel> Map(IEnumerable<Car> cars)
++    {
++        List<CarListModel> carListModels = new();
++        foreach (var car in cars)
++        {
++            carListModels.Add(
++                new CarListModel
++                {
++                    Id = car.Id,
++                    CarModel = car.CarModel,
++                    Make = car.Make
++                });
++        }
++        return carListModels;
++    }
++}
+diff --git a/CarRental/CarRental.Web/Views/Customer/_CustomerRow.cshtml b/CarRental/CarRental.Web/Views/Customer/_CustomerRow.cshtml
+new file mode 100644
+index 0000000..5055dcb
+--- /dev/null
++++ b/CarRental/CarRental.Web/Views/Customer/_CustomerRow.cshtml
+@@ -0,0 +1,31 @@
++﻿@using CarRental.Web.Models;
++@model CustomerListModel
++
++<tr>
++    <td>
++        @Model.Id
++    </td>
++    <td>
++        @Model.FirstName
++    </td>
++    <td>
++        @Model.LastName
++    </td>
++    <td>
++        @Model.EmailAddress
++    </td>
++    <td>
++        @Model.PhoneNumber
++    </td>
++    <td>
++        @Model.Pesel
++    </td>
++    <td>
++        @Model.Gender
++    </td>
++    <td>
++        <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
++        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
++        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
++    </td>
++</tr>
+diff --git a/CarRental/CarRental.Web/Views/Home/Index.cshtml b/CarRental/CarRental.Web/Views/Home/Index.cshtml
+index cbb0e2a..8e67784 100644
+--- a/CarRental/CarRental.Web/Views/Home/Index.cshtml
++++ b/CarRental/CarRental.Web/Views/Home/Index.cshtml
+@@ -27,3 +27,4 @@
+         </div>
+     </div>
+ </div>
++
+diff --git a/CarRental/CarRental.Web/Views/Search/Cops.cshtml b/CarRental/CarRental.Web/Views/Search/Cops.cshtml
+deleted file mode 100644
+index 0a6f56f..0000000
+--- a/CarRental/CarRental.Web/Views/Search/Cops.cshtml
++++ /dev/null
+@@ -1,33 +0,0 @@
+-﻿@model CarRental.Logic.SearchViewModelDto
+-
+-@{
+-    ViewData["Title"] = "Cops";
+-}
+-
+-<h1>Cops</h1>
+-
+-<p>
+-    <a asp-action="Create">Create New</a>
+-</p>
+-<table class="table">
+-    <thead>
+-        <tr>
+-            <th>
+-                @Html.DisplayNameFor(model => model.Makes)
+-            </th>
+-    </thead>
+-    <tbody>
+-@foreach (var item in Model.Makes) {
+-        <tr>
+-            <td>
+-                @Html.DisplayFor(modelItem => item)
+-            </td>
+-            <td>
+-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+-            </td>
+-        </tr>
+-}
+-    </tbody>
+-</table>
+diff --git a/CarRental/CarRental.Web/Views/Search/Index.cshtml b/CarRental/CarRental.Web/Views/Search/Index.cshtml
+index a4b3bf2..45b7663 100644
+--- a/CarRental/CarRental.Web/Views/Search/Index.cshtml
++++ b/CarRental/CarRental.Web/Views/Search/Index.cshtml
+@@ -5,58 +5,52 @@
+     ViewData["Title"] = "Index";
+     var dto = Model.SearchViewModelDto;
+ }
+-<div class="container">
+-    <h1>Index</h1>
+-    <form method="post">
+-        <div class="input-group mb-3">
+-                <div class="search-container">
+-                <div class="row">
+-                    <button class="btn btn-outline-secondary dropdown-toggle makes col-sm-auto" type="button" data-bs-toggle="dropdown" aria-expanded="false">Make</button>
+-                    <ul class="dropdown-menu checkbox-menu allow-focus">
+-                        @foreach (var make in dto.Makes.Keys)
+-                        {
+-                            <li>
+-                                <label>
+-                                    <input type="checkbox" asp-for="SearchViewModelDto.Makes[make]" value="@true">@make
+-                                </label>
+-                            </li>
+-                        }
+-                    </ul>
+-                    <div class="col-sm-auto">
+-                        <input class="form-control me-2 search" asp-for="SearchViewModelDto.ModelAndMake" type="text" placeholder="Search" aria-label="Search">
+-                    </div>
+-                    <div class="col-sm-auto">
+-                        <input class="form-control year" asp-for="SearchViewModelDto.ProductionYearFrom" />
+-                    </div>
+-                    <div class="col-sm-auto">
+-                        <input class="form-control year" asp-for="SearchViewModelDto.ProductionYearTo" />
+-                    </div>
+-                    <div class="row">
+-                        <div class="col-sm-auto">
+-                        <input type="date" class="form-control date" asp-for="SearchViewModelDto.StartDate" />
+-                    </div>
+-                        <div class="col-sm-auto">
+-                        <input type="date" class="form-control date" asp-for="SearchViewModelDto.EndDate" />
+-                    </div>
+-                        <div class="col-sm-auto">
+-                        <button class="btn" type="submit" asp-action="Search">bbb</button>
+-                    </div>
+-                    </div>
+-                </div>
++
++<h1>Index</h1>
++
++<div class="row">
++    <div class="col-md-4">
++        <form asp-action="Create">
++            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
++            <div class="form-group">
++                <label asp-for="@dto.ModelAndMake" class="control-label"></label>
++                <input asp-for="@dto.ModelAndMake" class="form-control" />
++                <span asp-validation-for="@dto.ModelAndMake" class="text-danger"></span>
+             </div>
+-        </div>
+-    </form>
+-    @foreach (var item in Model.Cars)
+-    {
++            <div class="form-group">
++                <label asp-for="@dto.StartDate" class="control-label"></label>
++                <input asp-for="@dto.StartDate" class="form-control" />
++                <span asp-validation-for="@dto.StartDate"  class="text-danger"></span>
++            </div>
++            <div class="form-group">
++                <label asp-for="@dto.EndDate"  class="control-label"></label>
++                <input asp-for="@dto.EndDate" class="form-control" />
++                <span asp-validation-for="@dto.EndDate" class="text-danger"></span>
++            </div>
++            <div class="form-group">
++                <label asp-for="@dto.ProductionYearFrom" class="control-label"></label>
++                <input asp-for="@dto.ProductionYearFrom" class="form-control" />
++                <span asp-validation-for="@dto.ProductionYearFrom" class="text-danger"></span>
++            </div>
++            <div class="form-group">
++                <label asp-for="@dto.ProductionYearTo" class="control-label"></label>
++                <input asp-for="@dto.ProductionYearTo" class="form-control" />
++                <span asp-validation-for="@dto.ProductionYearTo" class="text-danger"></span>
++            </div>
++             <div class="form-group">
++                <input type="submit" value="Search" class="btn btn-primary" />
++            </div>
++        </form>
++        @foreach (var item in Model.Cars)
++        {
+         <div class="card" style="width: 18rem;">
+-            <img class="card-img-top" src="images/car-1.jpg" alt="Card image cap">
++                <img class="card-img-top" src="images/car-1.jpg" alt="Card image cap">
+             <div class="card-body">
+-                <h5 class="card-title">@item.CarModel title</h5>
++                    <h5 class="card-title">@item.CarModel title</h5>
+                 <p class="card-text">@item.Make @item.Id</p>
+                 <a href="#" class="btn btn-primary">Go somewhere</a>
+             </div>
+         </div>
+-    }
++        }
++    </div>
+ </div>
+-
+-
+diff --git a/CarRental/CarRental.Web/Views/Search/Search.cshtml b/CarRental/CarRental.Web/Views/Search/Search.cshtml
+deleted file mode 100644
+index c225452..0000000
+--- a/CarRental/CarRental.Web/Views/Search/Search.cshtml
++++ /dev/null
+@@ -1,62 +0,0 @@
+-﻿@model CarRental.Web.Models.SearchViewModel
+-
+-@{
+-
+-    ViewData["Title"] = "Index";
+-    var dto = Model.SearchViewModelDto;
+-}
+-<div class="container">
+-    <h1>Index</h1>
+-    <form method="post">
+-        <div class="input-group mb-3">
+-            <div class="search-container">
+-                <div class="row">
+-                    <button class="btn btn-outline-secondary dropdown-toggle makes col-sm-auto" type="button" data-bs-toggle="dropdown" aria-expanded="false">Make</button>
+-                    <ul class="dropdown-menu checkbox-menu allow-focus">
+-                        @foreach (var make in dto.Makes.Keys)
+-                        {
+-                            <li>
+-                                <label>
+-                                    <input type="checkbox" asp-for="SearchViewModelDto.Makes[make]" value="@true">@make
+-                                </label>
+-                            </li>
+-                        }
+-                    </ul>
+-                    <div class="col-sm-auto">
+-                        <input class="form-control me-2 search" asp-for="SearchViewModelDto.Model" type="text" placeholder="Search" aria-label="Search">
+-                    </div>
+-                    <div class="col-sm-auto">
+-                        <input class="form-control year" asp-for="SearchViewModelDto.ProductionYearFrom" />
+-                    </div>
+-                    <div class="col-sm-auto">
+-                        <input class="form-control year" asp-for="SearchViewModelDto.ProductionYearTo" />
+-                    </div>
+-                    <div class="row">
+-                        <div class="col-sm-auto">
+-                            <input type="date" class="form-control date" asp-for="SearchViewModelDto.StartDate" />
+-                        </div>
+-                        <div class="col-sm-auto">
+-                            <input type="date" class="form-control date" asp-for="SearchViewModelDto.EndDate" />
+-                        </div>
+-                        <div class="col-sm-auto">
+-                            <button class="btn" type="submit" asp-action="Search">bbb</button>
+-                        </div>
+-                    </div>
+-                </div>
+-            </div>
+-        </div>
+-    </form>
+-    @foreach (var item in Model.Cars)
+-    {
+-        <div class="card" style="width: 18rem;">
+-            <img class="card-img-top" src="images/car-1.jpg" alt="Card image cap">
+-            <div class="card-body">
+-                <h5 class="card-title">@item.CarModel title</h5>
+-                <p class="card-text">@item.Make @item.Id</p>
+-                <a href="#" class="btn btn-primary">Go somewhere</a>
+-            </div>
+-        </div>
+-    }
+-</div>
+-
+-
+diff --git a/CarRental/CarRental.Web/Views/Shared/_Layout.cshtml b/CarRental/CarRental.Web/Views/Shared/_Layout.cshtml
+index 6be936e..d92b68b 100644
+--- a/CarRental/CarRental.Web/Views/Shared/_Layout.cshtml
++++ b/CarRental/CarRental.Web/Views/Shared/_Layout.cshtml
+@@ -27,7 +27,7 @@
+                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                         </li>
+                         <li class="nav-item">
+-                            <a class="nav-link text-light" asp-area="" asp-controller="Search" asp-action="Index">Search</a>
++                            <a class="nav-link text-light" asp-area="" asp-controller="Search" asp-action="Index">SearchV</a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link text-light" asp-area="" asp-controller="Car" asp-action="Index">Cars</a>
+@@ -48,7 +48,7 @@
+             @RenderBody()
+         </main>
+     </div>
+-    <footer class="border-top footer text-center">
++    <footer class="border-top footer text-muted">
+         <div class="container">
+             &copy; 2023 - CarRental.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+         </div>
+diff --git a/CarRental/CarRental.Web/wwwroot/css/site.css b/CarRental/CarRental.Web/wwwroot/css/site.css
+index 88ac80f..27a97d4 100644
+--- a/CarRental/CarRental.Web/wwwroot/css/site.css
++++ b/CarRental/CarRental.Web/wwwroot/css/site.css
+@@ -17,14 +17,6 @@ html {
+     min-height: 100%;
+ }
+ 
+-.search-container {
+-  background: rgb(105,105,105,0.5);
+-  min-height: 10rem;
+-
+-}
+-.row {
+-    --bs-gutter-x: 0;
+-}
+ body {
+     margin-bottom: 60px;
+     display: grid;
+@@ -39,24 +31,23 @@ body {
+ }
+ 
+ .container-main {
+-    min-height: 37.5rem;
+-
++    min-height: 600px;
+ }
+ 
+ .search {
+-    max-width: 18.75rem;
++    max-width: 300px;
+ }
+ 
+ .year {
+-    max-width: 9.375rem;
+-    margin-right: 0.094rem;
+-    margin-left: 0.094rem;
++    max-width: 150px;
++    margin-right: 1.5px;
++    margin-left: 1.5px;
+ }
+ 
+ .date {
+-    max-width: 6.25rem;
+-    margin-right: 0.094rem;
+-    margin-left: 0.094rem;
++    max-width: 100px;
++    margin-right: 1.5px;
++    margin-left: 1.5px;
+ }
+ 
+ .d-flex {
+@@ -64,41 +55,14 @@ body {
+ }
+ 
+ .btn {
+-    background-color: brown;
+-    color :aliceblue
+-}
+-.makes{
+-    max-width: 5rem;
+-}
+-.footer {
+-    background-color: gray;
+-    color: white;
+-}
+-
+-.dropdown-menu{
+-    max-width: 5rem;
+-}
+-.checkbox-menu li label {
+-    display: block;
+-    padding: 0.188rem 0.625rem;
+-    clear: both;
+-    font-weight: normal;
+-    line-height: 1.42857143;
+-    color: #333;
+-    white-space: nowrap;
+-    margin: 0;
+-    transition: background-color .4s ease;
+-}
+-.checkbox-menu li input {
+-    margin: 0rem 0.313rem;
+-    top: 0.125rem;
+-    position: relative;
++    background-color: antiquewhite !important;
+ }
+ 
+-.checkbox-menu li.active label {
+-    background-color: #cbcbff;
+-    font-weight: bold;
++.btn-secondary {
++    color: blue;
+ }
++
++
+ /* custom styles */
+ .custom-background {
+     background-color: green !important;
+@@ -117,13 +81,3 @@ body {
+     margin-right: 0.5em;
+     margin-top: 5px;
+ }
+-
+-.checkbox-menu li label:hover,
+-.checkbox-menu li label:focus {
+-    background-color: #f5f5f5;
+-}
+-
+-.checkbox-menu li.active label:hover,
+-.checkbox-menu li.active label:focus {
+-    background-color: #b8b8ff;
+-}
+\ No newline at end of file

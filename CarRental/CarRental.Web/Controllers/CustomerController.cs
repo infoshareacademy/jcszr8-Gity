@@ -19,11 +19,11 @@ public class CustomerController : Controller
     {
         var customers = _customerService.GetAll();
 
-        var model = new List<CustomerListModel>();
+        var model = new List<CustomerViewModel>();
 
-        foreach(var customer in customers)
+        foreach (var customer in customers)
         {
-            model.Add(new CustomerListModel().FillModel(customer));
+            model.Add(new CustomerViewModel().FillModel(customer));
         }
         return View(model);
     }
@@ -31,7 +31,13 @@ public class CustomerController : Controller
     // GET: CustomerController/Details/5
     public IActionResult Details(int id)
     {
-        var model = _customerService.GetById(id);
+        var customer = _customerService.GetById(id);
+
+        if (customer is null)
+            return RedirectToAction(nameof(Index));
+
+        var model = new CustomerViewModel().FillModel(customer);
+
         return View(model);
     }
 
@@ -44,14 +50,16 @@ public class CustomerController : Controller
     // POST: CustomerController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(Customer customer)
+    public IActionResult Create(CustomerViewModel model)
     {
         try
         {
             if (!ModelState.IsValid)
             {
-                return View(customer);
+                return View(model);
             }
+
+            var customer = model.FillEntity();
 
             _customerService.Create(customer);
 
@@ -67,16 +75,20 @@ public class CustomerController : Controller
     public IActionResult Edit(int id)
     {
         var customer = _customerService.GetById(id);
-        return View(customer);
+        var model = new CustomerViewModel().FillModel(customer);
+
+        return View(model);
     }
 
     // POST: CustomerController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(Customer customer)
+    public IActionResult Edit(CustomerViewModel model)
     {
         try
         {
+            var customer = model.FillEntity();
+
             _customerService.Update(customer);
 
             return RedirectToAction(nameof(Index));
@@ -91,7 +103,10 @@ public class CustomerController : Controller
     public IActionResult Delete(int id)
     {
         var customer = _customerService.GetById(id);
-        return View(customer);
+
+        var model = new CustomerViewModel().FillModel(customer);
+
+        return View(model);
     }
 
     // POST: CustomerController/Delete/5

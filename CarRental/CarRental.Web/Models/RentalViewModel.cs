@@ -1,10 +1,12 @@
 ﻿using CarRental.DAL.Models;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Web.Models;
 
 public class RentalViewModel
 {
+    [DisplayName("Rental Id.")]
     public int Id { get; set; }
 
     [Display(Name = "Customer Id")]
@@ -20,7 +22,7 @@ public class RentalViewModel
     public DateTime EndDate { get; set; }
 
     [Display(Name = "Total Cost")]
-    public decimal TotalCost { get; set; }
+    public decimal? TotalCost { get; set; }
 
     public RentalViewModel FillModel(Rental baseModel)
     {
@@ -32,5 +34,20 @@ public class RentalViewModel
         this.TotalCost = baseModel.TotalCost;
 
         return this;
+    }
+
+    public Rental FillEntity()
+    {
+        var rental = new Rental
+        {
+            Id = this.Id,
+            CarId = this.CarId,
+            CustomerId = this.CustomerId,
+            BeginDate = this.BeginDate,
+            EndDate = this.EndDate,
+            TotalCost = this.TotalCost
+        };
+
+        return rental;
     }
 }

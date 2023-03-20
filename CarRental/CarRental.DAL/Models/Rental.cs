@@ -25,5 +25,5 @@ public sealed class Rental
 
     [JsonProperty("total_cost")]
     [Display (Name = "Total Cost")]
-    public decimal TotalCost { get; set; }
+    public decimal? TotalCost { get; set; }
 }

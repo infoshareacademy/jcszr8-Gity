@@ -1,4 +1,4 @@
-﻿@model CarRental.DAL.Models.Car
+﻿@model CarRental.Web.Models.CarViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -120,5 +120,17 @@
     <div>
         <partial name="Buttons/_ButtonEdit-2" />
         <partial name="Buttons/_ButtonBackToList" />
+    </div>
+    <div>
+        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Rent this Car">
+            <a asp-controller="Rental" asp-action="Create">
+                Rent this Car
+            </a>
+        </button>
+        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Return this Car">
+            <a asp-action="Return">
+                Return this Car
+            </a>
+        </button>
     </div>
 </div>

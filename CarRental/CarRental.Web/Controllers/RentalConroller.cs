@@ -20,7 +20,7 @@ public class RentalController : Controller
 
         var model = new List<RentalViewModel>();
 
-        foreach(var rental in rentals)
+        foreach (var rental in rentals)
         {
             model.Add(new RentalViewModel().FillModel(rental));
         }
@@ -32,7 +32,7 @@ public class RentalController : Controller
     public IActionResult Details(int id)
     {
         var rental = _rentalService.GetById(id);
-        var model = new RentalListModel().FillModel(rental);
+        var model = new RentalViewModel().FillModel(rental);
         return View(model);
     }
 
@@ -45,14 +45,16 @@ public class RentalController : Controller
     // POST: RentalConroller/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(Rental rental)
+    public IActionResult Create(RentalViewModel model)
     {
         try
         {
             if (!ModelState.IsValid)
             {
-                return View(rental);
+                return View(model);
             }
+
+            var rental = model.FillEntity();
             _rentalService.Create(rental);
 
             return RedirectToAction(nameof(Index));
@@ -67,17 +69,21 @@ public class RentalController : Controller
     public IActionResult Edit(int id)
     {
         var rental = _rentalService.GetById(id);
-        return View(rental);
+        var model = new RentalViewModel().FillModel(rental);
+
+        return View(model);
     }
 
     // POST: RentalConroller/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(Rental rental)
+    public IActionResult Edit(RentalViewModel model)
     {
         try
         {
+            var rental = model.FillEntity();
             _rentalService.Update(rental);
+
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -90,7 +96,9 @@ public class RentalController : Controller
     public IActionResult Delete(int id)
     {
         var rental = _rentalService.GetById(id);
-        return View(rental);
+        var model = new RentalViewModel().FillModel(rental);
+
+        return View(model);
     }
 
     // POST: RentalConroller/Delete/5
