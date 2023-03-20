@@ -1,7 +1,4 @@
-﻿using CarRental.DAL.Models;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Web.Models;
 
@@ -46,53 +43,4 @@ public class CarViewModel
     public List<string> Addons { get; set; } = new();
 
     public decimal? Price { get; set; }
-
-    public CarViewModel FillModel(Car baseModel)
-    {
-        this.Id = baseModel.Id;
-        this.CarModel = baseModel.CarModel;
-        this.Make = baseModel.Make;
-        this.Year = baseModel.Year;
-        this.LicencePlateNumber = baseModel.LicencePlateNumber;
-        this.Color = baseModel.Color;
-        this.Transmission = baseModel.Transmission;
-        this.Kilometrage = baseModel.Kilometrage;
-        this.Airbags = baseModel.Airbags;
-        this.SeatsNo = baseModel.SeatsNo;
-        this.PowerInKiloWats = baseModel.PowerInKiloWats;
-        this.Displacement = baseModel.Displacement;
-        this.Doors = baseModel.Doors;
-        this.EngineType = baseModel.EngineType;
-        this.FuelConsumption = baseModel.FuelConsumption;
-        this.Addons = baseModel.Addons;
-        this.Price = baseModel.Price;
-
-        return this;
-    }
-
-    public Car FillEntity()
-    {
-        var car = new Car
-        {
-            Id = this.Id,
-            CarModel = this.CarModel,
-            Make = this.Make,
-            LicencePlateNumber = this.LicencePlateNumber,
-            Year = this.Year,
-            Color = this.Color,
-            Transmission = this.Transmission,
-            Kilometrage = this.Kilometrage,
-            Airbags = this.Airbags,
-            SeatsNo = this.SeatsNo,
-            PowerInKiloWats = this.PowerInKiloWats,
-            Displacement = this.Displacement,
-            Doors = this.Doors,
-            EngineType = this.EngineType,
-            FuelConsumption = this.FuelConsumption,
-            Price = this.Price,
-            Addons = this.Addons,
-        };
-
-        return car;
-    }
 }

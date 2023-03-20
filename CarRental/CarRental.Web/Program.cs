@@ -1,3 +1,4 @@
+using AutoMapper;
 using CarRental.Logic.Interfaces;
 using CarRental.Logic.Services;
 using Microsoft.AspNetCore.Localization;
@@ -11,7 +12,14 @@ builder.Services.AddTransient<IRentalService, RentalService>();
 builder.Services.AddTransient<ICarService, CarService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<ISearchService, SearchService>();
+
+builder.Services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
+
+// Check if all mappings are configured
+var mapper = (IMapper)app.Services.GetService(typeof(IMapper));
+mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

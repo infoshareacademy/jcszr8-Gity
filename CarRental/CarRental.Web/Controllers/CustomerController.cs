@@ -1,4 +1,5 @@
-﻿using CarRental.DAL.Models;
+﻿using AutoMapper;
+using CarRental.DAL.Models;
 using CarRental.Logic.Interfaces;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,10 +9,12 @@ namespace CarRental.Web.Controllers;
 public class CustomerController : Controller
 {
     private readonly ICustomerService _customerService;
-    public CustomerController(ICustomerService customerService)
+    private readonly IMapper _mapper;
+
+    public CustomerController(ICustomerService customerService, IMapper mapper)
     {
-        this._customerService = customerService ??
-            throw new ArgumentNullException(nameof(customerService));
+        _customerService = customerService;
+        _mapper = mapper;
     }
 
     // GET: CustomerController
@@ -19,12 +22,8 @@ public class CustomerController : Controller
     {
         var customers = _customerService.GetAll();
 
-        var model = new List<CustomerViewModel>();
+        var model = _mapper.Map<List<CustomerViewModel>>(customers);
 
-        foreach (var customer in customers)
-        {
-            model.Add(new CustomerViewModel().FillModel(customer));
-        }
         return View(model);
     }
 
@@ -36,7 +35,7 @@ public class CustomerController : Controller
         if (customer is null)
             return RedirectToAction(nameof(Index));
 
-        var model = new CustomerViewModel().FillModel(customer);
+        var model = _mapper.Map<CustomerViewModel>(customer);
 
         return View(model);
     }
@@ -59,7 +58,7 @@ public class CustomerController : Controller
                 return View(model);
             }
 
-            var customer = model.FillEntity();
+            var customer = _mapper.Map<Customer>(model);
 
             _customerService.Create(customer);
 
@@ -75,7 +74,8 @@ public class CustomerController : Controller
     public IActionResult Edit(int id)
     {
         var customer = _customerService.GetById(id);
-        var model = new CustomerViewModel().FillModel(customer);
+
+        var model = _mapper.Map<CustomerViewModel>(customer);
 
         return View(model);
     }
@@ -87,7 +87,7 @@ public class CustomerController : Controller
     {
         try
         {
-            var customer = model.FillEntity();
+            var customer = _mapper.Map<Customer>(model);
 
             _customerService.Update(customer);
 
@@ -104,7 +104,7 @@ public class CustomerController : Controller
     {
         var customer = _customerService.GetById(id);
 
-        var model = new CustomerViewModel().FillModel(customer);
+        var model = _mapper.Map<CustomerViewModel>(customer);
 
         return View(model);
     }

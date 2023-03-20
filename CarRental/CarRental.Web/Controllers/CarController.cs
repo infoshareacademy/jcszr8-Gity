@@ -1,3 +1,4 @@
+using AutoMapper;
 using CarRental.DAL.Models;
 using CarRental.Logic.Interfaces;
 using CarRental.Web.Models;
@@ -9,11 +10,13 @@ public class CarController : Controller
 {
     private readonly ICarService _carService;
     private readonly ISearchService _searchService;
+    private readonly IMapper _mapper;
 
-    public CarController(ICarService carService, ISearchService searchService)
+    public CarController(ICarService carService, ISearchService searchService, IMapper mapper)
     {
-        this._carService = carService;
-        this._searchService = searchService;
+        _carService = carService;
+        _searchService = searchService;
+        _mapper = mapper;
     }
 
     // GET: CarController
@@ -21,12 +24,8 @@ public class CarController : Controller
     {
         var cars = this._carService.GetAll();
 
-        var model = new List<CarViewModel>();
+        var model = _mapper.Map<List<CarViewModel>>(cars);
 
-        foreach (var car in cars)
-        {
-            model.Add(new CarViewModel().FillModel(car));
-        }
         return View(model);
     }
 
@@ -35,7 +34,7 @@ public class CarController : Controller
     {
         var car = _carService.GetById(id);
 
-        var model = new CarViewModel().FillModel(car);
+        var model = _mapper.Map<CarViewModel>(car);
 
         return View(model);
     }
@@ -58,9 +57,9 @@ public class CarController : Controller
                 return View(model);
             }
 
-            var newCar = model.FillEntity();
-
+            var newCar = _mapper.Map<Car>(model);
             _carService.Create(newCar);
+
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -74,7 +73,7 @@ public class CarController : Controller
     {
         var car = _carService.GetById(id);
 
-        var model = new CarViewModel().FillModel(car);
+        var model = _mapper.Map<CarViewModel>(car);
 
         return View(model);
     }
@@ -86,7 +85,7 @@ public class CarController : Controller
     {
         try
         {
-            var car = model.FillEntity();
+            var car = _mapper.Map<Car>(model);
             _carService.Update(car);
 
             return RedirectToAction(nameof(Index));
@@ -102,7 +101,7 @@ public class CarController : Controller
     {
         var car = _carService.GetById(id);
 
-        var model = new CarViewModel().FillModel(car);
+        var model = _mapper.Map<CarViewModel>(car);
 
         return View(model);
     }

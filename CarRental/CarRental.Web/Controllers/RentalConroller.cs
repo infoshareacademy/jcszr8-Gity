@@ -1,4 +1,5 @@
-﻿using CarRental.DAL.Models;
+﻿using AutoMapper;
+using CarRental.DAL.Models;
 using CarRental.Logic.Interfaces;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,22 +9,18 @@ namespace CarRental.Web.Controllers;
 public class RentalController : Controller
 {
     private readonly IRentalService _rentalService;
+    private readonly IMapper _mapper;
 
-    public RentalController(IRentalService rentalService)
+    public RentalController(IRentalService rentalService, IMapper mapper)
     {
-        this._rentalService = rentalService;
+        _rentalService = rentalService;
+        _mapper = mapper;
     }
     // GET: RentalConroller
     public IActionResult Index()
     {
         var rentals = _rentalService.GetAll();
-
-        var model = new List<RentalViewModel>();
-
-        foreach (var rental in rentals)
-        {
-            model.Add(new RentalViewModel().FillModel(rental));
-        }
+        var model = _mapper.Map<List<RentalViewModel>>(rentals);
 
         return View(model);
     }
@@ -32,7 +29,8 @@ public class RentalController : Controller
     public IActionResult Details(int id)
     {
         var rental = _rentalService.GetById(id);
-        var model = new RentalViewModel().FillModel(rental);
+        var model = _mapper.Map<RentalViewModel>(rental);
+
         return View(model);
     }
 
@@ -54,7 +52,7 @@ public class RentalController : Controller
                 return View(model);
             }
 
-            var rental = model.FillEntity();
+            var rental = _mapper.Map<Rental>(model);
             _rentalService.Create(rental);
 
             return RedirectToAction(nameof(Index));
@@ -69,7 +67,7 @@ public class RentalController : Controller
     public IActionResult Edit(int id)
     {
         var rental = _rentalService.GetById(id);
-        var model = new RentalViewModel().FillModel(rental);
+        var model = _mapper.Map<RentalViewModel>(rental);
 
         return View(model);
     }
@@ -81,7 +79,7 @@ public class RentalController : Controller
     {
         try
         {
-            var rental = model.FillEntity();
+            var rental = _mapper.Map<Rental>(model);
             _rentalService.Update(rental);
 
             return RedirectToAction(nameof(Index));
@@ -96,7 +94,7 @@ public class RentalController : Controller
     public IActionResult Delete(int id)
     {
         var rental = _rentalService.GetById(id);
-        var model = new RentalViewModel().FillModel(rental);
+        var model = _mapper.Map<RentalViewModel>(rental);
 
         return View(model);
     }

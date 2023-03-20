@@ -1,5 +1,4 @@
-﻿using CarRental.DAL.Models;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Web.Models;
@@ -23,31 +22,4 @@ public class RentalViewModel
 
     [Display(Name = "Total Cost")]
     public decimal? TotalCost { get; set; }
-
-    public RentalViewModel FillModel(Rental baseModel)
-    {
-        this.Id = baseModel.Id;
-        this.CarId = baseModel.CarId;
-        this.CustomerId = baseModel.CustomerId;
-        this.BeginDate = baseModel.BeginDate;
-        this.EndDate = baseModel.EndDate;
-        this.TotalCost = baseModel.TotalCost;
-
-        return this;
-    }
-
-    public Rental FillEntity()
-    {
-        var rental = new Rental
-        {
-            Id = this.Id,
-            CarId = this.CarId,
-            CustomerId = this.CustomerId,
-            BeginDate = this.BeginDate,
-            EndDate = this.EndDate,
-            TotalCost = this.TotalCost
-        };
-
-        return rental;
-    }
 }
