@@ -5,57 +5,59 @@
     ViewData["Title"] = "Index";
     var dto = Model.SearchDto;
 }
-<div class="container">
+<div class="search-container justify-content-center">
     <form method="post">
         <div class="input-group mb-3">
-            <div class="search-container">
-                <div class="row">
-                    <button class="btn btn-outline-secondary dropdown-toggle makes me-2 col" type="button" data-bs-toggle="dropdown" aria-expanded="false">Make</button>
-                    <ul class="dropdown-menu checkbox-menu allow-focus">
-                        @foreach (var make in dto.Makes.Keys)
-                        {
-                            <li>
-                                <label>
-                                    <input type="checkbox" asp-for="SearchDto.Makes[make]" value="@true">@make
-                                </label>
-                            </li>
-                        }
-                    </ul>
-                    <div class="col-2 me-2">
-                        <input class="form-control  search" asp-for="SearchDto.Model" type="text" placeholder="Type Car Model" aria-label="Search">
+
+            <div class="row justify-content-center pt-2">
+                <button class="btn btn-outline-secondary dropdown-toggle makes me-2 col" type="button" data-bs-toggle="dropdown" aria-expanded="false">Make</button>
+                <ul class="dropdown-menu checkbox-menu allow-focus">
+                    @foreach (var make in dto.Makes.Keys)
+                    {
+                        <li>
+                            <label>
+                                <input type="checkbox" asp-for="SearchDto.Makes[make]" value="@true">@make
+                            </label>
+                        </li>
+                    }
+                </ul>
+                <div class="col-2 me-2 shadow-lg">
+                    <input class="form-control search" asp-for="SearchDto.Model" type="text" placeholder="Type Car Model" aria-label="Search">
+                </div>
+                <div class="col-1 me-2">
+                    <input class="form-control shadow-lg year" asp-for="SearchDto.ProductionYearFrom" />
+                </div>
+                <div class="col-1 me-2">
+                    <input class="form-control  year" asp-for="SearchDto.ProductionYearTo" />
+                </div>
+                <div class="row pt-2 pb-2 justify-content-center">
+                    <div class="col me-2">
+                        <input type="date" class="form-control date" asp-for="SearchDto.StartDate" />
                     </div>
-                    <div class="col-1 me-2">
-                        <input class="form-control  year" asp-for="SearchDto.ProductionYearFrom" />
+                    <div class="col me-2">
+                        <input type="date" class="form-control date" asp-for="SearchDto.EndDate" />
                     </div>
-                    <div class="col-1 me-2">
-                        <input class="form-control  year" asp-for="SearchDto.ProductionYearTo" />
-                    </div>
-                    <div class="row pt-2">
-                        <div class="col me-2">
-                            <input type="date" class="form-control date" asp-for="SearchDto.StartDate" />
-                        </div>
-                        <div class="col me-2">
-                            <input type="date" class="form-control date" asp-for="SearchDto.EndDate" />
-                        </div>
-                        <div class="col">
-                            <button class="btn" type="submit" asp-action="Search">Search</button>
-                        </div>
+                    <div class="col">
+                        <button class="btn" type="submit" asp-action="Search">Search</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
-    @foreach (var item in Model.Cars)
-    {
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="images/car-1.jpg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">@item.CarModel title</h5>
-                <p class="card-text">@item.Make @item.Id</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    }
 </div>
-
+<div class="container">
+    <div class="row`">
+        @foreach (var item in Model.Cars)
+        {
+            <div class="card col-3 me-2 mt-2" style="width: 18rem;">
+                <img class="card-img-top" src="images/car-1.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@item.CarModel title</h5>
+                    <p class="card-text">@item.Make @item.Id</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
