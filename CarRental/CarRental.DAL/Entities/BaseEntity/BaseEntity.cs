@@ -8,6 +8,6 @@ public class BaseEntity
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [JsonProperty("id")]
-    [Key]
+
     public int Id { get; set; }
 }

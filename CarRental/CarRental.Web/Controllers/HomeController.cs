@@ -18,7 +18,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        this._customerService.Create("Imie", "Nazwisko", "+48111222333");
+         //this._customerService.Create("Imie", "Nazwisko", "+48111222333");
         return View();
     }
 

@@ -1,10 +1,5 @@
 ﻿using CarRental.DAL.Models;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarRental.DAL.Context;
 
@@ -26,44 +21,40 @@ public static class Seed
 
         foreach (var customer in customers)
         {
-            context.Customers.Add(customer);
+            context.Customers.Add(new()
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                PhoneNumber = customer.PhoneNumber,
+                EmailAddress = customer.EmailAddress,
+                Gender = customer.Gender,
+                Pesel = customer.Pesel,
+            });
         }
-        context.SaveChanges();
+        var entriesNumber = context.SaveChanges();
+
+        string temp = string.Empty;
 
         foreach (var car in cars)
         {
-            context.Cars.Add(car);
+            temp = car.Addons.Aggregate((a, b) => a + ";" + b);
+
+            context.Cars.Add( new()
+            {
+                Make = car.Make,
+                CarModel = car.CarModel,
+                LicencePlateNumber = car.LicencePlateNumber,
+                Color = car.Color,
+                Year = car.Year,
+                Addons = temp,
+            });
         }
         context.SaveChanges();
 
         foreach (var rental in rentals)
         {
-            context.Rental.Add(rental);
+            context.Rentals.Add(rental);
         }
         context.SaveChanges();
-
     }
-}
-
-public static class SeedData
-{
-
-
-    //        Transmission = "Manual",
-    //        LicencePlateNumber = "GD RE01",
-    //        Kilometrage = 200500,
-    //        PowerInKiloWats = 97.0,
-    //        FuelConsumption = "",
-    //        Displacement
-    //    }
-    //};
-
-
-
-
-
-
-
-
-
 }
