@@ -1,4 +1,5 @@
-﻿using CarRental.DAL.Models;
+﻿using CarRental.DAL.Entities.BaseEntity;
+using CarRental.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.DAL.Context;
@@ -12,7 +13,7 @@ public class ApplicationContext : DbContext
 
     public DbSet<Customer> Customers { get; set; }
 
-    public DbSet<Car> Cars { get; set; }
+    public DbSet<CarDb> Cars { get; set; }
 
     public DbSet<Rental> Rentals { get; set; }
 

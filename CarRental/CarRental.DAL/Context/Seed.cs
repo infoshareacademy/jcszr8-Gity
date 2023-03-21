@@ -1,18 +1,24 @@
 ﻿using CarRental.DAL.Models;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarRental.DAL.Context;
 
-public static class Seed
+public class Seed
 {
-    public static void Initialize(ApplicationContext context)
+    private readonly IMapper _mapper;
+
+    public Seed(IMapper mapper)
+    {
+        _mapper = mapper;
+    }
+    public void Initialize(ApplicationContext context)
     {
         context.Database.EnsureCreated();
 
         Customer[] customers = CarRentalData.Customers.ToArray();
         Car[] cars = CarRentalData.Cars.ToArray();
         Rental[] rentals = CarRentalData.Rentals.ToArray();
-
 
         if (context.Customers.Any())
         {
@@ -37,17 +43,9 @@ public static class Seed
 
         foreach (var car in cars)
         {
-            temp = car.Addons.Aggregate((a, b) => a + ";" + b);
-
-            context.Cars.Add( new()
-            {
-                Make = car.Make,
-                CarModel = car.CarModel,
-                LicencePlateNumber = car.LicencePlateNumber,
-                Color = car.Color,
-                Year = car.Year,
-                Addons = temp,
-            });
+            var carDto = _mapper.Map<CarDb>(car);
+            carDto.Addons = string.Join(";", car.Addons);
+            context.Cars.Add(carDto);
         }
         context.SaveChanges();
 
