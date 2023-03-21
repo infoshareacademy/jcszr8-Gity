@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using CarRental.DAL.Entities.BaseEntity;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.DAL.Models;
-public sealed class Customer : EntityBase
+public sealed class Customer : BaseEntity
 {
-    [JsonProperty("id")]
-    public int Id;
-
     [JsonProperty("first_name")]
     [Display(Name = "First Name")]
     [MaxLength(30)]
@@ -49,9 +47,4 @@ public sealed class Customer : EntityBase
     }
 
     public Customer() { }
-
-    public override string ToString()
-    {
-        return $"{FirstName} {LastName} {PhoneNumber}";
-    }
 }

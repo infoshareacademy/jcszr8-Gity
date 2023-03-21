@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CarRental.DAL.Models;
-using CarRental.Logic.Interfaces;
+using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +30,7 @@ public class CustomerController : Controller
     // GET: CustomerController/Details/5
     public IActionResult Details(int id)
     {
-        var customer = _customerService.GetById(id);
+        var customer = _customerService.Get(id);
 
         if (customer is null)
             return RedirectToAction(nameof(Index));
@@ -73,7 +73,7 @@ public class CustomerController : Controller
     // GET: CustomerController/Edit/5
     public IActionResult Edit(int id)
     {
-        var customer = _customerService.GetById(id);
+        var customer = _customerService.Get(id);
 
         var model = _mapper.Map<CustomerViewModel>(customer);
 
@@ -102,7 +102,7 @@ public class CustomerController : Controller
     // GET: CustomerController/Delete/5
     public IActionResult Delete(int id)
     {
-        var customer = _customerService.GetById(id);
+        var customer = _customerService.Get(id);
 
         var model = _mapper.Map<CustomerViewModel>(customer);
 

@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using CarRental.DAL.Entities.BaseEntity;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace CarRental.DAL.Models;
-public sealed class Car : EntityBase
+public sealed class Car : BaseEntity
 {
     #region Properties/Fields
-    public int Id { get; set; }
 
     [JsonProperty(PropertyName = "model")]
     [Display(Name = "Model")]

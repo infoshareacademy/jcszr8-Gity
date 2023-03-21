@@ -1,7 +1,7 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Models;
 using CarRental.DAL.Repositories;
-using CarRental.Logic.Interfaces;
+using CarRental.Logic.Services.IServices;
 
 namespace CarRental.Logic.Services;
 
@@ -14,7 +14,6 @@ public class CustomerService : ICustomerService
     public CustomerService(IRepository<Customer> customerRepository)
     {
         _customerRepository = customerRepository;
-
         _idCounter = CarRentalData.Customers.Max(c => c.Id);  // TODO  _idCounter = CarRentalData.Customers.Max(c => c.Id);
     }
 
@@ -23,7 +22,7 @@ public class CustomerService : ICustomerService
         return _customerRepository.GetAll();
     }
 
-    public Customer? GetById(int customerId)
+    public Customer? Get(int customerId)
     {
         return _customerRepository.GetAll().FirstOrDefault(c => c.Id == customerId);
     }
@@ -31,7 +30,23 @@ public class CustomerService : ICustomerService
     public void Create(Customer customer)
     {
         customer.Id = GetNextId();
-        _customerRepository.Add(customer);
+        _customerRepository.Insert(customer);
+    }
+
+    public void Create(string firstName, string lastName, string phoneNumber)
+    {
+        if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) 
+            || string.IsNullOrEmpty(phoneNumber))
+        {
+            return;
+        }
+
+        _customerRepository.Insert(new Customer
+        {
+            FirstName = firstName,
+            LastName = lastName,
+            PhoneNumber = phoneNumber
+        });
     }
 
     public void Update(Customer model)
@@ -41,7 +56,7 @@ public class CustomerService : ICustomerService
 
     public void Delete(int customerId) {
 
-        var customer = _customerRepository.GetById(customerId);
+        var customer = _customerRepository.Get(customerId);
         _customerRepository.Delete(customer);
     }  
 

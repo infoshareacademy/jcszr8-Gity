@@ -1,25 +1,33 @@
 using CarRental.DAL.Models;
 using CarRental.DAL.Repositories;
 using AutoMapper;
-using CarRental.Logic.Interfaces;
 using CarRental.Logic.Services;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using CarRental.Logic.Services.IServices;
+using CarRental.DAL.Context;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<ApplicationContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddTransient<IRentalService, RentalService>();
-builder.Services.AddTransient<ICarService, CarService>();
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
 builder.Services.AddTransient<ICustomerService, CustomerService>();
+builder.Services.AddTransient<ICarService, CarService>();
+builder.Services.AddTransient<IRentalService, RentalService>();
 builder.Services.AddTransient<ISearchService, SearchService>();
-// Repositories
-builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
+
+CreateDbIfNotExists(app);
 
 // Check if all mappings are configured
 var mapper = (IMapper)app.Services.GetService(typeof(IMapper));
@@ -54,3 +62,20 @@ app.UseRequestLocalization(new RequestLocalizationOptions
 });
 
 app.Run();
+
+
+static void CreateDbIfNotExists(IHost host)
+{
+    using var scope = host.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<ApplicationContext>();
+        Seed.Initialize(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred creating the DB.");
+    }
+}

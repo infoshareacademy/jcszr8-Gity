@@ -1,6 +1,6 @@
 ﻿using CarRental.DAL.Models;
 
-namespace CarRental.Logic.Interfaces;
+namespace CarRental.Logic.Services.IServices;
 
 public interface IRentalService
 {

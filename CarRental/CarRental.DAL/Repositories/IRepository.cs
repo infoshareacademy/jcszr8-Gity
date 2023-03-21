@@ -1,12 +1,12 @@
-﻿using CarRental.DAL.Models;
+﻿using CarRental.DAL.Entities.BaseEntity;
 
 namespace CarRental.DAL.Repositories;
 
-public interface IRepository<T> where T : EntityBase
+public interface IRepository<T> where T : BaseEntity
 {
-    IEnumerable<T> GetAll();
-    T GetById(int id);
-    void Add(T entity);
+    List<T> GetAll();
+    T Get(int id);
+    void Insert(T entity);
     void Update(T entity);
     void Delete(T entity);
 }
