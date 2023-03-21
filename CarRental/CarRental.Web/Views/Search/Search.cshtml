@@ -6,12 +6,11 @@
     var dto = Model.SearchDto;
 }
 <div class="container">
-    <h1>Index</h1>
     <form method="post">
         <div class="input-group mb-3">
             <div class="search-container">
                 <div class="row">
-                    <button class="btn btn-outline-secondary dropdown-toggle makes col-sm-auto" type="button" data-bs-toggle="dropdown" aria-expanded="false">Make</button>
+                    <button class="btn btn-outline-secondary dropdown-toggle makes me-2 col" type="button" data-bs-toggle="dropdown" aria-expanded="false">Make</button>
                     <ul class="dropdown-menu checkbox-menu allow-focus">
                         @foreach (var make in dto.Makes.Keys)
                         {
@@ -22,23 +21,23 @@
                             </li>
                         }
                     </ul>
-                    <div class="col-sm-auto">
-                        <input class="form-control me-2 search" asp-for="SearchDto.Model" type="text" placeholder="Search" aria-label="Search">
+                    <div class="col-2 me-2">
+                        <input class="form-control  search" asp-for="SearchDto.Model" type="text" placeholder="Type Car Model" aria-label="Search">
                     </div>
-                    <div class="col-sm-auto">
-                        <input class="form-control year" asp-for="SearchDto.ProductionYearFrom" />
+                    <div class="col-1 me-2">
+                        <input class="form-control  year" asp-for="SearchDto.ProductionYearFrom" />
                     </div>
-                    <div class="col-sm-auto">
-                        <input class="form-control year" asp-for="SearchDto.ProductionYearTo" />
+                    <div class="col-1 me-2">
+                        <input class="form-control  year" asp-for="SearchDto.ProductionYearTo" />
                     </div>
-                    <div class="row">
-                        <div class="col-sm-auto">
+                    <div class="row pt-2">
+                        <div class="col me-2">
                             <input type="date" class="form-control date" asp-for="SearchDto.StartDate" />
                         </div>
-                        <div class="col-sm-auto">
+                        <div class="col me-2">
                             <input type="date" class="form-control date" asp-for="SearchDto.EndDate" />
                         </div>
-                        <div class="col-sm-auto">
+                        <div class="col">
                             <button class="btn" type="submit" asp-action="Search">Search</button>
                         </div>
                     </div>

@@ -18,10 +18,10 @@ html {
 }
 
 .search-container {
-  background: rgb(105,105,105,0.5);
-  min-height: 10rem;
-
+    min-height: 10rem;
 }
+
+
 .row {
     --bs-gutter-x: 0;
 }
@@ -44,21 +44,25 @@ body {
 }
 
 .search {
-    max-width: 18.75rem;
+    max-width: 10.75rem;
+
 }
 
 .year {
-    max-width: 9.375rem;
+    max-width: 5.375rem;
     margin-right: 0.094rem;
     margin-left: 0.094rem;
 }
 
 .date {
-    max-width: 6.25rem;
+    max-width: 8rem;
     margin-right: 0.094rem;
     margin-left: 0.094rem;
 }
 
+.col {
+    flex: 0 0 0%;
+}
 .d-flex {
     justify-content: center;
 }
@@ -85,6 +89,10 @@ body {
     max-width: 5rem;
 }
 
+.input-group {
+    justify-content: center;
+    padding-top: 2rem;
+}
 .checkbox-menu li label {
     display: block;
     padding: 0.188rem 0.625rem;
