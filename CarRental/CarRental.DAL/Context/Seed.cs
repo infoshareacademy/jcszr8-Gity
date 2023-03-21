@@ -4,18 +4,19 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarRental.DAL.Context;
 
-public class Seed
+public static class Seed
 {
-    private readonly IMapper _mapper;
+    //private readonly IMapper _mapper;
 
-    public Seed(IMapper mapper)
-    {
-        _mapper = mapper;
-    }
-    public void Initialize(ApplicationContext context)
+    //public Seed(IMapper mapper)
+    //{
+    //    _mapper = mapper;
+    //}
+
+    public static void Initialize(ApplicationContext context)
     {
         context.Database.EnsureCreated();
-
+        //var _mapper = new Mapper();
         Customer[] customers = CarRentalData.Customers.ToArray();
         Car[] cars = CarRentalData.Cars.ToArray();
         Rental[] rentals = CarRentalData.Rentals.ToArray();
@@ -43,8 +44,7 @@ public class Seed
 
         foreach (var car in cars)
         {
-            var carDto = _mapper.Map<CarDb>(car);
-            carDto.Addons = string.Join(";", car.Addons);
+            var carDto = new CarDb().FillModel(car);
             context.Cars.Add(carDto);
         }
         context.SaveChanges();

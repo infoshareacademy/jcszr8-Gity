@@ -66,6 +66,7 @@ app.Run();
 
 static void CreateDbIfNotExists(IHost host)
 {
+    
     using var scope = host.Services.CreateScope();
     var services = scope.ServiceProvider;
     try

@@ -163,4 +163,13 @@ Addons: {GetAddonsToString()}
             return new int[] { };
         }
     }
+    public CarDb FillModel(Car baseModel)
+    {
+        this.Make = baseModel.Make;
+        this.CarModel = baseModel.CarModel;
+        this.Year = baseModel.Year;
+        this.LicencePlateNumber = baseModel.LicencePlateNumber;
+        this.Addons = string.Join(";" ,baseModel.Addons);
+        return this;
+    }
 }
