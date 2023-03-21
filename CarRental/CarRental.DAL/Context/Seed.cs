@@ -1,4 +1,5 @@
 ﻿using CarRental.DAL.Models;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,22 +14,56 @@ public static class Seed
     {
         context.Database.EnsureCreated();
 
+        Customer[] customers = CarRentalData.Customers.ToArray();
+        Car[] cars = CarRentalData.Cars.ToArray();
+        Rental[] rentals = CarRentalData.Rentals.ToArray();
+
+
         if (context.Customers.Any())
         {
             return; // DB has been seeded
         }
 
-        var customers = new Customer[]
-        {
-            new() { FirstName = "Alek", LastName = "Acki", PhoneNumber = "+48600100101"},
-            new() { FirstName = "Bolek", LastName = "Becki", PhoneNumber = "+48600123102"},
-        };
-
-        foreach(var customer in customers)
+        foreach (var customer in customers)
         {
             context.Customers.Add(customer);
         }
         context.SaveChanges();
 
+        foreach (var car in cars)
+        {
+            context.Cars.Add(car);
+        }
+        context.SaveChanges();
+
+        foreach (var rental in rentals)
+        {
+            context.Rental.Add(rental);
+        }
+        context.SaveChanges();
+
     }
+}
+
+public static class SeedData
+{
+
+
+    //        Transmission = "Manual",
+    //        LicencePlateNumber = "GD RE01",
+    //        Kilometrage = 200500,
+    //        PowerInKiloWats = 97.0,
+    //        FuelConsumption = "",
+    //        Displacement
+    //    }
+    //};
+
+
+
+
+
+
+
+
+
 }
