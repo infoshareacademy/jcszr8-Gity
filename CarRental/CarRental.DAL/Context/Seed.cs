@@ -17,9 +17,9 @@ public static class Seed
     {
         context.Database.EnsureCreated();
         //var _mapper = new Mapper();
-        Customer[] customers = CarRentalData.Customers.ToArray();
-        Car[] cars = CarRentalData.Cars.ToArray();
-        Rental[] rentals = CarRentalData.Rentals.ToArray();
+        CustomerModel[] customers = CarRentalData.Customers.ToArray();
+        CarModel[] cars = CarRentalData.Cars.ToArray();
+        RentalModel[] rentals = CarRentalData.Rentals.ToArray();
 
         if (context.Customers.Any())
         {
@@ -44,7 +44,7 @@ public static class Seed
 
         foreach (var car in cars)
         {
-            var carDto = new CarDb().FillModel(car);
+            var carDto = new Car().FillModel(car);
             context.Cars.Add(carDto);
         }
         context.SaveChanges();

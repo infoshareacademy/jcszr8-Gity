@@ -2,9 +2,10 @@
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using CarRental.DAL.Entities;
 
-namespace CarRental.DAL.Models;
-public class CarDb : BaseEntity
+namespace CarRental.DAL.Entities;
+public class Car : Entity
 {
     #region Properties/Fields
 
@@ -84,7 +85,7 @@ public class CarDb : BaseEntity
 
     #endregion
 
-    public CarDb(int id, string make, string model, string licensePlate)
+    public Car(int id, string make, string model, string licensePlate)
     {
         Id = id;
         Make = make;
@@ -92,7 +93,7 @@ public class CarDb : BaseEntity
         LicencePlateNumber = licensePlate;
     }
 
-    public CarDb() { }
+    public Car() { }
 
     public override string ToString()
     {
@@ -163,13 +164,13 @@ Addons: {GetAddonsToString()}
             return new int[] { };
         }
     }
-    public CarDb FillModel(Car baseModel)
+    public Car FillModel(CarModel baseModel)
     {
-        this.Make = baseModel.Make;
-        this.CarModel = baseModel.CarModel;
-        this.Year = baseModel.Year;
-        this.LicencePlateNumber = baseModel.LicencePlateNumber;
-        this.Addons = string.Join(";" ,baseModel.Addons);
+        Make = baseModel.Make;
+        CarModel = baseModel.CarModel;
+        Year = baseModel.Year;
+        LicencePlateNumber = baseModel.LicencePlateNumber;
+        Addons = string.Join(";", baseModel.Addons);
         return this;
     }
 }

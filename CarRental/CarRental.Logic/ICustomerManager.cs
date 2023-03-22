@@ -4,15 +4,15 @@ namespace CarRental.Logic;
 
 public interface ICustomerManager
 {
-    List<Customer> GetAll();
+    List<CustomerModel> GetAll();
 
-    Customer GetById(int id);
+    CustomerModel GetById(int id);
 
-    Customer Create(Customer customer);
+    CustomerModel Create(CustomerModel customer);
 
-    Customer Update(Customer customer);
+    CustomerModel Update(CustomerModel customer);
 
-    Customer DeleteById(int id);
+    CustomerModel DeleteById(int id);
 
-    void Add(Customer customer);
+    void Add(CustomerModel customer);
 }

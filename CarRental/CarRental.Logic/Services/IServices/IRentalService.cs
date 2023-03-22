@@ -4,19 +4,19 @@ namespace CarRental.Logic.Services.IServices;
 
 public interface IRentalService
 {
-    List<Rental> GetAll();
+    List<RentalModel> GetAll();
 
-    Rental GetById(int id);
+    RentalModel GetById(int id);
 
-    void Create(Rental rental);
+    void Create(RentalModel rental);
 
-    void Update(Rental rental);
+    void Update(RentalModel rental);
 
     void Delete(int id);
 
     IEnumerable<int> GetAvailableCarIds(DateTime start, DateTime end);
 
-    IEnumerable<Car> ListOfAvailableCarForRent(List<int> carIds);
+    IEnumerable<CarModel> ListOfAvailableCarForRent(List<int> carIds);
 
     IEnumerable<int> GetNotRented();
 

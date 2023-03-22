@@ -2,7 +2,7 @@
 
 namespace CarRental.DAL.Repositories;
 
-public interface IRepository<T> where T : BaseEntity
+public interface IRepository<T> where T : Entity
 {
     List<T> GetAll();
     T Get(int id);

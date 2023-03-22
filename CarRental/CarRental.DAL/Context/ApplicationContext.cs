@@ -11,11 +11,11 @@ public class ApplicationContext : DbContext
         
     }
 
-    public DbSet<Customer> Customers { get; set; }
+    public DbSet<CustomerModel> Customers { get; set; }
 
-    public DbSet<CarDb> Cars { get; set; }
+    public DbSet<Car> Cars { get; set; }
 
-    public DbSet<Rental> Rentals { get; set; }
+    public DbSet<RentalModel> Rentals { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

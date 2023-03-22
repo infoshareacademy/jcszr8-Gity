@@ -8,6 +8,6 @@ public class RentalProfile : Profile
 {
     public RentalProfile()
     {
-        CreateMap<Rental, RentalViewModel>().ReverseMap();
+        CreateMap<RentalModel, RentalViewModel>().ReverseMap();
     }
 }

@@ -13,9 +13,9 @@ public class SearchService : ISearchService
         _carService = carService;
         _rentalService = rentalService;
     }
-    public List<Car> SearchList(SearchDto searchModel)
+    public List<CarModel> SearchList(SearchBLL searchModel)
     {
-        List<Car> results = new List<Car>();
+        List<CarModel> results = new List<CarModel>();
         var cars = _carService.GetByName(searchModel.ModelAndMake);
 
         if (searchModel.ProductionYearTo > 0 && searchModel.ProductionYearTo >= searchModel.ProductionYearFrom)
@@ -33,9 +33,9 @@ public class SearchService : ISearchService
         return results;
     }
 
-    public List<Car> FilterList(SearchDto searchDto)
+    public List<CarModel> FilterList(SearchBLL searchDto)
     {
-        List<Car> cars = new List<Car>();
+        List<CarModel> cars = new List<CarModel>();
 
         if (searchDto.Makes.Values.All(m => m == false))
         {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace CarRental.DAL.Models;
-public sealed class Car : BaseEntity
+public sealed class Car : Entity
 {
     #region Properties/Fields
 

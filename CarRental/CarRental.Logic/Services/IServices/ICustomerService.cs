@@ -4,15 +4,15 @@ namespace CarRental.Logic.Services.IServices;
 
 public interface ICustomerService
 {
-    IEnumerable<Customer> GetAll();
+    IEnumerable<CustomerModel> GetAll();
 
-    Customer? Get(int id);
+    CustomerModel? Get(int id);
 
-    void Create(Customer customer);
+    void Create(CustomerModel customer);
 
     void Create(string firstName, string lastName, string phoneNumber);
 
-    void Update(Customer customer);
+    void Update(CustomerModel customer);
 
     void Delete(int id);
 }

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.DAL.Models;
-public sealed class Rental : BaseEntity
+public sealed class RentalModel : Entity
 {
     [JsonProperty("customer_id")]
     [Display(Name = "Customer Id")]

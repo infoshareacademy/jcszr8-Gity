@@ -57,7 +57,7 @@ public class CarController : Controller
                 return View(model);
             }
 
-            var newCar = _mapper.Map<Car>(model);
+            var newCar = _mapper.Map<CarModel>(model);
             _carService.Create(newCar);
 
             return RedirectToAction(nameof(Index));
@@ -85,7 +85,7 @@ public class CarController : Controller
     {
         try
         {
-            var car = _mapper.Map<Car>(model);
+            var car = _mapper.Map<CarModel>(model);
             _carService.Update(car);
 
             return RedirectToAction(nameof(Index));

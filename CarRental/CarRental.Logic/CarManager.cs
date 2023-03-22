@@ -6,16 +6,16 @@ public class CarManager
 {
     private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
 
-    private static List<Car> _cars = CarRentalData.Cars;
-    public static Car CreateCar(string make, string model, string licensePlate)
+    private static List<CarModel> _cars = CarRentalData.Cars;
+    public static CarModel CreateCar(string make, string model, string licensePlate)
     {
         int id = GetNextId();
-        var car = new Car(id, make, model, licensePlate);
+        var car = new CarModel(id, make, model, licensePlate);
         CarRentalData.Cars.Add(car);
         return car;
     }
 
-    public static Car GetById(int carId)
+    public static CarModel GetById(int carId)
     {
         return _cars.FirstOrDefault(c => c.Id == carId);
     }

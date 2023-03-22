@@ -7,16 +7,16 @@ namespace CarRental.Logic.Services;
 public class CarService : ICarService
 {
     private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
-    private List<Car> _cars = CarRentalData.Cars;
+    private List<CarModel> _cars = CarRentalData.Cars;
 
-    public IEnumerable<Car> GetAll()
+    public IEnumerable<CarModel> GetAll()
     {
         return CarRentalData.Cars;
     }
 
-    public IEnumerable<Car> GetByName(string name)
+    public IEnumerable<CarModel> GetByName(string name)
     {
-        List<Car> cars = new();
+        List<CarModel> cars = new();
         if (string.IsNullOrEmpty(name))
         {
             cars = GetAll().ToList();
@@ -30,11 +30,11 @@ public class CarService : ICarService
         return cars;
     }
 
-    public List<Car> GetByYear(string read)
+    public List<CarModel> GetByYear(string read)
     {
         int year;
         bool makes = int.TryParse(read, out year);
-        List<Car> cars = new();
+        List<CarModel> cars = new();
         if (read == null)
         {
             cars = GetAll().ToList();
@@ -46,9 +46,9 @@ public class CarService : ICarService
         return cars;
     }
 
-    public List<Car> GetByAddons(string addon)
+    public List<CarModel> GetByAddons(string addon)
     {
-        List<Car> cars = new List<Car>();
+        List<CarModel> cars = new List<CarModel>();
         if (string.IsNullOrEmpty(addon))
         {
             cars = CarRentalData.Cars;
@@ -71,13 +71,13 @@ public class CarService : ICarService
         return cars;
     }
 
-    public void Create(Car car)
+    public void Create(CarModel car)
     {
         car.Id = GetNextId();
         CarRentalData.Cars.Add(car);
     }
 
-    public Car? GetById(int carId)
+    public CarModel? GetById(int carId)
     {
         return CarRentalData.Cars.FirstOrDefault(c => c.Id == carId);
     }
@@ -93,7 +93,7 @@ public class CarService : ICarService
         return ++_idCounter;
     }
 
-    public void Update(Car model)
+    public void Update(CarModel model)
     {
         var car = GetById(model.Id);
 

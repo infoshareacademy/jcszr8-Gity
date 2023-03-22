@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.DAL.Repositories;
 
-public class Repository<T> : IRepository<T> where T : BaseEntity
+public class Repository<T> : IRepository<T> where T : Entity
 {
     private readonly ApplicationContext _context;
     private readonly DbSet<T> _entities;

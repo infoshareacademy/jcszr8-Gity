@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarRental.DAL.Entities.BaseEntity;
 
-public class BaseEntity
+public class Entity
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [JsonProperty("id")]

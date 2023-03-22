@@ -3,9 +3,9 @@ using CarRental.DAL.Models;
 
 namespace CarRental.Logic.Test;
 
-public class AddonsResolver : IValueResolver<Car, CarDb, string>
+public class AddonsResolver : IValueResolver<CarModel, Car, string>
 {
-    public string Resolve(Car source, CarDb destination, string destMember, ResolutionContext context)
+    public string Resolve(CarModel source, Car destination, string destMember, ResolutionContext context)
     {
         return string.Join(",", source.Addons);
     }

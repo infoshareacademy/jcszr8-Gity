@@ -7,9 +7,9 @@ namespace CarRental.Logic;
 public class LogicSearch
 {
 
-    public static List<Car> CarByMake(string make)
+    public static List<CarModel> CarByMake(string make)
     {
-        List<Car> cars = new List<Car>();
+        List<CarModel> cars = new List<CarModel>();
         if (string.IsNullOrEmpty(make))
         {
             cars = CarRentalData.Cars;
@@ -22,9 +22,9 @@ public class LogicSearch
         return cars;
     }
 
-    public static List<Car> CarByName(string name)
+    public static List<CarModel> CarByName(string name)
     {
-        List<Car> cars = new List<Car>();
+        List<CarModel> cars = new List<CarModel>();
         if (string.IsNullOrEmpty(name))
         {
             cars = CarRentalData.Cars;
@@ -39,11 +39,11 @@ public class LogicSearch
         return cars;
     }
 
-    public static List<Car> CarByYear(string read)
+    public static List<CarModel> CarByYear(string read)
     {
         int year;
         bool makes = int.TryParse(read, out year);
-        List<Car> cars = new List<Car>();
+        List<CarModel> cars = new List<CarModel>();
         if (read == null)
         {
             cars = CarRentalData.Cars;
@@ -55,9 +55,9 @@ public class LogicSearch
         return cars;
     }
 
-    public static List<Car> CarByAddons(string addon)
+    public static List<CarModel> CarByAddons(string addon)
     {
-        List<Car> cars = new List<Car>();
+        List<CarModel> cars = new List<CarModel>();
         if (string.IsNullOrEmpty(addon))
         {
             cars = CarRentalData.Cars;
@@ -80,7 +80,7 @@ public class LogicSearch
         return cars;
     }
 
-    public static string Print(List<Car> cars)
+    public static string Print(List<CarModel> cars)
     {
         StringBuilder sb = new();
         sb.Append(String.Format("\n{0,4}.| {1,-20}| {2,-25}| {3,-20}| {4,-20}\n", "Id", "Make", "Model", "License plate", "Addons"));

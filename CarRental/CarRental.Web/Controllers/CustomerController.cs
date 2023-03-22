@@ -58,7 +58,7 @@ public class CustomerController : Controller
                 return View(model);
             }
 
-            var customer = _mapper.Map<Customer>(model);
+            var customer = _mapper.Map<CustomerModel>(model);
 
             _customerService.Create(customer);
 
@@ -87,7 +87,7 @@ public class CustomerController : Controller
     {
         try
         {
-            var customer = _mapper.Map<Customer>(model);
+            var customer = _mapper.Map<CustomerModel>(model);
 
             _customerService.Update(customer);
 

@@ -8,8 +8,8 @@ public class RentalService : IRentalService
 {
     private static int _idCounter;
     private readonly ICarService _carService;
-    private List<Car> _cars;
-    private List<Rental> _rentals = CarRentalData.Rentals;
+    private List<CarModel> _cars;
+    private List<RentalModel> _rentals = CarRentalData.Rentals;
 
     public RentalService(ICarService carService)
     {
@@ -27,10 +27,10 @@ public class RentalService : IRentalService
         return allIdCars;
     }
 
-    public IEnumerable<Car> ListOfAvailableCarForRent(List<int> carIds)
+    public IEnumerable<CarModel> ListOfAvailableCarForRent(List<int> carIds)
 
     {
-        List<Car> carsToRent = new();
+        List<CarModel> carsToRent = new();
 
         foreach (var carId in carIds)
         {
@@ -62,29 +62,29 @@ public class RentalService : IRentalService
         return found;
     }
 
-    public List<Rental> GetAll()
+    public List<RentalModel> GetAll()
     {
         return _rentals;
     }
 
-    public Rental GetById(int id)
+    public RentalModel GetById(int id)
     {
         return _rentals.FirstOrDefault(r => r.Id == id);
     }
 
-    public void RentACar(Customer customer, Car car, DateTime rentFrom, DateTime rentTo)
+    public void RentACar(CustomerModel customer, CarModel car, DateTime rentFrom, DateTime rentTo)
     {
 
     }
 
-    public void Create(Rental rental)
+    public void Create(RentalModel rental)
     {
         rental.Id = GetNextId();
         _rentals.Add(rental);
     }
     private int GetNextId() => ++_idCounter;
 
-    public void Update(Rental model)
+    public void Update(RentalModel model)
     {
         var rental = GetById(model.Id);
 

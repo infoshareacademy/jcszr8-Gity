@@ -9,8 +9,8 @@ public class CarProfile : Profile
 {
     public CarProfile()
     {
-        CreateMap<Car, CarViewModel>().ReverseMap();
-        CreateMap<Car, CarDb>()
+        CreateMap<CarModel, CarViewModel>().ReverseMap();
+        CreateMap<CarModel, Car>()
             .ForMember(dto => dto.Addons, opt => opt.MapFrom<AddonsResolver>());
     }
 }

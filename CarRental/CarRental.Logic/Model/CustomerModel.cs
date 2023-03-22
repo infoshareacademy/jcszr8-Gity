@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.DAL.Models;
-public sealed class Customer : BaseEntity
+public sealed class CustomerModel : Entity
 {
     [JsonProperty("first_name")]
     [Display(Name = "First Name")]
@@ -38,7 +38,7 @@ public sealed class Customer : BaseEntity
     [JsonProperty("gender")]
     public char? Gender { get; set; }
 
-    public Customer(int id, string firstName, string lastName, string phoneNumber)
+    public CustomerModel(int id, string firstName, string lastName, string phoneNumber)
     {
         Id = id;
         FirstName = firstName;
@@ -46,5 +46,5 @@ public sealed class Customer : BaseEntity
         PhoneNumber = phoneNumber;
     }
 
-    public Customer() { }
+    public CustomerModel() { }
 }

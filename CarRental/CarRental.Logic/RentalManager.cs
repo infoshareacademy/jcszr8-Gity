@@ -8,9 +8,9 @@ public class RentalManager
 {
     private static int _idCounter = CarRentalData.Rentals.Max(r => r.Id);
 
-    private static List<Rental> _rentals = CarRentalData.Rentals;
+    private static List<RentalModel> _rentals = CarRentalData.Rentals;
 
-    public static Rental GetById(int rentalId)
+    public static RentalModel GetById(int rentalId)
     {
         return _rentals.FirstOrDefault(r => r.Id == rentalId);
     }
@@ -19,7 +19,7 @@ public class RentalManager
     {
         return ++_idCounter;
     }
-    public static List<Rental> GetAll()
+    public static List<RentalModel> GetAll()
     {
         return _rentals;
     }

@@ -5,7 +5,7 @@ namespace CarRental.Web;
 
 public class CarMapper
 {
-    public List<CarViewModel> Map(IEnumerable<Car> cars)
+    public List<CarViewModel> Map(IEnumerable<CarModel> cars)
     {
         List<CarViewModel> carListModels = new();
         foreach (var car in cars)

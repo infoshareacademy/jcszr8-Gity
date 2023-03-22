@@ -1,6 +1,4 @@
-﻿using CarRental.DAL;
-
-namespace CarRental.DAL.Models;
+﻿namespace CarRental.DAL.Entities;
 
 public class SearchDto
 {
@@ -13,7 +11,7 @@ public class SearchDto
     public DateTime StartDate { get; set; } = DateTime.Now;
     public DateTime EndDate { get; set; } = DateTime.Now.AddDays(1);
 
-    public SearchDto() 
+    public SearchDto()
     {
         Makes = PremadeDictionary();
     }

@@ -52,7 +52,7 @@ public class RentalController : Controller
                 return View(model);
             }
 
-            var rental = _mapper.Map<Rental>(model);
+            var rental = _mapper.Map<RentalModel>(model);
             _rentalService.Create(rental);
 
             return RedirectToAction(nameof(Index));
@@ -79,7 +79,7 @@ public class RentalController : Controller
     {
         try
         {
-            var rental = _mapper.Map<Rental>(model);
+            var rental = _mapper.Map<RentalModel>(model);
             _rentalService.Update(rental);
 
             return RedirectToAction(nameof(Index));
