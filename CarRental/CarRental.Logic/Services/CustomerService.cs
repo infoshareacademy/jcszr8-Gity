@@ -1,6 +1,4 @@
-﻿using CarRental.DAL;
-using CarRental.DAL.Entities;
-using CarRental.DAL.Models;
+﻿using CarRental.DAL.Entities;
 using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
@@ -10,13 +8,10 @@ namespace CarRental.Logic.Services;
 public class CustomerService : ICustomerService
 {
     private readonly IRepository<Customer> _customerRepository;
-    private static int _idCounter;
-    //private List<Customer> _customers = CarRentalData.Customers;
 
     public CustomerService(IRepository<Customer> customerRepository)
     {
         _customerRepository = customerRepository;
-        _idCounter = CarRentalData.Customers.Max(c => c.Id);  // TODO  _idCounter = CarRentalData.Customers.Max(c => c.Id);
     }
 
     public IEnumerable<CustomerModel> GetAll()
@@ -63,4 +58,24 @@ public class CustomerService : ICustomerService
     }  
 
     private int GetNextId() => ++_idCounter;  // TODO GenNextId()
+
+    IEnumerable<CustomerModel> ICustomerService.GetAll()
+    {
+        throw new NotImplementedException();
+    }
+
+    CustomerModel? ICustomerService.Get(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Create(CustomerModel customer)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Update(CustomerModel customer)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -1,22 +1,22 @@
-﻿using CarRental.DAL;
-using CarRental.DAL.Models;
+﻿using CarRental.DAL.Entities;
+using CarRental.DAL.Repositories;
+using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 
 namespace CarRental.Logic.Services;
 
 public class RentalService : IRentalService
 {
-    private static int _idCounter;
     private readonly ICarService _carService;
-    private List<CarModel> _cars;
-    private List<RentalModel> _rentals = CarRentalData.Rentals;
+    private readonly IRepository<Rental> _rentalRepository;
 
-    public RentalService(ICarService carService)
+    private List<CarModel> _cars;
+
+    public RentalService(ICarService carService, IRepository<Rental> rentalRepository)
     {
         this._carService = carService ?? throw new ArgumentNullException(nameof(carService));
 
-        _cars = _carService.GetAll().ToList();
-        _idCounter = _rentals.Max(c => c.Id);
+        _rentalRepository = rentalRepository;
     }
 
     public IEnumerable<int> GetAvailableCarIds(DateTime start, DateTime end)
