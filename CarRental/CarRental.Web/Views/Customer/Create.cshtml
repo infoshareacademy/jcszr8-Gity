@@ -1,4 +1,4 @@
-﻿@model CarRental.DAL.Models.Customer
+﻿@model CarRental.Web.Models.CustomerViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -54,7 +54,7 @@
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        <partial name="Buttons/_ButtonBackToList" />
     </div>
 </div>
 @section Scripts {

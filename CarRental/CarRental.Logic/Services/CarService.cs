@@ -77,7 +77,7 @@ public class CarService : ICarService
         CarRentalData.Cars.Add(car);
     }
 
-    public Car GetById(int carId)
+    public Car? GetById(int carId)
     {
         return CarRentalData.Cars.FirstOrDefault(c => c.Id == carId);
     }
