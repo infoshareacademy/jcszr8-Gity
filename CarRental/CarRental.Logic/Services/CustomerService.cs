@@ -1,17 +1,19 @@
 ﻿using CarRental.DAL;
+using CarRental.DAL.Entities;
 using CarRental.DAL.Models;
 using CarRental.DAL.Repositories;
+using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 
 namespace CarRental.Logic.Services;
 
 public class CustomerService : ICustomerService
 {
-    private readonly IRepository<CustomerModel> _customerRepository;
+    private readonly IRepository<Customer> _customerRepository;
     private static int _idCounter;
     //private List<Customer> _customers = CarRentalData.Customers;
 
-    public CustomerService(IRepository<CustomerModel> customerRepository)
+    public CustomerService(IRepository<Customer> customerRepository)
     {
         _customerRepository = customerRepository;
         _idCounter = CarRentalData.Customers.Max(c => c.Id);  // TODO  _idCounter = CarRentalData.Customers.Max(c => c.Id);

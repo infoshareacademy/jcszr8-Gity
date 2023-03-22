@@ -1,9 +1,8 @@
-﻿using CarRental.DAL.Entities.BaseEntity;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
-namespace CarRental.DAL.Models;
-public sealed class RentalModel : Entity
+namespace CarRental.Logic.Models;
+public sealed class RentalModel
 {
     [JsonProperty("customer_id")]
     [Display(Name = "Customer Id")]

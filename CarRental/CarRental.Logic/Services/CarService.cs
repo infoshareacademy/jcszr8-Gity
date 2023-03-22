@@ -1,17 +1,28 @@
-﻿using CarRental.DAL;
+﻿using AutoMapper;
+using CarRental.DAL;
+using CarRental.DAL.Entities;
+using CarRental.DAL.Repositories;
+using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
-using CarRental.Logic.Model;
 
 namespace CarRental.Logic.Services;
 
 public class CarService : ICarService
 {
-    private static int _idCounter = CarRentalData.Cars.Max(c => c.Id);
-    private List<CarModel> _cars = CarRentalData.Cars;
+    private readonly IRepository<Car> _carRepository;
+    private readonly IMapper _mapper;
+
+    public CarService(IRepository<Car> carRepository, IMapper mapper)
+    {
+        _carRepository = carRepository;
+        _mapper = mapper;
+    }
 
     public IEnumerable<CarModel> GetAll()
     {
-        return CarRentalData.Cars;
+        var cars = _carRepository.GetAll();
+
+        return _mapper.Map<List<CarModel>>(cars);
     }
 
     public IEnumerable<CarModel> GetByName(string name)
@@ -23,9 +34,12 @@ public class CarService : ICarService
         }
         else
         {
-            cars = CarRentalData.Cars.Where(c => c.Make.Contains(name, StringComparison.CurrentCultureIgnoreCase)
+           var temp = _carRepository.GetAll()
+                .Where(c => c.Make.Contains(name, StringComparison.CurrentCultureIgnoreCase)
                 || c.CarModel.Contains(name, StringComparison.CurrentCultureIgnoreCase)
             ).ToList();
+
+            cars = _mapper.Map<List<CarModel>>(temp);
         }
         return cars;
     }
@@ -51,17 +65,18 @@ public class CarService : ICarService
         List<CarModel> cars = new List<CarModel>();
         if (string.IsNullOrEmpty(addon))
         {
-            cars = CarRentalData.Cars;
+            cars = _mapper.Map<List<CarModel>>(_carRepository.GetAll());
         }
         else
         {
-            foreach (var car in CarRentalData.Cars)
+            foreach (var car in _carRepository.GetAll())
             {
-                foreach (var item in car.Addons)
+
+                foreach (var item in car.Addons.Split(";"))
                 {
                     if (item.Contains(addon))
                     {
-                        cars.Add(car);
+                      //  cars.Add(car);  // TODO ?????? GetByAddons
                         break;
                     }
                 }
@@ -71,20 +86,20 @@ public class CarService : ICarService
         return cars;
     }
 
-    public void Create(CarModel car)
+    public void Create(CarModel model)
     {
-        car.Id = GetNextId();
-        CarRentalData.Cars.Add(car);
+        var car = _mapper.Map<Car>(model);
+        _carRepository.Insert(car);
     }
 
-    public CarModel? GetById(int carId)
+    public CarModel? Get(int carId)
     {
         return CarRentalData.Cars.FirstOrDefault(c => c.Id == carId);
     }
 
     public void Delete(int carId)
     {
-        var car = GetById(carId);
+        var car = Get(carId);
         _cars.Remove(car);
     }
 

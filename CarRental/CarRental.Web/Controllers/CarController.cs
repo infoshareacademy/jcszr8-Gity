@@ -32,7 +32,7 @@ public class CarController : Controller
     // GET: CarController/Details/5
     public IActionResult Details(int id)
     {
-        var car = _carService.GetById(id);
+        var car = _carService.Get(id);
 
         var model = _mapper.Map<CarViewModel>(car);
 
@@ -71,7 +71,7 @@ public class CarController : Controller
     // GET: CarController/Edit/5
     public IActionResult Edit(int id)
     {
-        var car = _carService.GetById(id);
+        var car = _carService.Get(id);
 
         var model = _mapper.Map<CarViewModel>(car);
 
@@ -99,7 +99,7 @@ public class CarController : Controller
     // GET: CarController/Delete/5
     public IActionResult Delete(int id)
     {
-        var car = _carService.GetById(id);
+        var car = _carService.Get(id);
 
         var model = _mapper.Map<CarViewModel>(car);
 

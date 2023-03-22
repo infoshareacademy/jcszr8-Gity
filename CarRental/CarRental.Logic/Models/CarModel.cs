@@ -3,8 +3,8 @@ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace CarRental.DAL.Models;
-public sealed class Car : Entity
+namespace CarRental.Logic.Models;
+public sealed class CarModel
 {
     #region Properties/Fields
 
@@ -84,7 +84,7 @@ public sealed class Car : Entity
 
     #endregion
 
-    public Car(int id, string make, string model, string licensePlate)
+    public CarModel(int id, string make, string model, string licensePlate)
     {
         Id = id;
         Make = make;
@@ -92,7 +92,7 @@ public sealed class Car : Entity
         LicencePlateNumber = licensePlate;
     }
 
-    public Car() { }
+    public CarModel() { }
 
     public override string ToString()
     {
