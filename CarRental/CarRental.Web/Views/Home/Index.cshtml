@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    var random = new Random();
+    var shuffledCars = Model.Cars.OrderBy(c => random.Next());
 }
 
 <div class="p-0 text-center bg-image" style="
@@ -26,5 +28,16 @@
             </div>
         </div>
     </div>
+    @foreach (var item in shuffledCars)
+    {
+        <div class="card col-3 me-2 mt-2" style="width: 18rem;">
+            <img class="card-img-top" src="images/car-1.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@item.CarModel title</h5>
+                <p class="card-text">@item.Make @item.Id</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    }
 </div>
 
