@@ -1,6 +1,8 @@
-﻿namespace CarRental.DAL.Entities;
+﻿using CarRental.DAL.Entities.BaseEntity;
 
-public class Customer
+namespace CarRental.DAL.Entities;
+
+public class Customer : Entity
 {
     public string FirstName { get; set; }
 

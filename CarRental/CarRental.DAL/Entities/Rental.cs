@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
+﻿using CarRental.DAL.Entities.BaseEntity;
 
 namespace CarRental.DAL.Entities;
 
-public class Rental
+public class Rental : Entity
 {
     public int CustomerId { get; set; }
 

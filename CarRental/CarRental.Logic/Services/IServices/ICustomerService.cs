@@ -8,7 +8,7 @@ public interface ICustomerService
 
     CustomerModel? Get(int id);
 
-    void Create(CustomerModel customer);
+    void Create(CustomerModel model);
 
     void Create(string firstName, string lastName, string phoneNumber);
 
