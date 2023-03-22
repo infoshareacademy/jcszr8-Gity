@@ -55,7 +55,7 @@ public class CarService : ICarService
         }
         else
         {
-            cars = GetAll().Where(c => c.Year == year || c.CarModel.ToLower().Contains(read.ToLower())).ToList();
+            cars = GetAll().Where(c => c.Year == year || c.CarModelProp.ToLower().Contains(read.ToLower())).ToList();
         }
         return cars;
     }
@@ -92,41 +92,26 @@ public class CarService : ICarService
         _carRepository.Insert(car);
     }
 
-    public CarModel? Get(int carId)
+    public CarModel? Get(int id)
     {
-        return CarRentalData.Cars.FirstOrDefault(c => c.Id == carId);
+        var car = _carRepository.Get(id);
+
+        if (car == null)
+        {
+            throw new Exception("Invalid ID");
+        }
+        return _mapper.Map<CarModel>(car);
     }
 
-    public void Delete(int carId)
+    public void Delete(int id)
     {
-        var car = Get(carId);
-        _cars.Remove(car);
-    }
-
-    private int GetNextId()
-    {
-        return ++_idCounter;
+        var car = _carRepository.Get(id);
+        _carRepository.Delete(car);
     }
 
     public void Update(CarModel model)
     {
-        var car = GetById(model.Id);
+        var car = _carRepository.Get(model.);
 
-        car.CarModel = model.CarModel;
-        car.Make = model.Make;
-        car.Kilometrage = model.Kilometrage;
-        car.Year = model.Year;
-        car.Airbags = model.Airbags;
-        car.Addons = model.Addons;
-        car.Color = model.Color;
-        car.Doors = model.Doors;
-        car.Displacement = model.Displacement;
-        car.EngineType = model.EngineType;
-        car.FuelConsumption = model.FuelConsumption;
-        car.LicencePlateNumber = model.LicencePlateNumber;
-        car.SeatsNo = model.SeatsNo;
-        car.PowerInKiloWats = model.PowerInKiloWats;
-        car.Price = model.Price;
-        car.Transmission = model.Transmission;
     }
 }

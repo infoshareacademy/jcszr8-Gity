@@ -28,7 +28,7 @@ public class RentalController : Controller
     // GET: RentalConroller/Details/5
     public IActionResult Details(int id)
     {
-        var rental = _rentalService.GetById(id);
+        var rental = _rentalService.Get(id);
         var model = _mapper.Map<RentalViewModel>(rental);
 
         return View(model);
@@ -66,7 +66,7 @@ public class RentalController : Controller
     // GET: RentalConroller/Edit/5
     public IActionResult Edit(int id)
     {
-        var rental = _rentalService.GetById(id);
+        var rental = _rentalService.Get(id);
         var model = _mapper.Map<RentalViewModel>(rental);
 
         return View(model);
@@ -93,7 +93,7 @@ public class RentalController : Controller
     // GET: RentalConroller/Delete/5
     public IActionResult Delete(int id)
     {
-        var rental = _rentalService.GetById(id);
+        var rental = _rentalService.Get(id);
         var model = _mapper.Map<RentalViewModel>(rental);
 
         return View(model);

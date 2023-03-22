@@ -42,17 +42,20 @@ public class CustomerService : ICustomerService
             return;
         }
 
-        _customerRepository.Insert(new CustomerModel
+        var model = new CustomerModel
         {
             FirstName = firstName,
             LastName = lastName,
             PhoneNumber = phoneNumber
-        });
+        };
+
+        _customerRepository.Insert(_mapper.Map<Customer>(model));
     }
 
     public void Update(CustomerModel model)
     {
-        _customerRepository.Update(model);
+        var customer = _mapper.Map<Customer>(model);
+        _customerRepository.Update(customer);
     }
 
     public void Delete(int customerId)
@@ -60,23 +63,5 @@ public class CustomerService : ICustomerService
 
         var customer = _customerRepository.Get(customerId);
         _customerRepository.Delete(customer);
-    }
-
-    private int GetNextId() => ++_idCounter;  // TODO GenNextId()
-
-    IEnumerable<CustomerModel> ICustomerService.GetAll()
-    {
-        throw new NotImplementedException();
-    }
-
-    CustomerModel? ICustomerService.Get(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-
-    public void Update(CustomerModel customer)
-    {
-        throw new NotImplementedException();
     }
 }

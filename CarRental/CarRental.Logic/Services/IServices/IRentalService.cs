@@ -6,7 +6,7 @@ public interface IRentalService
 {
     List<RentalModel> GetAll();
 
-    RentalModel GetById(int id);
+    RentalModel Get(int id);
 
     void Create(RentalModel rental);
 

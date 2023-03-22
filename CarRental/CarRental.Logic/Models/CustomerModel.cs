@@ -4,6 +4,10 @@ using System.ComponentModel.DataAnnotations;
 namespace CarRental.Logic.Models;
 public sealed class CustomerModel
 {
+    //public CustomerModel() { }
+
+    public int Id { get; set; }
+
     [JsonProperty("first_name")]
     [Display(Name = "First Name")]
     [MaxLength(30)]
@@ -36,14 +40,4 @@ public sealed class CustomerModel
     [MaxLength(10)]
     [JsonProperty("gender")]
     public char? Gender { get; set; }
-
-    public CustomerModel(int id, string firstName, string lastName, string phoneNumber)
-    {
-        Id = id;
-        FirstName = firstName;
-        LastName = lastName;
-        PhoneNumber = phoneNumber;
-    }
-
-    public CustomerModel() { }
 }

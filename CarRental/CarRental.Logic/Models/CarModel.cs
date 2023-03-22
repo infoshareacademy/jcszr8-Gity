@@ -1,5 +1,4 @@
-﻿using CarRental.DAL.Entities.BaseEntity;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
@@ -8,10 +7,12 @@ public sealed class CarModel
 {
     #region Properties/Fields
 
+    public int Id { get; set; }
+
     [JsonProperty(PropertyName = "model")]
     [Display(Name = "Model")]
     [Required]
-    public string CarModel { get; set; }
+    public string CarModelProp { get; set; }
 
     [MaxLength(100)]
     [Required]
@@ -84,55 +85,14 @@ public sealed class CarModel
 
     #endregion
 
-    public CarModel(int id, string make, string model, string licensePlate)
+    public CarModel(string make, string model, string licensePlate)
     {
-        Id = id;
         Make = make;
-        CarModel = model;
+        CarModelProp = model;
         LicencePlateNumber = licensePlate;
     }
 
     public CarModel() { }
-
-    public override string ToString()
-    {
-        return $"id:{Id} | {Make} | {CarModel} | {LicencePlateNumber} | {GetAddonsToString()}";
-    }
-
-    public string GetDetails()
-    {
-        var year = Year.ToString() ?? "-";
-        var color = Color?.ToString() ?? "-";
-        var transmission = Transmission?.ToString() ?? "-";
-        var engineType = EngineType?.ToString() ?? "-";
-        var engineDisplacement = Displacement?.ToString() ?? "-";
-        var enginePowerKw = PowerInKiloWats.ToString() ?? "-";
-        var seats = SeatsNo.ToString() ?? "-";
-        var airbags = Airbags.ToString() ?? "-";
-        var kilometrage = Kilometrage.ToString() ?? "-";
-        var doors = Doors.ToString() ?? "-";
-        var fuelConsumption = FuelConsumption?.ToString() ?? "-";
-        var price = Price.ToString() ?? "-";
-
-        return @$"Id: {Id}
-Make: {Make}
-Model: {CarModel}
-License plate: {LicencePlateNumber}
-Year: {year}
-Color: {color}
-Transmission: {transmission}
-EngineType: {engineType}
-EngineDisplacement: {engineDisplacement}
-EnginePowerKw: {enginePowerKw}
-Seats:{seats}
-Airbags: {airbags}
-Kilometrage: {kilometrage}
-Doors: {doors}
-Fuel consumption: {fuelConsumption}
-Price: {price}
-Addons: {GetAddonsToString()}
-";
-    }
 
     public string GetAddonsToString()
     {

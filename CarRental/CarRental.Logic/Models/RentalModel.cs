@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 namespace CarRental.Logic.Models;
 public sealed class RentalModel
 {
+    public int Id { get; set; }
+
     [JsonProperty("customer_id")]
     [Display(Name = "Customer Id")]
     public int CustomerId { get; set; }

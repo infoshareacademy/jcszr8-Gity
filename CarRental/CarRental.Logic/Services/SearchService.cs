@@ -1,5 +1,7 @@
-﻿using CarRental.DAL;
-using CarRental.DAL.Models;
+﻿using AutoMapper;
+using CarRental.DAL;
+using CarRental.DAL.Entities;
+using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 
 namespace CarRental.Logic.Services;
@@ -8,10 +10,12 @@ public class SearchService : ISearchService
 {
     private readonly ICarService _carService;
     private readonly IRentalService _rentalService;
-    public SearchService(ICarService carService, IRentalService rentalService)
+    private readonly IMapper _mapper;
+    public SearchService(ICarService carService, IRentalService rentalService, IMapper mapper)
     {
         _carService = carService;
         _rentalService = rentalService;
+        _mapper = mapper;
     }
     public List<CarModel> SearchList(SearchBLL searchModel)
     {
@@ -35,35 +39,35 @@ public class SearchService : ISearchService
 
     public List<CarModel> FilterList(SearchBLL searchDto)
     {
-        List<CarModel> cars = new List<CarModel>();
+        List<CarModel> carModels = new();
 
         if (searchDto.Makes.Values.All(m => m == false))
         {
-            cars = CarRentalData.Cars;
+            var cars = _carService.GetAll();
+            carModels = _mapper.Map<List<CarModel>>(carModels);
         }
         if (searchDto.Makes.Values.Contains(true))
         {
             var selectedMakes = searchDto.Makes.Where(m => m.Value == true).Select(m => m.Key);
-            cars = CarRentalData.Cars.Where(c => selectedMakes.Contains(c.Make, StringComparer.CurrentCultureIgnoreCase)).ToList();
+            carModels = CarRentalData.Cars.Where(c => selectedMakes.Contains(c.Make, StringComparer.CurrentCultureIgnoreCase)).ToList();
         }
         if (searchDto.ProductionYearFrom > 0 && searchDto.ProductionYearTo > 0)
         {
-            cars = cars.Where(c => c.Year >= searchDto.ProductionYearFrom && c.Year <= searchDto.ProductionYearTo).ToList();
+            carModels = carModels.Where(c => c.Year >= searchDto.ProductionYearFrom && c.Year <= searchDto.ProductionYearTo).ToList();
         }
 
         if (!string.IsNullOrEmpty(searchDto.Model))
         {
-            cars = cars.Where(c => c.Make.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase) ||
+            carModels = carModels.Where(c => c.Make.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase) ||
                                    c.CarModel.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase)).ToList();
         }
 
         if (searchDto.StartDate != null && searchDto.EndDate != null)
         {
             var availableCarIds = _rentalService.GetAvailableCarIds(searchDto.StartDate, searchDto.EndDate);
-            cars = cars.Where(c => availableCarIds.Contains(c.Id)).ToList();
+            carModels = carModels.Where(c => availableCarIds.Contains(c.Id)).ToList();
         }
 
-        return cars;
+        return carModels;
     }
-
 }

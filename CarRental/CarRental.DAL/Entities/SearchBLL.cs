@@ -1,6 +1,6 @@
 ﻿namespace CarRental.DAL.Entities;
 
-public class SearchDto
+public class SearchBLL
 {
     public string ModelAndMake { get; set; }
     public Dictionary<string, bool> Makes { get; set; }
@@ -11,7 +11,7 @@ public class SearchDto
     public DateTime StartDate { get; set; } = DateTime.Now;
     public DateTime EndDate { get; set; } = DateTime.Now.AddDays(1);
 
-    public SearchDto()
+    public SearchBLL()
     {
         Makes = PremadeDictionary();
     }
