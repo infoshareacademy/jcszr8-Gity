@@ -1,6 +1,6 @@
 ﻿using CarRental.DAL;
-using CarRental.DAL.Models;
 using CarRental.Logic.Services.IServices;
+using CarRental.Logic.Model;
 
 namespace CarRental.Logic.Services;
 

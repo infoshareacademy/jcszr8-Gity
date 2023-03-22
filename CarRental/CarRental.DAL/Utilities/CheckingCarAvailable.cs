@@ -1,4 +1,4 @@
-﻿using CarRental.DAL.Models;
+﻿using CarRental.DAL.Entities;
 
 namespace CarRental.DAL.Utilities;
 
@@ -14,7 +14,7 @@ public sealed class CheckingCarAvailable
         }
         throw new ArgumentException($"Wrong format of timestamp: {timestamp}");
     }
-    public bool IsCarAvailable(DateTime start, DateTime end, int carId, List<RentalModel> rentals)
+    public bool IsCarAvailable(DateTime start, DateTime end, int carId, List<Rental> rentals)
     {
         bool result = false; 
         var rental = rentals.FirstOrDefault(r => r.CarId == carId);

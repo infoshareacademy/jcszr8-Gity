@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using CarRental.DAL.Entities;
 
 namespace CarRental.DAL.Entities;
 public class Car : Entity
@@ -164,13 +163,13 @@ Addons: {GetAddonsToString()}
             return new int[] { };
         }
     }
-    public Car FillModel(CarModel baseModel)
+    public Car FillModel(Car car)
     {
-        Make = baseModel.Make;
-        CarModel = baseModel.CarModel;
-        Year = baseModel.Year;
-        LicencePlateNumber = baseModel.LicencePlateNumber;
-        Addons = string.Join(";", baseModel.Addons);
+        Make = car.Make;
+        CarModel = car.CarModel;
+        Year = car.Year;
+        LicencePlateNumber = car.LicencePlateNumber;
+        Addons = string.Join(";", car.Addons);
         return this;
     }
 }

@@ -1,6 +1,4 @@
-﻿using CarRental.DAL.Models;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using CarRental.DAL.Entities;
 
 namespace CarRental.DAL.Context;
 
@@ -17,9 +15,9 @@ public static class Seed
     {
         context.Database.EnsureCreated();
         //var _mapper = new Mapper();
-        CustomerModel[] customers = CarRentalData.Customers.ToArray();
-        CarModel[] cars = CarRentalData.Cars.ToArray();
-        RentalModel[] rentals = CarRentalData.Rentals.ToArray();
+        Customer[] customers = CarRentalData.Customers.ToArray();
+        Car[] cars = CarRentalData.Cars.ToArray();
+        Rental[] rentals = CarRentalData.Rentals.ToArray();
 
         if (context.Customers.Any())
         {

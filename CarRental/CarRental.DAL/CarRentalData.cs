@@ -1,13 +1,12 @@
-﻿using CarRental.DAL.Models;
+﻿using CarRental.DAL.Entities;
 using Newtonsoft.Json;
-using System.Text.Json;
 
 namespace CarRental.DAL;
 public static class CarRentalData
 {
-    public static List<CarModel> Cars { get; set; } = GetItems<CarModel>("cars.json");
-    public static List<CustomerModel> Customers { get; set; } = GetItems<CustomerModel>("customers.json");
-    public static List<RentalModel> Rentals { get; set; } = GetItems<RentalModel>("rentals.json");
+    public static List<Car> Cars { get; set; } = GetItems<Car>("cars.json");
+    public static List<Customer> Customers { get; set; } = GetItems<Customer>("customers.json");
+    public static List<Rental> Rentals { get; set; } = GetItems<Rental>("rentals.json");
 
     public static List<T> GetItems<T>(string fileName)
     {
