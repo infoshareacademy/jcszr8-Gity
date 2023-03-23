@@ -5,6 +5,7 @@ namespace CarRental.Logic;
 
 public class Rentals
 {
+    
     public static List<int> GetAvailableCarIds(DateTime start, DateTime end)
     {
 
@@ -22,9 +23,10 @@ public class Rentals
         foreach (var carId in carIds)
         {
             var car = CarRentalData.Cars.Where(c => c.Id == carId).ToList();
+
             foreach (var item in car)
             {
-                carsToRent.Add(item);
+               //  carsToRent.Add(item);  // TODO ??? ListOfAvailableCarForRent
             }
         }
         return carsToRent;

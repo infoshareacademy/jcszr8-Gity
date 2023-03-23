@@ -49,7 +49,8 @@ public class SearchService : ISearchService
         if (searchDto.Makes.Values.Contains(true))
         {
             var selectedMakes = searchDto.Makes.Where(m => m.Value == true).Select(m => m.Key);
-            carModels = CarRentalData.Cars.Where(c => selectedMakes.Contains(c.Make, StringComparer.CurrentCultureIgnoreCase)).ToList();
+            carModels = _carService.GetAll()
+                .Where(c => selectedMakes.Contains(c.Make, StringComparer.CurrentCultureIgnoreCase)).ToList();
         }
         if (searchDto.ProductionYearFrom > 0 && searchDto.ProductionYearTo > 0)
         {
@@ -59,7 +60,7 @@ public class SearchService : ISearchService
         if (!string.IsNullOrEmpty(searchDto.Model))
         {
             carModels = carModels.Where(c => c.Make.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase) ||
-                                   c.CarModel.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                                   c.CarModelProp.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase)).ToList();
         }
 
         if (searchDto.StartDate != null && searchDto.EndDate != null)

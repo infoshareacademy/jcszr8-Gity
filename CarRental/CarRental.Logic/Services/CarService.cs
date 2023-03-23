@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CarRental.DAL;
 using CarRental.DAL.Entities;
 using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
@@ -34,10 +33,10 @@ public class CarService : ICarService
         }
         else
         {
-           var temp = _carRepository.GetAll()
-                .Where(c => c.Make.Contains(name, StringComparison.CurrentCultureIgnoreCase)
-                || c.CarModel.Contains(name, StringComparison.CurrentCultureIgnoreCase)
-            ).ToList();
+            var temp = _carRepository.GetAll()
+                 .Where(c => c.Make.Contains(name, StringComparison.CurrentCultureIgnoreCase)
+                 || c.CarModel.Contains(name, StringComparison.CurrentCultureIgnoreCase)
+             ).ToList();
 
             cars = _mapper.Map<List<CarModel>>(temp);
         }
@@ -76,12 +75,11 @@ public class CarService : ICarService
                 {
                     if (item.Contains(addon))
                     {
-                      //  cars.Add(car);  // TODO ?????? GetByAddons
+                        //  cars.Add(car);  // TODO ?????? GetByAddons
                         break;
                     }
                 }
             }
-
         }
         return cars;
     }
@@ -105,13 +103,11 @@ public class CarService : ICarService
 
     public void Delete(int id)
     {
-        var car = _carRepository.Get(id);
-        _carRepository.Delete(car);
+        _carRepository.Delete(id);
     }
 
     public void Update(CarModel model)
     {
-        var car = _carRepository.Get(model.);
-
+        var car = _carRepository.Get(model.Id);
     }
 }

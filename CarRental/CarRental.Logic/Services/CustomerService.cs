@@ -58,10 +58,8 @@ public class CustomerService : ICustomerService
         _customerRepository.Update(customer);
     }
 
-    public void Delete(int customerId)
+    public void Delete(int id)
     {
-
-        var customer = _customerRepository.Get(customerId);
-        _customerRepository.Delete(customer);
+        _customerRepository.Delete(id);
     }
 }

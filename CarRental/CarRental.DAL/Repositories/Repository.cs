@@ -23,7 +23,6 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public T Get(int id)
     {
-        // TODO SingleOrDefaultAsync
         return this._entities.SingleOrDefault(e => e.Id == id)!;
     }
 
@@ -42,8 +41,8 @@ public class Repository<T> : IRepository<T> where T : Entity
         throw new NotImplementedException();
     }
 
-    public void Delete(T entity)
+    public void Delete(int id)
     {
-        throw new NotImplementedException();
+        _context.Remove(id);
     }
 }
