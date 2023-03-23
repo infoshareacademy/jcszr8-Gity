@@ -1,21 +1,28 @@
 ﻿using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using CarRental.Logic.Interfaces;
 
 namespace CarRental.Web.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly  ICarService _carService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, ICarService carService)
     {
         _logger = logger;
+        _carService = carService;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var model = new SearchViewModel()
+        {
+            Cars = _carService.GetAll()
+        };
+        return View(model);
     }
 
     public IActionResult Privacy()
