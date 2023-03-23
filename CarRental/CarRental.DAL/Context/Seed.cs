@@ -4,20 +4,25 @@ namespace CarRental.DAL.Context;
 
 public static class Seed
 {
-    //private readonly IMapper _mapper;
-
-    //public Seed(IMapper mapper)
-    //{
-    //    _mapper = mapper;
-    //}
-
     public static void Initialize(ApplicationContext context)
     {
         context.Database.EnsureCreated();
         //var _mapper = new Mapper();
         Customer[] customers = CarRentalData.Customers.ToArray();
-        Car[] cars = CarRentalData.Cars.ToArray();
         Rental[] rentals = CarRentalData.Rentals.ToArray();
+
+        List<Car> cars;
+        try
+        {
+            cars = CarRentalData.Cars;
+        }
+        catch (Exception)
+        {
+
+            throw new Exception("------- CarRentalData.Cars failed to load!");
+        }
+
+        Car[] carsArray = cars.ToArray();
 
         if (context.Customers.Any())
         {
@@ -40,17 +45,17 @@ public static class Seed
 
         string temp = string.Empty;
 
-        foreach (var car in cars)
-        {
-            var carDto = new Car().FillModel(car);
-            context.Cars.Add(carDto);
-        }
-        context.SaveChanges();
+        //foreach (var car in cars)
+        //{
+        //    var carDto = new Car().FillModel(car);
+        //    context.Cars.Add(carDto);
+        //}
+        //context.SaveChanges();
 
-        foreach (var rental in rentals)
-        {
-            context.Rentals.Add(rental);
-        }
-        context.SaveChanges();
+        //foreach (var rental in rentals)
+        //{
+        //    context.Rentals.Add(rental);
+        //}
+        //context.SaveChanges();
     }
 }

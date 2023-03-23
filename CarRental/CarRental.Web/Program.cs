@@ -71,6 +71,11 @@ static void CreateDbIfNotExists(IHost host)
     try
     {
         var context = services.GetRequiredService<ApplicationContext>();
+
+        // !!!!!!!!! ?????????? testing  // TODO database.EnsureDeleted()
+        context.Database.EnsureDeleted();
+
+
         Seed.Initialize(context);
     }
     catch (Exception ex)

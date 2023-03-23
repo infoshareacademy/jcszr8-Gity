@@ -19,7 +19,10 @@ public class SearchBLL
     public Dictionary<string, bool> PremadeDictionary()
     {
         Dictionary<string, bool> make = new Dictionary<string, bool>();
-        foreach (var carMake in CarRentalData.Cars.Select(car => car.Make).Distinct())
+
+        var group = CarRentalData.Cars.Select(car => car.Make).Distinct();
+
+        foreach (var carMake in group)
         {
             make.Add(carMake, false);
         }

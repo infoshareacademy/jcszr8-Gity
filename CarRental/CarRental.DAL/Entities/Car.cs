@@ -74,7 +74,15 @@ public class Car : Entity
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
 
     [Display(Name = "Addons")]
-    public string Addons { get; set; }
+
+    private string _addons;
+    public string Addons {
+        get { return _addons; }
+        set
+        {
+            this._addons = string.Join(";", value);
+        }
+    }
 
     [Range(100, 1000,
         ErrorMessage = "Value for {0} must be between {1} and {2}.")]
