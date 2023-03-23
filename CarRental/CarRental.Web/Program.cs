@@ -29,8 +29,8 @@ var app = builder.Build();
 CreateDbIfNotExists(app);
 
 // Check if all mappings are configured
-//var mapper = (IMapper)app.Services.GetService(typeof(IMapper));
-//mapper.ConfigurationProvider.AssertConfigurationIsValid();
+var mapper = (IMapper)app.Services.GetService(typeof(IMapper));
+mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
