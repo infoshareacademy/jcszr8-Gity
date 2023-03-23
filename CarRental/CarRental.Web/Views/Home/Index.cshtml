@@ -13,7 +13,7 @@
                 <h1>Car Rental – Search, Compare & Save</h1>
                 <h2>Free cancellations on most bookings 60,000+ locations Customer support in 40+ languages</h2>
                 <form class="d-flex pt-3" asp-controller="Search" asp-action="SearchFromHome" method="post">
-                    <input class="form-control shadow-sm me-2 search " asp-for="SearchDto.ModelAndMake" type="text" placeholder="Search" aria-label="Search">
+                    <input class="form-control shadow-sm me-2 search opacity-75  " asp-for="SearchDto.ModelAndMake" type="text" placeholder="Search" aria-label="Search">
                     <input class="form-control shadow-sm me-2 year" asp-for="SearchDto.ProductionYearFrom" />
                     <input class="form-control shadow-sm me-2 year" asp-for="SearchDto.ProductionYearTo" />
                     <input type="date" class="form-control shadow-sm me-2 date" asp-for="SearchDto.StartDate" />
@@ -32,7 +32,7 @@
             <div class="card-body">
                 <h5 class="card-title">@item.CarModel title</h5>
                 <p class="card-text">@item.Make @item.Id</p>
-                        <a href="#" class="btn btn-outline-success fw-bold">Go somewhere</a>
+                        <a class="btn btn-outline-success fw-bold" asp-controller="Car" asp-action="Details" asp-route-id="@item.Id">Go somewhere</a>
             </div>
         </div>
     }
