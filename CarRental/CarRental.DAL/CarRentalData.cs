@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace CarRental.DAL;
-public static class CarRentalData
+public class CarRentalData
 {
     public static List<Customer> Customers { get; }
     public static List<Car> Cars { get; }
@@ -13,7 +13,9 @@ public static class CarRentalData
     {
         Customers = GetItems<Customer>("customers.json");
         Rentals = GetItems<Rental>("rentals.json");
-        Cars = GetItems<Car>("cars.json");
+        //Rentals = new List<Rental>();
+        //Cars = GetItems<Car>("cars.json");
+        Cars = new List<Car>();
     }
 
     public static List<T> GetItems<T>(string fileName)
