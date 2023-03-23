@@ -59,30 +59,30 @@ public class CarService : ICarService
         return cars;
     }
 
-    public List<CarModel> GetByAddons(string addon)
-    {
-        List<CarModel> cars = new List<CarModel>();
-        if (string.IsNullOrEmpty(addon))
-        {
-            cars = _mapper.Map<List<CarModel>>(_carRepository.GetAll());
-        }
-        else
-        {
-            foreach (var car in _carRepository.GetAll())
-            {
+    //public List<CarModel> GetByAddons(string addon)
+    //{
+    //    List<CarModel> cars = new List<CarModel>();
+    //    if (string.IsNullOrEmpty(addon))
+    //    {
+    //        cars = _mapper.Map<List<CarModel>>(_carRepository.GetAll());
+    //    }
+    //    else
+    //    {
+    //        foreach (var car in _carRepository.GetAll())
+    //        {
 
-                foreach (var item in car.Addons.Split(";"))
-                {
-                    if (item.Contains(addon))
-                    {
-                        //  cars.Add(car);  // TODO ?????? GetByAddons
-                        break;
-                    }
-                }
-            }
-        }
-        return cars;
-    }
+    //            foreach (var item in car.Addons.Split(";"))
+    //            {
+    //                if (item.Contains(addon))
+    //                {
+    //                    //  cars.Add(car);  // TODO ?????? GetByAddons
+    //                    break;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    return cars;
+    //}
 
     public void Create(CarModel model)
     {

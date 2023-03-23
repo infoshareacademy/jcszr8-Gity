@@ -14,8 +14,8 @@ public class CarProfile : Profile
             .ForMember(dest => dest.CarModelProp, opt => opt.MapFrom(src => src.CarModelProp))
             .ForMember(dest => dest.LicencePlateNumber, opt => opt.MapFrom(src => src.LicencePlateNumber))
             .ForMember(dest => dest.Year, opt => opt.MapFrom(src => src.Year))
-            .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
-            .ForMember(dest => dest.Addons, opt => opt.MapFrom(src => string.Join(";", src.Addons)));
+            .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color));
+        //.ForMember(dest => dest.Addons, opt => opt.MapFrom(src => string.Join(";", src.Addons)));
         //.ForMember(dest => dest.Addons, opt => opt.Ignore())
 
         //CreateMap<CarModel, Car>()
@@ -29,8 +29,8 @@ public class CarProfile : Profile
             .ForMember(dest => dest.CarModelProp, opt => opt.MapFrom(src => src.CarModelProp))
             .ForMember(dest => dest.LicencePlateNumber, opt => opt.MapFrom(src => src.LicencePlateNumber))
             .ForMember(dest => dest.Year, opt => opt.MapFrom(src => src.Year))
-            .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
-            //.ForMember(dest => dest.Addons, opt => opt.MapFrom(src => src.Addons.Split(";", System.StringSplitOptions.None).ToList() ));
-            .ForMember(dest => dest.Addons, opt => opt.MapFrom(src => src.Addons.Split(";", System.StringSplitOptions.RemoveEmptyEntries).ToList() ));
+            .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color));
+           // .ForMember(dest => dest.Addons, opt => opt.MapFrom(src => src.Addons.Split(";", System.StringSplitOptions.None).ToList() ));
+            //.ForMember(dest => dest.Addons, opt => opt.MapFrom(src => src.Addons.Split(";", System.StringSplitOptions.RemoveEmptyEntries).ToList() ));
     }
 }

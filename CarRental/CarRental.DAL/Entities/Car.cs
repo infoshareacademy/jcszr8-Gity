@@ -73,16 +73,15 @@ public class Car : Entity
     [MaxLength(5)]
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
 
-    [Display(Name = "Addons")]
-
-    private string _addons;
-    public string Addons {
-        get { return _addons; }
-        set
-        {
-            this._addons = string.Join(";", value);
-        }
-    }
+    //[Display(Name = "Addons")]
+    //private string _addons;
+    //public string Addons {
+    //    get { return _addons; }
+    //    set
+    //    {
+    //        this._addons = string.Join(";", value);
+    //    }
+    //}
 
     [Range(100, 1000,
         ErrorMessage = "Value for {0} must be between {1} and {2}.")]
@@ -95,17 +94,17 @@ public class Car : Entity
 
     #endregion
 
-    public string GetAddonsToString()
-    {
-        StringBuilder sb = new StringBuilder();
+    //public string GetAddonsToString()
+    //{
+    //    StringBuilder sb = new StringBuilder();
 
-        foreach (var item in Addons)
-        {
-            sb.AppendJoin(';', item.ToString());
-            sb.Append('\u002C');
-        }
-        return sb.ToString();
-    }
+    //    foreach (var item in Addons)
+    //    {
+    //        sb.AppendJoin(';', item.ToString());
+    //        sb.Append('\u002C');
+    //    }
+    //    return sb.ToString();
+    //}
 
     public Car FillModel(Car car)
     {
@@ -113,7 +112,7 @@ public class Car : Entity
         CarModelProp = car.CarModelProp;
         Year = car.Year;
         LicencePlateNumber = car.LicencePlateNumber;
-        Addons = string.Join(";", car.Addons);
+        //Addons = string.Join(";", car.Addons);
         return this;
     }
 }

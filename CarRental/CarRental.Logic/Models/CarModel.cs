@@ -71,12 +71,12 @@ public sealed class CarModel
     [MaxLength(5)]
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
 
-    [Display (Name = "Addons")]
-    public List<string> Addons { get; set; } = new();
+    //[Display (Name = "Addons")]
+    //public List<string> Addons { get; set; } = new();
 
     [Range(100,1000,
         ErrorMessage = "Value for {0} must be between {1} and {2}.")]
-    [Display (Name = "Price/day")]
+    [Display(Name = "Price/day")]
     public decimal? Price { get; set; }
 
     private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" };
@@ -94,17 +94,17 @@ public sealed class CarModel
 
     public CarModel() { }
 
-    public string GetAddonsToString()
-    {
-        StringBuilder sb = new StringBuilder();
+    //public string GetAddonsToString()
+    //{
+    //    StringBuilder sb = new StringBuilder();
 
-        foreach (var item in Addons)
-        {
-            sb.AppendJoin(';', item.ToString());
-            sb.Append('\u002C');
-        }
-        return sb.ToString();
-    }
+    //    foreach (var item in Addons)
+    //    {
+    //        sb.AppendJoin(';', item.ToString());
+    //        sb.Append('\u002C');
+    //    }
+    //    return sb.ToString();
+    //}
 
     public static int[] ParseIndexes(string indexesString)
     {
@@ -124,32 +124,32 @@ public sealed class CarModel
         }
     }
 
-    public void AddAddon(int index)
-    {
-        string addon = _availableAddons[index];
-        this.Addons.Add(addon);
-    }
+    //public void AddAddon(int index)
+    //{
+    //    string addon = _availableAddons[index];
+    //    this.Addons.Add(addon);
+    //}
 
-    public void RemoveAddon(int index)
-    {
-        try
-        {
-            this.Addons.RemoveAt(index);
-        }
-        catch (Exception)
-        {
+    //public void RemoveAddon(int index)
+    //{
+    //    try
+    //    {
+    //        this.Addons.RemoveAt(index);
+    //    }
+    //    catch (Exception)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
-    public string AddonsToString()
-    {
-        StringBuilder sb = new StringBuilder();
-        foreach (string addon in Addons)
-        {
-            sb.Append(addon);
-            sb.Append(", ");
-        }
-        return sb.ToString();
-    }
+    //public string AddonsToString()
+    //{
+    //    StringBuilder sb = new StringBuilder();
+    //    foreach (string addon in Addons)
+    //    {
+    //        sb.Append(addon);
+    //        sb.Append(", ");
+    //    }
+    //    return sb.ToString();
+    //}
 }

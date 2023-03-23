@@ -10,22 +10,10 @@ public static class Seed
 
         CarRentalData carRentalData = new CarRentalData();
 
-        //var _mapper = new Mapper();
         Customer[] customers = CarRentalData.Customers.ToArray();
         Rental[] rentals = CarRentalData.Rentals.ToArray();
 
-        //List<Car> cars;
-        //try
-        //{
-        //    List<Car>cars = CarRentalData.Cars;
-        //}
-        //catch (Exception)
-        //{
-
-        //    throw new Exception("------- CarRentalData.Cars failed to load!");
-        //}
-
-        //Car[] carsArray = cars.ToArray();
+        Car[] cars = CarRentalData.Cars.ToArray();
 
         if (context.Customers.Any() && context.Rentals.Any())
         {
@@ -49,12 +37,12 @@ public static class Seed
 
         string temp = string.Empty;
 
-        //foreach (var car in cars)
-        //{
-        //    var carDto = new Car().FillModel(car);
-        //    context.Cars.Add(carDto);
-        //}
-        //context.SaveChanges();
+        foreach (var car in cars)
+        {
+            var carDto = new Car().FillModel(car);
+            context.Cars.Add(carDto);
+        }
+        context.SaveChanges();
 
         foreach (var rental in rentals)
         {

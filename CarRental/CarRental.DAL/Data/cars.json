@@ -7,7 +7,11 @@
     "fuel_consumption_city": 7.3,
     "fuel_consumption_highway": 5.6,
     "segment": "C",
-    "addons": [],
+    "addons": [
+      "Ac",
+      "ABS",
+      "roof rack"
+    ],
     "id": 1,
     "model": "Corolla",
     "make": "Toyota",
