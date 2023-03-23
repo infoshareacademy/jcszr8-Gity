@@ -1,4 +1,4 @@
-﻿@model CarRental.DAL.Models.Car
+﻿@model CarRental.Web.Models.CarViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -16,18 +16,22 @@
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
+                    <label asp-for="Make" class="control-label"></label>
+                    <select asp-for="Make" id="" name="Make">
+                        <partial name="_AvailableOptionsForMake" />
+                    </select>
+                    <span asp-validation-for="Make" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="CarModel" class="control-label"></label>
                     <input asp-for="CarModel" class="form-control" />
                     <span asp-validation-for="CarModel" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Make" class="control-label"></label>
-                    <input asp-for="Make" class="form-control" />
-                    <span asp-validation-for="Make" class="text-danger"></span>
-                </div>
-                <div class="form-group">
                     <label asp-for="Year" class="control-label"></label>
-                    <input asp-for="Year" class="form-control" />
+                    <select asp-for="Year" id="" name="Year">
+                        <partial name="_AvailableOptionsForYear" />
+                    </select>
                     <span asp-validation-for="Year" class="text-danger"></span>
                 </div>
                 <div class="form-group">

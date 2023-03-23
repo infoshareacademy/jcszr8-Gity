@@ -8,38 +8,37 @@ public sealed class Customer
     public int Id;
 
     [JsonProperty("first_name")]
-    [Display (Name = "First Name")]
-    [MaxLength (30)]
+    [Display(Name = "First Name")]
+    [MaxLength(30)]
     [Required]
     public string FirstName { get; set; }
 
     [JsonProperty("last_name")]
-    [Display (Name = "Last Name")]
-    [MaxLength (30)]
+    [Display(Name = "Last Name")]
+    [MaxLength(30)]
     [Required]
     public string LastName { get; set; }
 
     [JsonProperty("email_address")]
-    [Display (Name = "Email")]
+    [Display(Name = "Email")]
     [EmailAddress]
-    [Required]
-    [MaxLength (50)]
+    [MaxLength(50)]
     public string? EmailAddress { get; set; }
 
     [JsonProperty("phone_number")]
-    [Display (Name = "Phone Number")]
+    [Display(Name = "Phone Number")]
     [Phone]
     [Required]
     public string PhoneNumber { get; set; }
 
     [MinLength(11)]
-    [MaxLength (11)]
+    [MaxLength(11)]
     [JsonProperty("pesel")]
     public string? Pesel { get; set; }
 
-    [MaxLength (10)]
+    [MaxLength(10)]
     [JsonProperty("gender")]
-    public char Gender { get; set; }
+    public char? Gender { get; set; }
 
     public Customer(int id, string firstName, string lastName, string phoneNumber)
     {

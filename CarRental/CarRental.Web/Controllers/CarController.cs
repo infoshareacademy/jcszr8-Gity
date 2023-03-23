@@ -1,6 +1,7 @@
+using AutoMapper;
 using CarRental.DAL.Models;
-using CarRental.Logic;
 using CarRental.Logic.Interfaces;
+using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -9,26 +10,32 @@ public class CarController : Controller
 {
     private readonly ICarService _carService;
     private readonly ISearchService _searchService;
+    private readonly IMapper _mapper;
 
-    public CarController(ICarService carService,ISearchService searchService) 
+    public CarController(ICarService carService, ISearchService searchService, IMapper mapper)
     {
-        this._carService = carService;
-        this._searchService = searchService;
+        _carService = carService;
+        _searchService = searchService;
+        _mapper = mapper;
     }
 
     // GET: CarController
     public IActionResult Index()
     {
         var cars = this._carService.GetAll();
-        var mapper = new CarMapper();
-        var model = mapper.Map(cars);
+
+        var model = _mapper.Map<List<CarViewModel>>(cars);
+
         return View(model);
     }
 
     // GET: CarController/Details/5
     public IActionResult Details(int id)
     {
-        var model = _carService.GetById(id);
+        var car = _carService.GetById(id);
+
+        var model = _mapper.Map<CarViewModel>(car);
+
         return View(model);
     }
 
@@ -41,11 +48,18 @@ public class CarController : Controller
     // POST: CarController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(Car model)
+    public IActionResult Create(CarViewModel model)
     {
         try
         {
-            _carService.Create(model);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var newCar = _mapper.Map<Car>(model);
+            _carService.Create(newCar);
+
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -58,16 +72,20 @@ public class CarController : Controller
     public IActionResult Edit(int id)
     {
         var car = _carService.GetById(id);
-        return View(car);
+
+        var model = _mapper.Map<CarViewModel>(car);
+
+        return View(model);
     }
 
     // POST: CarController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(Car car)
+    public IActionResult Edit(CarViewModel model)
     {
         try
         {
+            var car = _mapper.Map<Car>(model);
             _carService.Update(car);
 
             return RedirectToAction(nameof(Index));
@@ -82,13 +100,16 @@ public class CarController : Controller
     public IActionResult Delete(int id)
     {
         var car = _carService.GetById(id);
-        return View(car);
+
+        var model = _mapper.Map<CarViewModel>(car);
+
+        return View(model);
     }
 
     // POST: CarController/Delete/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Delete(int id, int empty = 0)
+    public IActionResult Delete(int id, IFormCollection collection)
     {
         try
         {

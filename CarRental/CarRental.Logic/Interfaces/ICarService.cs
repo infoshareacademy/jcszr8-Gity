@@ -5,7 +5,7 @@ namespace CarRental.Logic.Interfaces;
 public interface ICarService
 {
     IEnumerable<Car> GetAll();
-    Car GetById(int id);
+    Car? GetById(int id);
 
     // TODO czy te 3 poniższe nie powinny pójść do serwisu wyszukiwania
     IEnumerable<Car> GetByName(string make);
