@@ -20,6 +20,8 @@ public class ApplicationContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+
+
         //modelBuilder.Entity<Customer>();  // ?????
     }
 }

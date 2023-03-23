@@ -5,7 +5,8 @@ namespace CarRental.DAL.Entities.BaseEntity;
 
 public class Entity
 {
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [JsonProperty("id")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
     public int Id { get; set; }
 }

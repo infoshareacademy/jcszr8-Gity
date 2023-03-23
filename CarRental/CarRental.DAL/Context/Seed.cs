@@ -31,11 +31,15 @@ public static class Seed
                 Gender = customer.Gender,
                 Pesel = customer.Pesel,
             });
-            //context.Customers.Add(customer);
+
+            //var customerDb = CustomerDbBuilder.aCustomerDb()
+            //    .WithFirstName(customer.FirstName)
+            //    .WithLastName(customer.LastName)
+            //    .WithPhoneNumber(customer.PhoneNumber)
+            //    .Build();
+            //context.Customers.Add(customerDb);
         }
         var entriesNumber = context.SaveChanges();
-
-        string temp = string.Empty;
 
         foreach (var car in cars)
         {

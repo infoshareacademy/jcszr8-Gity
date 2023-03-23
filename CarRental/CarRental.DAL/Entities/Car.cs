@@ -83,15 +83,7 @@ public class Car : Entity
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
 
     [Display(Name = "Addons")]
-    //private string _addons;
     public string Addons { get; set; }
-    //{
-    //    get { return _addons; }
-    //    set
-    //    {
-    //        this._addons = string.Join(";", value);
-    //    }
-    //}
 
     [Range(100, 1000,
         ErrorMessage = "Value for {0} must be between {1} and {2}.")]
@@ -104,15 +96,12 @@ public class Car : Entity
 
     #endregion
 
-
-
     public Car FillModel(Car car)
     {
         Make = car.Make;
         CarModelProp = car.CarModelProp;
         Year = car.Year;
         LicencePlateNumber = car.LicencePlateNumber;
-        //Addons = string.Join(";", car.Addons);
         return this;
     }
 }

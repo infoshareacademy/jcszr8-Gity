@@ -1,6 +1,5 @@
 ﻿using CarRental.DAL.Entities;
 using Newtonsoft.Json;
-using System.Diagnostics;
 
 namespace CarRental.DAL;
 public class CarRentalData

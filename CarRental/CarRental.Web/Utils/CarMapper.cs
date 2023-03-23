@@ -1,6 +1,6 @@
 ﻿using CarRental.Logic.Models;
 
-namespace CarRental.Web;
+namespace CarRental.Web.Utils;
 
 public class CarMapper
 {

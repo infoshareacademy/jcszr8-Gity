@@ -2,7 +2,7 @@
 using CarRental.DAL.Entities;
 using CarRental.Logic.Models;
 
-namespace CarRental.Web.MapperProfiles;
+namespace CarRental.Logic.MapperProfiles;
 
 public class AddonsResolver : IValueResolver<CarModel, Car, string>
 {
