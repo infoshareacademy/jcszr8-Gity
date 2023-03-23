@@ -60,7 +60,6 @@ public static class Seed
         {
             context.Rentals.Add(new Rental
             {
-                Id = rental.Id,
                 CarId = rental.CarId,
                 CustomerId = rental.CustomerId,
                 BeginDate = rental.BeginDate,
