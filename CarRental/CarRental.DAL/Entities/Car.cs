@@ -10,10 +10,11 @@ public class Car : Entity
 
     #region Properties/Fields
 
-    [JsonProperty(PropertyName = "model")]
+    //[JsonProperty(PropertyName = "model")]
+    [JsonProperty("model")]
     [Display(Name = "Model")]
     [Required]
-    public string CarModel { get; set; }
+    public string CarModelProp { get; set; }
 
     [MaxLength(100)]
     [Required]
@@ -101,7 +102,7 @@ public class Car : Entity
     public Car FillModel(Car car)
     {
         Make = car.Make;
-        CarModel = car.CarModel;
+        CarModelProp = car.CarModelProp;
         Year = car.Year;
         LicencePlateNumber = car.LicencePlateNumber;
         Addons = string.Join(";", car.Addons);

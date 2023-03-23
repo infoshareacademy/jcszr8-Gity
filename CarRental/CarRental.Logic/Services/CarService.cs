@@ -35,7 +35,7 @@ public class CarService : ICarService
         {
             var temp = _carRepository.GetAll()
                  .Where(c => c.Make.Contains(name, StringComparison.CurrentCultureIgnoreCase)
-                 || c.CarModel.Contains(name, StringComparison.CurrentCultureIgnoreCase)
+                 || c.CarModelProp.Contains(name, StringComparison.CurrentCultureIgnoreCase)
              ).ToList();
 
             cars = _mapper.Map<List<CarModel>>(temp);
