@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarRental.Web.Models.CarViewModel>
+﻿@model IEnumerable<CarRental.Logic.Models.CarModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -23,7 +23,7 @@
                     #
                 </th>
                 <th scope="col">
-                    @Html.DisplayNameFor(model => model.CarModel)
+                    @Html.DisplayNameFor(model => model.CarModelProp)
                 </th>
                 <th scope="col">
                     @Html.DisplayNameFor(model => model.Make)
@@ -45,7 +45,7 @@
                         @Html.DisplayFor(modelItem => item.Id)
                     </th>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CarModel)
+                        @Html.DisplayFor(modelItem => item.CarModelProp)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Make)

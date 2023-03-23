@@ -6,6 +6,8 @@ using System.Text;
 namespace CarRental.DAL.Entities;
 public class Car : Entity
 {
+    public Car() { }
+
     #region Properties/Fields
 
     [JsonProperty(PropertyName = "model")]
@@ -84,56 +86,6 @@ public class Car : Entity
 
     #endregion
 
-    public Car(int id, string make, string model, string licensePlate)
-    {
-        Id = id;
-        Make = make;
-        CarModel = model;
-        LicencePlateNumber = licensePlate;
-    }
-
-    public Car() { }
-
-    public override string ToString()
-    {
-        return $"id:{Id} | {Make} | {CarModel} | {LicencePlateNumber} | {GetAddonsToString()}";
-    }
-
-    public string GetDetails()
-    {
-        var year = Year.ToString() ?? "-";
-        var color = Color?.ToString() ?? "-";
-        var transmission = Transmission?.ToString() ?? "-";
-        var engineType = EngineType?.ToString() ?? "-";
-        var engineDisplacement = Displacement?.ToString() ?? "-";
-        var enginePowerKw = PowerInKiloWats.ToString() ?? "-";
-        var seats = SeatsNo.ToString() ?? "-";
-        var airbags = Airbags.ToString() ?? "-";
-        var kilometrage = Kilometrage.ToString() ?? "-";
-        var doors = Doors.ToString() ?? "-";
-        var fuelConsumption = FuelConsumption?.ToString() ?? "-";
-        var price = Price.ToString() ?? "-";
-
-        return @$"Id: {Id}
-Make: {Make}
-Model: {CarModel}
-License plate: {LicencePlateNumber}
-Year: {year}
-Color: {color}
-Transmission: {transmission}
-EngineType: {engineType}
-EngineDisplacement: {engineDisplacement}
-EnginePowerKw: {enginePowerKw}
-Seats:{seats}
-Airbags: {airbags}
-Kilometrage: {kilometrage}
-Doors: {doors}
-Fuel consumption: {fuelConsumption}
-Price: {price}
-Addons: {GetAddonsToString()}
-";
-    }
-
     public string GetAddonsToString()
     {
         StringBuilder sb = new StringBuilder();
@@ -146,23 +98,6 @@ Addons: {GetAddonsToString()}
         return sb.ToString();
     }
 
-    public static int[] ParseIndexes(string indexesString)
-    {
-        char[] separators = { ',', ' ', '\t' };
-        int[] ints;
-        try
-        {
-            var strings = indexesString.Split(separators);
-            ints = Array.ConvertAll(strings, s => int.Parse(s) - 1);
-
-            Console.WriteLine();
-            return ints;
-        }
-        catch (Exception)
-        {
-            return new int[] { };
-        }
-    }
     public Car FillModel(Car car)
     {
         Make = car.Make;

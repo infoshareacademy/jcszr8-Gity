@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using CarRental.DAL.Models;
+using CarRental.DAL.Entities;
+using CarRental.Logic.Models;
 using CarRental.Logic.Test;
-using CarRental.Web.Models;
 
 namespace CarRental.Web.MapperProfiles;
 
@@ -13,4 +13,3 @@ public class CarProfile : Profile
             .ForMember(dto => dto.Addons, opt => opt.MapFrom<AddonsResolver>());
     }
 }
-

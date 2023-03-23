@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using CarRental.DAL.Models;
+using CarRental.DAL.Entities;
+using CarRental.Logic.Models;
 
 namespace CarRental.Logic.Test;
 

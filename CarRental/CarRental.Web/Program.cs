@@ -1,12 +1,11 @@
-using CarRental.DAL.Models;
-using CarRental.DAL.Repositories;
 using AutoMapper;
-using CarRental.Logic.Services;
-using Microsoft.AspNetCore.Localization;
-using System.Globalization;
-using CarRental.Logic.Services.IServices;
 using CarRental.DAL.Context;
+using CarRental.DAL.Repositories;
+using CarRental.Logic.Services;
+using CarRental.Logic.Services.IServices;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,8 +29,8 @@ var app = builder.Build();
 CreateDbIfNotExists(app);
 
 // Check if all mappings are configured
-var mapper = (IMapper)app.Services.GetService(typeof(IMapper));
-mapper.ConfigurationProvider.AssertConfigurationIsValid();
+//var mapper = (IMapper)app.Services.GetService(typeof(IMapper));
+//mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

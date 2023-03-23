@@ -1,7 +1,6 @@
 using AutoMapper;
-using CarRental.DAL.Models;
+using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
-using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -24,7 +23,7 @@ public class CarController : Controller
     {
         var cars = this._carService.GetAll();
 
-        var model = _mapper.Map<List<CarViewModel>>(cars);
+        var model = _mapper.Map<List<CarModel>>(cars);
 
         return View(model);
     }
@@ -34,7 +33,7 @@ public class CarController : Controller
     {
         var car = _carService.Get(id);
 
-        var model = _mapper.Map<CarViewModel>(car);
+        var model = _mapper.Map<CarModel>(car);
 
         return View(model);
     }
@@ -48,7 +47,7 @@ public class CarController : Controller
     // POST: CarController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(CarViewModel model)
+    public IActionResult Create(CarModel model)
     {
         try
         {
@@ -73,7 +72,7 @@ public class CarController : Controller
     {
         var car = _carService.Get(id);
 
-        var model = _mapper.Map<CarViewModel>(car);
+        var model = _mapper.Map<CarModel>(car);
 
         return View(model);
     }
@@ -81,7 +80,7 @@ public class CarController : Controller
     // POST: CarController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(CarViewModel model)
+    public IActionResult Edit(CarModel model)
     {
         try
         {
@@ -101,7 +100,7 @@ public class CarController : Controller
     {
         var car = _carService.Get(id);
 
-        var model = _mapper.Map<CarViewModel>(car);
+        var model = _mapper.Map<CarModel>(car);
 
         return View(model);
     }

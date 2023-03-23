@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarRental.DAL.Models.CarModel>
+﻿@model IEnumerable<CarRental.Logic.Models.CarModel>
 
 @{
     ViewData["Title"] = "Search";
@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarModel)
+                @Html.DisplayNameFor(model => model.CarModelProp)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Make)
@@ -34,7 +34,7 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CarModel)
+                @Html.DisplayFor(modelItem => item.CarModelProp)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Make)

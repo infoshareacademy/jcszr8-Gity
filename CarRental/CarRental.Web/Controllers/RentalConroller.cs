@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using CarRental.DAL.Models;
+using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
-using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -20,7 +19,7 @@ public class RentalController : Controller
     public IActionResult Index()
     {
         var rentals = _rentalService.GetAll();
-        var model = _mapper.Map<List<RentalViewModel>>(rentals);
+        var model = _mapper.Map<List<RentalModel>>(rentals);
 
         return View(model);
     }
@@ -29,7 +28,7 @@ public class RentalController : Controller
     public IActionResult Details(int id)
     {
         var rental = _rentalService.Get(id);
-        var model = _mapper.Map<RentalViewModel>(rental);
+        var model = _mapper.Map<RentalModel>(rental);
 
         return View(model);
     }
@@ -43,7 +42,7 @@ public class RentalController : Controller
     // POST: RentalConroller/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(RentalViewModel model)
+    public IActionResult Create(RentalModel model)
     {
         try
         {
@@ -67,7 +66,7 @@ public class RentalController : Controller
     public IActionResult Edit(int id)
     {
         var rental = _rentalService.Get(id);
-        var model = _mapper.Map<RentalViewModel>(rental);
+        var model = _mapper.Map<RentalModel>(rental);
 
         return View(model);
     }
@@ -75,7 +74,7 @@ public class RentalController : Controller
     // POST: RentalConroller/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(RentalViewModel model)
+    public IActionResult Edit(RentalModel model)
     {
         try
         {
@@ -94,7 +93,7 @@ public class RentalController : Controller
     public IActionResult Delete(int id)
     {
         var rental = _rentalService.Get(id);
-        var model = _mapper.Map<RentalViewModel>(rental);
+        var model = _mapper.Map<RentalModel>(rental);
 
         return View(model);
     }

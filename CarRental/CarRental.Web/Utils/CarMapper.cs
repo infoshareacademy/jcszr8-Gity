@@ -1,20 +1,19 @@
-﻿using CarRental.DAL.Models;
-using CarRental.Web.Models;
+﻿using CarRental.Logic.Models;
 
 namespace CarRental.Web;
 
 public class CarMapper
 {
-    public List<CarViewModel> Map(IEnumerable<CarModel> cars)
+    public List<CarModel> Map(IEnumerable<CarModel> cars)
     {
-        List<CarViewModel> carListModels = new();
+        List<CarModel> carListModels = new();
         foreach (var car in cars)
         {
             carListModels.Add(
-                new CarViewModel
+                new CarModel
                 {
                     Id = car.Id,
-                    CarModel = car.CarModel,
+                    CarModelProp = car.CarModelProp,
                     Make = car.Make
                 });
         }

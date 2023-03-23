@@ -1,13 +1,6 @@
-﻿using CarRental.DAL;
-using CarRental.DAL.Models;
-using CarRental.Logic;
-using CarRental.Logic.Services;
+﻿using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Reflection;
-using CarRental.Logic.Services.IServices;
 
 namespace CarRental.Web.Controllers
 {
@@ -50,6 +43,5 @@ namespace CarRental.Web.Controllers
             search.Cars= model;
             return View(search);
         }
-        
     }
 }

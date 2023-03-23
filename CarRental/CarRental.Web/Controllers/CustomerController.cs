@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ public class CustomerController : Controller
     {
         var customers = _customerService.GetAll();
 
-        var model = _mapper.Map<List<CustomerViewModel>>(customers);
+        var model = _mapper.Map<List<CustomerModel>>(customers);
 
         return View(model);
     }
@@ -34,7 +35,7 @@ public class CustomerController : Controller
         if (customer is null)
             return RedirectToAction(nameof(Index));
 
-        var model = _mapper.Map<CustomerViewModel>(customer);
+        var model = _mapper.Map<CustomerModel>(customer);
 
         return View(model);
     }
@@ -48,7 +49,7 @@ public class CustomerController : Controller
     // POST: CustomerController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(CustomerViewModel model)
+    public IActionResult Create(CustomerModel model)
     {
         try
         {
@@ -74,7 +75,7 @@ public class CustomerController : Controller
     {
         var customer = _customerService.Get(id);
 
-        var model = _mapper.Map<CustomerViewModel>(customer);
+        var model = _mapper.Map<CustomerModel>(customer);
 
         return View(model);
     }
@@ -82,7 +83,7 @@ public class CustomerController : Controller
     // POST: CustomerController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(CustomerViewModel model)
+    public IActionResult Edit(CustomerModel model)
     {
         try
         {
@@ -103,7 +104,7 @@ public class CustomerController : Controller
     {
         var customer = _customerService.Get(id);
 
-        var model = _mapper.Map<CustomerViewModel>(customer);
+        var model = _mapper.Map<CustomerModel>(customer);
 
         return View(model);
     }
