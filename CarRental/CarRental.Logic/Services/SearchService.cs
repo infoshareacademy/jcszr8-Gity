@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CarRental.DAL;
-using CarRental.DAL.Entities;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 
@@ -17,7 +16,7 @@ public class SearchService : ISearchService
         _rentalService = rentalService;
         _mapper = mapper;
     }
-    public List<CarModel> SearchList(SearchBLL searchModel)
+    public List<CarModel> SearchList(SearchCarModel searchModel)
     {
         List<CarModel> results = new List<CarModel>();
         var cars = _carService.GetByName(searchModel.ModelAndMake);
@@ -37,7 +36,7 @@ public class SearchService : ISearchService
         return results;
     }
 
-    public List<CarModel> FilterList(SearchBLL searchDto)
+    public List<CarModel> FilterList(SearchCarModel searchDto)
     {
         List<CarModel> carModels = new();
 

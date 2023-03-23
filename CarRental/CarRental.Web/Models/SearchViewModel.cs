@@ -1,11 +1,9 @@
-﻿using CarRental.DAL.Entities;
-using CarRental.Logic.Models;
+﻿using CarRental.Logic.Models;
 
-namespace CarRental.Web.Models
+namespace CarRental.Web.Models;
+
+public class SearchViewModel
 {
-    public class SearchViewModel
-    {
-        public SearchBLL SearchDto { get; set; } = new SearchBLL();
-        public IEnumerable<CarModel> Cars { get; set; } = new List<CarModel>();
-    }
+    public SearchCarModel SearchDto { get; set; } = new SearchCarModel();
+    public IEnumerable<CarModel> Cars { get; set; } = new List<CarModel>();
 }
