@@ -28,6 +28,17 @@ html {
     opacity: 0.95;
 }
 
+.card {
+    z-index: -1;
+}
+.card-img-top {
+    filter: grayscale(100%);
+    transition: all 0.5s ease-in-out;
+}
+
+.card:hover .card-img-top {
+    filter: grayscale(0%);
+}
 
 .row {
     --bs-gutter-x: 0;
@@ -71,13 +82,19 @@ body {
     justify-content: center;
 }
 
-.btn {
-    background-color: brown;
-    color :aliceblue
+.btn{
+    background-color: #CCA43D;
+    color: #000000;
+    border-color: #000000;
 }
 
+.btn:hover {
+    background-color: #000000;
+    color: #CCA43D;
+    border-color: #cca43d;
+}
 .btn-secondary {
-    color: blue;
+    color: #CCA43D;
 }
 
 .makes{
@@ -89,8 +106,18 @@ body {
     color: white;
 }
 
-.dropdown-menu{
+.home-container {
+    padding-top: 12rem;
+}
+.home-image {
+    background-image: url('../images/bmwx6.jpg');
+    background-repeat: no-repeat;
+    height: 100%;
+    background-position-x: center
+}
+.dropdown-menu {
     max-width: 5rem;
+    z-index: 1;
 }
 
 .input-group {

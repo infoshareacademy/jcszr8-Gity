@@ -3,41 +3,40 @@
 
 @{
     ViewData["Title"] = "Home Page";
-    var random = new Random();
-    var shuffledCars = Model.Cars.OrderBy(c => random.Next());
+    
 }
 
-<div class="p-0 text-center bg-image" style="
-      background-image: url('images/bg_1.jpg');
-      height: 500px;
-    ">
-
-    <div class="mask" style="background-color: rgba(0, 0, 0, 0.6); height: 500px;">
+<div class="p-0 text-center bg-image home-image">
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.2); height: 500px;">
         <div class="d-flex justify-content-center align-items-center h-100">
-            <div class="text-white">
+            <div class="text-white home-container">
                 <h1>Car Rental – Search, Compare & Save</h1>
                 <h2>Free cancellations on most bookings 60,000+ locations Customer support in 40+ languages</h2>
                 <form class="d-flex pt-3" asp-controller="Search" asp-action="SearchFromHome" method="post">
-                    <input class="form-control shadow-sm me-2 search" asp-for="SearchDto.ModelAndMake" type="text" placeholder="Search" aria-label="Search">
+                    <input class="form-control shadow-sm me-2 search " asp-for="SearchDto.ModelAndMake" type="text" placeholder="Search" aria-label="Search">
                     <input class="form-control shadow-sm me-2 year" asp-for="SearchDto.ProductionYearFrom" />
                     <input class="form-control shadow-sm me-2 year" asp-for="SearchDto.ProductionYearTo" />
                     <input type="date" class="form-control shadow-sm me-2 date" asp-for="SearchDto.StartDate" />
                     <input type="date" class="form-control shadow-sm me-2 date" asp-for="SearchDto.EndDate" />
-                    <button class="btn btn-outline-success shadow-sm" type="submit">Search</button>
+                    <button class="btn btn-outline-success shadow-sm fw-bold" type="submit">Search</button>
                 </form>
             </div>
         </div>
     </div>
-    @foreach (var item in shuffledCars)
+<div class="container">
+    <div class="row justify-content-center">
+    @foreach (var item in Model.Cars)
     {
-        <div class="card col-3 me-2 mt-2" style="width: 18rem;">
+                <div class="card col-3 me-4 mt-4 shadow" style="width: 18rem;">
             <img class="card-img-top" src="images/car-1.jpg" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">@item.CarModel title</h5>
                 <p class="card-text">@item.Make @item.Id</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="#" class="btn btn-primary fw-bold">Go somewhere</a>
             </div>
         </div>
     }
+    </div>
+    </div>
 </div>
 
