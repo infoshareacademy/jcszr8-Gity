@@ -5,6 +5,8 @@ using System.Text;
 namespace CarRental.Logic.Models;
 public sealed class CarModel
 {
+    public CarModel() { }
+
     #region Properties/Fields
 
     public int Id { get; set; }
@@ -30,7 +32,7 @@ public sealed class CarModel
     public string? Transmission { get; set; }
 
     [JsonProperty("licence_plate_number")]
-    [Display (Name = "Licence Plate")]
+    [Display(Name = "Licence Plate")]
     [Required]
     [MaxLength(8)]
     public string LicencePlateNumber { get; set; }
@@ -40,11 +42,11 @@ public sealed class CarModel
     public int? Kilometrage { get; set; }
 
     [JsonProperty("power_kw")]
-    [Display (Name = "Power in kWs")]
+    [Display(Name = "Power in kWs")]
     public float? PowerInKiloWats { get; set; }
 
     [JsonProperty("fuel_type")]
-    [Display (Name = "Engine Type")]
+    [Display(Name = "Engine Type")]
     public string? EngineType { get; set; }
 
     [JsonProperty("displacement")]
@@ -56,25 +58,25 @@ public sealed class CarModel
     public int? Doors { get; set; }
 
     [JsonProperty("max_capacity")]
-    [Display (Name = "No. of Seats")]
+    [Display(Name = "No. of Seats")]
     [Range(2, 50,
         ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public int? SeatsNo { get; set; } // total number of seats (with driver seat included)
 
-    [Display (Name = "No. of Airbags")]
+    [Display(Name = "No. of Airbags")]
     [Range(0, 10,
         ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public int? Airbags { get; set; }
 
     [JsonProperty("fuel_consumption")]
-    [Display (Name = "Fuel Consumption")]
+    [Display(Name = "Fuel Consumption")]
     [MaxLength(5)]
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
 
-    //[Display (Name = "Addons")]
-    //public List<string> Addons { get; set; } = new();
+    [Display(Name = "Addons")]
+    public List<string> Addons { get; set; } = new();
 
-    [Range(100,1000,
+    [Range(100, 1000,
         ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     [Display(Name = "Price/day")]
     public decimal? Price { get; set; }
@@ -91,65 +93,4 @@ public sealed class CarModel
         CarModelProp = model;
         LicencePlateNumber = licensePlate;
     }
-
-    public CarModel() { }
-
-    //public string GetAddonsToString()
-    //{
-    //    StringBuilder sb = new StringBuilder();
-
-    //    foreach (var item in Addons)
-    //    {
-    //        sb.AppendJoin(';', item.ToString());
-    //        sb.Append('\u002C');
-    //    }
-    //    return sb.ToString();
-    //}
-
-    public static int[] ParseIndexes(string indexesString)
-    {
-        char[] separators = { ',', ' ', '\t' };
-        int[] ints;
-        try
-        {
-            var strings = indexesString.Split(separators);
-            ints = Array.ConvertAll(strings, s => int.Parse(s) - 1);
-
-            Console.WriteLine();
-            return ints;
-        }
-        catch (Exception)
-        {
-            return new int[] { };
-        }
-    }
-
-    //public void AddAddon(int index)
-    //{
-    //    string addon = _availableAddons[index];
-    //    this.Addons.Add(addon);
-    //}
-
-    //public void RemoveAddon(int index)
-    //{
-    //    try
-    //    {
-    //        this.Addons.RemoveAt(index);
-    //    }
-    //    catch (Exception)
-    //    {
-
-    //    }
-    //}
-
-    //public string AddonsToString()
-    //{
-    //    StringBuilder sb = new StringBuilder();
-    //    foreach (string addon in Addons)
-    //    {
-    //        sb.Append(addon);
-    //        sb.Append(", ");
-    //    }
-    //    return sb.ToString();
-    //}
 }

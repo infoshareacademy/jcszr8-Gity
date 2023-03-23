@@ -6,7 +6,17 @@ using System.Text;
 namespace CarRental.DAL.Entities;
 public class Car : Entity
 {
-    public Car() { }
+    public Car() {
+        if (_addonHelper != null)
+        {
+            this.Addons = string.Join(";", _addonHelper);
+        }
+        else
+            this.Addons = "";
+    }
+
+    [JsonProperty("addons")]
+    private List<string> _addonHelper;
 
     #region Properties/Fields
 
@@ -21,8 +31,7 @@ public class Car : Entity
     public string Make { get; set; }
 
     // TODO fix end year
-    [Range(2000, 2050,
-       ErrorMessage = "Value for {0} must be between {1} and {2}.")]
+    [Range(2000, 2050, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public int Year { get; set; } // production year
 
     [MaxLength(20)]
@@ -73,9 +82,10 @@ public class Car : Entity
     [MaxLength(5)]
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
 
-    //[Display(Name = "Addons")]
+    [Display(Name = "Addons")]
     //private string _addons;
-    //public string Addons {
+    public string Addons { get; set; }
+    //{
     //    get { return _addons; }
     //    set
     //    {
@@ -94,17 +104,7 @@ public class Car : Entity
 
     #endregion
 
-    //public string GetAddonsToString()
-    //{
-    //    StringBuilder sb = new StringBuilder();
 
-    //    foreach (var item in Addons)
-    //    {
-    //        sb.AppendJoin(';', item.ToString());
-    //        sb.Append('\u002C');
-    //    }
-    //    return sb.ToString();
-    //}
 
     public Car FillModel(Car car)
     {
