@@ -11,7 +11,7 @@
         <div class="input-group mb-3">
 
             <div class="row justify-content-center pt-2">
-                <button class="btn btn-outline-secondary dropdown-toggle makes me-2 col" type="button" data-bs-toggle="dropdown" aria-expanded="false">Make</button>
+                <button class="btn btn-outline-secondary dropdown-toggle makes me-2 col " type="button" data-bs-toggle="dropdown" aria-expanded="false">Make</button>
                 <ul class="dropdown-menu checkbox-menu allow-focus">
                     @foreach (var make in dto.Makes.Keys)
                     {
@@ -39,7 +39,7 @@
                         <input type="date" class="form-control date" asp-for="SearchDto.EndDate" />
                     </div>
                     <div class="col">
-                        <button class="btn" type="submit" asp-action="Index">Search</button>
+                        <button class="btn btn-outline-success fw-bold" type="submit" asp-action="Index">Search</button>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
         @foreach (var item in Model.Cars)
         {
             <div class="card col-3 me-2 mt-2 shadow-lg" style="width: 18rem;">
-                <img class="card-img-top" src="images/car-1.jpg" alt="Card image cap">
+                <img class="card-img-top" src="/images/car-1.jpg" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">@item.CarModel title</h5>
                     <p class="card-text">@item.Make @item.Id</p>
