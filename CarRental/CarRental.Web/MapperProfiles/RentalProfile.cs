@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CarRental.DAL.Models;
-using CarRental.Web.Models;
+using CarRental.DAL.Entities;
+using CarRental.Logic.Models;
 
 namespace CarRental.Web.MapperProfiles;
 
@@ -8,6 +8,6 @@ public class RentalProfile : Profile
 {
     public RentalProfile()
     {
-        CreateMap<RentalModel, RentalViewModel>().ReverseMap();
+        CreateMap<RentalModel, Rental>().ReverseMap();
     }
 }
