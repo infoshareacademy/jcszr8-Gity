@@ -7,9 +7,6 @@ namespace CarRental.DAL.Entities;
 public class Customer : Entity
 {
     [JsonProperty("first_name")]
-    [Display(Name = "First Name")]
-    [MaxLength(30)]
-    [Required]
     public string FirstName { get; set; }
 
     [JsonProperty("last_name")]

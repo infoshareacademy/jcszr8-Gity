@@ -31,7 +31,14 @@ public class ApplicationContext : DbContext
             .HasMany<Rental>()
             .WithOne();
         // Car - one2many - Rental; Customer - one2many - Rental
-
+        // required for Car: make, model, license plate, year
+        modelBuilder.Entity<Car>(eb =>
+        {
+            eb.Property(c => c.CarModelProp).IsRequired();
+            eb.Property(c => c.Make).IsRequired();
+            eb.Property(c => c.LicencePlateNumber).IsRequired();
+            eb.Property(c => c.Year).IsRequired();
+        });
 
         base.OnModelCreating(modelBuilder);
 
