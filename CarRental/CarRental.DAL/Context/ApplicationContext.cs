@@ -16,11 +16,24 @@ public class ApplicationContext : DbContext
 
     public DbSet<Rental> Rentals { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer(b => b.MigrationsAssembly("CarRental.Web"));
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Customer>()
+            .HasMany<Rental>()
+            .WithOne();
+        
+        modelBuilder.Entity<Car>()
+            .HasMany<Rental>()
+            .WithOne();
+        // Car - one2many - Rental; Customer - one2many - Rental
+
+
         base.OnModelCreating(modelBuilder);
-
-
 
         //modelBuilder.Entity<Customer>();  // ?????
     }
