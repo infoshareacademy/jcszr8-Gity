@@ -1,4 +1,5 @@
-﻿using CarRental.Logic.Services.IServices;
+﻿using CarRental.Logic.Models;
+using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace CarRental.Web.Controllers
         {
             var model = new SearchViewModel()
             {
-                SearchDto = new SearchDto(),
+                SearchDto = new SearchCarModel(),
                 Cars = _carService.GetAll()
             };
             return View(model);
