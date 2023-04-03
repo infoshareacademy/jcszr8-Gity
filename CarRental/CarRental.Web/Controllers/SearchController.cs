@@ -1,4 +1,5 @@
-﻿using CarRental.Logic.Services.IServices;
+﻿using CarRental.Logic.Models;
+using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace CarRental.Web.Controllers
         {
             var model = new SearchViewModel()
             {
+                SearchDto = new SearchCarModel(),
                 Cars = _carService.GetAll()
             };
             return View(model);
@@ -31,17 +33,17 @@ namespace CarRental.Web.Controllers
             var dto = search.SearchDto;
             var cars = _searchService.SearchList(dto);
             search.Cars = cars;
-            return View(search);
+            return View("Index",search);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Search(SearchViewModel search)
+        public IActionResult Index(SearchViewModel search)
         {
             var dto = search.SearchDto;
             var model = _searchService.FilterList(dto);
             search.Cars= model;
-            return View(search);
+            return View("Index", search);
         }
     }
 }
