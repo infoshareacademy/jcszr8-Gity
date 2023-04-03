@@ -11,6 +11,7 @@ public sealed class CarModel
 
     public int Id { get; set; }
 
+    [Display(Name = "Car Model")]
     public string CarModelProp { get; set; }
 
     public string Make { get; set; }
