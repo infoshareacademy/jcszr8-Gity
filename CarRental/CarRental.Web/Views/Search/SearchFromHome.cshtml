@@ -1,7 +1,6 @@
 ﻿@model CarRental.Web.Models.SearchViewModel
 
 @{
-
     ViewData["Title"] = "Index";
     var dto = Model.SearchDto;
 }
@@ -51,12 +50,10 @@
         <div class="card" style="width: 18rem;">
             <img class="card-img-top" src="images/car-1.jpg" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title">@item.CarModel title</h5>
+                <h5 class="card-title">@item.CarModelProp title</h5>
                 <p class="card-text">@item.Make @item.Id</p>
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
     }
 </div>
-
-

@@ -1,22 +1,24 @@
-﻿using CarRental.DAL;
-using CarRental.DAL.Models;
-using CarRental.Logic.Interfaces;
+﻿using AutoMapper;
+using CarRental.DAL.Entities;
+using CarRental.DAL.Repositories;
+using CarRental.Logic.Models;
+using CarRental.Logic.Services.IServices;
 
 namespace CarRental.Logic.Services;
 
 public class RentalService : IRentalService
 {
-    private static int _idCounter;
     private readonly ICarService _carService;
-    private List<Car> _cars;
-    private List<Rental> _rentals = CarRentalData.Rentals;
+    private readonly IRepository<Rental> _rentalRepository;
+    private readonly IMapper _mapper;
 
-    public RentalService(ICarService carService)
+    private List<CarModel> _cars;
+
+    public RentalService(ICarService carService, IMapper mapper, IRepository<Rental> rentalRepository)
     {
-        this._carService = carService ?? throw new ArgumentNullException(nameof(carService));
-
-        _cars = _carService.GetAll().ToList();
-        _idCounter = _rentals.Max(c => c.Id);
+        this._carService = carService;
+        _mapper = mapper;
+        _rentalRepository = rentalRepository;
     }
 
     public IEnumerable<int> GetAvailableCarIds(DateTime start, DateTime end)
@@ -27,10 +29,10 @@ public class RentalService : IRentalService
         return allIdCars;
     }
 
-    public IEnumerable<Car> ListOfAvailableCarForRent(List<int> carIds)
+    public IEnumerable<CarModel> ListOfAvailableCarForRent(List<int> carIds)
 
     {
-        List<Car> carsToRent = new();
+        List<CarModel> carsToRent = new();
 
         foreach (var carId in carIds)
         {
@@ -45,8 +47,11 @@ public class RentalService : IRentalService
 
     public IEnumerable<int> GetNotRented()
     {
-        var rentedIds = _rentals.Select(r => r.CarId).ToList();
-        var carIds = _cars.Select(c => c.Id).ToList();
+        var rentedIds = _rentalRepository.GetAll()
+            .Select(r => r.CarId).ToList();
+
+        var carIds = _carService.GetAll()
+            .Select(c => c.Id).ToList();
 
         var availableCarIds = carIds.Except(rentedIds).ToList();
 
@@ -55,38 +60,40 @@ public class RentalService : IRentalService
 
     public IEnumerable<int> GetAvailableInGivenTime(DateTime start, DateTime end)
     {
-        var found = _rentals.Where(r =>
+        var found = _rentalRepository.GetAll()
+            .Where(r =>
            (end < r.BeginDate) ||
            (start > r.EndDate)
            ).Select(r => r.CarId).ToList();
         return found;
     }
 
-    public List<Rental> GetAll()
+    public List<RentalModel> GetAll()
     {
-        return _rentals;
+        var rentals = _rentalRepository.GetAll();
+        return _mapper.Map<List<RentalModel>>(rentals);
     }
 
-    public Rental GetById(int id)
+    public RentalModel Get(int id)
     {
-        return _rentals.FirstOrDefault(r => r.Id == id);
+        var rental = _rentalRepository.Get(id);
+        return _mapper.Map<RentalModel>(rental);
     }
 
-    public void RentACar(Customer customer, Car car, DateTime rentFrom, DateTime rentTo)
+    public void RentACar(CustomerModel customer, CarModel car, DateTime rentFrom, DateTime rentTo)
     {
 
     }
 
-    public void Create(Rental rental)
+    public void Create(RentalModel model)
     {
-        rental.Id = GetNextId();
-        _rentals.Add(rental);
+        var rental = _rentalRepository.Get(model.Id);
+        _rentalRepository.Insert(rental);
     }
-    private int GetNextId() => ++_idCounter;
 
-    public void Update(Rental model)
+    public void Update(RentalModel model)
     {
-        var rental = GetById(model.Id);
+        var rental = Get(model.Id);
 
         rental.CarId = model.CarId;
         rental.CustomerId = model.CustomerId;
@@ -97,7 +104,6 @@ public class RentalService : IRentalService
 
     public void Delete(int id)
     {
-        var rental = GetById(id);
-        _rentals.Remove(rental);
+       _rentalRepository.Delete(id);
     }
 }

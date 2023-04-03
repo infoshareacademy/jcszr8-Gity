@@ -1,51 +1,65 @@
-﻿using CarRental.DAL;
-using CarRental.DAL.Models;
-using CarRental.Logic.Interfaces;
+﻿using AutoMapper;
+using CarRental.DAL.Entities;
+using CarRental.DAL.Repositories;
+using CarRental.Logic.Models;
+using CarRental.Logic.Services.IServices;
 
 namespace CarRental.Logic.Services;
 
 public class CustomerService : ICustomerService
 {
-    private static int _idCounter;
-    private List<Customer> _customers = CarRentalData.Customers;
+    private readonly IRepository<Customer> _customerRepository;
+    private readonly IMapper _mapper;
 
-    public CustomerService()
+    public CustomerService(IRepository<Customer> customerRepository, IMapper mapper)
     {
-        _idCounter = CarRentalData.Customers.Max(c => c.Id);
+        _customerRepository = customerRepository;
+        _mapper = mapper;
     }
 
-    public IEnumerable<Customer> GetAll()
+    public IEnumerable<CustomerModel> GetAll()
     {
-        return _customers;
+        var customers = _customerRepository.GetAll();
+        return _mapper.Map<List<CustomerModel>>(customers);
     }
 
-    public Customer? GetById(int customerId)
+    public CustomerModel? Get(int customerId)
     {
-        return _customers.FirstOrDefault(c => c.Id == customerId);
+        var customer = _customerRepository.Get(customerId);
+        return _mapper.Map<CustomerModel>(customer);
     }
 
-    public void Create(Customer customer)
+    public void Create(CustomerModel model)
     {
-        customer.Id = GetNextId();
-        _customers.Add(customer);
+        _customerRepository.Insert(_mapper.Map<Customer>(model));
     }
 
-    public void Update(Customer model)
+    public void Create(string firstName, string lastName, string phoneNumber)
     {
-        var customer = GetById(model.Id);
+        if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName)
+            || string.IsNullOrEmpty(phoneNumber))
+        {
+            return;
+        }
 
-        customer.FirstName = model.FirstName;
-        customer.LastName = model.LastName;
-        customer.PhoneNumber = model.PhoneNumber;
-        customer.EmailAddress = model.EmailAddress;
-        customer.Pesel =  model.Pesel;
-        customer.Gender = model.Gender;
+        var model = new CustomerModel
+        {
+            FirstName = firstName,
+            LastName = lastName,
+            PhoneNumber = phoneNumber
+        };
+
+        _customerRepository.Insert(_mapper.Map<Customer>(model));
     }
 
-    public void Delete(int customerId) {
-        var customer = GetById(customerId);
-        _customers.Remove(customer);
-    }  
+    public void Update(CustomerModel model)
+    {
+        var customer = _mapper.Map<Customer>(model);
+        _customerRepository.Update(customer);
+    }
 
-    private int GetNextId() => ++_idCounter;
+    public void Delete(int id)
+    {
+        _customerRepository.Delete(id);
+    }
 }

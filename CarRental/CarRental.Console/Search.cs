@@ -87,7 +87,7 @@ public class Search
         }
     }
 
-    public static void PrintDetails(List<Car> cars)
+    public static void PrintDetails(List<CarModel> cars)
     {
         if (cars is null || cars.Count == 0)
         {
@@ -101,7 +101,7 @@ public class Search
             }
         }
     }
-    public static void Print(List<Car> cars)
+    public static void Print(List<CarModel> cars)
     {
         if (cars is null || cars.Count == 0)
         {

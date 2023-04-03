@@ -1,4 +1,4 @@
-﻿@model CarRental.Web.Models.CarViewModel
+﻿@model CarRental.Logic.Models.CarModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -23,9 +23,9 @@
                     <span asp-validation-for="Make" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="CarModel" class="control-label"></label>
-                    <input asp-for="CarModel" class="form-control" />
-                    <span asp-validation-for="CarModel" class="text-danger"></span>
+                    <label asp-for="CarModelProp" class="control-label"></label>
+                    <input asp-for="CarModelProp" class="form-control" />
+                    <span asp-validation-for="CarModelProp" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Year" class="control-label"></label>

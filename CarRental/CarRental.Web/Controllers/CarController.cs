@@ -1,7 +1,6 @@
 using AutoMapper;
-using CarRental.DAL.Models;
-using CarRental.Logic.Interfaces;
-using CarRental.Web.Models;
+using CarRental.Logic.Models;
+using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -24,7 +23,7 @@ public class CarController : Controller
     {
         var cars = this._carService.GetAll();
 
-        var model = _mapper.Map<List<CarViewModel>>(cars);
+        var model = _mapper.Map<List<CarModel>>(cars);
 
         return View(model);
     }
@@ -32,9 +31,9 @@ public class CarController : Controller
     // GET: CarController/Details/5
     public IActionResult Details(int id)
     {
-        var car = _carService.GetById(id);
+        var car = _carService.Get(id);
 
-        var model = _mapper.Map<CarViewModel>(car);
+        var model = _mapper.Map<CarModel>(car);
 
         return View(model);
     }
@@ -48,7 +47,7 @@ public class CarController : Controller
     // POST: CarController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(CarViewModel model)
+    public IActionResult Create(CarModel model)
     {
         try
         {
@@ -57,7 +56,7 @@ public class CarController : Controller
                 return View(model);
             }
 
-            var newCar = _mapper.Map<Car>(model);
+            var newCar = _mapper.Map<CarModel>(model);
             _carService.Create(newCar);
 
             return RedirectToAction(nameof(Index));
@@ -71,9 +70,9 @@ public class CarController : Controller
     // GET: CarController/Edit/5
     public IActionResult Edit(int id)
     {
-        var car = _carService.GetById(id);
+        var car = _carService.Get(id);
 
-        var model = _mapper.Map<CarViewModel>(car);
+        var model = _mapper.Map<CarModel>(car);
 
         return View(model);
     }
@@ -81,11 +80,11 @@ public class CarController : Controller
     // POST: CarController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(CarViewModel model)
+    public IActionResult Edit(CarModel model)
     {
         try
         {
-            var car = _mapper.Map<Car>(model);
+            var car = _mapper.Map<CarModel>(model);
             _carService.Update(car);
 
             return RedirectToAction(nameof(Index));
@@ -99,9 +98,9 @@ public class CarController : Controller
     // GET: CarController/Delete/5
     public IActionResult Delete(int id)
     {
-        var car = _carService.GetById(id);
+        var car = _carService.Get(id);
 
-        var model = _mapper.Map<CarViewModel>(car);
+        var model = _mapper.Map<CarModel>(car);
 
         return View(model);
     }

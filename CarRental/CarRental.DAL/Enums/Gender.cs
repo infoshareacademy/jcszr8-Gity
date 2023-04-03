@@ -1,9 +1,8 @@
-﻿namespace CarRental.DAL.Enums
+﻿namespace CarRental.DAL.Enums;
+
+public enum Gender
 {
-    public enum Gender
-    {
-        Male,
-        Female,
-        Other,
-    }
+    Male,
+    Female,
+    Other,
 }

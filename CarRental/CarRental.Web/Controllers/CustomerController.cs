@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CarRental.DAL.Models;
-using CarRental.Logic.Interfaces;
+using CarRental.Logic.Models;
+using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +22,7 @@ public class CustomerController : Controller
     {
         var customers = _customerService.GetAll();
 
-        var model = _mapper.Map<List<CustomerViewModel>>(customers);
+        var model = _mapper.Map<List<CustomerModel>>(customers);
 
         return View(model);
     }
@@ -30,12 +30,12 @@ public class CustomerController : Controller
     // GET: CustomerController/Details/5
     public IActionResult Details(int id)
     {
-        var customer = _customerService.GetById(id);
+        var customer = _customerService.Get(id);
 
         if (customer is null)
             return RedirectToAction(nameof(Index));
 
-        var model = _mapper.Map<CustomerViewModel>(customer);
+        var model = _mapper.Map<CustomerModel>(customer);
 
         return View(model);
     }
@@ -49,7 +49,7 @@ public class CustomerController : Controller
     // POST: CustomerController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(CustomerViewModel model)
+    public IActionResult Create(CustomerModel model)
     {
         try
         {
@@ -58,7 +58,7 @@ public class CustomerController : Controller
                 return View(model);
             }
 
-            var customer = _mapper.Map<Customer>(model);
+            var customer = _mapper.Map<CustomerModel>(model);
 
             _customerService.Create(customer);
 
@@ -73,9 +73,9 @@ public class CustomerController : Controller
     // GET: CustomerController/Edit/5
     public IActionResult Edit(int id)
     {
-        var customer = _customerService.GetById(id);
+        var customer = _customerService.Get(id);
 
-        var model = _mapper.Map<CustomerViewModel>(customer);
+        var model = _mapper.Map<CustomerModel>(customer);
 
         return View(model);
     }
@@ -83,11 +83,11 @@ public class CustomerController : Controller
     // POST: CustomerController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(CustomerViewModel model)
+    public IActionResult Edit(CustomerModel model)
     {
         try
         {
-            var customer = _mapper.Map<Customer>(model);
+            var customer = _mapper.Map<CustomerModel>(model);
 
             _customerService.Update(customer);
 
@@ -102,9 +102,9 @@ public class CustomerController : Controller
     // GET: CustomerController/Delete/5
     public IActionResult Delete(int id)
     {
-        var customer = _customerService.GetById(id);
+        var customer = _customerService.Get(id);
 
-        var model = _mapper.Map<CustomerViewModel>(customer);
+        var model = _mapper.Map<CustomerModel>(customer);
 
         return View(model);
     }
