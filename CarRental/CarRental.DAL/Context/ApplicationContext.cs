@@ -35,9 +35,13 @@ public class ApplicationContext : DbContext
         modelBuilder.Entity<Car>(eb =>
         {
             eb.Property(c => c.CarModelProp).IsRequired();
-            eb.Property(c => c.Make).IsRequired();
-            eb.Property(c => c.LicencePlateNumber).IsRequired();
+            eb.Property(c => c.Make).IsRequired().HasMaxLength(100);
+            eb.Property(c => c.LicencePlateNumber).IsRequired().HasMaxLength(8);
             eb.Property(c => c.Year).IsRequired();
+            eb.Property(c => c.Color).HasMaxLength(20);
+            eb.Property(c => c.Transmission).HasMaxLength(20);
+            eb.Property(c => c.Displacement).HasMaxLength(20);
+
         });
 
         base.OnModelCreating(modelBuilder);

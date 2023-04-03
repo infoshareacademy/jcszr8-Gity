@@ -58,9 +58,9 @@ public class CustomerController : Controller
                 return View(model);
             }
 
-            var customer = _mapper.Map<CustomerModel>(model);
+            //var customer = _mapper.Map<CustomerModel>(model);
 
-            _customerService.Create(customer);
+            _customerService.Create(model);
 
             return RedirectToAction(nameof(Index));
         }

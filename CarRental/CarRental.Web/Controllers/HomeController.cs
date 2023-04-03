@@ -21,9 +21,9 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-         //this._customerService.Create("Imie", "Nazwisko", "+48111222333");
-         var cars = new SearchViewModel();
-         cars.Cars = _carService.GetAll();
+        //this._customerService.Create("Imie", "Nazwisko", "+48111222333");
+        var cars = new SearchViewModel();
+        cars.Cars = _carService.GetAll();
         return View(cars);
     }
 
