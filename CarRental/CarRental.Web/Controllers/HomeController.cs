@@ -1,4 +1,5 @@
-﻿using CarRental.Web.Models;
+﻿using CarRental.Logic.Services.IServices;
+using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using CarRental.Logic.Interfaces;
@@ -8,21 +9,18 @@ namespace CarRental.Web.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly  ICarService _carService;
+    private readonly ICustomerService _customerService;
 
-    public HomeController(ILogger<HomeController> logger, ICarService carService)
+    public HomeController(ILogger<HomeController> logger, ICustomerService customerService)
     {
         _logger = logger;
-        _carService = carService;
+        _customerService = customerService;
     }
 
     public IActionResult Index()
     {
-        var model = new SearchViewModel()
-        {
-            Cars = _carService.GetAll()
-        };
-        return View(model);
+         //this._customerService.Create("Imie", "Nazwisko", "+48111222333");
+        return View();
     }
 
     public IActionResult Privacy()

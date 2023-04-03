@@ -55,7 +55,7 @@ internal class ConsoleCarManager
         return propertyValue;
     }
 
-    public static Car GetCarToEdit()
+    public static CarModel GetCarToEdit()
     {
         Console.Clear();
         Console.Write("Podaj id samochodu do edycji: ");
@@ -168,9 +168,9 @@ internal class ConsoleCarManager
         }
     }
 
-    public static void AddonsMenu(Car car)
+    public static void AddonsMenu(CarModel car)
     {
-        var addons = Car.GetAvailableAddons();
+        var addons = CarModel.GetAvailableAddons();
 
         int index = 1;
         foreach (var addon in addons)
@@ -180,7 +180,7 @@ internal class ConsoleCarManager
 
         Console.WriteLine("Podaj numery dodatków do usunięcia: ");
         string input1 = Console.ReadLine();
-        int[] indexesToRemove = Car.ParseIndexes(input1);
+        int[] indexesToRemove = CarModel.ParseIndexes(input1);
         foreach (int indexToRemove in indexesToRemove)
         {
             car.RemoveAddon(indexToRemove);
@@ -190,7 +190,7 @@ internal class ConsoleCarManager
 
         Console.WriteLine("Podaj numery dodatków do dodania: ");
         string input2 = Console.ReadLine();
-        int[] indexesToAdd = Car.ParseIndexes(input2);
+        int[] indexesToAdd = CarModel.ParseIndexes(input2);
         foreach (int indexToAdd in indexesToAdd)
         {
             car.AddAddon(indexToAdd);
@@ -199,7 +199,7 @@ internal class ConsoleCarManager
         Console.WriteLine(car.AddonsToString());
     }
 
-    public static void ShowAddonsHeading(Car car)
+    public static void ShowAddonsHeading(CarModel car)
     {
         Console.Write("Car addons: ");
         foreach (var addon in car.Addons)

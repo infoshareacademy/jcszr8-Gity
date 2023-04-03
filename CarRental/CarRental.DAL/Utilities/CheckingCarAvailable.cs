@@ -1,4 +1,4 @@
-﻿using CarRental.DAL.Models;
+﻿using CarRental.DAL.Entities;
 
 namespace CarRental.DAL.Utilities;
 
