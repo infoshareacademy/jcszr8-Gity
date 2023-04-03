@@ -9,11 +9,13 @@ namespace CarRental.Logic.Services;
 public class CarService : ICarService
 {
     private readonly IRepository<Car> _carRepository;
+    private readonly IAddonService _addonService;
     private readonly IMapper _mapper;
 
-    public CarService(IRepository<Car> carRepository, IMapper mapper)
+    public CarService(IRepository<Car> carRepository, IMapper mapper, IAddonService addonService)
     {
         _carRepository = carRepository;
+        _addonService = addonService;
         _mapper = mapper;
     }
 
@@ -59,7 +61,14 @@ public class CarService : ICarService
         return cars;
     }
 
-
+    public void AddAddonsToCar(List<string> addonsToAdd, int carId)
+    {
+        var car = Get(carId);
+        foreach (var addon in addonsToAdd)
+        {
+            car.Addons.Add(addon);
+        }
+    }
 
     public void Create(CarModel model)
     {
