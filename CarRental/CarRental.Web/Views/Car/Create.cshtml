@@ -1,4 +1,5 @@
-﻿@model CarRental.Logic.Models.CarModel
+﻿@using CarRental.DAL.Enums;
+@model CarRental.Logic.Models.CarModel
 
 @{
     ViewData["Title"] = "Create";
@@ -54,12 +55,16 @@
                         <input asp-for="Color" class="form-control" />
                         <span asp-validation-for="Color" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+@*                    <div class="form-group">
                         <label asp-for="Transmission" class="control-label"></label>
                         <select asp-for="Transmission" id="" name="Transmission">
                             <partial name="_AvailableOptionsForTransmission" />
                         </select>
                         <span asp-validation-for="Transmission" class="text-danger"></span>
+                    </div>*@
+                    <div class="form-group">
+                        <label asp-for="Transmission" class="control-label"></label>
+                        @Html.DropDownList("Transmission", Html.GetEnumSelectList<TransmissionType>(), "-Select transmission type-")
                     </div>
 
                     <div class="form-group">

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarRental.DAL\CarRental.DAL.csproj" />
+    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj" />
   </ItemGroup>
 
 </Project>

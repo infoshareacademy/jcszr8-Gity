@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Data\cars.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

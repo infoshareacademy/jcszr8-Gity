@@ -1,7 +1,7 @@
 ﻿using CarRental.DAL.Entities.BaseEntity;
+using CarRental.DAL.Enums;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace CarRental.DAL.Entities;
 public class Car : Entity
@@ -26,7 +26,7 @@ public class Car : Entity
     public string Make { get; set; }
     public int Year { get; set; } // production year
     public string? Color { get; set; }
-    public string? Transmission { get; set; }
+    public TransmissionType? Transmission { get; set; }
 
     [JsonProperty("licence_plate_number")]
     public string LicencePlateNumber { get; set; }
