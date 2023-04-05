@@ -1,12 +1,27 @@
 ﻿using CarRental.DAL.Entities.BaseEntity;
 using CommonLibrary.Enums;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.DAL.Entities;
 
 public class Customer : Entity
 {
+    public Customer()
+    {
+        if (_genderHelper is not null)
+        {
+            if (_genderHelper.ToString().ToUpper() == "M")
+                _gender = Gender.Male;
+            else if (_genderHelper.ToString().ToUpper() == "F")
+                _gender = Gender.Female;
+            else if (_genderHelper.ToString().ToUpper() == "O")
+                _gender = Gender.Other;
+        }
+        else throw new Exception("_gender is null !");
+    }
+
     [JsonProperty("first_name")]
     public string FirstName { get; set; }
 
@@ -26,21 +41,26 @@ public class Customer : Entity
     [JsonProperty("pesel")]
     public string? Pesel { get; set; }
 
-    private Gender _gender;
-
     [MaxLength(10)]
     [JsonProperty("gender")]
+    private string _genderHelper;
+
+    private Gender _gender;
+
+    //public Gender Gender { get; set; }
+
     public Gender Gender
     {
         get => _gender;
         set
         {
-            if (value.ToString().ToUpper() == "M")
-                _gender = Gender.Male;
-            else if (value.ToString().ToUpper() == "F")
-                _gender = Gender.Female;
-            else if (value.ToString().ToUpper() == "O")
-                _gender = Gender.Other;
+            _gender = value;
         }
+    }
+
+
+    private void SetUpGenderProperty()
+    {
+
     }
 }
