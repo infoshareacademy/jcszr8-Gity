@@ -20,13 +20,11 @@ public class Car : Entity
 
     #region Properties/Fields
 
-    //[JsonProperty(PropertyName = "model")]
     [JsonProperty("model")]
     public string CarModelProp { get; set; }
 
     public string Make { get; set; }
 
-    // TODO fix end year
     [Range(2000, 2050, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public int Year { get; set; } // production year
 
