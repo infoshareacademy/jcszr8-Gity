@@ -1,4 +1,6 @@
-﻿@{
+﻿@model dynamic
+
+@{
     List<int> years = new();
     int presentYear = DateTime.Now.Year;
 
@@ -8,7 +10,8 @@
     }
 }
 
-@foreach(var year in years)
+@foreach (var year in years)
 {
-    <option value="@year">@year</option>
+    bool select = year == Model.Year;
+    <option value="@year" selected=@select>@year</option>
 }
