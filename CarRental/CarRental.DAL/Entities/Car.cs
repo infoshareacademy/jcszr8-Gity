@@ -25,7 +25,6 @@ public class Car : Entity
 
     public string Make { get; set; }
 
-    [Range(2000, 2050, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public int Year { get; set; } // production year
 
     public string? Color { get; set; }
@@ -89,7 +88,7 @@ public class Car : Entity
         Price = car.Price;
         Airbags = car.Airbags;
         SeatsNo = car.SeatsNo;
-        //Color = car.Color;
+        Color = car.Color;
         Transmission = car.Transmission;
         FuelConsumption = car.FuelConsumption;
         Displacement = car.Displacement;
