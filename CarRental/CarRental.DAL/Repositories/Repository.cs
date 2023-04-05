@@ -43,6 +43,12 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public void Delete(int id)
     {
-        _context.Remove(id);
+        //_context.Remove(id);
+        var entity = _entities.SingleOrDefault(e => e.Id == id);
+        if (entity != null)
+        {
+            _entities.Remove(entity);
+        }
+        _context.SaveChanges();
     }
 }
