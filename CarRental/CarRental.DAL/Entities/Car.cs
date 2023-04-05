@@ -13,11 +13,11 @@ public class Car : Entity
             this.Addons = string.Join(";", _addonHelper);
         }
         else
-            this.Addons = "";
+            this.Addons = string.Empty;
     }
 
     [JsonProperty("addons")]
-    private List<string> _addonHelper;
+    private List<string> _addonHelper = new();
 
     #region Properties/Fields
 
