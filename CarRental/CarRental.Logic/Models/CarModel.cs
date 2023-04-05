@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CommonLibrary.Enums;
 
 namespace CarRental.Logic.Models;
 public sealed class CarModel

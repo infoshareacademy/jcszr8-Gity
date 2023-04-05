@@ -1,5 +1,5 @@
 ﻿using CarRental.DAL.Entities.BaseEntity;
-using CarRental.DAL.Enums;
+using CommonLibrary.Enums;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 

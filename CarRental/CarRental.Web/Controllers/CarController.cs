@@ -70,11 +70,9 @@ public class CarController : Controller
     // GET: CarController/Edit/5
     public IActionResult Edit(int id)
     {
-        var car = _carService.Get(id);
+        var carModel = _carService.Get(id);
 
-        var model = _mapper.Map<CarModel>(car);
-
-        return View(model);
+        return View(carModel);
     }
 
     // POST: CarController/Edit/5
@@ -84,8 +82,7 @@ public class CarController : Controller
     {
         try
         {
-            var car = _mapper.Map<CarModel>(model);
-            _carService.Update(car);
+            _carService.Update(model);
 
             return RedirectToAction(nameof(Index));
         }

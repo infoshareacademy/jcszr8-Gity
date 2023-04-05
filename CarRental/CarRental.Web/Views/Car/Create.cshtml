@@ -1,4 +1,4 @@
-﻿@using CarRental.DAL.Enums;
+﻿@using CommonLibrary.Enums;
 @model CarRental.Logic.Models.CarModel
 
 @{
@@ -55,18 +55,10 @@
                         <input asp-for="Color" class="form-control" />
                         <span asp-validation-for="Color" class="text-danger"></span>
                     </div>
-@*                    <div class="form-group">
-                        <label asp-for="Transmission" class="control-label"></label>
-                        <select asp-for="Transmission" id="" name="Transmission">
-                            <partial name="_AvailableOptionsForTransmission" />
-                        </select>
-                        <span asp-validation-for="Transmission" class="text-danger"></span>
-                    </div>*@
                     <div class="form-group">
                         <label asp-for="Transmission" class="control-label"></label>
                         @Html.DropDownList("Transmission", Html.GetEnumSelectList<TransmissionType>(), "-Select transmission type-")
                     </div>
-
                     <div class="form-group">
                         <label asp-for="Kilometrage" class="control-label"></label>
                         <input asp-for="Kilometrage" class="form-control" />

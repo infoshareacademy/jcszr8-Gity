@@ -65,10 +65,8 @@ public class RentalController : Controller
     // GET: RentalConroller/Edit/5
     public IActionResult Edit(int id)
     {
-        var rental = _rentalService.Get(id);
-        var model = _mapper.Map<RentalModel>(rental);
-
-        return View(model);
+        var rentalModel = _rentalService.Get(id);
+        return View(rentalModel);
     }
 
     // POST: RentalConroller/Edit/5
@@ -78,9 +76,7 @@ public class RentalController : Controller
     {
         try
         {
-            var rental = _mapper.Map<RentalModel>(model);
-            _rentalService.Update(rental);
-
+            _rentalService.Update(model);
             return RedirectToAction(nameof(Index));
         }
         catch

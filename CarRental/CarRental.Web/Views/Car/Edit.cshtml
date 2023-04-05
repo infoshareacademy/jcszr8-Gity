@@ -1,8 +1,20 @@
-﻿@model CarRental.Logic.Models.CarModel
+﻿@using CommonLibrary.Enums;
+@model CarRental.Logic.Models.CarModel
 
 @{
     ViewData["Title"] = "Edit";
+
+    List<int> years = new();
+    int presentYear = DateTime.Now.Year;
+
+    for (int year = presentYear - 15; year <= presentYear; year++)
+    {
+        years.Add(year);
+    }
 }
+
+
+
 
 <div class="container">
     <div class="row pt-4">
@@ -27,13 +39,28 @@
                     <input asp-for="CarModelProp" class="form-control" />
                     <span asp-validation-for="CarModelProp" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+
+@*                <div class="form-group">
                     <label asp-for="Year" class="control-label"></label>
                     <select asp-for="Year" id="" name="Year">
                         <partial name="_AvailableOptionsForYear" />
                     </select>
                     <span asp-validation-for="Year" class="text-danger"></span>
+                </div>*@
+
+                <div class="form-group">
+                    <label asp-for="Year" class="control-label"></label>
+                    <select asp-for="Year" id="" name="Year">
+                        @foreach (var year in years)
+                        {
+                            //string selected = year == Model.Year ? "selected" : "";
+                            <option value="@year">@year</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Year" class="text-danger"></span>
                 </div>
+
+
                 <div class="form-group">
                     <label asp-for="Color" class="control-label"></label>
                     <input asp-for="Color" class="form-control" />
@@ -41,8 +68,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Transmission" class="control-label"></label>
-                    <input asp-for="Transmission" class="form-control" />
-                    <span asp-validation-for="Transmission" class="text-danger"></span>
+                    @Html.DropDownList("Transmission", Html.GetEnumSelectList<TransmissionType>(), "-Select transmission type-")
                 </div>
                 <div class="form-group">
                     <label asp-for="LicencePlateNumber" class="control-label"></label>
