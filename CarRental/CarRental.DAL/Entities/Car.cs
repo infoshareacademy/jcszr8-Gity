@@ -6,7 +6,8 @@ using System.Text;
 namespace CarRental.DAL.Entities;
 public class Car : Entity
 {
-    public Car() {
+    public Car()
+    {
         if (_addonHelper != null)
         {
             this.Addons = string.Join(";", _addonHelper);
@@ -22,13 +23,9 @@ public class Car : Entity
 
     [JsonProperty("model")]
     public string CarModelProp { get; set; }
-
     public string Make { get; set; }
-
     public int Year { get; set; } // production year
-
     public string? Color { get; set; }
-
     public string? Transmission { get; set; }
 
     [JsonProperty("licence_plate_number")]
@@ -61,7 +58,7 @@ public class Car : Entity
     public int? Airbags { get; set; }
 
     [JsonProperty("fuel_consumption")]
-    [MaxLength(5)]
+    [MaxLength(10)]
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
 
     public string Addons { get; set; }
