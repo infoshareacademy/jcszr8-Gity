@@ -20,9 +20,8 @@ html {
 .search-container {
     min-height: 5rem;
     background-blend-mode: darken;
-
     width: 100%;
-    background-color: #bc70a4; 
+    background-color: #bc70a4;
     background-image: linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
     color: white;
     opacity: 0.95;
@@ -31,6 +30,7 @@ html {
 .card {
     z-index: 1;
 }
+
 .card-img-top {
     filter: grayscale(100%);
     transition: all 0.5s ease-in-out;
@@ -43,6 +43,7 @@ html {
 .row {
     --bs-gutter-x: 0;
 }
+
 body {
     margin-bottom: 60px;
     display: grid;
@@ -50,7 +51,6 @@ body {
 
 .navbar {
     background-color: dimgray;
-
 }
 
 .navbar-brand {
@@ -59,12 +59,10 @@ body {
 
 .container-main {
     min-height: 37.5rem;
-
 }
 
 .search {
     max-width: 10.75rem;
-
 }
 
 .year {
@@ -78,26 +76,28 @@ body {
 .col {
     flex: 0 0 0%;
 }
+
 .d-flex {
     justify-content: center;
 }
 
-.btn{
+.btn {
     background-color: #CCA43D;
     color: #000000;
     border-color: #000000;
 }
 
 .btn:hover {
-    background-color: #000000;
+    background-color: #5f5757;
     color: #CCA43D;
     border-color: #cca43d;
 }
+
 .btn-secondary {
     color: #CCA43D;
 }
 
-.makes{
+.makes {
     max-width: 5rem;
 }
 
@@ -109,12 +109,14 @@ body {
 .home-container {
     padding-top: 12rem;
 }
+
 .home-image {
     background-image: url('../images/bmwx6.jpg');
     background-repeat: no-repeat;
     height: 100%;
     background-position-x: center
 }
+
 .dropdown-menu {
     max-width: 5rem;
     z-index: 2;
@@ -124,6 +126,7 @@ body {
     justify-content: center;
     padding-top: 2rem;
 }
+
 .checkbox-menu li label {
     display: block;
     padding: 0.188rem 0.625rem;

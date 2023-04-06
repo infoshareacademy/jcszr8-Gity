@@ -11,7 +11,7 @@
         <div class="input-group mb-3">
 
             <div class="row justify-content-center pt-2">
-                <button class="btn btn-outline-secondary dropdown-toggle makes me-2 col " type="button" data-bs-toggle="dropdown" aria-expanded="false">Make</button>
+                <button class="btn btn-outline-secondary dropdown-toggle makes me-2 col fw-bold " type="button" data-bs-toggle="dropdown" aria-expanded="false">Make</button>
                 <ul class="dropdown-menu checkbox-menu allow-focus">
                     @foreach (var make in dto.Makes.Keys)
                     {
@@ -26,7 +26,7 @@
                     <input class="form-control search" asp-for="SearchDto.Model" type="text" placeholder="Type Car Model" aria-label="Search">
                 </div>
                 <div class="col-1 me-2">
-                    <input class="form-control shadow-lg year" asp-for="SearchDto.ProductionYearFrom" />
+                    <input class="form-control shadow-lg year" asp-for="SearchDto.ProductionYearFrom" id="ProductionYearTo" />
                 </div>
                 <div class="col-1 me-2">
                     <input class="form-control  year" asp-for="SearchDto.ProductionYearTo" />
