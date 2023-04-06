@@ -36,7 +36,7 @@
                     <div class="form-group">
                         <label asp-for="Year" class="control-label"></label>
                         <select asp-for="Year" id="" name="Year">
-                            <partial name="_AvailableOptionsForYear" />
+                            <partial name="_AvailableOptionsForYear" , new { Year=-1 } />
                         </select>
                         <span asp-validation-for="Year" class="text-danger"></span>
                     </div>

@@ -11,12 +11,16 @@ public sealed class CarModel
     public int Id { get; set; }
 
     [Display(Name = "Car Model")]
+    [Required]
     public string CarModelProp { get; set; }
+    [Required]
     public string Make { get; set; }
+    [Required]
     public int Year { get; set; }
+    [Required]
+    public string LicencePlateNumber { get; set; }
     public string? Color { get; set; }
     public TransmissionType? Transmission { get; set; }
-    public string LicencePlateNumber { get; set; }
     public int? Kilometrage { get; set; }
     public float? PowerInKiloWats { get; set; }
     public string? EngineType { get; set; }

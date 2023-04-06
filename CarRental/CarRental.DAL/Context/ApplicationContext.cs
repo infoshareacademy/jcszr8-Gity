@@ -34,7 +34,7 @@ public class ApplicationContext : DbContext
             c.Property(c => c.LastName).IsRequired().HasMaxLength(50);
             c.Property(c => c.PhoneNumber).IsRequired().HasMaxLength(50);
             c.Property(c => c.EmailAddress).HasMaxLength(100);
-            c.Property(c => c.Pesel).IsRequired();
+            c.Property(c => c.Pesel).IsRequired().HasMaxLength(11);
         });
 
 
