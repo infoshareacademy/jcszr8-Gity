@@ -1,4 +1,5 @@
-﻿@model CarRental.Logic.Models.CustomerModel
+﻿@using CommonLibrary.Enums;
+@model CarRental.Logic.Models.CustomerModel
 
 @{
     ViewData["Title"] = "Create";
@@ -41,15 +42,15 @@
                     <span asp-validation-for="Pesel" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="radio" value="M" name="Gender" />Male<br />
-                    <input type="radio" value="F" name="Gender" />Female<br />
-                    <span asp-validation-for="Gender" class="text-danger"></span>
+                    <label asp-for="Gender" class="control-label"></label>
+                    @Html.DropDownList("Gender", Html.GetEnumSelectList<Gender>(),
+                    "-Select gender-" , new { @class = "form-control"} )
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
             </form>
-            
+
         </div>
     </div>
 

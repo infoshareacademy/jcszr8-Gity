@@ -38,11 +38,22 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public void Update(T entity)
     {
-        throw new NotImplementedException();
+        if (entity is null)
+        {
+            return;
+        } 
+        this._entities.Update(entity);
+        _context.SaveChanges();
     }
 
     public void Delete(int id)
     {
-        _context.Remove(id);
+        //_context.Remove(id);
+        var entity = _entities.SingleOrDefault(e => e.Id == id);
+        if (entity != null)
+        {
+            _entities.Remove(entity);
+        }
+        _context.SaveChanges();
     }
 }

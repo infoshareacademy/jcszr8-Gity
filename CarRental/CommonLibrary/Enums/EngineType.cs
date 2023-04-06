@@ -1,4 +1,4 @@
-﻿namespace CarRental.DAL.Enums;
+﻿namespace CommonLibrary.Enums;
 
 public enum EngineType
 {

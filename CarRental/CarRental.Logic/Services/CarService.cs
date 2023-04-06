@@ -94,6 +94,8 @@ public class CarService : ICarService
 
     public void Update(CarModel model)
     {
-        var car = _carRepository.Get(model.Id);
+        var car = _mapper.Map<Car>(model);
+
+        _carRepository.Update(car);
     }
 }

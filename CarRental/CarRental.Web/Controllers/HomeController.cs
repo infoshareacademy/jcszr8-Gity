@@ -2,7 +2,6 @@
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using CarRental.Logic.Services.IServices;
 
 namespace CarRental.Web.Controllers;
 

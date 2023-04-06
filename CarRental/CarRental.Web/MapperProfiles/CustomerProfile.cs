@@ -8,6 +8,10 @@ public class CustomerProfile : Profile
 {
     public CustomerProfile()
     {
-        CreateMap<CustomerModel, Customer>().ReverseMap();
+        CreateMap<CustomerModel, Customer>();
+
+        CreateMap<Customer, CustomerModel>();
+            //.ForMember(c => c.GenderTest, opt => opt.Ignore())
+            //.ForSourceMember(c => c.GenderTest, opt => opt.Ignore());
     }
 }
