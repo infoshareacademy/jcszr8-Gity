@@ -20,13 +20,7 @@ public class ApplicationContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Customer>()
-            .HasMany<Rental>()
-            .WithOne();
 
-        modelBuilder.Entity<Car>()
-            .HasMany<Rental>()
-            .WithOne();
 
         modelBuilder.Entity<Customer>(c =>
         {
@@ -43,7 +37,7 @@ public class ApplicationContext : DbContext
 
         modelBuilder.Entity<Car>(eb =>
         {
-            eb.Property(c => c.CarModelProp).IsRequired().HasMaxLength(30);
+            eb.Property(c => c.CarModelProp).IsRequired().HasMaxLength(50);
             eb.Property(c => c.Make).IsRequired().HasMaxLength(100);
             eb.Property(c => c.LicencePlateNumber).IsRequired().HasMaxLength(8);
             eb.Property(c => c.Year).IsRequired().HasComment("Car production year");
@@ -51,8 +45,23 @@ public class ApplicationContext : DbContext
             eb.Property(c => c.Transmission).HasMaxLength(20);
             eb.Property(c => c.Displacement).HasMaxLength(20);
             eb.Property(c => c.FuelConsumption).HasMaxLength(50);
-
+            eb.Property(c => c.EngineType).HasMaxLength(20);
+            eb.Property(c => c.Addons).HasMaxLength(300);
+            eb.Property(c => c.Price).HasColumnType("decimal").HasPrecision(7, 2);
         });
+
+        modelBuilder.Entity<Rental>(e =>
+        {
+            e.Property(r => r.TotalCost).HasColumnType("decimal").HasPrecision(7, 2);
+        });
+
+        modelBuilder.Entity<Customer>()
+            .HasMany<Rental>()
+            .WithOne();
+
+        modelBuilder.Entity<Car>()
+            .HasMany<Rental>()
+            .WithOne();
 
         base.OnModelCreating(modelBuilder);
     }

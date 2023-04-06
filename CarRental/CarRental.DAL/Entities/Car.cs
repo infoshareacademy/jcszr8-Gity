@@ -89,6 +89,8 @@ public class Car : Entity
         Transmission = car.Transmission;
         FuelConsumption = car.FuelConsumption;
         Displacement = car.Displacement;
+
+        Addons = car.Addons;
         return this;
     }
 }

@@ -4,6 +4,7 @@ using CarRental.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRental.Web.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230406133951_Changes5")]
+    partial class Changes5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,8 +34,7 @@ namespace CarRental.Web.Migrations
 
                     b.Property<string>("Addons")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Airbags")
                         .HasColumnType("int");
@@ -55,8 +56,7 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("EngineType")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FuelConsumption")
                         .HasMaxLength(50)
@@ -79,8 +79,7 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("real");
 
                     b.Property<decimal?>("Price")
-                        .HasPrecision(7, 2)
-                        .HasColumnType("decimal(7,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("SeatsNo")
                         .HasColumnType("int");
@@ -160,8 +159,7 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal?>("TotalCost")
-                        .HasPrecision(7, 2)
-                        .HasColumnType("decimal(7,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

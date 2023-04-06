@@ -4,6 +4,7 @@ using CarRental.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRental.Web.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230406140421_ImproveSchema")]
+    partial class ImproveSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,8 +81,8 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("real");
 
                     b.Property<decimal?>("Price")
-                        .HasPrecision(7, 2)
-                        .HasColumnType("decimal(7,2)");
+                        .HasPrecision(5)
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<int?>("SeatsNo")
                         .HasColumnType("int");
@@ -160,8 +162,7 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal?>("TotalCost")
-                        .HasPrecision(7, 2)
-                        .HasColumnType("decimal(7,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
