@@ -1,0 +1,20 @@
+﻿@model dynamic
+@{
+    int MinValue = default;
+    int MaxValue = default;
+    string Prompt = string.Empty;
+
+    if (Model != null)
+    {
+        MinValue = Model.MinValue;
+        MaxValue = Model.MaxValue;
+        Prompt = Model.Prompt;
+    }
+}
+
+<option value="">@Prompt</option>
+
+@for(int i = @MinValue; i <= MaxValue; i++)
+{
+    <option value="@i">@i</option>
+}
