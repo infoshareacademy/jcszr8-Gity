@@ -38,7 +38,7 @@ public class SearchService : ISearchService
 
     public List<CarModel> FilterList(SearchCarModel searchDto)
     {
-        List<CarModel> carModels = new();
+        List<CarModel> carModels = _carService.GetAll().ToList();
 
         if (searchDto.Makes.Values.All(m => m == false))
         {
