@@ -28,18 +28,15 @@ public class ApplicationContext : DbContext
             .HasMany<Rental>()
             .WithOne();
 
-        modelBuilder.Entity<Customer>(c =>
+        modelBuilder.Entity<Customer>(eb =>
         {
-            c.Property(c => c.FirstName).IsRequired().HasMaxLength(30);
-            c.Property(c => c.LastName).IsRequired().HasMaxLength(50);
-            c.Property(c => c.PhoneNumber).IsRequired().HasMaxLength(50);
-            c.Property(c => c.Pesel).IsRequired().HasMaxLength(11);
-            c.Property(c => c.Gender).IsRequired();
-            c.Property(c => c.EmailAddress).HasMaxLength(100);
+            eb.Property(c => c.FirstName).IsRequired().HasMaxLength(30);
+            eb.Property(c => c.LastName).IsRequired().HasMaxLength(50);
+            eb.Property(c => c.PhoneNumber).IsRequired().HasMaxLength(50);
+            eb.Property(c => c.Pesel).IsRequired().HasMaxLength(11);
+            eb.Property(c => c.Gender).IsRequired();
+            eb.Property(c => c.EmailAddress).HasMaxLength(100);
         });
-
-
-        // Car - one2many - Rental; Customer - one2many - Rental
 
         modelBuilder.Entity<Car>(eb =>
         {
@@ -54,11 +51,12 @@ public class ApplicationContext : DbContext
             eb.Property(c => c.EngineType).HasMaxLength(20);
             eb.Property(c => c.Addons).HasMaxLength(300);
             eb.Property(c => c.Price).HasColumnType("decimal").HasPrecision(7, 2);
+            eb.Property(c => c.PowerInKiloWats).HasColumnType("decimal").HasPrecision(5, 2);
         });
 
-        modelBuilder.Entity<Rental>(e =>
+        modelBuilder.Entity<Rental>(eb =>
         {
-            e.Property(r => r.TotalCost).HasColumnType("decimal").HasPrecision(7, 2);
+            eb.Property(r => r.TotalCost).HasColumnType("decimal").HasPrecision(7, 2);
         });
 
         base.OnModelCreating(modelBuilder);

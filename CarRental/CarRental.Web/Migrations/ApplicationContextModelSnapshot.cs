@@ -40,8 +40,8 @@ namespace CarRental.Web.Migrations
 
                     b.Property<string>("CarModelProp")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Color")
                         .HasMaxLength(30)
@@ -75,8 +75,9 @@ namespace CarRental.Web.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<float?>("PowerInKiloWats")
-                        .HasColumnType("real");
+                    b.Property<decimal?>("PowerInKiloWats")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<decimal?>("Price")
                         .HasPrecision(7, 2)
@@ -116,7 +117,6 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("Gender")
-                        .HasMaxLength(10)
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")

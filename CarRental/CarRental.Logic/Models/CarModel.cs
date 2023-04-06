@@ -38,6 +38,8 @@ public sealed class CarModel
 
     #endregion
 
+    //[Range(0, 500_000,
+    //   ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public CarModel(string make, string model, string licensePlate)
     {
         Make = make;

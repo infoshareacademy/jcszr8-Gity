@@ -2,7 +2,7 @@
 
 namespace CarRental.Logic.Models;
 
-public class SearchCarModel
+public class SearchFieldsModel
 {
     public string ModelAndMake { get; set; }
     public Dictionary<string, bool> Makes { get; set; }
@@ -12,7 +12,7 @@ public class SearchCarModel
     public DateTime StartDate { get; set; } = DateTime.Now;
     public DateTime EndDate { get; set; } = DateTime.Now.AddDays(1);
 
-    public SearchCarModel()
+    public SearchFieldsModel()
     {
         Makes = PrepareDictionary();
     }

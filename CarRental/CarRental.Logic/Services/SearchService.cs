@@ -16,7 +16,7 @@ public class SearchService : ISearchService
         _rentalService = rentalService;
         _mapper = mapper;
     }
-    public List<CarModel> SearchList(SearchCarModel searchModel)
+    public List<CarModel> SearchList(SearchFieldsModel searchModel)
     {
         List<CarModel> results = new List<CarModel>();
         var cars = _carService.GetByName(searchModel.ModelAndMake);
@@ -36,35 +36,35 @@ public class SearchService : ISearchService
         return results;
     }
 
-    public List<CarModel> FilterList(SearchCarModel searchDto)
+    public List<CarModel> FilterList(SearchFieldsModel searchFields)
     {
         List<CarModel> carModels = _carService.GetAll().ToList();
 
-        if (searchDto.Makes.Values.All(m => m == false))
+        if (searchFields.Makes.Values.All(m => m == false))
         {
             var cars = _carService.GetAll();
             carModels = _mapper.Map<List<CarModel>>(carModels);
         }
-        if (searchDto.Makes.Values.Contains(true))
+        if (searchFields.Makes.Values.Contains(true))
         {
-            var selectedMakes = searchDto.Makes.Where(m => m.Value == true).Select(m => m.Key);
+            var selectedMakes = searchFields.Makes.Where(m => m.Value == true).Select(m => m.Key);
             carModels = _carService.GetAll()
                 .Where(c => selectedMakes.Contains(c.Make, StringComparer.CurrentCultureIgnoreCase)).ToList();
         }
-        if (searchDto.ProductionYearFrom > 0 && searchDto.ProductionYearTo > 0)
+        if (searchFields.ProductionYearFrom > 0 && searchFields.ProductionYearTo > 0)
         {
-            carModels = carModels.Where(c => c.Year >= searchDto.ProductionYearFrom && c.Year <= searchDto.ProductionYearTo).ToList();
+            carModels = carModels.Where(c => c.Year >= searchFields.ProductionYearFrom && c.Year <= searchFields.ProductionYearTo).ToList();
         }
 
-        if (!string.IsNullOrEmpty(searchDto.Model))
+        if (!string.IsNullOrEmpty(searchFields.Model))
         {
-            carModels = carModels.Where(c => c.Make.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase) ||
-                                   c.CarModelProp.Contains(searchDto.Model, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            carModels = carModels.Where(c => c.Make.Contains(searchFields.Model, StringComparison.CurrentCultureIgnoreCase) ||
+                                   c.CarModelProp.Contains(searchFields.Model, StringComparison.CurrentCultureIgnoreCase)).ToList();
         }
 
-        if (searchDto.StartDate != null && searchDto.EndDate != null)
+        if (searchFields.StartDate != null && searchFields.EndDate != null)
         {
-            var availableCarIds = _rentalService.GetAvailableCarIds(searchDto.StartDate, searchDto.EndDate);
+            var availableCarIds = _rentalService.GetAvailableCarIds(searchFields.StartDate, searchFields.EndDate);
             carModels = carModels.Where(c => availableCarIds.Contains(c.Id)).ToList();
         }
 

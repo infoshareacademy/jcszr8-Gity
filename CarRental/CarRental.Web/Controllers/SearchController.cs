@@ -20,7 +20,7 @@ namespace CarRental.Web.Controllers
         {
             var model = new SearchViewModel()
             {
-                SearchDto = new SearchCarModel(),
+                SearchDto = new SearchFieldsModel(),
                 Cars = _carService.GetAll()
             };
             return View(model);
