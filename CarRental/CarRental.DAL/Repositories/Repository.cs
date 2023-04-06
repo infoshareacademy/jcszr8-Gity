@@ -1,6 +1,7 @@
 ﻿using CarRental.DAL.Context;
 using CarRental.DAL.Entities.BaseEntity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace CarRental.DAL.Repositories;
 
@@ -15,10 +16,21 @@ public class Repository<T> : IRepository<T> where T : Entity
         _entities = context.Set<T>();
     }
 
-    public List<T> GetAll()
+    //public List<T> GetAll()
+    //{
+    //    // TODO AsAsyncEnumerable()
+    //    return this._entities.AsEnumerable().ToList();
+    //}
+
+    public List<T> GetAll(Expression<Func<T, object>>? include = null)
     {
         // TODO AsAsyncEnumerable()
-        return this._entities.AsEnumerable().ToList();
+        if (include == null)
+        {
+            return _entities.ToList();
+        }
+        //return this._entities.AsEnumerable().ToList();
+        return _entities.Include(include).ToList();
     }
 
     public T Get(int id)

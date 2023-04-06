@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CarRental.Logic.Models.RentalModel>
+﻿@model IEnumerable<CarRental.Web.Models.RentalViewModel>
+@*@model dynamic*@
 
 <table class="table table-hover">
     <thead>
@@ -7,10 +8,10 @@
                 #
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.CustomerId)
+                @Html.DisplayNameFor(model => model.CustomerName)
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.CarId)
+                @Html.DisplayNameFor(model => model.CarLicencePlate)
             </th>
             <th scope="col">
                 @Html.DisplayNameFor(model => model.BeginDate)
@@ -32,10 +33,10 @@
                     @Html.DisplayFor(modelItem => item.Id)
                 </th>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CustomerId)
+                    @Html.DisplayFor(modelItem => item.CustomerName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CarId)
+                    @Html.DisplayFor(modelItem => item.CarLicencePlate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BeginDate)
