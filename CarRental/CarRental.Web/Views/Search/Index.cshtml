@@ -55,7 +55,7 @@
                 <div class="card-body">
                     <h5 class="card-title">@item.CarModelProp title</h5>
                     <p class="card-text">@item.Make @item.Id</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <a class="btn btn-outline-success fw-bold" asp-controller="Car" asp-action="Details" asp-route-id="@item.Id">Show details</a>
                 </div>
             </div>
         }
