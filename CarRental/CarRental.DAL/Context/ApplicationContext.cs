@@ -20,7 +20,13 @@ public class ApplicationContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Customer>()
+            .HasMany<Rental>()
+            .WithOne();
 
+        modelBuilder.Entity<Car>()
+            .HasMany<Rental>()
+            .WithOne();
 
         modelBuilder.Entity<Customer>(c =>
         {
@@ -54,14 +60,6 @@ public class ApplicationContext : DbContext
         {
             e.Property(r => r.TotalCost).HasColumnType("decimal").HasPrecision(7, 2);
         });
-
-        modelBuilder.Entity<Customer>()
-            .HasMany<Rental>()
-            .WithOne();
-
-        modelBuilder.Entity<Car>()
-            .HasMany<Rental>()
-            .WithOne();
 
         base.OnModelCreating(modelBuilder);
     }

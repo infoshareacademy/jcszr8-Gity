@@ -8,12 +8,6 @@ public class Car : Entity
 {
     public Car()
     {
-        if (_addonHelper != null)
-        {
-            this.Addons = string.Join(";", _addonHelper);
-        }
-        else
-            this.Addons = string.Empty;
     }
 
     [JsonProperty("addons")]
@@ -44,8 +38,6 @@ public class Car : Entity
     [JsonProperty("displacement")]
     public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
 
-    [Range(3, 10,
-        ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public int? Doors { get; set; }
 
     [JsonProperty("max_capacity")]
@@ -72,6 +64,16 @@ public class Car : Entity
     public static List<string> GetAvailableAddons() { return _availableAddons; }
 
     #endregion
+
+    public void PopulateAddonsFromAddonHelper()
+    {
+        if (_addonHelper != null)
+        {
+            this.Addons = string.Join(";", _addonHelper);
+        }
+        else
+            this.Addons = string.Empty;
+    }
 
     public Car FillModel(Car car)
     {

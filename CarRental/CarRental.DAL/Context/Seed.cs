@@ -10,6 +10,7 @@ public static class Seed
 
         Customer[] customers = CarRentalData.Customers.ToArray();
         Rental[] rentals = CarRentalData.Rentals.ToArray();
+        CarRentalData.PopulateAddons();
         Car[] cars = CarRentalData.Cars.ToArray();
 
         if (context.Customers.Any() && context.Rentals.Any())
