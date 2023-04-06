@@ -13,5 +13,8 @@
         bool select = make == Model.Make;
         <option value="@make" selected=@select>@make</option>
     }
-    <option value="@make">@make</option>
+    else
+    {
+        <option value="@make">@make</option>
+    }
 }
