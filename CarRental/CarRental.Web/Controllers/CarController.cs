@@ -23,7 +23,7 @@ public class CarController : Controller
     {
         var cars = this._carService.GetAll();
 
-        var model = _mapper.Map<List<CarModel>>(cars);
+        var model = _mapper.Map<List<CarDto>>(cars);
 
         return View(model);
     }
@@ -33,7 +33,7 @@ public class CarController : Controller
     {
         var car = _carService.Get(id);
 
-        var model = _mapper.Map<CarModel>(car);
+        var model = _mapper.Map<CarDto>(car);
 
         return View(model);
     }
@@ -47,7 +47,7 @@ public class CarController : Controller
     // POST: CarController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(CarModel model)
+    public IActionResult Create(CarDto model)
     {
         try
         {
@@ -56,7 +56,7 @@ public class CarController : Controller
                 return View(model);
             }
 
-            var newCar = _mapper.Map<CarModel>(model);
+            var newCar = _mapper.Map<CarDto>(model);
             _carService.Create(newCar);
 
             return RedirectToAction(nameof(Index));
@@ -78,7 +78,7 @@ public class CarController : Controller
     // POST: CarController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(CarModel model)
+    public IActionResult Edit(CarDto model)
     {
         try
         {
@@ -97,7 +97,7 @@ public class CarController : Controller
     {
         var car = _carService.Get(id);
 
-        var model = _mapper.Map<CarModel>(car);
+        var model = _mapper.Map<CarDto>(car);
 
         return View(model);
     }

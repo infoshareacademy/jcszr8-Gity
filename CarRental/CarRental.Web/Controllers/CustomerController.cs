@@ -22,7 +22,7 @@ public class CustomerController : Controller
     {
         var customers = _customerService.GetAll();
 
-        var model = _mapper.Map<List<CustomerModel>>(customers);
+        var model = _mapper.Map<List<CustomerDto>>(customers);
 
         return View(model);
     }
@@ -35,7 +35,7 @@ public class CustomerController : Controller
         if (customer is null)
             return RedirectToAction(nameof(Index));
 
-        var model = _mapper.Map<CustomerModel>(customer);
+        var model = _mapper.Map<CustomerDto>(customer);
 
         return View(model);
     }
@@ -49,7 +49,7 @@ public class CustomerController : Controller
     // POST: CustomerController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(CustomerModel model)
+    public IActionResult Create(CustomerDto model)
     {
         try
         {
@@ -75,7 +75,7 @@ public class CustomerController : Controller
     {
         var customer = _customerService.Get(id);
 
-        var model = _mapper.Map<CustomerModel>(customer);
+        var model = _mapper.Map<CustomerDto>(customer);
 
         return View(model);
     }
@@ -83,11 +83,11 @@ public class CustomerController : Controller
     // POST: CustomerController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(CustomerModel model)
+    public IActionResult Edit(CustomerDto model)
     {
         try
         {
-            var customer = _mapper.Map<CustomerModel>(model);
+            var customer = _mapper.Map<CustomerDto>(model);
 
             _customerService.Update(customer);
 

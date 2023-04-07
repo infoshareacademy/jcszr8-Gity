@@ -15,10 +15,10 @@ public class Rentals
         return allIdCars;
     }
 
-    public static List<CarModel> ListOfAvailableCarForRent(List<int> carIds)
+    public static List<CarDto> ListOfAvailableCarForRent(List<int> carIds)
 
     {
-        var carsToRent = new List<CarModel>();
+        var carsToRent = new List<CarDto>();
 
         foreach (var carId in carIds)
         {

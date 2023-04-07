@@ -19,16 +19,16 @@ public class CarService : ICarService
         _mapper = mapper;
     }
 
-    public IEnumerable<CarModel> GetAll()
+    public IEnumerable<CarDto> GetAll()
     {
         var cars = _carRepository.GetAll();
 
-        return _mapper.Map<List<CarModel>>(cars);
+        return _mapper.Map<List<CarDto>>(cars);
     }
 
-    public IEnumerable<CarModel> GetByName(string name)
+    public IEnumerable<CarDto> GetByName(string name)
     {
-        List<CarModel> cars = new();
+        List<CarDto> cars = new();
         if (string.IsNullOrEmpty(name))
         {
             cars = GetAll().ToList();
@@ -40,16 +40,16 @@ public class CarService : ICarService
                  || c.CarModelProp.Contains(name, StringComparison.CurrentCultureIgnoreCase)
              ).ToList();
 
-            cars = _mapper.Map<List<CarModel>>(temp);
+            cars = _mapper.Map<List<CarDto>>(temp);
         }
         return cars;
     }
 
-    public List<CarModel> GetByYear(string read)
+    public List<CarDto> GetByYear(string read)
     {
         int year;
         bool makes = int.TryParse(read, out year);
-        List<CarModel> cars = new();
+        List<CarDto> cars = new();
         if (read == null)
         {
             cars = GetAll().ToList();
@@ -70,13 +70,13 @@ public class CarService : ICarService
         }
     }
 
-    public void Create(CarModel model)
+    public void Create(CarDto model)
     {
         var car = _mapper.Map<Car>(model);
         _carRepository.Insert(car);
     }
 
-    public CarModel? Get(int id)
+    public CarDto? Get(int id)
     {
         var car = _carRepository.Get(id);
 
@@ -84,7 +84,7 @@ public class CarService : ICarService
         {
             throw new Exception("Invalid ID");
         }
-        return _mapper.Map<CarModel>(car);
+        return _mapper.Map<CarDto>(car);
     }
 
     public void Delete(int id)
@@ -92,7 +92,7 @@ public class CarService : ICarService
         _carRepository.Delete(id);
     }
 
-    public void Update(CarModel model)
+    public void Update(CarDto model)
     {
         var car = _mapper.Map<Car>(model);
 

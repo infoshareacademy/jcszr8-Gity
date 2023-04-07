@@ -4,18 +4,18 @@ namespace CarRental.Logic.Services.IServices;
 
 public interface ICarService
 {
-    IEnumerable<CarModel> GetAll();
+    IEnumerable<CarDto> GetAll();
 
-    CarModel? Get(int id);
+    CarDto? Get(int id);
 
     // TODO czy te 3 poniższe nie powinny pójść do serwisu wyszukiwania
-    IEnumerable<CarModel> GetByName(string make);
+    IEnumerable<CarDto> GetByName(string make);
 
-    List<CarModel> GetByYear(string read);
+    List<CarDto> GetByYear(string read);
 
-    void Create(CarModel car);
+    void Create(CarDto car);
 
-    void Update(CarModel car);
+    void Update(CarDto car);
 
     void Delete(int id);
 }

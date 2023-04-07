@@ -24,7 +24,7 @@ public class RentalController : Controller
     public IActionResult Index()
     {
         var rentals = _rentalService.GetAll();
-        var rentalModels = _mapper.Map<List<RentalModel>>(rentals);
+        var rentalModels = _mapper.Map<List<RentalDto>>(rentals);
 
         List<RentalViewModel> model = new();
 
@@ -107,7 +107,7 @@ public class RentalController : Controller
                 return View(model);
             }
 
-            var rentalModel = new RentalModel
+            var rentalModel = new RentalDto
             {
                 CarId = model.CarId,
                 CustomerId = model.CustomerId,
@@ -153,7 +153,7 @@ public class RentalController : Controller
     // POST: RentalConroller/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(RentalModel model)
+    public IActionResult Edit(RentalDto model)
     {
         try
         {
@@ -170,7 +170,7 @@ public class RentalController : Controller
     public IActionResult Delete(int id)
     {
         var rental = _rentalService.Get(id);
-        var model = _mapper.Map<RentalModel>(rental);
+        var model = _mapper.Map<RentalDto>(rental);
 
         return View(model);
     }

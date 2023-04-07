@@ -23,20 +23,20 @@ public class RentalService : IRentalService
         _carRentabilityService = carRentabilityService;
     }
 
-    public List<RentalModel> GetAll()
+    public List<RentalDto> GetAll()
     {
         var rentals = _rentalRepository.GetAll();
 
-        return _mapper.Map<List<RentalModel>>(rentals);
+        return _mapper.Map<List<RentalDto>>(rentals);
     }
 
-    public RentalModel Get(int id)
+    public RentalDto Get(int id)
     {
         var rental = _rentalRepository.Get(id);
-        return _mapper.Map<RentalModel>(rental);
+        return _mapper.Map<RentalDto>(rental);
     }
 
-    public void Create(RentalModel model)
+    public void Create(RentalDto model)
     {
         if (IsRentalValidForCreate(model))
         {
@@ -45,7 +45,7 @@ public class RentalService : IRentalService
         }
     }
 
-    private bool IsRentalValidForCreate(RentalModel model)
+    private bool IsRentalValidForCreate(RentalDto model)
     {
         if (model is null)
         {
@@ -63,7 +63,7 @@ public class RentalService : IRentalService
         return true;
     }
 
-    public void Update(RentalModel model)
+    public void Update(RentalDto model)
     {
         //var rental = Get(model.Id);
 
@@ -85,7 +85,7 @@ public class RentalService : IRentalService
         _rentalRepository.Delete(id);
     }
 
-    private IEnumerable<RentalModel> GetCollectionByPredicate(Func<RentalModel, bool> predicate)
+    private IEnumerable<RentalDto> GetCollectionByPredicate(Func<RentalDto, bool> predicate)
     {
         var rentals = GetAll();
         return rentals.Where(predicate);

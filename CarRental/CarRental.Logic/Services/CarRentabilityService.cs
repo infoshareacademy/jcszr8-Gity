@@ -26,20 +26,20 @@ public class CarRentabilityService : ICarRentabilityService
         return availableCarIds;
     }
 
-    public IEnumerable<CarModel> GetCarsAvailableInGivenTerm(DateTime termStart, DateTime termEnd)
+    public IEnumerable<CarDto> GetCarsAvailableInGivenTerm(DateTime termStart, DateTime termEnd)
     {
         var availableCarIds = GetIdsForCarsAvailableInGivenTerm(termStart, termEnd);
         var cars = _carService.GetAll().Where(c => availableCarIds.Contains(c.Id)).ToList();
         return cars;
     }
 
-    public IEnumerable<RentalModel> GetRentalsNotCollidingWithTerm(DateTime termStart, DateTime termEnd)
+    public IEnumerable<RentalDto> GetRentalsNotCollidingWithTerm(DateTime termStart, DateTime termEnd)
     {
         var rentals = GetAllRentals();
         return rentals.Where(r => r.BeginDate > termEnd || r.EndDate < termStart);
     }
 
-    public IEnumerable<RentalModel> GetRentalsCollidingWithTerm(DateTime startDate, DateTime endDate)
+    public IEnumerable<RentalDto> GetRentalsCollidingWithTerm(DateTime startDate, DateTime endDate)
     {
         var rentals = GetAllRentals();
         return rentals.Where(r =>
@@ -62,9 +62,9 @@ public class CarRentabilityService : ICarRentabilityService
         return filteredCarIds.Contains(carId);
     }
 
-    private IEnumerable<RentalModel> GetAllRentals()
+    private IEnumerable<RentalDto> GetAllRentals()
     {
         var rentals = _rentalRepository.GetAll();
-        return _mapper.Map<List<RentalModel>>(rentals);
+        return _mapper.Map<List<RentalDto>>(rentals);
     }
 }

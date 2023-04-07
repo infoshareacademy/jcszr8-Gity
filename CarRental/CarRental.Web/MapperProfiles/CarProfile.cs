@@ -8,7 +8,7 @@ public class CarProfile : Profile
 {
     public CarProfile()
     {
-        CreateMap<CarModel, Car>()
+        CreateMap<CarDto, Car>()
             .ForMember(dest => dest.Make, opt => opt.MapFrom(src => src.Make))
             .ForMember(dest => dest.CarModelProp, opt => opt.MapFrom(src => src.CarModelProp))
             .ForMember(dest => dest.LicencePlateNumber, opt => opt.MapFrom(src => src.LicencePlateNumber))
@@ -24,7 +24,7 @@ public class CarProfile : Profile
         //CreateMap<CarModel, Car>()
         //    .ForMember(dest => dest.Addons, opt => opt.MapFrom<AddonsResolver>());
 
-        CreateMap<Car, CarModel>()
+        CreateMap<Car, CarDto>()
             .ForMember(dest => dest.Make, opt => opt.MapFrom(src => src.Make))
             .ForMember(dest => dest.CarModelProp, opt => opt.MapFrom(src => src.CarModelProp))
             .ForMember(dest => dest.LicencePlateNumber, opt => opt.MapFrom(src => src.LicencePlateNumber))

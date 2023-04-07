@@ -8,9 +8,9 @@ public class CustomerProfile : Profile
 {
     public CustomerProfile()
     {
-        CreateMap<CustomerModel, Customer>();
+        CreateMap<CustomerDto, Customer>();
 
-        CreateMap<Customer, CustomerModel>();
+        CreateMap<Customer, CustomerDto>();
             //.ForMember(c => c.GenderTest, opt => opt.Ignore())
             //.ForSourceMember(c => c.GenderTest, opt => opt.Ignore());
     }

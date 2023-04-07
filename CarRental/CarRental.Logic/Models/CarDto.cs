@@ -2,9 +2,9 @@
 using CommonLibrary.Enums;
 
 namespace CarRental.Logic.Models;
-public sealed class CarModel
+public sealed class CarDto
 {
-    public CarModel() { }
+    public CarDto() { }
 
     #region Properties/Fields
 
@@ -40,7 +40,7 @@ public sealed class CarModel
 
     //[Range(0, 500_000,
     //   ErrorMessage = "Value for {0} must be between {1} and {2}.")]
-    public CarModel(string make, string model, string licensePlate)
+    public CarDto(string make, string model, string licensePlate)
     {
         Make = make;
         CarModelProp = model;
