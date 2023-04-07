@@ -9,63 +9,18 @@ namespace CarRental.Logic.Services;
 public class RentalService : IRentalService
 {
     private readonly ICarService _carService;
+    private readonly ICustomerService _customerService;
+    private readonly ICarRentabilityService _carRentabilityService;
     private readonly IRepository<Rental> _rentalRepository;
     private readonly IMapper _mapper;
 
-    private List<CarModel> _cars;
-
-    public RentalService(ICarService carService, IMapper mapper, IRepository<Rental> rentalRepository)
+    public RentalService(ICarService carService, IMapper mapper, IRepository<Rental> rentalRepository, ICustomerService customerService, ICarRentabilityService carRentabilityService)
     {
-        this._carService = carService;
+        _carService = carService;
+        _customerService = customerService;
         _mapper = mapper;
         _rentalRepository = rentalRepository;
-    }
-
-    public IEnumerable<int> GetAvailableCarIds(DateTime start, DateTime end)
-    {
-        var cars1 = GetNotRented();
-        var cars2 = GetAvailableInGivenTime(start, end);
-        var allIdCars = cars1.Concat(cars2).Distinct().ToList();
-        return allIdCars;
-    }
-
-    public IEnumerable<CarModel> ListOfAvailableCarForRent(List<int> carIds)
-
-    {
-        List<CarModel> carsToRent = new();
-
-        foreach (var carId in carIds)
-        {
-            var cars = _cars.Where(c => c.Id == carId).ToList();
-            foreach (var item in cars)
-            {
-                carsToRent.Add(item);
-            }
-        }
-        return carsToRent;
-    }
-
-    public IEnumerable<int> GetNotRented()
-    {
-        var rentedIds = _rentalRepository.GetAll()
-            .Select(r => r.CarId).ToList();
-
-        var carIds = _carService.GetAll()
-            .Select(c => c.Id).ToList();
-
-        var availableCarIds = carIds.Except(rentedIds).ToList();
-
-        return availableCarIds;
-    }
-
-    public IEnumerable<int> GetAvailableInGivenTime(DateTime start, DateTime end)
-    {
-        var found = _rentalRepository.GetAll()
-            .Where(r =>
-           (end < r.BeginDate) ||
-           (start > r.EndDate)
-           ).Select(r => r.CarId).ToList();
-        return found;
+        _carRentabilityService = carRentabilityService;
     }
 
     public List<RentalModel> GetAll()
@@ -81,15 +36,31 @@ public class RentalService : IRentalService
         return _mapper.Map<RentalModel>(rental);
     }
 
-    public void RentACar(CustomerModel customer, CarModel car, DateTime rentFrom, DateTime rentTo)
-    {
-
-    }
-
     public void Create(RentalModel model)
     {
-        var rental = _rentalRepository.Get(model.Id);
-        _rentalRepository.Insert(rental);
+        if (IsRentalValidForCreate(model))
+        {
+            var rental = _mapper.Map<Rental>(model);
+            _rentalRepository.Insert(rental);
+        }
+    }
+
+    private bool IsRentalValidForCreate(RentalModel model)
+    {
+        if (model is null)
+        {
+            return false;
+        }
+        if (model.BeginDate >= model.EndDate)
+        {
+            return false;
+        }
+        if (_carRentabilityService.IsCarBookedForRentInGivenTerm(
+            model.CarId, model.BeginDate, model.EndDate))
+        {
+            return false;
+        }
+        return true;
     }
 
     public void Update(RentalModel model)
@@ -102,7 +73,8 @@ public class RentalService : IRentalService
         //rental.EndDate = model.EndDate;
         //rental.TotalCost = model.TotalCost;
 
-        if (model is not null) { 
+        if (model is not null)
+        {
             var rental = _mapper.Map<Rental>(model);
             _rentalRepository.Update(rental);
         }
@@ -110,6 +82,35 @@ public class RentalService : IRentalService
 
     public void Delete(int id)
     {
-       _rentalRepository.Delete(id);
+        _rentalRepository.Delete(id);
+    }
+
+    private IEnumerable<RentalModel> GetCollectionByPredicate(Func<RentalModel, bool> predicate)
+    {
+        var rentals = GetAll();
+        return rentals.Where(predicate);
+    }
+
+    public decimal GetRentalTotalPrice(decimal pricePerDay, DateTime rentStart, DateTime rentEnd)
+    {
+        var totalPrice = pricePerDay * (decimal)CalculateDaysBetweenDates(rentStart, rentEnd);
+        return totalPrice;
+    }
+
+    public IEnumerable<T> FilterByPredicate<T>(IQueryable<T> collection, Func<T, bool> predicate)
+    {
+        return collection.Where(predicate);
+    }
+
+    public List<int> GetAvailableCarIds(DateTime startDate, DateTime endDate)
+    {
+        var availableCarIds = _carRentabilityService.GetIdsForCarsAvailableInGivenTerm(startDate, endDate);
+        return availableCarIds.ToList();
+    }
+
+    private double CalculateDaysBetweenDates(DateTime startDate, DateTime endDate)
+    {
+        var days = (endDate - startDate).TotalDays;
+        return days;
     }
 }
