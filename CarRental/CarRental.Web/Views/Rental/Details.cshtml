@@ -1,4 +1,4 @@
-﻿@model CarRental.Logic.Models.RentalModel
+﻿@model CarRental.Web.Models.RentalViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -21,16 +21,16 @@
                 @Html.DisplayFor(model => model.Id)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.CustomerId)
+                @Html.DisplayNameFor(model => model.CustomerName)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CustomerId)
+                @Html.DisplayFor(model => model.CustomerName)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.CarId)
+                @Html.DisplayNameFor(model => model.CarLicencePlate)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CarId)
+                @Html.DisplayFor(model => model.CarLicencePlate)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.BeginDate)
