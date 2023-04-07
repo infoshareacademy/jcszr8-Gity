@@ -91,10 +91,9 @@ public class RentalService : IRentalService
         return rentals.Where(predicate);
     }
 
-    public decimal GetRentalTotalPrice(int carId, DateTime rentStart, DateTime rentEnd)
+    public decimal GetRentalTotalPrice(decimal pricePerDay, DateTime rentStart, DateTime rentEnd)
     {
-        var car = _carService.Get(carId);
-        var totalPrice = (car.Price ?? 0) * (decimal)CalculateDaysBetweenDates(rentStart, rentEnd);
+        var totalPrice = pricePerDay * (decimal)CalculateDaysBetweenDates(rentStart, rentEnd);
         return totalPrice;
     }
 
@@ -114,6 +113,4 @@ public class RentalService : IRentalService
         var days = (endDate - startDate).TotalDays;
         return days;
     }
-
-
 }

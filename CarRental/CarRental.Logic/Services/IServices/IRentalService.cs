@@ -13,5 +13,5 @@ public interface IRentalService
 
     List<int> GetAvailableCarIds(DateTime startDate, DateTime endDate);
 
-    decimal GetRentalTotalPrice(int carId, DateTime rentStart, DateTime rentEnd);
+    decimal GetRentalTotalPrice(decimal pricePerDay, DateTime rentStart, DateTime rentEnd);
 }

@@ -116,7 +116,8 @@ public class RentalController : Controller
                 TotalCost = model.TotalCost,
             };
 
-            rentalModel.TotalCost = _rentalService.GetRentalTotalPrice(rentalModel.CarId, rentalModel.BeginDate, rentalModel.EndDate);
+            decimal? carPricePerDay = _carService!.Get(model.CarId)!.Price;
+            rentalModel.TotalCost = _rentalService.GetRentalTotalPrice(carPricePerDay, rentalModel.BeginDate, rentalModel.EndDate);
 
             _rentalService.Create(rentalModel);
 
