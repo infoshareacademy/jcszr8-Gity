@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Logic.Models;
-public sealed class CustomerDto
+public sealed class CustomerViewModel
 {
     public int Id { get; set; }
 

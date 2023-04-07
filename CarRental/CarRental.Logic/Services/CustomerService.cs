@@ -17,19 +17,19 @@ public class CustomerService : ICustomerService
         _mapper = mapper;
     }
 
-    public IEnumerable<CustomerDto> GetAll()
+    public IEnumerable<CustomerViewModel> GetAll()
     {
         var customers = _customerRepository.GetAll();
-        return _mapper.Map<List<CustomerDto>>(customers);
+        return _mapper.Map<List<CustomerViewModel>>(customers);
     }
 
-    public CustomerDto? Get(int customerId)
+    public CustomerViewModel? Get(int customerId)
     {
         var customer = _customerRepository.Get(customerId);
-        return _mapper.Map<CustomerDto>(customer);
+        return _mapper.Map<CustomerViewModel>(customer);
     }
 
-    public void Create(CustomerDto model)
+    public void Create(CustomerViewModel model)
     {
         _customerRepository.Insert(_mapper.Map<Customer>(model));
     }
@@ -42,7 +42,7 @@ public class CustomerService : ICustomerService
             return;
         }
 
-        var model = new CustomerDto
+        var model = new CustomerViewModel
         {
             FirstName = firstName,
             LastName = lastName,
@@ -52,7 +52,7 @@ public class CustomerService : ICustomerService
         _customerRepository.Insert(_mapper.Map<Customer>(model));
     }
 
-    public void Update(CustomerDto model)
+    public void Update(CustomerViewModel model)
     {
         var customer = _mapper.Map<Customer>(model);
         _customerRepository.Update(customer);

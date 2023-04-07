@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CarRental.Logic.Models;
+﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,22 +10,19 @@ public class RentalController : Controller
     private readonly IRentalService _rentalService;
     private readonly ICustomerService _customerService;
     private readonly ICarService _carService;
-    private readonly IMapper _mapper;
 
-    public RentalController(IRentalService rentalService, IMapper mapper, ICustomerService customerService, ICarService carService)
+    public RentalController(IRentalService rentalService, ICustomerService customerService, ICarService carService)
     {
-        _rentalService = rentalService;
-        _mapper = mapper;
         _customerService = customerService;
         _carService = carService;
+        _rentalService = rentalService;
     }
     // GET: RentalConroller
     public IActionResult Index()
     {
         var rentals = _rentalService.GetAll();
-        var rentalModels = _mapper.Map<List<RentalDto>>(rentals);
 
-        List<RentalViewModel> model = new();
+        List<Models.RentalViewModel> model = new();
 
         foreach (var rental in rentals)
         {
@@ -35,7 +31,7 @@ public class RentalController : Controller
 
             var carLicencePlate = _carService?.Get(rental.CarId)?.LicencePlateNumber;
 
-            model.Add(new RentalViewModel
+            model.Add(new Models.RentalViewModel
             {
                 Id = rental.Id,
                 CarId = rental.CarId,
@@ -56,12 +52,12 @@ public class RentalController : Controller
         var rental = _rentalService.Get(id);
         dynamic d = GetShortCustomers().FirstOrDefault<object>(rental.CustomerId);
         object shortCustomer = d.FirstName + " " + d.LastName;
-        
+
         var carLicencePlate = _carService?.Get(rental.CarId)?.LicencePlateNumber;
         var carMake = _carService?.Get(rental.CarId)?.Make;
         var carModel = _carService?.Get(rental.CarId)?.CarModelProp;
 
-        var rentalViewModel = new RentalViewModel
+        var rentalViewModel = new Models.RentalViewModel
         {
             Id = rental.Id,
             CarId = rental.CarId,
@@ -107,7 +103,7 @@ public class RentalController : Controller
                 return View(model);
             }
 
-            var rentalModel = new RentalDto
+            var rentalModel = new Logic.Models.RentalViewModel
             {
                 CarId = model.CarId,
                 CustomerId = model.CustomerId,
@@ -116,7 +112,7 @@ public class RentalController : Controller
                 TotalCost = model.TotalCost,
             };
 
-            decimal carPricePerDay = (decimal) _carService!.Get(model.CarId)!.Price;
+            decimal carPricePerDay = (decimal)_carService!.Get(model.CarId)!.Price;
             rentalModel.TotalCost = _rentalService.GetRentalTotalPrice(carPricePerDay, rentalModel.BeginDate, rentalModel.EndDate);
 
             _rentalService.Create(rentalModel);
@@ -136,7 +132,8 @@ public class RentalController : Controller
         var shortCustomers = GetShortCustomers();
         var shortCars = GetShortCars();
 
-        var model = new RentalCreateViewModel {
+        var model = new RentalCreateViewModel
+        {
             Id = rentalModel.Id,
             CarId = rentalModel.CarId,
             CustomerId = rentalModel.CustomerId,
@@ -153,7 +150,7 @@ public class RentalController : Controller
     // POST: RentalConroller/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(RentalDto model)
+    public IActionResult Edit(Logic.Models.RentalViewModel model)
     {
         try
         {
@@ -170,9 +167,7 @@ public class RentalController : Controller
     public IActionResult Delete(int id)
     {
         var rental = _rentalService.Get(id);
-        var model = _mapper.Map<RentalDto>(rental);
-
-        return View(model);
+        return View(rental);
     }
 
     // POST: RentalConroller/Delete/5

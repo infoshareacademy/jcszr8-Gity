@@ -9,13 +9,11 @@ public class CarController : Controller
 {
     private readonly ICarService _carService;
     private readonly ISearchService _searchService;
-    private readonly IMapper _mapper;
 
-    public CarController(ICarService carService, ISearchService searchService, IMapper mapper)
+    public CarController(ICarService carService, ISearchService searchService)
     {
         _carService = carService;
         _searchService = searchService;
-        _mapper = mapper;
     }
 
     // GET: CarController
@@ -23,9 +21,7 @@ public class CarController : Controller
     {
         var cars = this._carService.GetAll();
 
-        var model = _mapper.Map<List<CarDto>>(cars);
-
-        return View(model);
+        return View(cars);
     }
 
     // GET: CarController/Details/5
@@ -33,9 +29,7 @@ public class CarController : Controller
     {
         var car = _carService.Get(id);
 
-        var model = _mapper.Map<CarDto>(car);
-
-        return View(model);
+        return View(car);
     }
 
     // GET: CarController/Create
@@ -47,7 +41,7 @@ public class CarController : Controller
     // POST: CarController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(CarDto model)
+    public IActionResult Create(CarViewModel model)
     {
         try
         {
@@ -56,8 +50,7 @@ public class CarController : Controller
                 return View(model);
             }
 
-            var newCar = _mapper.Map<CarDto>(model);
-            _carService.Create(newCar);
+            _carService.Create(model);
 
             return RedirectToAction(nameof(Index));
         }
@@ -78,7 +71,7 @@ public class CarController : Controller
     // POST: CarController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(CarDto model)
+    public IActionResult Edit(CarViewModel model)
     {
         try
         {
@@ -97,9 +90,7 @@ public class CarController : Controller
     {
         var car = _carService.Get(id);
 
-        var model = _mapper.Map<CarDto>(car);
-
-        return View(model);
+        return View(car);
     }
 
     // POST: CarController/Delete/5
