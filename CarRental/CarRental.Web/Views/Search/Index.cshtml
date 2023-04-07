@@ -25,10 +25,16 @@
                     <input class="form-control search" asp-for="SearchDto.Model" type="text" placeholder="Type Car Model" aria-label="Search">
                 </div>
                 <div class="col-1 me-2">
-                    <input class="form-control shadow-lg year" asp-for="SearchDto.ProductionYearFrom" id="ProductionYearTo" />
+                    <select asp-for="SearchDto.ProductionYearFrom" id="" name="Year" class="form-control">
+                        <partial name="_AvailableOptionsForYearFrom" , new { Year=-1 } />
+                    </select>
+                    <span asp-validation-for="SearchDto.ProductionYearFrom" class="text-danger"></span>
                 </div>
                 <div class="col-1 me-2">
-                    <input class="form-control  year" asp-for="SearchDto.ProductionYearTo" />
+                    <select asp-for="SearchDto.ProductionYearTo" id="" name="Year" class="form-control">
+                    <partial name="_AvailableOptionsForYearTo" , new { Year=-1 } />
+                    </select>
+                    <span asp-validation-for="SearchDto.ProductionYearTo" class="text-danger"></span>
                 </div>
                 <div class="row pt-2 pb-2 justify-content-center">
                     <div class="col me-2">
@@ -46,14 +52,14 @@
     </form>
 </div>
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
         @foreach (var item in Model.Cars)
         {
             <div class="card col-3 me-4 mt-4 shadow-lg" style="width: 18rem;">
                 <img class="card-img-top" src="/images/car-1.jpg" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">@item.CarModelProp title</h5>
-                    <p class="card-text">@item.Make @item.Id</p>
+                    <h5 class="card-title">@item.Make</h5>
+                    <p class="card-text">@item.CarModelProp | Production Year @item.Year</p>
                     <a class="btn btn-outline-success fw-bold" asp-controller="Car" asp-action="Details" asp-route-id="@item.Id">Show details</a>
                 </div>
             </div>
