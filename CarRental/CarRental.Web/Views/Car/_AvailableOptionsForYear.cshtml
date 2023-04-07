@@ -1,4 +1,7 @@
-﻿@{
+﻿@ViewData.Eval("Year")
+@*@model dynamic*@
+
+@{
     List<int> years = new();
     int presentYear = DateTime.Now.Year;
 
@@ -6,9 +9,21 @@
     {
         years.Add(year);
     }
-}
 
-@foreach(var year in years)
+    string modelAlert = @Model == null ? "Model=null" : "Model != null";
+
+}
+<option value="">-Select production year-</option>
+
+@foreach (var year in years)
 {
-<option value="@year">@year</option>
+    if (Model != null)
+    {
+        bool select = year == Model.Year;
+        <option value="@year" selected=@select>@year</option>
+    }
+    else
+    {
+        <option value="@year">@year</option>
+    }
 }

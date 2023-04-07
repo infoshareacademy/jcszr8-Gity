@@ -1,4 +1,5 @@
 ﻿using CarRental.DAL.Entities.BaseEntity;
+using CommonLibrary.Enums;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,29 +11,17 @@ public class Customer : Entity
     public string FirstName { get; set; }
 
     [JsonProperty("last_name")]
-    [Display(Name = "Last Name")]
-    [MaxLength(30)]
-    [Required]
     public string LastName { get; set; }
 
-    [JsonProperty("email_address")]
-    [Display(Name = "Email")]
-    [EmailAddress]
-    [MaxLength(50)]
-    public string? EmailAddress { get; set; }
-
     [JsonProperty("phone_number")]
-    [Display(Name = "Phone Number")]
-    [Phone]
-    [Required]
     public string PhoneNumber { get; set; }
 
-    [MinLength(11)]
-    [MaxLength(11)]
+    [JsonProperty("email_address")]
+    public string? EmailAddress { get; set; }
+
     [JsonProperty("pesel")]
     public string? Pesel { get; set; }
 
-    [MaxLength(10)]
     [JsonProperty("gender")]
-    public char? Gender { get; set; }
+    public Gender Gender { get; set; }
 }

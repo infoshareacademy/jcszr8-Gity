@@ -2,7 +2,6 @@
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using CarRental.Logic.Services.IServices;
 
 namespace CarRental.Web.Controllers;
 
@@ -21,9 +20,9 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-         //this._customerService.Create("Imie", "Nazwisko", "+48111222333");
-         var cars = new SearchViewModel();
-         cars.Cars = _carService.GetAll();
+        //this._customerService.Create("Imie", "Nazwisko", "+48111222333");
+        var cars = new SearchViewModel();
+        cars.Cars = _carService.GetAll();
         return View(cars);
     }
 

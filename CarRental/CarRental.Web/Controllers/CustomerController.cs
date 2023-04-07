@@ -58,9 +58,9 @@ public class CustomerController : Controller
                 return View(model);
             }
 
-            var customer = _mapper.Map<CustomerModel>(model);
+            //var customer = _mapper.Map<CustomerModel>(model);
 
-            _customerService.Create(customer);
+            _customerService.Create(model);
 
             return RedirectToAction(nameof(Index));
         }
@@ -102,11 +102,9 @@ public class CustomerController : Controller
     // GET: CustomerController/Delete/5
     public IActionResult Delete(int id)
     {
-        var customer = _customerService.Get(id);
+        var customerModel = _customerService.Get(id);
 
-        var model = _mapper.Map<CustomerModel>(customer);
-
-        return View(model);
+        return View(customerModel);
     }
 
     // POST: CustomerController/Delete/5

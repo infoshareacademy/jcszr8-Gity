@@ -1,22 +1,27 @@
-﻿using Newtonsoft.Json;
+﻿using CommonLibrary.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Logic.Models;
 public sealed class CustomerModel
 {
-    //public CustomerModel() { }
-
     public int Id { get; set; }
 
-    public string FirstName { get; set; }
+    [Display(Name = "First Name")]
+    [Required]
+    public string? FirstName { get; set; }
+    [Required]
+    public string? LastName { get; set; }
+    [Required]
+    public string? PhoneNumber { get; set; }
 
-    public string LastName { get; set; }
-
+    [EmailAddress]
     public string? EmailAddress { get; set; }
 
-    public string PhoneNumber { get; set; }
-
+    [RegularExpression(@"^\d{11}$")]
+    [MinLength(11)]
+    [MaxLength(11)]
     public string? Pesel { get; set; }
 
-    public char? Gender { get; set; }
+    [Required]
+    public Gender Gender { get; set; }
 }

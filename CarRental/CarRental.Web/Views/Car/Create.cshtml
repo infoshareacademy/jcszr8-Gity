@@ -1,4 +1,5 @@
-﻿@model CarRental.Logic.Models.CarModel
+﻿@using CommonLibrary.Enums;
+@model CarRental.Logic.Models.CarModel
 
 @{
     ViewData["Title"] = "Create";
@@ -20,7 +21,7 @@
                     <legend>Obligatory</legend>
                     <div class="form-group">
                         <label asp-for="Make" class="control-label"></label>
-                        <select asp-for="Make" id="" name="Make">
+                        <select asp-for="Make" id="" name="Make" class="form-control">
                             <partial name="_AvailableOptionsForMake" />
                         </select>
                         <span asp-validation-for="Make" class="text-danger"></span>
@@ -34,8 +35,8 @@
 
                     <div class="form-group">
                         <label asp-for="Year" class="control-label"></label>
-                        <select asp-for="Year" id="" name="Year">
-                            <partial name="_AvailableOptionsForYear" />
+                        <select asp-for="Year" id="" name="Year" class="form-control">
+                            <partial name="_AvailableOptionsForYear" , new { Year=-1 } />
                         </select>
                         <span asp-validation-for="Year" class="text-danger"></span>
                     </div>
@@ -56,32 +57,54 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Transmission" class="control-label"></label>
-                        <select asp-for="Transmission" id="" name="Transmission">
-                            <partial name="_AvailableOptionsForTransmission" />
-                        </select>
-                        <span asp-validation-for="Transmission" class="text-danger"></span>
+                        @Html.DropDownList("Transmission", Html.GetEnumSelectList<TransmissionType>(),
+                        "-Select transmission type-", new {@class = "form-control"})
                     </div>
-
+                    <div class="form-group">
+                        <label asp-for="EngineType" class="control-label"></label>
+                        @Html.DropDownList("Engine Type", Html.GetEnumSelectList<EngineType>(),
+                        "-Select engine type-", new {@class = "form-control"})
+                    </div>
                     <div class="form-group">
                         <label asp-for="Kilometrage" class="control-label"></label>
                         <input asp-for="Kilometrage" class="form-control" />
                         <span asp-validation-for="Kilometrage" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
+                        @{
+                            var forDoorPartialModel = new { MinValue = 3, MaxValue = 10 }; 
+                        }
                         <label asp-for="Doors" class="control-label"></label>
-                        <input asp-for="Doors" class="form-control" />
+                        <select asp-for="Doors" id="" name="Doors" class="form-control">
+                            @{
+                                await Html.RenderPartialAsync("_AvailableOptionsForInteger", 
+                                new { MinValue = 3, MaxValue = 10, Prompt = "-Select number of doors-" });
+                            } 
+                        </select>
                         <span asp-validation-for="Doors" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="SeatsNo" class="control-label"></label>
-                        <input asp-for="SeatsNo" class="form-control" />
+                        <select asp-for="SeatsNo" id="" name="SeatsNo" class="form-control">
+                            @{
+                                await Html.RenderPartialAsync("_AvailableOptionsForInteger",
+                                new { MinValue = 2, MaxValue = 15, Prompt = "-Select number of seats-" });
+                            }
+                        </select>
                         <span asp-validation-for="SeatsNo" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Airbags" class="control-label"></label>
-                        <input asp-for="Airbags" class="form-control" />
+                        <select asp-for="Airbags" id="" name="Airbags" class="form-control">
+                            @{
+                                await Html.RenderPartialAsync("_AvailableOptionsForInteger",
+                                new { MinValue = 3, MaxValue = 10, Prompt = "-Select number of airbags-" });
+                            }
+                        </select>
                         <span asp-validation-for="Airbags" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
                         <label asp-for="FuelConsumption" class="control-label"></label>
                         <input asp-for="FuelConsumption" class="form-control" />
@@ -108,4 +131,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    }
+}

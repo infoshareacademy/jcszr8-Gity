@@ -1,7 +1,10 @@
-﻿namespace CarRental.Logic.Services;
-public class AddonService
+﻿using System.Text;
+using CarRental.Logic.Services.IServices;
+
+namespace CarRental.Logic.Services;
+public class AddonService : IAddonService
 {
-    //public void AddAddon(int index)
+    //public void AddAddon(string addons)
     //{
     //    string addon = _availableAddons[index];
     //    this.Addons.Add(addon);
@@ -19,40 +22,22 @@ public class AddonService
     //    }
     //}
 
-    //public string AddonsToString()
-    //{
-    //    StringBuilder sb = new StringBuilder();
-    //    foreach (string addon in Addons)
-    //    {
-    //        sb.Append(addon);
-    //        sb.Append(", ");
-    //    }
-    //    return sb.ToString();
-    //}
+    public List<string> GetAddonsAsList(string addons)
+    {
+        return addons.Split(';').ToList();
+    }
 
-    //public string GetAddonsToString()
-    //{
-    //    StringBuilder sb = new StringBuilder();
+    public string GetAddonsAsString(List<string> addons)
+    {
+        StringBuilder sb = new StringBuilder();
 
-    //    foreach (var item in Addons)
-    //    {
-    //        sb.AppendJoin(';', item.ToString());
-    //        sb.Append('\u002C');
-    //    }
-    //    return sb.ToString();
-    //}
+        foreach (var item in addons)
+        {
+            sb.AppendJoin(';', item.ToString());
+        }
+        return sb.ToString();
+    }
 
-    //public string GetAddonsToString()
-    //{
-    //    StringBuilder sb = new StringBuilder();
-
-    //    foreach (var item in Addons)
-    //    {
-    //        sb.AppendJoin(';', item.ToString());
-    //        sb.Append('\u002C');
-    //    }
-    //    return sb.ToString();
-    //}
 
     //public List<CarModel> GetByAddons(string addon)
     //{

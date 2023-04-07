@@ -8,11 +8,9 @@ public static class Seed
     {
         context.Database.EnsureCreated();
 
-        CarRentalData carRentalData = new CarRentalData();
-
         Customer[] customers = CarRentalData.Customers.ToArray();
         Rental[] rentals = CarRentalData.Rentals.ToArray();
-
+        CarRentalData.PopulateAddons();
         Car[] cars = CarRentalData.Cars.ToArray();
 
         if (context.Customers.Any() && context.Rentals.Any())
@@ -39,7 +37,7 @@ public static class Seed
             //    .Build();
             //context.Customers.Add(customerDb);
         }
-        var entriesNumber = context.SaveChanges();
+        context.SaveChanges();
 
         foreach (var car in cars)
         {
@@ -58,7 +56,6 @@ public static class Seed
                 EndDate = rental.EndDate,
                 TotalCost = rental.TotalCost,
             });
-            //context.Rentals.Add(rental);
         }
         context.SaveChanges();
     }

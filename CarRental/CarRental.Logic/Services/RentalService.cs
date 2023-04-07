@@ -71,6 +71,7 @@ public class RentalService : IRentalService
     public List<RentalModel> GetAll()
     {
         var rentals = _rentalRepository.GetAll();
+
         return _mapper.Map<List<RentalModel>>(rentals);
     }
 
@@ -93,13 +94,18 @@ public class RentalService : IRentalService
 
     public void Update(RentalModel model)
     {
-        var rental = Get(model.Id);
+        //var rental = Get(model.Id);
 
-        rental.CarId = model.CarId;
-        rental.CustomerId = model.CustomerId;
-        rental.BeginDate = model.BeginDate;
-        rental.EndDate = model.EndDate;
-        rental.TotalCost = model.TotalCost;
+        //rental.CarId = model.CarId;
+        //rental.CustomerId = model.CustomerId;
+        //rental.BeginDate = model.BeginDate;
+        //rental.EndDate = model.EndDate;
+        //rental.TotalCost = model.TotalCost;
+
+        if (model is not null) { 
+            var rental = _mapper.Map<Rental>(model);
+            _rentalRepository.Update(rental);
+        }
     }
 
     public void Delete(int id)

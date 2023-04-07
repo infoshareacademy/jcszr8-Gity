@@ -20,20 +20,10 @@ namespace CarRental.Web.Controllers
         {
             var model = new SearchViewModel()
             {
-                SearchDto = new SearchCarModel(),
+                SearchDto = new SearchFieldsModel(),
                 Cars = _carService.GetAll()
             };
             return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult SearchFromHome(SearchViewModel search)
-        {
-            var dto = search.SearchDto;
-            var cars = _searchService.SearchList(dto);
-            search.Cars = cars;
-            return View("Index",search);
         }
 
         [HttpPost]
@@ -43,6 +33,16 @@ namespace CarRental.Web.Controllers
             var dto = search.SearchDto;
             var model = _searchService.FilterList(dto);
             search.Cars= model;
+            return View("Index", search);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SearchFromHome(SearchViewModel search)
+        {
+            var dto = search.SearchDto;
+            var cars = _searchService.SearchList(dto);
+            search.Cars = cars;
             return View("Index", search);
         }
     }
