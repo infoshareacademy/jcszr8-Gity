@@ -47,7 +47,6 @@ public class RentalController : Controller
                 CarLicencePlate = carLicencePlate,
             });
         }
-
         return View(model);
     }
 
