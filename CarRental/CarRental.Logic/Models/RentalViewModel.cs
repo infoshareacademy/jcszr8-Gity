@@ -1,5 +1,5 @@
 ﻿namespace CarRental.Logic.Models;
-public class RentalDto
+public class RentalViewModel
 {
     public int Id { get; set; }
     public int CustomerId { get; set; }

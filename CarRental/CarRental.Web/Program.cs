@@ -6,6 +6,7 @@ using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,10 @@ builder.Services.AddTransient<ICarRentabilityService, CarRentabilityService>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
+var config = new MapperConfiguration(cfg => {
+    cfg.AddMaps(typeof(Program));
+});  // todo new
+
 var app = builder.Build();
 
 CreateDbIfNotExists(app);
@@ -33,6 +38,7 @@ CreateDbIfNotExists(app);
 // Check if all mappings are configured
 var mapper = (IMapper)app.Services.GetService(typeof(IMapper));
 mapper.ConfigurationProvider.AssertConfigurationIsValid();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
