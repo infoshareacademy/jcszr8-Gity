@@ -23,8 +23,8 @@ html {
     min-height: 5rem;
     background-blend-mode: darken;
     width: 100%;
-    background-color: #bc70a4;
-    background-image: linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
+    background-color: #CCA43D;
+    background-image: linear-gradient(140deg, #CCA43D 0%, #5f5757 50%, #000000 75%);
     color: white;
     opacity: 0.95;
 }
