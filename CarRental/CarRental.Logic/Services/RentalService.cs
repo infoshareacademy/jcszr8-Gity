@@ -71,6 +71,7 @@ public class RentalService : IRentalService
     public List<RentalModel> GetAll()
     {
         var rentals = _rentalRepository.GetAll();
+
         return _mapper.Map<List<RentalModel>>(rentals);
     }
 

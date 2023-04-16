@@ -105,9 +105,12 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.PowerInKiloWats)
             </dd>
-
-
-
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Addons)
+            </dt>
+            <dd class="col-sm-10">
+                @string.Join(", ", Model.Addons)
+            </dd>
 
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Price)

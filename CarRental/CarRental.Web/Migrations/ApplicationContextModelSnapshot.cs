@@ -32,14 +32,16 @@ namespace CarRental.Web.Migrations
 
                     b.Property<string>("Addons")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int?>("Airbags")
                         .HasColumnType("int");
 
                     b.Property<string>("CarModelProp")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Color")
                         .HasMaxLength(30)
@@ -53,11 +55,12 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("EngineType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("FuelConsumption")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("Kilometrage")
                         .HasColumnType("int");
@@ -72,11 +75,13 @@ namespace CarRental.Web.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<float?>("PowerInKiloWats")
-                        .HasColumnType("real");
+                    b.Property<decimal?>("PowerInKiloWats")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
 
                     b.Property<int?>("SeatsNo")
                         .HasColumnType("int");
@@ -86,7 +91,8 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Year")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Car production year");
 
                     b.HasKey("Id");
 
@@ -111,7 +117,6 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("Gender")
-                        .HasMaxLength(10)
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
@@ -155,7 +160,8 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal?>("TotalCost")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
 
                     b.HasKey("Id");
 

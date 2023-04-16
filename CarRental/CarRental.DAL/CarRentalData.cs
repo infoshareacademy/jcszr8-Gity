@@ -8,6 +8,14 @@ public class CarRentalData
     public static List<Rental> Rentals { get; set; } = GetItems<Rental>("rentals.json");
     public static List<Car> Cars { get; set; } = GetItems<Car>("cars.json");
 
+    public static void PopulateAddons()
+    {
+        foreach(var car in Cars)
+        {
+            car.PopulateAddonsFromAddonHelper();
+        }
+    }
+
     public static List<T> GetItems<T>(string fileName)
     {
         var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);

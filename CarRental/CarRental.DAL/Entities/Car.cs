@@ -8,12 +8,6 @@ public class Car : Entity
 {
     public Car()
     {
-        if (_addonHelper != null)
-        {
-            this.Addons = string.Join(";", _addonHelper);
-        }
-        else
-            this.Addons = string.Empty;
     }
 
     [JsonProperty("addons")]
@@ -31,8 +25,7 @@ public class Car : Entity
     [JsonProperty("licence_plate_number")]
     public string LicencePlateNumber { get; set; }
 
-    [Range(0, 500_000,
-        ErrorMessage = "Value for {0} must be between {1} and {2}.")]
+   
     public int? Kilometrage { get; set; }
 
     [JsonProperty("power_kw")]
@@ -44,27 +37,18 @@ public class Car : Entity
     [JsonProperty("displacement")]
     public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
 
-    [Range(3, 10,
-        ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public int? Doors { get; set; }
 
     [JsonProperty("max_capacity")]
-    [Range(2, 50,
-        ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public int? SeatsNo { get; set; } // total number of seats (with driver seat included)
 
-    [Range(0, 10,
-        ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public int? Airbags { get; set; }
 
     [JsonProperty("fuel_consumption")]
-    [MaxLength(10)]
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
 
     public string Addons { get; set; }
 
-    [Range(100, 1000,
-        ErrorMessage = "Value for {0} must be between {1} and {2}.")]
     public decimal? Price { get; set; }
 
     private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" };
@@ -72,6 +56,16 @@ public class Car : Entity
     public static List<string> GetAvailableAddons() { return _availableAddons; }
 
     #endregion
+
+    public void PopulateAddonsFromAddonHelper()
+    {
+        if (_addonHelper != null)
+        {
+            this.Addons = string.Join(";", _addonHelper);
+        }
+        else
+            this.Addons = string.Empty;
+    }
 
     public Car FillModel(Car car)
     {
@@ -89,6 +83,8 @@ public class Car : Entity
         Transmission = car.Transmission;
         FuelConsumption = car.FuelConsumption;
         Displacement = car.Displacement;
+
+        Addons = car.Addons;
         return this;
     }
 }
