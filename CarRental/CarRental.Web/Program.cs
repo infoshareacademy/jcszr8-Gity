@@ -22,6 +22,7 @@ builder.Services.AddTransient<ICarService, CarService>();
 builder.Services.AddTransient<IRentalService, RentalService>();
 builder.Services.AddTransient<IAddonService, AddonService>();
 builder.Services.AddTransient<ISearchService, SearchService>();
+builder.Services.AddTransient<ICarRentabilityService, CarRentabilityService>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 

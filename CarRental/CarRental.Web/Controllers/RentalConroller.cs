@@ -30,10 +30,10 @@ public class RentalController : Controller
 
         foreach (var rental in rentals)
         {
-            var customerName = _customerService.Get(rental.CustomerId).FirstName
-                + " " + _customerService.Get(rental.CustomerId).LastName;
+            var customerName = _customerService?.Get(rental.CustomerId)?.FirstName
+                + " " + _customerService?.Get(rental.CustomerId)?.LastName;
 
-            var carLicencePlate = _carService.Get(rental.CarId).LicencePlateNumber;
+            var carLicencePlate = _carService?.Get(rental.CarId)?.LicencePlateNumber;
 
             model.Add(new RentalViewModel
             {
@@ -47,7 +47,6 @@ public class RentalController : Controller
                 CarLicencePlate = carLicencePlate,
             });
         }
-
         return View(model);
     }
 
@@ -55,21 +54,51 @@ public class RentalController : Controller
     public IActionResult Details(int id)
     {
         var rental = _rentalService.Get(id);
-        var model = _mapper.Map<RentalModel>(rental);
+        dynamic d = GetShortCustomers().FirstOrDefault<object>(rental.CustomerId);
+        object shortCustomer = d.FirstName + " " + d.LastName;
+        
+        var carLicencePlate = _carService?.Get(rental.CarId)?.LicencePlateNumber;
+        var carMake = _carService?.Get(rental.CarId)?.Make;
+        var carModel = _carService?.Get(rental.CarId)?.CarModelProp;
 
-        return View(model);
+        var rentalViewModel = new RentalViewModel
+        {
+            Id = rental.Id,
+            CarId = rental.CarId,
+            CustomerId = rental.CustomerId,
+            BeginDate = rental.BeginDate,
+            EndDate = rental.EndDate,
+            TotalCost = rental.TotalCost,
+
+            CustomerName = shortCustomer.ToString(),
+            CarLicencePlate = carLicencePlate,
+        };
+
+        return View(rentalViewModel);
     }
 
     // GET: RentalConroller/Create
     public IActionResult Create()
     {
-        return View();
+        var shortCustomers = GetShortCustomers();
+        var shortCars = GetShortCars();
+
+        var model = new RentalCreateViewModel
+        {
+            Customers = shortCustomers,
+            Cars = shortCars,
+            BeginDate = DateTime.Now,
+            EndDate = DateTime.Now.AddDays(1),
+            TotalCost = 0m
+        };
+
+        return View(model);
     }
 
     // POST: RentalConroller/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(RentalModel model)
+    public IActionResult Create(RentalCreateViewModel model)
     {
         try
         {
@@ -78,8 +107,19 @@ public class RentalController : Controller
                 return View(model);
             }
 
-            var rental = _mapper.Map<RentalModel>(model);
-            _rentalService.Create(rental);
+            var rentalModel = new RentalModel
+            {
+                CarId = model.CarId,
+                CustomerId = model.CustomerId,
+                BeginDate = model.BeginDate,
+                EndDate = model.EndDate,
+                TotalCost = model.TotalCost,
+            };
+
+            decimal carPricePerDay = (decimal) _carService!.Get(model.CarId)!.Price;
+            rentalModel.TotalCost = _rentalService.GetRentalTotalPrice(carPricePerDay, rentalModel.BeginDate, rentalModel.EndDate);
+
+            _rentalService.Create(rentalModel);
 
             return RedirectToAction(nameof(Index));
         }
@@ -93,7 +133,21 @@ public class RentalController : Controller
     public IActionResult Edit(int id)
     {
         var rentalModel = _rentalService.Get(id);
-        return View(rentalModel);
+        var shortCustomers = GetShortCustomers();
+        var shortCars = GetShortCars();
+
+        var model = new RentalCreateViewModel {
+            Id = rentalModel.Id,
+            CarId = rentalModel.CarId,
+            CustomerId = rentalModel.CustomerId,
+            BeginDate = rentalModel.BeginDate,
+            EndDate = rentalModel.EndDate,
+            TotalCost = rentalModel.TotalCost,
+
+            Customers = shortCustomers,
+            Cars = shortCars,
+        };
+        return View(model);
     }
 
     // POST: RentalConroller/Edit/5
@@ -135,5 +189,15 @@ public class RentalController : Controller
         {
             return View();
         }
+    }
+
+    private List<object> GetShortCustomers()
+    {
+        return _customerService.GetAll().Select(x => new { Id = x.Id, FirstName = x.FirstName, LastName = x.LastName }).ToList<object>();
+    }
+
+    private List<object> GetShortCars()
+    {
+        return _carService.GetAll().Select(x => new { x.Id, x.LicencePlateNumber, x.Make, x.CarModelProp }).ToList<object>();
     }
 }

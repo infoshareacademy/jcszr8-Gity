@@ -7,11 +7,8 @@ public class RentalCreateViewModel
     public int CarId { get; set; }
     public DateTime BeginDate { get; set; }
     public DateTime EndDate { get; set; }
-    public decimal? TotalCost { get; set; }
+    public decimal TotalCost { get; set; }
 
-    public string? CustomerName { get; set; }
-    public string? CarLicencePlate { get; set; }
-
-    public string? CarMake { get; set;}
-    public string? CarModel { get; set;}
+    public List<object> Customers { get; set; } = new();
+    public List<object> Cars { get; set; } = new();
 }

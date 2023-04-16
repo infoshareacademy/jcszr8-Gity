@@ -1,0 +1,13 @@
+﻿@model dynamic
+
+@{
+    var cars = Model.Cars;
+}
+
+<option value="">-Select Car-</option>
+
+@foreach (var car in cars)
+{
+    bool select = car.Id == Model.CustomerId;
+    <option value="@car.Id" selected=@select>@car.Make @car.CarModelProp, @car.LicencePlateNumber</option>
+}

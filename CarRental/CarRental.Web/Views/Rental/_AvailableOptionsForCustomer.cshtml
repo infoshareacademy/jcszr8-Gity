@@ -1,0 +1,13 @@
+﻿@model dynamic
+
+@{
+    var customers = Model.Customers;
+}
+
+<option value="">-Select Customer-</option>
+
+@foreach (var customer in customers)
+{
+    bool select = customer.Id == Model.CustomerId;
+    <option value="@customer.Id" selected=@select>@customer.FirstName @customer.LastName</option>
+}
