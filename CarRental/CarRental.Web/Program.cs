@@ -1,6 +1,7 @@
 using AutoMapper;
 using CarRental.DAL.Context;
 using CarRental.DAL.Repositories;
+using CarRental.Logic.MapperProfiles;
 using CarRental.Logic.Services;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Localization;
@@ -25,11 +26,8 @@ builder.Services.AddTransient<IAddonService, AddonService>();
 builder.Services.AddTransient<ISearchService, SearchService>();
 builder.Services.AddTransient<ICarRentabilityService, CarRentabilityService>();
 
-builder.Services.AddAutoMapper(typeof(Program));
-
-//var config = new MapperConfiguration(cfg => {
-//    cfg.AddMaps(typeof(Program));
-//});  // todo new
+//builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(CustomerProfile));
 
 var app = builder.Build();
 

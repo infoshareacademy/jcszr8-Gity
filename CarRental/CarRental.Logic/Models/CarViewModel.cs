@@ -34,7 +34,6 @@ public sealed class CarViewModel
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
 
     public List<string> Addons { get; set; } = new(); // TODO back to this
-    public string? AddonsAsString { get; set; }
     public decimal? Price { get; set; }
 
     private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" };
