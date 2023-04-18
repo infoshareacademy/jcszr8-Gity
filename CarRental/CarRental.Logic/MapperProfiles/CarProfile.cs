@@ -9,12 +9,34 @@ public class CarProfile : Profile
 {
     public CarProfile()
     {
+        //new MapperConfiguration(cfg =>
+        //{
+        //    //cfg.AddMaps(new[] { "CarRental.Logic" });
+        //    cfg.ClearPrefixes();
+        //});
+
+        //CreateMap<Car, CarViewModel>();
+        //CreateMap<CarViewModel, Car>();
+        //var configuration = new MapperConfiguration(cfg => cfg.CreateMap<Car, CarViewModel>());
+
+        //CreateMap<string, List<string>>().ConvertUsing<StringToListConverter>();
+        //CreateMap<Car, CarViewModel>()
+        //    .ForMember(dest => dest.Addons,
+        //         opt => opt.MapFrom(src => src.Addons.Split(";").ToList()));
+
         CreateMap<Car, CarViewModel>().ConvertUsing<CarToCarViewModelConverter>();
 
         CreateMap<CarViewModel, Car>().ConvertUsing<CarViewModelToCarConverter>();
-        
+
         //    .IgnoreAllUnmapped();
 
+        var configuration = new MapperConfiguration(cfg =>
+        {
+            //cfg.CreateMap<string, List<string>>().ConvertUsing(s => GetAddonsAsList(s));
+            cfg.CreateMap<Car, CarViewModel>().ConvertUsing<CarToCarViewModelConverter>();
+            cfg.CreateMap<CarViewModel, Car>().ConvertUsing<CarViewModelToCarConverter>();
+        });
+        configuration.AssertConfigurationIsValid();
 
         //.ForMember(dest => dest.Addons, opt => opt.MapFrom(src => string.Join(";", src.Addons)));
         //.ForMember(dest => dest.Addons, opt => opt.MapFrom(src => src.Addons.Split(";", StringSplitOptions.None).ToList()))
