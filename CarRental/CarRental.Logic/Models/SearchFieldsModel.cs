@@ -14,19 +14,20 @@ public class SearchFieldsModel
 
     public SearchFieldsModel()
     {
-        Makes = PrepareDictionary();
+        //Makes = PrepareDictionary(); // TODO uncomment when PrepareDictionary() is implemented
     }
 
     public Dictionary<string, bool> PrepareDictionary()
     {
         Dictionary<string, bool> make = new Dictionary<string, bool>();
 
-        var group = CarRentalData.Cars.Select(car => car.Make).Distinct();
+        throw new NotImplementedException();
+        // var group = CarRentalData.Cars.Select(car => car.Make).Distinct();  // TODO because CarRentalData class was removed, with code moved to Seed class
 
-        foreach (var carMake in group)
-        {
-            make.Add(carMake, false);
-        }
-        return make;
+        //foreach (var carMake in group)
+        //{
+        //    make.Add(carMake, false);
+        //}
+        //return make;
     }
 }

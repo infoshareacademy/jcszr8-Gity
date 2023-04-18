@@ -9,20 +9,6 @@ public class CarProfile : Profile
 {
     public CarProfile()
     {
-        //new MapperConfiguration(cfg =>
-        //{
-        //    //cfg.AddMaps(new[] { "CarRental.Logic" });
-        //    cfg.ClearPrefixes();
-        //});
-
-        //CreateMap<Car, CarViewModel>();
-        //CreateMap<CarViewModel, Car>();
-        //var configuration = new MapperConfiguration(cfg => cfg.CreateMap<Car, CarViewModel>());
-
-        //CreateMap<string, List<string>>().ConvertUsing<StringToListConverter>();
-        //CreateMap<Car, CarViewModel>()
-        //    .ForMember(dest => dest.Addons,
-        //         opt => opt.MapFrom(src => src.Addons.Split(";").ToList()));
 
         CreateMap<Car, CarViewModel>().ConvertUsing<CarToCarViewModelConverter>();
 

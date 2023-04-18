@@ -1,17 +1,22 @@
 ﻿using CarRental.DAL.Entities;
+using Newtonsoft.Json;
 
 namespace CarRental.DAL.Context;
 
 public static class Seed
 {
+    public static List<Customer> Customers { get; set; } = GetItems<Customer>("customers.json");
+    public static List<Rental> Rentals { get; set; } = GetItems<Rental>("rentals.json");
+    public static List<Car> Cars { get; set; } = GetItems<Car>("cars.json");
+
     public static void Initialize(ApplicationContext context)
     {
         context.Database.EnsureCreated();
 
-        Customer[] customers = CarRentalData.Customers.ToArray();
-        Rental[] rentals = CarRentalData.Rentals.ToArray();
-        CarRentalData.PopulateAddons();
-        Car[] cars = CarRentalData.Cars.ToArray();
+        Customer[] customers = Customers.ToArray();
+        Rental[] rentals = Rentals.ToArray();
+        PopulateAddons();
+        Car[] cars = Cars.ToArray();
 
         if (context.Customers.Any() && context.Rentals.Any())
         {
@@ -58,5 +63,34 @@ public static class Seed
             });
         }
         context.SaveChanges();
+    }
+
+
+
+    public static void PopulateAddons()
+    {
+        foreach (var car in Cars)
+        {
+            car.PopulateAddonsFromAddonHelper();
+        }
+    }
+
+    public static List<T> GetItems<T>(string fileName)
+    {
+        var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
+
+        string itemsSerialized;
+
+        try
+        {
+            itemsSerialized = File.ReadAllText(filePath);
+        }
+        catch (Exception)
+        {
+            throw new Exception("Error with serializing to string!");
+        }
+
+        var result = JsonConvert.DeserializeObject<List<T>>(itemsSerialized);
+        return result ?? new List<T>();
     }
 }
