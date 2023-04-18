@@ -32,7 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CarRental.DAL\CarRental.DAL.csproj" />
     <ProjectReference Include="..\CarRental.Logic\CarRental.Logic.csproj" />
-    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj" />
+    <ProjectReference Include="..\CommonLibrary\CarRental.Common.csproj" />
   </ItemGroup>
 
 </Project>
