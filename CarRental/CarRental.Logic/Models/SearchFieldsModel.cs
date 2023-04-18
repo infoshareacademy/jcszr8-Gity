@@ -14,19 +14,21 @@ public class SearchFieldsModel
 
     public SearchFieldsModel()
     {
-        Makes = PrepareDictionary();
+        //Makes = PrepareDictionary(); // TODO
     }
 
     public Dictionary<string, bool> PrepareDictionary()
     {
         Dictionary<string, bool> make = new Dictionary<string, bool>();
 
-        var group = CarRentalData.Cars.Select(car => car.Make).Distinct();
+        throw new NotImplementedException();
 
-        foreach (var carMake in group)
-        {
-            make.Add(carMake, false);
-        }
-        return make;
+        //var group = CarRentalData.Cars.Select(car => car.Make).Distinct();  // TODO Patryk
+
+        //foreach (var carMake in group)
+        //{
+        //    make.Add(carMake, false);
+        //}
+        //return make;
     }
 }
