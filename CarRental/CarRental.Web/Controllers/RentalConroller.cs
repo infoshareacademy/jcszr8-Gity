@@ -1,6 +1,5 @@
 ﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
-using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -22,7 +21,7 @@ public class RentalController : Controller
     {
         var rentals = _rentalService.GetAll();
 
-        List<Models.RentalViewModel> model = new();
+        List<RentalViewModel> model = new();
 
         foreach (var rental in rentals)
         {
@@ -31,7 +30,7 @@ public class RentalController : Controller
 
             var carLicencePlate = _carService?.Get(rental.CarId)?.LicencePlateNumber;
 
-            model.Add(new Models.RentalViewModel
+            model.Add(new RentalViewModel
             {
                 Id = rental.Id,
                 CarId = rental.CarId,
@@ -57,7 +56,7 @@ public class RentalController : Controller
         var carMake = _carService?.Get(rental.CarId)?.Make;
         var carModel = _carService?.Get(rental.CarId)?.CarModelProp;
 
-        var rentalViewModel = new Models.RentalViewModel
+        var rentalViewModel = new RentalViewModel
         {
             Id = rental.Id,
             CarId = rental.CarId,
@@ -139,7 +138,7 @@ public class RentalController : Controller
             CustomerId = rentalModel.CustomerId,
             BeginDate = rentalModel.BeginDate,
             EndDate = rentalModel.EndDate,
-            TotalCost = rentalModel.TotalCost,
+            TotalCost = (decimal)rentalModel.TotalCost,
 
             Customers = shortCustomers,
             Cars = shortCars,

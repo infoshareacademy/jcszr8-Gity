@@ -1,4 +1,4 @@
-﻿namespace CarRental.Web.Models;
+﻿namespace CarRental.Logic.Models;
 
 public class RentalCreateViewModel
 {

@@ -1,6 +1,4 @@
-﻿using CarRental.Logic.Models;
-
-namespace CarRental.Web.Models;
+﻿namespace CarRental.Logic.Models;
 
 public class SearchViewModel
 {
