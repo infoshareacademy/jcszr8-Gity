@@ -1,6 +1,4 @@
 ﻿
-- usunąć konsolówkę z solucji
-
 - kod do czytania z Jsona przenieść do Seed'a
 
 - usunąć nieużywany kod lub ew. dopisać komentarz
@@ -30,8 +28,6 @@
 - po dodaniu auta niech wraca do widoku z kafelkami
 
 - wybór kalendarza z godziną i minutami bez sekund dla Rental (edit, create)
-
-- więcej info dla Customer w tabeli
 
 - formatowanie dat w widokach
 
