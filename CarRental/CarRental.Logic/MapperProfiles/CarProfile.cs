@@ -37,8 +37,7 @@ public class CarProfile : Profile
             .ForMember(dest => dest.SeatsNo, opt => opt.MapFrom(src => src.SeatsNo))
             .ForMember(dest => dest.Airbags, opt => opt.MapFrom(src => src.Airbags))
             .ForMember(dest => dest.FuelConsumption, opt => opt.MapFrom(src => src.FuelConsumption))
-            .ForMember(dest => dest.Addons, opt => opt.MapFrom(src => new List<string>()));  // TODO
-        //.ForMember(dest => dest.Addons, opt => opt.MapFrom(src => src.Addons!.Split(";", StringSplitOptions.None).ToList()));
+            .ForMember(dest => dest.Addons, opt => opt.MapFrom(src => src.Addons!.Split(";", StringSplitOptions.None).ToList()));
 
 
         CreateMap<CarViewModel, Car>()
@@ -59,7 +58,6 @@ public class CarProfile : Profile
             .ForMember(dest => dest.Airbags, opt => opt.MapFrom(src => src.Airbags))
             .ForMember(dest => dest.FuelConsumption, opt => opt.MapFrom(src => src.FuelConsumption))
             .ForMember(dest => dest.Addons, opt => opt.MapFrom(src => string.Join(";", src.Addons)));
-
     }
 
     private List<string> GetAddonsAsList(string model)
