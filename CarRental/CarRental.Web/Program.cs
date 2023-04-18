@@ -27,9 +27,9 @@ builder.Services.AddTransient<ICarRentabilityService, CarRentabilityService>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
-var config = new MapperConfiguration(cfg => {
-    cfg.AddMaps(typeof(Program));
-});  // todo new
+//var config = new MapperConfiguration(cfg => {
+//    cfg.AddMaps(typeof(Program));
+//});  // todo new
 
 var app = builder.Build();
 

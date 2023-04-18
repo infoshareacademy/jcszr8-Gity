@@ -1,4 +1,4 @@
-﻿using CommonLibrary.Enums;
+﻿using CarRental.Common.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Logic.Models;

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CarRental.DAL.Entities;
 using CarRental.Logic.Models;
-using CommonLibrary.Enums;
 
 namespace CarRental.Logic.MapperProfiles;
 
