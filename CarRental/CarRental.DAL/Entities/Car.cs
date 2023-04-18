@@ -6,8 +6,6 @@ using System.ComponentModel.DataAnnotations;
 namespace CarRental.DAL.Entities;
 public class Car : Entity
 {
-    public Car() { }
-
     [JsonProperty("addons")]
     private List<string> _addonHelper = new();
 
@@ -70,6 +68,9 @@ public class Car : Entity
         Transmission = car.Transmission;
         FuelConsumption = car.FuelConsumption;
         Displacement = car.Displacement;
+        EngineType = car.EngineType;
+        PowerInKiloWats = car.PowerInKiloWats;
+
 
         Addons = car.Addons;
         return this;

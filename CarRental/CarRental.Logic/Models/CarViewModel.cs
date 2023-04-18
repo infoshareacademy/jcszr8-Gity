@@ -9,14 +9,18 @@ public sealed class CarViewModel
     #region Properties/Fields
 
     public int Id { get; set; }
+
     [Display(Name = "Car Model")]
-    //[Required]
+    [Required]
     public string? CarModelProp { get; set; }
-    //[Required]
+
+    [Required]
     public string? Make { get; set; }
-    //[Required]
+
+    [Required]
     public int Year { get; set; }
-    //[Required]
+
+    [Required]
     public string? LicencePlateNumber { get; set; }
     public string? Color { get; set; }
     public TransmissionType? Transmission { get; set; }
@@ -35,16 +39,5 @@ public sealed class CarViewModel
 
     private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" };
 
-    //public static List<string> GetAvailableAddons() { return _availableAddons; }
-
     #endregion
-
-    //[Range(0, 500_000,
-    //   ErrorMessage = "Value for {0} must be between {1} and {2}.")]
-    //public CarViewModel(string make, string model, string licensePlate)
-    //{
-    //    Make = make;
-    //    CarModelProp = model;
-    //    LicencePlateNumber = licensePlate;
-    //}
 }
