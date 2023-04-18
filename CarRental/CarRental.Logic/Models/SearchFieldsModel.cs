@@ -14,7 +14,7 @@ public class SearchFieldsModel
 
     public SearchFieldsModel()
     {
-        //Makes = PrepareDictionary(); // TODO uncomment when PrepareDictionary() is implemented
+        //Makes = PrepareDictionary(); // TODO
     }
 
     public Dictionary<string, bool> PrepareDictionary()
@@ -22,7 +22,8 @@ public class SearchFieldsModel
         Dictionary<string, bool> make = new Dictionary<string, bool>();
 
         throw new NotImplementedException();
-        // var group = CarRentalData.Cars.Select(car => car.Make).Distinct();  // TODO because CarRentalData class was removed, with code moved to Seed class
+
+        //var group = CarRentalData.Cars.Select(car => car.Make).Distinct();  // TODO Patryk
 
         //foreach (var carMake in group)
         //{

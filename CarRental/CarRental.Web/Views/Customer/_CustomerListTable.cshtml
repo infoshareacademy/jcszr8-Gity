@@ -16,6 +16,12 @@
             <th scope="col">
                 <label asp-for="First().PhoneNumber"></label>
             </th>
+            <th scope="col">
+                <label asp-for="First().Gender"></label>
+            </th>
+            <th scope="col">
+                <label asp-for="First().Pesel"></label>
+            </th>
             <th scope="col">Actions</th>
         </tr>
     </thead>
@@ -28,6 +34,8 @@
                 <td>@item.LastName</td>
                 <td>@item.EmailAddress</td>
                 <td>@item.PhoneNumber</td>
+                <td>@item.Gender</td>
+                <td>@item.Pesel</td>
                 <td>
                     <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
                         <a asp-action="Details" asp-route-id="@item.Id">

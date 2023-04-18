@@ -65,8 +65,6 @@ public static class Seed
         context.SaveChanges();
     }
 
-
-
     public static void PopulateAddons()
     {
         foreach (var car in Cars)
