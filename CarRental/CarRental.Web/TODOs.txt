@@ -1,7 +1,7 @@
 ﻿
-Janek - kod do czytania z Jsona przenieść do Seed'a
+V Janek - kod do czytania z Jsona przenieść do Seed'a
 
-Janek - CarRentability -> RentalService (?)
+V Janek - CarRentability -> RentalService
 
 Janek - modele Car, Rental, Customer wyczyścić, aby zostały tylko właściwości
 

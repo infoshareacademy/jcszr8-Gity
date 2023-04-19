@@ -7,7 +7,6 @@ using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +23,6 @@ builder.Services.AddTransient<ICarService, CarService>();
 builder.Services.AddTransient<IRentalService, RentalService>();
 builder.Services.AddTransient<IAddonService, AddonService>();
 builder.Services.AddTransient<ISearchService, SearchService>();
-builder.Services.AddTransient<ICarRentabilityService, CarRentabilityService>();
 
 //builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
@@ -71,7 +69,7 @@ app.Run();
 
 static void CreateDbIfNotExists(IHost host)
 {
-    
+
     using var scope = host.Services.CreateScope();
     var services = scope.ServiceProvider;
     try
