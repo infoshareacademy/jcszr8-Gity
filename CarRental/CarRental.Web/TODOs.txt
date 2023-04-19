@@ -5,7 +5,7 @@ V Janek - CarRentability -> RentalService
 
 Janek - modele Car, Rental, Customer wyczyścić, aby zostały tylko właściwości
 
-Janek - zamiast AddonService to wrzucić do CarService (też bez IAddonService)
+V Janek - zamiast AddonService to wrzucić do CarService (też bez IAddonService)
 
 Janek - modele do logiki (view modele)
 
