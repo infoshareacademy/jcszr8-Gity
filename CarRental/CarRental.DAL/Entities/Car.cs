@@ -43,9 +43,6 @@ public class Car : Entity
     public string? Addons { get; set; }
     public decimal? Price { get; set; }
 
-    private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" }; //TODO cleaning
-    //public static List<string> GetAvailableAddons() { return _availableAddons; }
-
     #endregion
 
     public void PopulateAddonsFromAddonHelper()

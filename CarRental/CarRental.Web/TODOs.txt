@@ -7,7 +7,7 @@ Janek - modele Car, Rental, Customer wyczyścić, aby zostały tylko właściwo�
 
 V Janek - zamiast AddonService to wrzucić do CarService (też bez IAddonService)
 
-Janek - modele do logiki (view modele)
+V Janek - modele do logiki (view modele)
 
 Janek - RentalController  - mapowanie z użyciem AutoMapper'a
 
