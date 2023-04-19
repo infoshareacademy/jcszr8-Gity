@@ -48,7 +48,7 @@ public static class Seed
         {
             //var carDto = new Car().FillModel(car);
             //context.Cars.Add(carDto);
-            
+
             var carDto = new Car().FillModel(car);
             context.Cars.Add(carDto);
 
