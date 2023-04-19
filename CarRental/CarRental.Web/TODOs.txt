@@ -3,7 +3,7 @@ V Janek - kod do czytania z Jsona przenieść do Seed'a
 
 V Janek - CarRentability -> RentalService
 
-Janek - modele Car, Rental, Customer wyczyścić, aby zostały tylko właściwości
+Janek - model Car wyczyścić, aby zostały tylko właściwości
 
 V Janek - zamiast AddonService to wrzucić do CarService (też bez IAddonService)
 
@@ -11,7 +11,7 @@ V Janek - modele do logiki (view modele)
 
 Janek - RentalController  - mapowanie z użyciem AutoMapper'a
 
-Janek - FillModel() dla Car albo zmiana na AutoMapper albo umieścić w Seed
+V Janek - FillModel() dla Car albo zmiana na AutoMapper albo umieścić w Seed
 
 
 
