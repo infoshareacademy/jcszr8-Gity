@@ -46,8 +46,13 @@ public static class Seed
 
         foreach (var car in cars)
         {
+            //var carDto = new Car().FillModel(car);
+            //context.Cars.Add(carDto);
+            
             var carDto = new Car().FillModel(car);
             context.Cars.Add(carDto);
+
+            //context.Cars.Add(car);
         }
         context.SaveChanges();
 

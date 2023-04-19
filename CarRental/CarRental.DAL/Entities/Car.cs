@@ -15,23 +15,28 @@ public class Car : Entity
     public string CarModelProp { get; set; }
     public string Make { get; set; }
     public int Year { get; set; } // production year
-    public string? Color { get; set; }
-    public TransmissionType? Transmission { get; set; }
 
     [JsonProperty("licence_plate_number")]
-    public string LicencePlateNumber { get; set; }   
+    public string LicencePlateNumber { get; set; }
+    public string? Color { get; set; }
+    public TransmissionType? Transmission { get; set; }
     public int? Kilometrage { get; set; }
+
     [JsonProperty("power_kw")]
     public float? PowerInKiloWats { get; set; }
+
     [JsonProperty("fuel_type")]
-    public EngineType EngineType { get; set; }
+    public EngineType? EngineType { get; set; }
+
     [JsonProperty("displacement")]
     public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
 
     public int? Doors { get; set; }
+
     [JsonProperty("max_capacity")]
     public int? SeatsNo { get; set; }
     public int? Airbags { get; set; }
+
     [JsonProperty("fuel_consumption")]
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
     public string? Addons { get; set; }

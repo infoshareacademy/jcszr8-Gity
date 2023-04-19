@@ -20,8 +20,9 @@ public class CarService : ICarService
 
     public IEnumerable<CarViewModel> GetAll()
     {
+        // TODO some cleaning
         List<Car> cars = _carRepository.GetAll() ?? new List<Car>();
-        //var cars = new List<Car>();
+        //var cars = new List<Car>();  
         var result = _mapper.Map<List<CarViewModel>>(cars);
         //var result = new List<CarViewModel>();
         return result;
