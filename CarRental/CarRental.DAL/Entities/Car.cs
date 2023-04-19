@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CarRental.DAL.Entities;
 public class Car : Entity
 {
+
     [JsonProperty("addons")]
     private List<string> _addonHelper = new();
 
@@ -42,7 +43,7 @@ public class Car : Entity
     public string? Addons { get; set; }
     public decimal? Price { get; set; }
 
-    private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" };
+    private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" }; //TODO cleaning
     //public static List<string> GetAvailableAddons() { return _availableAddons; }
 
     #endregion
@@ -55,29 +56,5 @@ public class Car : Entity
         }
         else
             this.Addons = string.Empty;
-    }
-
-    public Car FillModel(Car car)
-    {
-        Make = car.Make;
-        CarModelProp = car.CarModelProp;
-        Year = car.Year;
-        LicencePlateNumber = car.LicencePlateNumber;
-
-        Kilometrage = car.Kilometrage;
-        Doors = car.Doors;
-        Price = car.Price;
-        Airbags = car.Airbags;
-        SeatsNo = car.SeatsNo;
-        Color = car.Color;
-        Transmission = car.Transmission;
-        FuelConsumption = car.FuelConsumption;
-        Displacement = car.Displacement;
-        EngineType = car.EngineType;
-        PowerInKiloWats = car.PowerInKiloWats;
-
-
-        Addons = car.Addons;
-        return this;
     }
 }
