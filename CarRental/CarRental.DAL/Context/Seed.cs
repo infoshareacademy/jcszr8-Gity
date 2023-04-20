@@ -1,5 +1,8 @@
-﻿using CarRental.DAL.Entities;
+﻿using CarRental.Common.Enums;
+using CarRental.DAL.Entities;
 using Newtonsoft.Json;
+using System.Diagnostics;
+using System.Drawing;
 
 namespace CarRental.DAL.Context;
 
@@ -35,6 +38,7 @@ public static class Seed
                 Pesel = customer.Pesel,
             });
 
+            // TODO cleaning
             //var customerDb = CustomerDbBuilder.aCustomerDb()
             //    .WithFirstName(customer.FirstName)
             //    .WithLastName(customer.LastName)
@@ -46,8 +50,8 @@ public static class Seed
 
         foreach (var car in cars)
         {
-            var carDto = new Car().FillModel(car);
-            context.Cars.Add(carDto);
+            var newCar = FillCarModel(car);
+            context.Cars.Add(newCar);
         }
         context.SaveChanges();
 
@@ -90,5 +94,29 @@ public static class Seed
 
         var result = JsonConvert.DeserializeObject<List<T>>(itemsSerialized);
         return result ?? new List<T>();
+    }
+
+    private static Car FillCarModel(Car car)
+    {
+        return new Car()
+        {
+            //Id = 0,
+            CarModelProp = car.CarModelProp,
+            Make = car.Make,
+            LicencePlateNumber = car.LicencePlateNumber,
+            Year = car.Year,
+            Color = car.Color,
+            Displacement = car.Displacement,
+            EngineType = car.EngineType,
+            Kilometrage = car.Kilometrage,
+            Addons = car.Addons,
+            Airbags = car.Airbags,
+            Doors = car.Doors,
+            FuelConsumption = car.FuelConsumption,
+            PowerInKiloWats = car.PowerInKiloWats,
+            Price = car.Price,
+            SeatsNo = car.SeatsNo,
+            Transmission = car.Transmission,
+        };
     }
 }

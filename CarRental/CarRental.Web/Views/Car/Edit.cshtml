@@ -53,7 +53,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="LicencePlateNumber" class="control-label"></label>
-                    <input asp-for="LicencePlateNumber" class="form-control" />
+                    <input asp-for="LicencePlateNumber" class="form-control" oninput="this.value = this.value.toUpperCase()" />
                     <span asp-validation-for="LicencePlateNumber" class="text-danger"></span>
                 </div>
                 <div class="form-group">

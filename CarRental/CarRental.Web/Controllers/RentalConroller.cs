@@ -102,7 +102,7 @@ public class RentalController : Controller
                 return View(model);
             }
 
-            var rentalModel = new Logic.Models.RentalViewModel
+            var rentalModel = new RentalViewModel
             {
                 CarId = model.CarId,
                 CustomerId = model.CustomerId,

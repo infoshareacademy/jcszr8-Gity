@@ -26,7 +26,7 @@ public sealed class CarViewModel
     public TransmissionType? Transmission { get; set; }
     public int? Kilometrage { get; set; }
     public float? PowerInKiloWats { get; set; }
-    public EngineType EngineType { get; set; }
+    public EngineType? EngineType { get; set; }
     public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
     public int? Doors { get; set; }
     public int? SeatsNo { get; set; } // total number of seats (with driver seat included)
