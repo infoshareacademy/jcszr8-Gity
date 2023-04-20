@@ -59,7 +59,7 @@ public class CarController : Controller
             var newCar = _mapper.Map<CarModel>(model);
             _carService.Create(newCar);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Search"); ;
         }
         catch
         {
