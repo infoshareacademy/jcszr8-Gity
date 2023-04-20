@@ -1,4 +1,4 @@
-﻿namespace CommonLibrary.Enums;
+﻿namespace CarRental.Common.Enums;
 
 public enum EngineType
 {

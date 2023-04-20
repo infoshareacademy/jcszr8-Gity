@@ -1,15 +1,11 @@
-﻿using CarRental.DAL.Entities.BaseEntity;
-using CommonLibrary.Enums;
+﻿using CarRental.Common.Enums;
+using CarRental.DAL.Entities.BaseEntity;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.DAL.Entities;
 public class Car : Entity
 {
-    public Car()
-    {
-    }
-
     [JsonProperty("addons")]
     private List<string> _addonHelper = new();
 
@@ -23,37 +19,26 @@ public class Car : Entity
     public TransmissionType? Transmission { get; set; }
 
     [JsonProperty("licence_plate_number")]
-    public string LicencePlateNumber { get; set; }
-
-   
+    public string LicencePlateNumber { get; set; }   
     public int? Kilometrage { get; set; }
-
     [JsonProperty("power_kw")]
     public float? PowerInKiloWats { get; set; }
-
     [JsonProperty("fuel_type")]
-    public string? EngineType { get; set; }
-
+    public EngineType EngineType { get; set; }
     [JsonProperty("displacement")]
     public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
 
     public int? Doors { get; set; }
-
     [JsonProperty("max_capacity")]
-    public int? SeatsNo { get; set; } // total number of seats (with driver seat included)
-
+    public int? SeatsNo { get; set; }
     public int? Airbags { get; set; }
-
     [JsonProperty("fuel_consumption")]
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
-
-    public string Addons { get; set; }
-
+    public string? Addons { get; set; }
     public decimal? Price { get; set; }
 
     private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" };
-
-    public static List<string> GetAvailableAddons() { return _availableAddons; }
+    //public static List<string> GetAvailableAddons() { return _availableAddons; }
 
     #endregion
 
@@ -83,6 +68,9 @@ public class Car : Entity
         Transmission = car.Transmission;
         FuelConsumption = car.FuelConsumption;
         Displacement = car.Displacement;
+        EngineType = car.EngineType;
+        PowerInKiloWats = car.PowerInKiloWats;
+
 
         Addons = car.Addons;
         return this;

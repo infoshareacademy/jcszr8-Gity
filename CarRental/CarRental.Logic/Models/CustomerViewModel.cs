@@ -1,8 +1,8 @@
-﻿using CommonLibrary.Enums;
+﻿using CarRental.Common.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Logic.Models;
-public sealed class CustomerModel
+public sealed class CustomerViewModel
 {
     public int Id { get; set; }
 

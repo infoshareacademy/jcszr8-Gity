@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace CommonLibrary.Enums;
+namespace CarRental.Common.Enums;
 
 [JsonConverter(typeof(StringEnumConverter))]
 public enum Gender

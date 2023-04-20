@@ -1,8 +1,7 @@
-﻿@model CarRental.Web.Models.SearchViewModel
+﻿@using CarRental.Logic.Models;
+@model SearchViewModel
 
 @{
-
-
     ViewData["Title"] = "Index";
     var dto = Model.SearchDto;
 }
@@ -32,7 +31,7 @@
                 </div>
                 <div class="col-1 me-2">
                     <select asp-for="SearchDto.ProductionYearTo" id="" name="Year" class="form-control">
-                    <partial name="_AvailableOptionsForYearTo" , new { Year=-1 } />
+                        <partial name="_AvailableOptionsForYearTo" , new { Year=-1 } />
                     </select>
                     <span asp-validation-for="SearchDto.ProductionYearTo" class="text-danger"></span>
                 </div>

@@ -2,12 +2,12 @@
 using CarRental.DAL.Entities;
 using CarRental.Logic.Models;
 
-namespace CarRental.Web.MapperProfiles;
+namespace CarRental.Logic.MapperProfiles;
 
 public class RentalProfile : Profile
 {
     public RentalProfile()
     {
-        CreateMap<RentalModel, Rental>().ReverseMap();
+        CreateMap<RentalViewModel, Rental>().ReverseMap();
     }
 }

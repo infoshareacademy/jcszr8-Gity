@@ -19,16 +19,18 @@ public class CarService : ICarService
         _mapper = mapper;
     }
 
-    public IEnumerable<CarModel> GetAll()
+    public IEnumerable<CarViewModel> GetAll()
     {
-        var cars = _carRepository.GetAll();
-
-        return _mapper.Map<List<CarModel>>(cars);
+        List<Car> cars = _carRepository.GetAll() ?? new List<Car>();
+        //var cars = new List<Car>();
+        var result = _mapper.Map<List<CarViewModel>>(cars);
+        //var result = new List<CarViewModel>();
+        return result;
     }
 
-    public IEnumerable<CarModel> GetByName(string name)
+    public IEnumerable<CarViewModel> GetByName(string name)
     {
-        List<CarModel> cars = new();
+        List<CarViewModel> cars = new();
         if (string.IsNullOrEmpty(name))
         {
             cars = GetAll().ToList();
@@ -40,16 +42,16 @@ public class CarService : ICarService
                  || c.CarModelProp.Contains(name, StringComparison.CurrentCultureIgnoreCase)
              ).ToList();
 
-            cars = _mapper.Map<List<CarModel>>(temp);
+            cars = _mapper.Map<List<CarViewModel>>(temp);
         }
         return cars;
     }
 
-    public List<CarModel> GetByYear(string read)
+    public List<CarViewModel> GetByYear(string read)
     {
         int year;
         bool makes = int.TryParse(read, out year);
-        List<CarModel> cars = new();
+        List<CarViewModel> cars = new();
         if (read == null)
         {
             cars = GetAll().ToList();
@@ -70,13 +72,13 @@ public class CarService : ICarService
         }
     }
 
-    public void Create(CarModel model)
+    public void Create(CarViewModel model)
     {
         var car = _mapper.Map<Car>(model);
         _carRepository.Insert(car);
     }
 
-    public CarModel? Get(int id)
+    public CarViewModel? Get(int id)
     {
         var car = _carRepository.Get(id);
 
@@ -84,7 +86,7 @@ public class CarService : ICarService
         {
             throw new Exception("Invalid ID");
         }
-        return _mapper.Map<CarModel>(car);
+        return _mapper.Map<CarViewModel>(car);
     }
 
     public void Delete(int id)
@@ -92,7 +94,7 @@ public class CarService : ICarService
         _carRepository.Delete(id);
     }
 
-    public void Update(CarModel model)
+    public void Update(CarViewModel model)
     {
         var car = _mapper.Map<Car>(model);
 
