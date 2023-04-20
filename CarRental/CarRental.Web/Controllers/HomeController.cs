@@ -2,6 +2,7 @@
 using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol;
 using System.Diagnostics;
 
 namespace CarRental.Web.Controllers;
@@ -36,5 +37,16 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    public JsonResult MyJson()
+    {
+        var sillyData = new SillyData
+        {
+            Number = 123,
+            Name = "Alex"
+        };
+        
+        return Json(sillyData);
     }
 }

@@ -1,6 +1,26 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Privacy Policy";
 }
 <h1>@ViewData["Title"]</h1>
 
 <p>Use this page to detail your site's privacy policy.</p>
+
+<button id="button1"> Click me </button>
+
+<div id="emptyDiv"></div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#button1").on('click', function () {
+
+                $("#emptyDiv").load("/Home/MyJson");
+
+                //$.get("/home/MyJson", function (data) {
+                //    $("#emptyDiv").html(data.name + data.number);
+                //})
+            });
+        });
+    </script>
+}
