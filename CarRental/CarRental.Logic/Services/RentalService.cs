@@ -164,5 +164,11 @@ public class RentalService : IRentalService
         return _mapper.Map<List<RentalViewModel>>(rentals);
     }
 
+    private IEnumerable<RentalViewModel> GetRentalsByCarId(int carId)
+    {
+        var rentals = GetAllRentals();
+        return rentals.Where(r => r.CarId == carId);
+    }
+
     #endregion
 }
