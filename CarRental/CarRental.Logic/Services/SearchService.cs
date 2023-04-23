@@ -16,9 +16,9 @@ public class SearchService : ISearchService
         _rentalService = rentalService;
         _mapper = mapper;
     }
-    public List<CarModel> SearchList(SearchFieldsModel searchModel)
+    public List<CarViewModel> SearchList(SearchFieldsModel searchModel)
     {
-        List<CarModel> results = new List<CarModel>();
+        List<CarViewModel> results = new List<CarViewModel>();
         var cars = _carService.GetByName(searchModel.ModelAndMake);
 
         if (searchModel.ProductionYearTo > 0 && searchModel.ProductionYearTo >= searchModel.ProductionYearFrom)
@@ -36,14 +36,14 @@ public class SearchService : ISearchService
         return results;
     }
 
-    public List<CarModel> FilterList(SearchFieldsModel searchFields)
+    public List<CarViewModel> FilterList(SearchFieldsModel searchFields)
     {
-        List<CarModel> carModels = _carService.GetAll().ToList();
+        List<CarViewModel> carModels = _carService.GetAll().ToList();
 
         if (searchFields.Makes.Values.All(m => m == false))
         {
             var cars = _carService.GetAll();
-            carModels = _mapper.Map<List<CarModel>>(carModels);
+            carModels = _mapper.Map<List<CarViewModel>>(carModels);
         }
         if (searchFields.Makes.Values.Contains(true))
         {

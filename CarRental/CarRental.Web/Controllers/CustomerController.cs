@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using CarRental.Logic.Models;
+﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
-using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -9,22 +7,17 @@ namespace CarRental.Web.Controllers;
 public class CustomerController : Controller
 {
     private readonly ICustomerService _customerService;
-    private readonly IMapper _mapper;
 
-    public CustomerController(ICustomerService customerService, IMapper mapper)
+    public CustomerController(ICustomerService customerService)
     {
         _customerService = customerService;
-        _mapper = mapper;
     }
 
     // GET: CustomerController
     public IActionResult Index()
     {
         var customers = _customerService.GetAll();
-
-        var model = _mapper.Map<List<CustomerModel>>(customers);
-
-        return View(model);
+        return View(customers);
     }
 
     // GET: CustomerController/Details/5
@@ -35,9 +28,7 @@ public class CustomerController : Controller
         if (customer is null)
             return RedirectToAction(nameof(Index));
 
-        var model = _mapper.Map<CustomerModel>(customer);
-
-        return View(model);
+        return View(customer);
     }
 
     // GET: CustomerController/Create
@@ -49,7 +40,7 @@ public class CustomerController : Controller
     // POST: CustomerController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(CustomerModel model)
+    public IActionResult Create(CustomerViewModel model)
     {
         try
         {
@@ -57,8 +48,6 @@ public class CustomerController : Controller
             {
                 return View(model);
             }
-
-            //var customer = _mapper.Map<CustomerModel>(model);
 
             _customerService.Create(model);
 
@@ -74,21 +63,16 @@ public class CustomerController : Controller
     public IActionResult Edit(int id)
     {
         var customer = _customerService.Get(id);
-
-        var model = _mapper.Map<CustomerModel>(customer);
-
-        return View(model);
+        return View(customer);
     }
 
     // POST: CustomerController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(CustomerModel model)
+    public IActionResult Edit(CustomerViewModel customer)
     {
         try
         {
-            var customer = _mapper.Map<CustomerModel>(model);
-
             _customerService.Update(customer);
 
             return RedirectToAction(nameof(Index));
@@ -102,9 +86,8 @@ public class CustomerController : Controller
     // GET: CustomerController/Delete/5
     public IActionResult Delete(int id)
     {
-        var customerModel = _customerService.Get(id);
-
-        return View(customerModel);
+        var customer = _customerService.Get(id);
+        return View(customer);
     }
 
     // POST: CustomerController/Delete/5

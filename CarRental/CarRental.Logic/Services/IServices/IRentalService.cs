@@ -5,10 +5,10 @@ namespace CarRental.Logic.Services.IServices;
 
 public interface IRentalService
 {
-    List<RentalModel> GetAll();
-    RentalModel Get(int id);
-    void Create(RentalModel rental);
-    void Update(RentalModel rental);
+    List<RentalViewModel> GetAll();
+    RentalViewModel Get(int id);
+    void Create(RentalViewModel rental);
+    void Update(RentalViewModel rental);
     void Delete(int id);
 
     List<int> GetAvailableCarIds(DateTime startDate, DateTime endDate);

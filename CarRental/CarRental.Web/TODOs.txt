@@ -1,39 +1,36 @@
 ﻿
-- usunąć konsolówkę z solucji
+V Janek - kod do czytania z Jsona przenieść do Seed'a
 
-- kod do czytania z Jsona przenieść do Seed'a
+V Janek - CarRentability -> RentalService
 
-- usunąć nieużywany kod lub ew. dopisać komentarz
+Janek - model Car wyczyścić, aby zostały tylko właściwości
 
-- modele Car, Rental, Customer wyczyścić, aby zostały tylko właściwości
+V Janek - zamiast AddonService to wrzucić do CarService (też bez IAddonService)
 
-- modele do logiki (view modele)
+V Janek - modele do logiki (view modele)
 
-- SearchService przenieść do CarService
+Janek - RentalController  - mapowanie z użyciem AutoMapper'a
 
-- zamiast AddonService to wrzucić do CarService (też bez IAddonService)
+V Janek - FillModel() dla Car albo zmiana na AutoMapper albo umieścić w Seed
 
-- CarRentability -> RentalService (?)
 
+
+Patryk - SearchService przenieść do CarService
+
+Patryk - po dodaniu auta niech wraca do widoku z kafelkami
+
+Patryk - wybór kalendarza z godziną i minutami bez sekund dla Rental (edit, create)
+
+
+
+Jacek - wyrzucić Privacy (?)
+
+Jacek - formatowanie dat w widokach
+
+Jacek - wyświetlanie nazw w widokach (ze spacjami)
+
+
+
+Każdy - usunąć nieużywany kod lub ew. dopisać komentarz
 
 - jak wyszukać kod, do którego nie ma referencji?
-
-- RentalController  - mapowanie z użyciem AutoMapper'a
-
-- FillModel() dla Car albo zmiana na AutoMapper albo umieścić w Seed
-
-
-
-
-- wyrzucić Privacy (?)
-
-- po dodaniu auta niech wraca do widoku z kafelkami
-
-- wybór kalendarza z godziną i minutami bez sekund dla Rental (edit, create)
-
-- więcej info dla Customer w tabeli
-
-- formatowanie dat w widokach
-
-- wyświetlanie nazw w widokach (ze spacjami)
-

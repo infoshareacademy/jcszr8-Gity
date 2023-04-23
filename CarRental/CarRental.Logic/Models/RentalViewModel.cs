@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CarRental.Web.Models;
+namespace CarRental.Logic.Models;
 
 public class RentalViewModel
 {

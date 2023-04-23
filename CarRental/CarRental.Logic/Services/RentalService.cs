@@ -10,33 +10,31 @@ public class RentalService : IRentalService
 {
     private readonly ICarService _carService;
     private readonly ICustomerService _customerService;
-    private readonly ICarRentabilityService _carRentabilityService;
     private readonly IRepository<Rental> _rentalRepository;
     private readonly IMapper _mapper;
 
-    public RentalService(ICarService carService, IMapper mapper, IRepository<Rental> rentalRepository, ICustomerService customerService, ICarRentabilityService carRentabilityService)
+    public RentalService(ICarService carService, IMapper mapper, IRepository<Rental> rentalRepository, ICustomerService customerService)
     {
         _carService = carService;
         _customerService = customerService;
         _mapper = mapper;
         _rentalRepository = rentalRepository;
-        _carRentabilityService = carRentabilityService;
     }
 
-    public List<RentalModel> GetAll()
+    public List<RentalViewModel> GetAll()
     {
         var rentals = _rentalRepository.GetAll();
 
-        return _mapper.Map<List<RentalModel>>(rentals);
+        return _mapper.Map<List<RentalViewModel>>(rentals);
     }
 
-    public RentalModel Get(int id)
+    public RentalViewModel Get(int id)
     {
         var rental = _rentalRepository.Get(id);
-        return _mapper.Map<RentalModel>(rental);
+        return _mapper.Map<RentalViewModel>(rental);
     }
 
-    public void Create(RentalModel model)
+    public void Create(RentalViewModel model)
     {
         if (IsRentalValidForCreate(model))
         {
@@ -45,7 +43,7 @@ public class RentalService : IRentalService
         }
     }
 
-    private bool IsRentalValidForCreate(RentalModel model)
+    private bool IsRentalValidForCreate(RentalViewModel model)
     {
         if (model is null)
         {
@@ -55,7 +53,7 @@ public class RentalService : IRentalService
         {
             return false;
         }
-        if (_carRentabilityService.IsCarBookedForRentInGivenTerm(
+        if (IsCarBookedForRentInGivenTerm(
             model.CarId, model.BeginDate, model.EndDate))
         {
             return false;
@@ -63,7 +61,7 @@ public class RentalService : IRentalService
         return true;
     }
 
-    public void Update(RentalModel model)
+    public void Update(RentalViewModel model)
     {
         //var rental = Get(model.Id);
 
@@ -85,7 +83,7 @@ public class RentalService : IRentalService
         _rentalRepository.Delete(id);
     }
 
-    private IEnumerable<RentalModel> GetCollectionByPredicate(Func<RentalModel, bool> predicate)
+    private IEnumerable<RentalViewModel> GetCollectionByPredicate(Func<RentalViewModel, bool> predicate)
     {
         var rentals = GetAll();
         return rentals.Where(predicate);
@@ -104,7 +102,7 @@ public class RentalService : IRentalService
 
     public List<int> GetAvailableCarIds(DateTime startDate, DateTime endDate)
     {
-        var availableCarIds = _carRentabilityService.GetIdsForCarsAvailableInGivenTerm(startDate, endDate);
+        var availableCarIds = GetIdsForCarsAvailableInGivenTerm(startDate, endDate);
         return availableCarIds.ToList();
     }
 
@@ -113,4 +111,58 @@ public class RentalService : IRentalService
         var days = (endDate - startDate).TotalDays;
         return days;
     }
+
+    #region Checking Car Rentability
+
+    public IEnumerable<int> GetIdsForCarsAvailableInGivenTerm(DateTime startDate, DateTime endDate)
+    {
+        var allNotCollidingRentals = GetRentalsNotCollidingWithTerm(startDate, endDate);
+        var availableCarIds = allNotCollidingRentals.Select(r => r.CarId)
+            .ToHashSet<int>().ToList<int>();
+        return availableCarIds;
+    }
+
+    public IEnumerable<CarViewModel> GetCarsAvailableInGivenTerm(DateTime termStart, DateTime termEnd)
+    {
+        var availableCarIds = GetIdsForCarsAvailableInGivenTerm(termStart, termEnd);
+        var cars = _carService.GetAll().Where(c => availableCarIds.Contains(c.Id)).ToList();
+        return cars;
+    }
+
+    public IEnumerable<RentalViewModel> GetRentalsNotCollidingWithTerm(DateTime termStart, DateTime termEnd)
+    {
+        var rentals = GetAllRentals();
+        return rentals.Where(r => r.BeginDate > termEnd || r.EndDate < termStart);
+    }
+
+    public IEnumerable<RentalViewModel> GetRentalsCollidingWithTerm(DateTime startDate, DateTime endDate)
+    {
+        var rentals = GetAllRentals();
+        return rentals.Where(r =>
+            startDate < r.BeginDate && endDate > r.BeginDate
+            || startDate < r.EndDate && endDate > r.EndDate
+            || startDate > r.BeginDate && endDate < r.EndDate);
+    }
+
+    public bool IsCarAvailableForRentInGivenTerm(int carId, DateTime startDate, DateTime endDate)
+    {
+        var notCollidingRentals = GetRentalsNotCollidingWithTerm(startDate, endDate);
+        var filteredCarIds = notCollidingRentals.Where(r => r.CarId == carId).Select(r => r.CarId).ToHashSet<int>().ToList<int>();
+        return filteredCarIds.Contains(carId);
+    }
+
+    private bool IsCarBookedForRentInGivenTerm(int carId, DateTime startDate, DateTime endDate)
+    {
+        var collidingRentals = GetRentalsCollidingWithTerm(startDate, endDate);
+        var filteredCarIds = collidingRentals.Where(r => r.CarId == carId).Select(r => r.CarId).ToHashSet<int>().ToList<int>();
+        return filteredCarIds.Contains(carId);
+    }
+
+    private IEnumerable<RentalViewModel> GetAllRentals()
+    {
+        var rentals = _rentalRepository.GetAll();
+        return _mapper.Map<List<RentalViewModel>>(rentals);
+    }
+
+    #endregion
 }
