@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Logic.Models;
-public sealed class CarViewModel
+public class CarViewModel
 {
     public CarViewModel() { }
 

@@ -40,7 +40,7 @@ public class CarController : Controller
     // POST: CarController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(CarViewModel model)
+    public IActionResult Create(CarCreateViewModel model)
     {
         try
         {
