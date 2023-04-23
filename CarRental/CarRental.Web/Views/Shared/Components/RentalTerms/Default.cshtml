@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Term>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<style>
+table {
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+    td {
+        padding: 2px;
+    }
+</style>
+
+<h6>This car booked in terms</h6>
+<table>
+    <thead>
+        <tr>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.DateFrom)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.DateTo)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateFrom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTo)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
