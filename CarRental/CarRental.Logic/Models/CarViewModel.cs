@@ -29,7 +29,7 @@ public class CarViewModel
     public int? Kilometrage { get; set; }
     [Display(Name = "Power In Kilowatts")]
     public float? PowerInKiloWats { get; set; }
-    
+
     [Display(Name = "Engine Type")]
     public EngineType? EngineType { get; set; }
     public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.

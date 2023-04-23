@@ -1,4 +1,5 @@
-﻿@using CarRental.Logic.Models;
+﻿@using CarRental.Common.Extensions;
+@using CarRental.Logic.Models;
 @model IEnumerable<RentalViewModel>
 @*@model dynamic*@
 
@@ -40,10 +41,9 @@
                     @Html.DisplayFor(modelItem => item.CarLicencePlate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BeginDate)
-                </td>
+                    @item.BeginDate.DefaultDateFormat()
                 <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
+                    @item.EndDate.DefaultDateFormat()
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TotalCost)
