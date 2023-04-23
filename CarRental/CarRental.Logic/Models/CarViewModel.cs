@@ -33,10 +33,8 @@ public class CarViewModel
     public int? Airbags { get; set; }
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
 
-    public List<string> Addons { get; set; } = new(); // TODO back to this
+    public List<string> Addons { get; set; } = new();
     public decimal? Price { get; set; }
-
-    private static List<string> _availableAddons = new() { "Ac", "towbar", "ABS", "roof rack" };
 
     #endregion
 }
