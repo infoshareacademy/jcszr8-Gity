@@ -1,6 +1,16 @@
 ﻿@model CarRental.Web.Models.RentalViewModel
 
 @{
+    string Print(DateTime dt)
+    {
+        string result = Convert.ToDateTime(dt).ToString("yyyy-MM-dd h:mm tt");
+
+        return result;
+    }
+    ViewData["Title"] = "Details";
+}
+
+@{
     ViewData["Title"] = "Details";
 }
 
@@ -33,16 +43,16 @@
                 @Html.DisplayFor(model => model.CarId)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.BeginDate)
+                @Print(Model.BeginDate)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.BeginDate)
+               @Print(Model.BeginDate)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.EndDate)
+                @Print(Model.EndDate)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.EndDate)
+                @Print(Model.EndDate)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.TotalCost)
