@@ -75,21 +75,10 @@ public class RentalService : IRentalService
         _rentalRepository.Delete(id);
     }
 
-    private IEnumerable<RentalViewModel> GetCollectionByPredicate(Func<RentalViewModel, bool> predicate)
-    {
-        var rentals = GetAll();
-        return rentals.Where(predicate);
-    }
-
     public decimal GetRentalTotalPrice(decimal pricePerDay, DateTime rentStart, DateTime rentEnd)
     {
         var totalPrice = pricePerDay * (decimal)CalculateDaysBetweenDates(rentStart, rentEnd);
         return totalPrice;
-    }
-
-    public IEnumerable<T> FilterByPredicate<T>(IQueryable<T> collection, Func<T, bool> predicate)
-    {
-        return collection.Where(predicate);
     }
 
     public List<int> GetAvailableCarIds(DateTime startDate, DateTime endDate)
@@ -114,13 +103,6 @@ public class RentalService : IRentalService
         return availableCarIds;
     }
 
-    public IEnumerable<CarViewModel> GetCarsAvailableInGivenTerm(DateTime termStart, DateTime termEnd)
-    {
-        var availableCarIds = GetIdsForCarsAvailableInGivenTerm(termStart, termEnd);
-        var cars = _carService.GetAll().Where(c => availableCarIds.Contains(c.Id)).ToList();
-        return cars;
-    }
-
     public IEnumerable<RentalViewModel> GetRentalsNotCollidingWithTerm(DateTime termStart, DateTime termEnd)
     {
         var rentals = GetAllRentals();
@@ -134,13 +116,6 @@ public class RentalService : IRentalService
             startDate < r.BeginDate && endDate > r.BeginDate
             || startDate < r.EndDate && endDate > r.EndDate
             || startDate > r.BeginDate && endDate < r.EndDate);
-    }
-
-    public bool IsCarAvailableForRentInGivenTerm(int carId, DateTime startDate, DateTime endDate)
-    {
-        var notCollidingRentals = GetRentalsNotCollidingWithTerm(startDate, endDate);
-        var filteredCarIds = notCollidingRentals.Where(r => r.CarId == carId).Select(r => r.CarId).ToHashSet<int>().ToList<int>();
-        return filteredCarIds.Contains(carId);
     }
 
     private bool IsCarBookedForRentInGivenTerm(int carId, DateTime startDate, DateTime endDate)
@@ -163,4 +138,31 @@ public class RentalService : IRentalService
     }
 
     #endregion
+
+    #region To be used
+    private IEnumerable<RentalViewModel> GetCollectionByPredicate(Func<RentalViewModel, bool> predicate)
+    {
+        var rentals = GetAll();
+        return rentals.Where(predicate);
+    }
+
+    public bool IsCarAvailableForRentInGivenTerm(int carId, DateTime startDate, DateTime endDate)
+    {
+        var notCollidingRentals = GetRentalsNotCollidingWithTerm(startDate, endDate);
+        var filteredCarIds = notCollidingRentals.Where(r => r.CarId == carId).Select(r => r.CarId).ToHashSet<int>().ToList<int>();
+        return filteredCarIds.Contains(carId);
+    }
+
+    public IEnumerable<CarViewModel> GetCarsAvailableInGivenTerm(DateTime termStart, DateTime termEnd)
+    {
+        var availableCarIds = GetIdsForCarsAvailableInGivenTerm(termStart, termEnd);
+        var cars = _carService.GetAll().Where(c => availableCarIds.Contains(c.Id)).ToList();
+        return cars;
+    }
+
+    public IEnumerable<T> FilterByPredicate<T>(IQueryable<T> collection, Func<T, bool> predicate)
+    {
+        return collection.Where(predicate);
+    }
+    #endregion 
 }
