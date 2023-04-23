@@ -1,4 +1,3 @@
-using AutoMapper;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +26,6 @@ public class CarController : Controller
     public IActionResult Details(int id)
     {
         var car = _carService.Get(id);
-
         return View(car);
     }
 
@@ -48,7 +46,6 @@ public class CarController : Controller
             {
                 return View(model);
             }
-
             _carService.Create(model);
 
             return RedirectToAction(nameof(Index));
@@ -75,7 +72,6 @@ public class CarController : Controller
         try
         {
             _carService.Update(model);
-
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -88,7 +84,6 @@ public class CarController : Controller
     public IActionResult Delete(int id)
     {
         var car = _carService.Get(id);
-
         return View(car);
     }
 

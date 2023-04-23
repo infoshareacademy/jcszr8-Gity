@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations;
 namespace CarRental.Logic.Models;
 public class CarViewModel
 {
-    public CarViewModel() { }
-
     #region Properties/Fields
 
     public int Id { get; set; }
@@ -32,7 +30,6 @@ public class CarViewModel
     public int? SeatsNo { get; set; } // total number of seats (with driver seat included)
     public int? Airbags { get; set; }
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
-
     public List<string> Addons { get; set; } = new();
     public decimal? Price { get; set; }
 
