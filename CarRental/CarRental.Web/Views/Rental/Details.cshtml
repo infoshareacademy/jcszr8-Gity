@@ -1,4 +1,5 @@
 ﻿@using CarRental.Logic.Models;
+@using CarRental.Web.Components;
 @model RentalViewModel
 
 @{
@@ -53,6 +54,11 @@
             </dd>
         </dl>
     </div>
+
+    <div>
+        @await Component.InvokeAsync("RentalTerms", new { Id = Model.CarId })
+    </div>
+
     <div>
         <partial name="Buttons/_ButtonEdit-2" />
         <partial name="Buttons/_ButtonBackToList" />
