@@ -63,14 +63,6 @@ public class RentalService : IRentalService
 
     public void Update(RentalViewModel model)
     {
-        //var rental = Get(model.Id);
-
-        //rental.CarId = model.CarId;
-        //rental.CustomerId = model.CustomerId;
-        //rental.BeginDate = model.BeginDate;
-        //rental.EndDate = model.EndDate;
-        //rental.TotalCost = model.TotalCost;
-
         if (model is not null)
         {
             var rental = _mapper.Map<Rental>(model);
@@ -162,6 +154,12 @@ public class RentalService : IRentalService
     {
         var rentals = _rentalRepository.GetAll();
         return _mapper.Map<List<RentalViewModel>>(rentals);
+    }
+
+    public IEnumerable<RentalViewModel> GetRentalsByCarId(int carId)
+    {
+        var rentals = GetAllRentals();
+        return rentals.Where(r => r.CarId == carId);
     }
 
     #endregion

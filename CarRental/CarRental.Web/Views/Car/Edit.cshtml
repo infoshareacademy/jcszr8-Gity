@@ -111,6 +111,10 @@
                     <input asp-for="Price" class="form-control" />
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
+
+                <label asp-for="Addons" class="control-label"></label>
+                <partial name="_AvailableOptionsForAddons" , new { Addons="@Model.Addons" } />
+
                 <div class="form-group">
                     @*<input type="submit" value="Save" class="btn btn-primary" />*@
                     <button type="submit" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Save data">
