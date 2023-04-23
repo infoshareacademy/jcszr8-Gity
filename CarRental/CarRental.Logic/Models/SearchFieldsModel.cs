@@ -1,4 +1,6 @@
 ﻿using CarRental.DAL;
+using CarRental.DAL.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.Logic.Models;
 
@@ -14,21 +16,18 @@ public class SearchFieldsModel
 
     public SearchFieldsModel()
     {
-        //Makes = PrepareDictionary(); // TODO
+        Makes = PrepareDictionary();
     }
 
     public Dictionary<string, bool> PrepareDictionary()
     {
         Dictionary<string, bool> make = new Dictionary<string, bool>();
+        var group = Seed.Cars.Select(car => car.Make).Distinct();
 
-        throw new NotImplementedException();
-
-        //var group = CarRentalData.Cars.Select(car => car.Make).Distinct();  // TODO Patryk
-
-        //foreach (var carMake in group)
-        //{
-        //    make.Add(carMake, false);
-        //}
-        //return make;
+        foreach (var carMake in group)
+        {
+            make.Add(carMake, false);
+        }
+        return make;
     }
 }
