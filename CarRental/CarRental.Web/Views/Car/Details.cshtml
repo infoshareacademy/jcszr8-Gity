@@ -20,16 +20,16 @@
                 @Html.DisplayFor(model => model.Id)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.CarModelProp)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CarModelProp)
-            </dd>
-            <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Make)
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Make)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CarModelProp)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CarModelProp)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Year)
@@ -43,81 +43,114 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.LicencePlateNumber)
             </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Color)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Color)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Transmission)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Transmission)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Kilometrage)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Kilometrage)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Doors)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Doors)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.SeatsNo)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.SeatsNo)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Airbags)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Airbags)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.FuelConsumption)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.FuelConsumption)
-            </dd>
-
-
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.EngineType)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.EngineType)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Displacement)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Displacement)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.PowerInKiloWats)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.PowerInKiloWats)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Addons)
-            </dt>
-            <dd class="col-sm-10">
-                @string.Join(", ", Model.Addons)
-            </dd>
-
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Price)
-            </dd>
+            @if (Model.Color != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Color)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Color)
+                </dd>
+            }
+            @if (Model.Transmission != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Transmission)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Transmission)
+                </dd>
+            }
+            @if (Model.Kilometrage != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Kilometrage)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Kilometrage)
+                </dd>
+            }
+            @if (Model.Doors != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Doors)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Doors)
+                </dd>
+            }
+            @if (Model.SeatsNo != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SeatsNo)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SeatsNo)
+                </dd>
+            }
+            @if (Model.Airbags != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Airbags)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Airbags)
+                </dd>
+            }
+            @if (Model.FuelConsumption != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.FuelConsumption)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.FuelConsumption)
+                </dd>
+            }
+            @if (Model.EngineType != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.EngineType)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.EngineType)
+                </dd>
+            }
+            @if (Model.Displacement != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Displacement)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Displacement)
+                </dd>
+            }
+            @if (Model.PowerInKiloWats != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PowerInKiloWats)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.PowerInKiloWats)
+                </dd>
+            }
+            @if (Model.Addons != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Addons)
+                </dt>
+                <dd class="col-sm-10">
+                    @string.Join(", ", Model.Addons)
+                </dd>
+            }
+            @if (Model.Price != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
+            }
         </dl>
     </div>
     <div>
