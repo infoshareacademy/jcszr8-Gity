@@ -6,8 +6,11 @@ using CarRental.Logic.Services;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using NuGet.Common;
+using Serilog;
 using System.Globalization;
+using Serilog.Sinks.MSSqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +29,22 @@ builder.Services.AddTransient<ISearchService, SearchService>();
 
 //builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
+
+builder.Host.UseSerilog((hbc, loggerConfiguration) =>
+{
+    //loggerConfiguration.ReadFrom.Configuration(hbc.Configuration);
+    loggerConfiguration.WriteTo.Console();
+    //loggerConfiguration.WriteTo.File("log.txt", Serilog.Events.LogEventLevel.Information);
+    loggerConfiguration.WriteTo.File("log.txt").MinimumLevel.Information();
+
+
+    loggerConfiguration.WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MSSqlServerSinkOptions
+        {
+            AutoCreateSqlTable = true,
+            TableName = "CarRentalLogs"
+        });
+});
 
 var app = builder.Build();
 
