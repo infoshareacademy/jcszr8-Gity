@@ -1,4 +1,6 @@
-﻿using CarRental.DAL.Entities;
+﻿using AutoMapper;
+using CarRental.DAL.Entities;
+using CarRental.DAL.HelperModels;
 using Newtonsoft.Json;
 
 namespace CarRental.DAL.Context;
@@ -7,7 +9,22 @@ public static class Seed
 {
     public static List<Customer> Customers { get; set; } = GetItems<Customer>("customers.json");
     public static List<Rental> Rentals { get; set; } = GetItems<Rental>("rentals.json");
-    public static List<Car> Cars { get; set; } = GetItems<Car>("cars.json");
+    public static List<Car> Cars { get; set; } = GetCars("cars.json");
+
+    public static List<Car> GetCars(string jsonfileName)
+    {
+        List<CarFromJson> carsFromJson = GetItems<CarFromJson>(jsonfileName);
+
+
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<CarFromJson, Car>();
+        });
+
+        var mapper = new Mapper(config);
+        var cars = mapper.Map<List<Car>>(carsFromJson);
+        return cars;
+    }
 
     public static void Initialize(ApplicationContext context)
     {
@@ -15,7 +32,6 @@ public static class Seed
 
         Customer[] customers = Customers.ToArray();
         Rental[] rentals = Rentals.ToArray();
-        PopulateAddons();
         Car[] cars = Cars.ToArray();
 
         if (context.Customers.Any() && context.Rentals.Any() && context.Cars.Any())
@@ -57,15 +73,6 @@ public static class Seed
         }
         context.SaveChanges();
     }
-
-    public static void PopulateAddons()
-    {
-        foreach (var car in Cars)
-        {
-            car.PopulateAddonsFromAddonHelper();
-        }
-    }
-
     public static List<T> GetItems<T>(string fileName)
     {
         var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
