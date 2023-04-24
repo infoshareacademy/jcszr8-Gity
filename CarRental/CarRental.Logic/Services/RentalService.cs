@@ -98,6 +98,39 @@ public class RentalService : IRentalService
         return availableCarIds.ToList();
     }
 
+
+    #region Fast Fix for car search
+
+    public IEnumerable<int> GetAvailableCarIdsForSearch(DateTime start, DateTime end)
+    {
+        var cars1 = GetNotRentedForSearch();
+        var cars2 = GetAvailableInGivenTimeForSearch(start, end);
+        var allIdCars = cars1.Concat(cars2).Distinct().ToList();
+        return allIdCars;
+    }
+    public IEnumerable<int> GetNotRentedForSearch()
+    {
+        var rentedIds = _rentalRepository.GetAll()
+            .Select(r => r.CarId).ToList();
+
+        var carIds = _carService.GetAll()
+            .Select(c => c.Id).ToList();
+
+        var availableCarIds = carIds.Except(rentedIds).ToList();
+
+        return availableCarIds;
+    }
+
+    public IEnumerable<int> GetAvailableInGivenTimeForSearch(DateTime start, DateTime end)
+    {
+        var found = _rentalRepository.GetAll()
+            .Where(r =>
+           (end < r.BeginDate) ||
+           (start > r.EndDate)
+           ).Select(r => r.CarId).ToList();
+        return found;
+    }
+    #endregion
     private double CalculateDaysBetweenDates(DateTime startDate, DateTime endDate)
     {
         var days = (endDate - startDate).TotalDays;

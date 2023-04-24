@@ -10,6 +10,7 @@ public interface IRentalService
     void Update(RentalViewModel rental);
     void Delete(int id);
     List<int> GetAvailableCarIds(DateTime startDate, DateTime endDate);
+    IEnumerable<int> GetAvailableCarIdsForSearch(DateTime start, DateTime end);
     decimal GetRentalTotalPrice(decimal pricePerDay, DateTime rentStart, DateTime rentEnd);
     IEnumerable<RentalViewModel> GetRentalsByCarId(int carId);
 }
