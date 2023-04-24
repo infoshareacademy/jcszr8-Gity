@@ -19,4 +19,7 @@ public class Rental : Entity
 
     [JsonProperty("total_cost")]
     public decimal? TotalCost { get; set; }
+
+    //public Customer Customer { get; set; }
+    //public Car Car { get; set; }
 }

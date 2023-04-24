@@ -1,12 +1,10 @@
 ﻿using CarRental.Common.Enums;
 using CarRental.DAL.Entities.BaseEntity;
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.DAL.Entities;
 public class Car : Entity
 {
-
     [JsonProperty("addons")]
     private List<string> _addonHelper = new();
 
@@ -39,7 +37,7 @@ public class Car : Entity
     public int? Airbags { get; set; }
 
     [JsonProperty("fuel_consumption")]
-    public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
+    public string? FuelConsumption { get; set; }
     public string? Addons { get; set; }
     public decimal? Price { get; set; }
 
