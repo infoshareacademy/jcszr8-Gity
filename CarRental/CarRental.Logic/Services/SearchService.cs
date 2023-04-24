@@ -25,7 +25,7 @@ public class SearchService : ISearchService
         {
             cars = cars.Where(c => c.Year >= searchModel.ProductionYearFrom && c.Year <= searchModel.ProductionYearTo).ToList();
         }
-        IEnumerable<int> carIds = _rentalService.GetAvailableCarIds(searchModel.StartDate, searchModel.EndDate);
+        IEnumerable<int> carIds = _rentalService.GetAvailableCarIdsForSearch(searchModel.StartDate, searchModel.EndDate);
         foreach (var item in cars)
         {
             if (carIds.Any(x => x == item.Id))
@@ -64,7 +64,7 @@ public class SearchService : ISearchService
 
         if (searchFields.StartDate != null && searchFields.EndDate != null)
         {
-            var availableCarIds = _rentalService.GetAvailableCarIds(searchFields.StartDate, searchFields.EndDate);
+            var availableCarIds = _rentalService.GetAvailableCarIdsForSearch(searchFields.StartDate, searchFields.EndDate);
             carModels = carModels.Where(c => availableCarIds.Contains(c.Id)).ToList();
         }
 

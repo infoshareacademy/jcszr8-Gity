@@ -17,6 +17,10 @@ html {
     min-height: 100%;
 }
 
+.none-underline {
+    text-decoration: none;
+}
+
 .search-container {
     position: relative;
     z-index: 2;
