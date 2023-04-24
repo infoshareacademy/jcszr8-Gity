@@ -3,6 +3,7 @@ using CarRental.DAL.Entities;
 using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using Microsoft.Extensions.Logging;
 using System.Text;
 
 namespace CarRental.Logic.Services;
@@ -11,11 +12,13 @@ public class CarService : ICarService
 {
     private readonly IRepository<Car> _carRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger _logger;
 
-    public CarService(IRepository<Car> carRepository, IMapper mapper)
+    public CarService(IRepository<Car> carRepository, IMapper mapper, ILogger<CarService> logger)
     {
         _carRepository = carRepository;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public IEnumerable<CarViewModel> GetAll()
@@ -73,6 +76,7 @@ public class CarService : ICarService
     {
         var car = _mapper.Map<Car>(model);
         _carRepository.Insert(car);
+        _logger.LogInformation($"Car ({car.Make}, {car.CarModelProp}, {car.Year}, {car.LicencePlateNumber}) was created.");
     }
 
     public CarViewModel? Get(int id)
@@ -89,6 +93,7 @@ public class CarService : ICarService
     public void Delete(int id)
     {
         _carRepository.Delete(id);
+        _logger.LogInformation($"Car with id {id} was deleted");
     }
 
     public void Update(CarViewModel model)
@@ -96,5 +101,6 @@ public class CarService : ICarService
         var car = _mapper.Map<Car>(model);
 
         _carRepository.Update(car);
+        _logger.LogInformation($"Car with Id={car.Id} was updated.");
     }
 }

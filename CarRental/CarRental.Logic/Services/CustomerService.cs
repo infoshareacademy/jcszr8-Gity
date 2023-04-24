@@ -3,6 +3,7 @@ using CarRental.DAL.Entities;
 using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using Microsoft.Extensions.Logging;
 
 namespace CarRental.Logic.Services;
 
@@ -10,11 +11,13 @@ public class CustomerService : ICustomerService
 {
     private readonly IRepository<Customer> _customerRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger _logger;
 
-    public CustomerService(IRepository<Customer> customerRepository, IMapper mapper)
+    public CustomerService(IRepository<Customer> customerRepository, IMapper mapper, ILogger<CustomerService> logger)
     {
         _customerRepository = customerRepository;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public IEnumerable<CustomerViewModel> GetAll()
@@ -48,7 +51,6 @@ public class CustomerService : ICustomerService
             LastName = lastName,
             PhoneNumber = phoneNumber
         };
-
         _customerRepository.Insert(_mapper.Map<Customer>(model));
     }
 
@@ -61,5 +63,6 @@ public class CustomerService : ICustomerService
     public void Delete(int id)
     {
         _customerRepository.Delete(id);
+        _logger.LogInformation($"Customer with id {id} was deleted");
     }
 }

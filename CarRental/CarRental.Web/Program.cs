@@ -6,6 +6,7 @@ using CarRental.Logic.Services;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Common;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
