@@ -21,7 +21,7 @@ public static class Seed
         PopulateAddons();
         Car[] cars = Cars.ToArray();
 
-        if (context.Customers.Any() && context.Rentals.Any())
+        if (context.Customers.Any() && context.Rentals.Any() && context.Cars.Any())
         {
             return; // DB has been seeded
         }
@@ -37,14 +37,6 @@ public static class Seed
                 Gender = customer.Gender,
                 Pesel = customer.Pesel,
             });
-
-            // TODO cleaning
-            //var customerDb = CustomerDbBuilder.aCustomerDb()
-            //    .WithFirstName(customer.FirstName)
-            //    .WithLastName(customer.LastName)
-            //    .WithPhoneNumber(customer.PhoneNumber)
-            //    .Build();
-            //context.Customers.Add(customerDb);
         }
         context.SaveChanges();
 
@@ -80,7 +72,6 @@ public static class Seed
     public static List<T> GetItems<T>(string fileName)
     {
         var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
-
         string itemsSerialized;
 
         try
@@ -100,7 +91,6 @@ public static class Seed
     {
         return new Car()
         {
-            //Id = 0,
             CarModelProp = car.CarModelProp,
             Make = car.Make,
             LicencePlateNumber = car.LicencePlateNumber,

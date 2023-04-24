@@ -68,17 +68,13 @@ app.Run();
 
 static void CreateDbIfNotExists(IHost host)
 {
-
     using var scope = host.Services.CreateScope();
     var services = scope.ServiceProvider;
     try
     {
         var context = services.GetRequiredService<ApplicationContext>();
 
-        // !!!!!!!!! ?????????? testing  // TODO database.EnsureDeleted()
         context.Database.EnsureDeleted();
-
-
         Seed.Initialize(context);
     }
     catch (Exception ex)
