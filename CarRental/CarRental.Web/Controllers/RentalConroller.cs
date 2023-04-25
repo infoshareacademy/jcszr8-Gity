@@ -53,8 +53,6 @@ public class RentalController : Controller
         object shortCustomer = d.FirstName + " " + d.LastName;
 
         var carLicencePlate = _carService?.Get(rental.CarId)?.LicencePlateNumber;
-        var carMake = _carService?.Get(rental.CarId)?.Make;
-        var carModel = _carService?.Get(rental.CarId)?.CarModelProp;
 
         var rentalViewModel = new RentalViewModel
         {

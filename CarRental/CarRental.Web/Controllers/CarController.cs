@@ -48,7 +48,7 @@ public class CarController : Controller
             }
             _carService.Create(model);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Search"); ;
         }
         catch
         {
