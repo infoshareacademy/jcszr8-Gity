@@ -10,7 +10,7 @@ public class Car : Entity
     public string LicencePlateNumber { get; set; }
     public EngineType? EngineType { get; set; }
     public TransmissionType? Transmission { get; set; }
-    public string? Addons { get; set; }
+    public List<string> Addons { get; set; } = new();
     public string? Color { get; set; }
     public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
     public string? FuelConsumption { get; set; }
