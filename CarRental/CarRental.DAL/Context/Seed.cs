@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using CarRental.DAL.Entities;
 using CarRental.DAL.HelperModels;
+using CarRental.DAL.MapperProfiles;
 using Newtonsoft.Json;
+using System.IO.Compression;
 
 namespace CarRental.DAL.Context;
 
@@ -17,10 +19,11 @@ public static class Seed
 
         var config = new MapperConfiguration(cfg => 
         {
-            cfg.CreateMap<CarFromJson, Car>();
+            cfg.CreateMap<CarFromJson, Car>().ConvertUsing<CarFromJsonToCarConverter>();
         });
         var mapper = new Mapper(config);
         var cars = mapper.Map<List<Car>>(carsFromJson);
+
         return cars;
     }
 

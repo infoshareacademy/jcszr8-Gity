@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CarRental.DAL.Entities;
 using CarRental.Logic.Models;
+using System.Reflection;
 
 namespace CarRental.Logic.MapperProfiles;
 
@@ -47,4 +48,5 @@ public class CarProfile : Profile
             .ForMember(dest => dest.FuelConsumption, opt => opt.MapFrom(src => src.FuelConsumption))
             .ForMember(dest => dest.Addons, opt => opt.MapFrom(src => string.Join(";", src.Addons)));
     }
+
 }
