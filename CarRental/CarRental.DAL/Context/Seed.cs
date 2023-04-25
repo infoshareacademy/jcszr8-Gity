@@ -15,7 +15,6 @@ public static class Seed
 
         Customer[] customers = Customers.ToArray();
         Rental[] rentals = Rentals.ToArray();
-        PopulateAddons();
         Car[] cars = Cars.ToArray();
 
         if (context.Customers.Any() && context.Rentals.Any() && context.Cars.Any())
@@ -57,15 +56,6 @@ public static class Seed
         }
         context.SaveChanges();
     }
-
-    public static void PopulateAddons()
-    {
-        foreach (var car in Cars)
-        {
-            car.PopulateAddonsFromAddonHelper();
-        }
-    }
-
     public static List<T> GetItems<T>(string fileName)
     {
         var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);

@@ -60,15 +60,6 @@ public class CarService : ICarService
         return cars;
     }
 
-    public void AddAddonsToCar(List<string> addonsToAdd, int carId)
-    {
-        var car = Get(carId);
-        foreach (var addon in addonsToAdd)
-        {
-            car.Addons.Add(addon);
-        }
-    }
-
     public void Create(CarViewModel model)
     {
         var car = _mapper.Map<Car>(model);
