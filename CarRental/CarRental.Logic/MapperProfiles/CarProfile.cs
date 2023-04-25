@@ -8,6 +8,7 @@ public class CarProfile : Profile
 {
     public CarProfile()
     {
-        CreateMap<Car, CarViewModel>().ReverseMap();
+        CreateMap<Car, CarViewModel>()
+            .ReverseMap();
     }
 }
