@@ -4,13 +4,19 @@ namespace CarRental.Logic.Models;
 
 public class RentalViewModel
 {
-    public int Id { get; set; }
+    public int Id { get; set; 
+    [Display(Name = "Customer ID")]
     public int CustomerId { get; set; }
+    [Display(Name = "Car ID")]
     public int CarId { get; set; }
+    [Display(Name = "Begin Date")]
     public DateTime BeginDate { get; set; }
-    public DateTime EndDate { get; set; }
+    [Display(Name = "End Date")]
+    public DateTime EndDate { get; set;
+    [Display(Name = "Total Cost")]
     public decimal? TotalCost { get; set; }
 
+    [Display(Name = "Customer Name")]
     public string? CustomerName { get; set; }
 
     [Display(Name = "Car License Plate")]
