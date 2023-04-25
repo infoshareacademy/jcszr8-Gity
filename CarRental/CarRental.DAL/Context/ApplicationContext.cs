@@ -28,6 +28,14 @@ public class ApplicationContext : DbContext
             .HasMany<Rental>()
             .WithOne();
 
+        modelBuilder.Entity<Car>()
+            .Property(e => e.Addons)
+            .HasConversion(
+                v => string.Join(';', v),
+                v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
+        );
+
+
         modelBuilder.Entity<Customer>(eb =>
         {
             eb.Property(c => c.FirstName).IsRequired().HasMaxLength(30);
