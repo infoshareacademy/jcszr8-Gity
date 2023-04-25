@@ -32,16 +32,16 @@
             border-bottom: 2px solid #444444;
         }
 
-        table.detailsTable thead th {
-            font-size: 15px;
-            font-weight: bold;
-            color: #FFFFFF;
-            border-left: 2px solid #D0E4F5;
-        }
+            table.detailsTable thead th {
+                font-size: 15px;
+                font-weight: bold;
+                color: #FFFFFF;
+                border-left: 2px solid #D0E4F5;
+            }
 
-        table.detailsTable thead th:first-child {
-            border-left: none;
-        }
+                table.detailsTable thead th:first-child {
+                    border-left: none;
+                }
 </style>
 
 <table class="detailsTable">
@@ -75,35 +75,33 @@
                 {
                     @Html.DisplayFor(model => model.Color)
                 }
-                else @dummyText
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.Transmission)</td>
-            <td>
-                @if (Model.Transmission != null)
+                else
+                    @dummyText
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Transmission)</td>
+                <td>
+                    @if (Model.Transmission != null)
                 {
                     @Html.DisplayFor(model => model.Transmission)
                 }
                 else
                     @dummyText
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.Kilometrage)</td>
-            <td>
-                @if (Model.Kilometrage != null)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Kilometrage)</td>
+                <td>
+                    @if (Model.Kilometrage != null)
                 {
                     @Html.DisplayFor(model => model.Kilometrage)
                 }
                 else
                     @dummyText
-            </td>
-        </tr>
-        <tr>
-
-        </tr>
-        <tr>
+                </td>
+            </tr>
+            <tr>
                 <td>@Html.DisplayNameFor(model => model.SeatsNo)</td>
                 <td>
                     @if (Model.SeatsNo != null)
@@ -112,10 +110,9 @@
                 }
                 else
                     @dummyText
-
                 </td>
-        </tr>
-        <tr>
+            </tr>
+            <tr>
                 <td>@Html.DisplayNameFor(model => model.Airbags)</td>
                 <td>
                     @if (Model.Airbags != null)
@@ -126,8 +123,8 @@
                     @dummyText
 
                 </td>
-        </tr>
-        <tr>
+            </tr>
+            <tr>
                 <td>@Html.DisplayNameFor(model => model.FuelConsumption)</td>
                 <td>
                     @if (Model.FuelConsumption != null)
@@ -136,10 +133,9 @@
                 }
                 else
                     @dummyText
-
                 </td>
-        </tr>
-        <tr>
+            </tr>
+            <tr>
                 <td>@Html.DisplayNameFor(model => model.EngineType)</td>
                 <td>
                     @if (Model.EngineType != null)
@@ -148,10 +144,9 @@
                 }
                 else
                     @dummyText
-
                 </td>
-        </tr>
-        <tr>
+            </tr>
+            <tr>
                 <td>@Html.DisplayNameFor(model => model.Displacement)</td>
                 <td>
                     @if (Model.Displacement != null)
@@ -160,10 +155,9 @@
                 }
                 else
                     @dummyText
-
                 </td>
-        </tr>
-        <tr>
+            </tr>
+            <tr>
                 <td>@Html.DisplayNameFor(model => model.PowerInKiloWats)</td>
                 <td>
                     @if (Model.PowerInKiloWats != null)
@@ -172,16 +166,15 @@
                 }
                 else
                     @dummyText
-
                 </td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.Addons)</td>
-            <td>@string.Join(", ", Model.Addons)</td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.Price)</td>
-            <td>@Html.DisplayFor(model => model.Price)</td>
-        </tr>
-    </tbody>
-</table>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Addons)</td>
+                <td>@string.Join(", ", Model.Addons)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Price)</td>
+                <td>@Html.DisplayFor(model => model.Price)</td>
+            </tr>
+        </tbody>
+    </table>
