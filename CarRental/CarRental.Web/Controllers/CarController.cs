@@ -60,7 +60,6 @@ public class CarController : Controller
     public IActionResult Edit(int id)
     {
         var carModel = _carService.Get(id);
-
         return View(carModel);
     }
 
