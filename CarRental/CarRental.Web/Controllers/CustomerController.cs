@@ -28,6 +28,8 @@ public class CustomerController : Controller
         if (customer is null)
             return RedirectToAction(nameof(Index));
 
+        ViewData["textIfEmpty"] = "---";
+
         return View(customer);
     }
 
