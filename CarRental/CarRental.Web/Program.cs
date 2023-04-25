@@ -11,6 +11,8 @@ using NuGet.Common;
 using Serilog;
 using System.Globalization;
 using Serilog.Sinks.MSSqlServer;
+using CarRental.Web.Controllers;
+using Serilog.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,15 +37,19 @@ builder.Host.UseSerilog((hbc, loggerConfiguration) =>
     //loggerConfiguration.ReadFrom.Configuration(hbc.Configuration);
     loggerConfiguration.WriteTo.Console();
     //loggerConfiguration.WriteTo.File("log.txt", Serilog.Events.LogEventLevel.Information);
-    loggerConfiguration.WriteTo.File("log.txt").MinimumLevel.Information();
+    //loggerConfiguration.WriteTo.File("log.txt").MinimumLevel.Information();
 
 
-    loggerConfiguration.WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+    loggerConfiguration.WriteTo.MSSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
         new MSSqlServerSinkOptions
         {
             AutoCreateSqlTable = true,
             TableName = "CarRentalLogs"
         });
+
+    //loggerConfiguration.Filter.ByIncludingOnly(Matching.FromSource<CarController>());
+    loggerConfiguration.WriteTo.Seq("http://localhost:5341");
 });
 
 var app = builder.Build();
