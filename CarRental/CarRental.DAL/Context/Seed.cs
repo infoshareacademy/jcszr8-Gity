@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using CarRental.DAL.Entities;
-using CarRental.DAL.HelperModels;
+﻿using CarRental.DAL.Entities;
 using Newtonsoft.Json;
 
 namespace CarRental.DAL.Context;
@@ -9,20 +7,7 @@ public static class Seed
 {
     public static List<Customer> Customers { get; set; } = GetItems<Customer>("customers.json");
     public static List<Rental> Rentals { get; set; } = GetItems<Rental>("rentals.json");
-    public static List<Car> Cars { get; set; } = GetCars("cars.json");
-
-    public static List<Car> GetCars(string jsonfileName)
-    {
-        List<CarFromJson> carsFromJson = GetItems<CarFromJson>(jsonfileName);
-
-        var config = new MapperConfiguration(cfg => 
-        {
-            cfg.CreateMap<CarFromJson, Car>();
-        });
-        var mapper = new Mapper(config);
-        var cars = mapper.Map<List<Car>>(carsFromJson);
-        return cars;
-    }
+    public static List<Car> Cars { get; set; } = GetItems<Car>("cars.json");
 
     public static void Initialize(ApplicationContext context)
     {
