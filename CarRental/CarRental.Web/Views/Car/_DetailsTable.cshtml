@@ -149,7 +149,15 @@
             </tr>
             <tr>
                 <td>@Html.DisplayNameFor(model => model.Price)</td>
-                <td>@Html.DisplayFor(model => model.Price)</td>
+                <td>
+                    @if (Model.Price != null)
+                {
+                    @Html.DisplayFor(model => model.Price)
+                }
+                else
+                    @dummyText
+
+                </td>
             </tr>
         </tbody>
     </table>
