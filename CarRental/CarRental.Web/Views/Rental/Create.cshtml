@@ -7,8 +7,9 @@
 
 
 
-<div id="output">
-</div>
+<h4 id="output">
+</h4>
+<h4 id="output-total-cost"><</h4>
 <!-- =============================== -->
 
 
@@ -40,13 +41,13 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="BeginDate" class="control-label"></label>
-                    <input asp-for="BeginDate" class="form-control begin-date" />
+                    <input id="calBeginDate" asp-for="BeginDate" class="form-control begin-date" />
                     <span class="validity"></span>
                     <span asp-validation-for="BeginDate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="EndDate" class="control-label"></label>
-                    <input asp-for="EndDate" class="form-control" />
+                    <input id="calEndDate" asp-for="EndDate" class="form-control" />
                     <span asp-validation-for="EndDate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -78,7 +79,11 @@
         const selectElement = document.querySelector(".begin-date");
         selectElement.addEventListener("change", (event) => {
             console.log(`You like ${event.target.value}`);
-            getEmployees();
+            //getEmployees();
+            var beginDate = document.getElementById('calBeginDate').Value;
+            var endDate = document.getElementById('calEndDate').Value;
+            console.log(`begin: ${beginDate}, end: ${endDate}`);
+            getTotalCost();
         });
 
         function getEmployees() {
@@ -92,11 +97,12 @@
                     console.log("run before send");
                 },
                 success: function (response) {
-
                     // Looping over emloyee list and display it
                     $.each(response, function (index, emp) {
-                        $('#output').append('<p>Id: ' + emp.ID + '</p>' +
-                            '<p>Id: ' + emp.Name + '</p>');
+                        $('#output').append(emp + '<br/>');
+                        //$('#output').append(emp[0].id);
+                        //$('#output').append('<p>Id: ' + emp[0].Id + '</p>' +
+                        //    '<p>Id: ' + emp[0].Name + '</p>');
                     });
                     console.log("run on success");
                 },
@@ -109,8 +115,33 @@
             });
         }
 
-        function TestFunction() {
-            Console.Log("text from test function");
+        function getTotalCost() {
+            $.ajax({
+                type: "GET",
+                url: 'GetTotalCost',
+                data: {
+                    carId: 1, 
+                    beginDate: "2023-05-01T15:00:00",
+                    endDate: "2023-05-11T15:00:00"
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                    console.log("run before send");
+                },
+                success: function (response) {
+                    $.each(response, function (index, totalCost) {
+                        $('#output-total-cost').append(totalCost);
+                    });
+                    console.log("run on success");
+                },
+                complete: function () {
+                    console.log("run on complete")
+                },
+                failure: function (jqXHR, textStatus, errorThrown) {
+                    alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
+                }
+            });
         }
     </script>
 }

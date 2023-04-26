@@ -1,6 +1,7 @@
 ﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CarRental.Web.Controllers;
 
@@ -201,6 +202,15 @@ public class RentalController : Controller
                 new Employee { Id=2, Name="Tester"}
         };
         return empList;
+    }
+
+    public decimal GetTotalCost(int carId, DateTime? beginDate = null, DateTime? endDate = null)
+    {
+        // TODO GetTotalCost 
+        beginDate = DateTime.Now;
+        endDate = DateTime.Now.AddDays(10);
+        var carPricePerDay = _carService.Get(carId).Price;
+        return _rentalService.GetRentalTotalPrice((decimal)carPricePerDay, (DateTime)beginDate, (DateTime)endDate);
     }
 }
 
