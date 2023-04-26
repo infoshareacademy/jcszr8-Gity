@@ -205,12 +205,12 @@ public class RentalController : Controller
         return empList;
     }
 
-    public decimal GetTotalCost(int carId = 1, DateTime? beginDate = null, DateTime? endDate = null)
+    public decimal GetTotalCost(int carId, DateTime? beginDate = null, DateTime? endDate = null)
     {
-        // TODO GetTotalCost
-        Debug.WriteLine($"beginDate: {beginDate}, endDate: {endDate}"); // TODO - remove when testing done
-        beginDate = DateTime.Now;
-        endDate = DateTime.Now.AddDays(10);
+        if (beginDate == null || endDate == null)
+        {
+            return 0m;
+        }
         var carPricePerDay = _carService.Get(carId).Price;
         var  total = _rentalService.GetRentalTotalPrice((decimal)carPricePerDay, (DateTime)beginDate, (DateTime)endDate);
         return Math.Round(total,2, MidpointRounding.ToZero);

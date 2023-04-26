@@ -5,14 +5,6 @@
     ViewData["Title"] = "Create";
 }
 
-
-
-<h4 id="output">
-</h4>
-<h4 id="output-total-cost">(starting)</h4>
-<!-- =============================== -->
-
-
 <div class="container">
     <div class="row pt-4">
         <div class="col-6">
@@ -34,7 +26,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="CarId" class="control-label"></label>
-                    <select asp-for="CarId" id="" name="CarId" class="form-control">
+                    <select id="car" asp-for="CarId" id="" name="CarId" class="form-control">
                         <partial name="_AvailableOptionsForCar" , new { Cars="@Model.Cars" } />
                     </select>
                     <span asp-validation-for="CarId" class="text-danger"></span>
@@ -52,7 +44,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="TotalCost" class="control-label"></label>
-                    <input id="total-cost" asp-for="TotalCost" class="form-control" />
+                    <input disabled id="total-cost" asp-for="TotalCost" class="form-control" />
                     <span asp-validation-for="TotalCost" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -72,15 +64,24 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
-
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
     <script type="text/javascript">
         const elemCalBegin = document.querySelector(".begin-date");
         const elemCalEnd = document.querySelector(".end-date");
+        const elemCar = document.querySelector("#car");
         var beginDate;
         var endDate;
-        var rentalTotalCost = 1999;
+        var rentalTotalCost = null;
+        var carId = null;
+
+        elemCar.addEventListener("change", (event) => {
+            //carId = document.getElementById('car').value;
+            carId = event.target.value;
+            console.log(`Selected car with id = ${carId}`);
+            getTotalCost(beginDate, endDate);
+            console.log("agter getTotalCost");
+        });
 
         elemCalBegin.addEventListener("change", (event) => {
             beginDate = event.target.value;
@@ -92,7 +93,6 @@
         elemCalEnd.addEventListener("change", (event) => {
             endDate = event.target.value;
             console.log(`End date selected: ${endDate}`);
-
             getTotalCost(beginDate, endDate);
         });
 
@@ -132,7 +132,7 @@
                 type: "GET",
                 url: 'GetTotalCost',
                 data: {
-                    "carId": 1, // TODO
+                    "carId": carId,
                     "beginDate": beginDate,
                     "endDate": endDate
                 },
@@ -142,12 +142,7 @@
                     console.log("run before request send");
                 },
                 success: function (response) {
-                        document.getElementById('total-cost').value = response;
-                        document.getElementById('output-total-cost').innerText = response;
-                    $.each(response, function (index, totalCost) {
-                        $('#output-total-cost').append(totalCost);
-                        console.log("--- in loop");
-                    });
+                    document.getElementById('total-cost').value = parseFloat(response).toFixed(2);
                     console.log("run on success");
                 },
                 complete: function () {
@@ -165,6 +160,13 @@
 
         $(".begin-date").click(function () {
             //alert("Value: " + $("#calBeginDate").val());
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            carId = document.getElementById('car').value;
+            beginDate = document.getElementById('calBeginDate').value;
+            endDate = document.getElementById('calEndDate').value;
+            console.log(`after page loaded: ${beginDate} ${endDate} ${carId}`);
         });
 
     </script>
