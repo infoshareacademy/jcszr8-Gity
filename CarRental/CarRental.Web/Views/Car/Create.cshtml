@@ -115,6 +115,9 @@
                         <input asp-for="Price" class="form-control" />
                         <span asp-validation-for="Price" class="text-danger"></span>
                     </div>
+                    <label asp-for="Addons" class="control-label"></label>
+                    <partial name="_AvailableOptionsForAddons" />
+
                 </fieldset>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />

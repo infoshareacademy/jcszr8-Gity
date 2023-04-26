@@ -20,11 +20,8 @@ public class CarService : ICarService
 
     public IEnumerable<CarViewModel> GetAll()
     {
-        // TODO some cleaning
         List<Car> cars = _carRepository.GetAll() ?? new List<Car>();
-        //var cars = new List<Car>();  
         var result = _mapper.Map<List<CarViewModel>>(cars);
-        //var result = new List<CarViewModel>();
         return result;
     }
 
@@ -46,7 +43,7 @@ public class CarService : ICarService
         }
         return cars;
     }
-
+    
     public List<CarViewModel> GetByYear(string read)
     {
         int year;
@@ -61,15 +58,6 @@ public class CarService : ICarService
             cars = GetAll().Where(c => c.Year == year || c.CarModelProp.ToLower().Contains(read.ToLower())).ToList();
         }
         return cars;
-    }
-
-    public void AddAddonsToCar(List<string> addonsToAdd, int carId)
-    {
-        var car = Get(carId);
-        foreach (var addon in addonsToAdd)
-        {
-            car.Addons.Add(addon);
-        }
     }
 
     public void Create(CarViewModel model)
@@ -100,69 +88,4 @@ public class CarService : ICarService
 
         _carRepository.Update(car);
     }
-
-    #region Addon functionality
-    //TODO unused code
-    //public void AddAddon(string addons)
-    //{
-    //    string addon = _availableAddons[index];
-    //    this.Addons.Add(addon);
-    //}
-
-    //public void RemoveAddon(int index)
-    //{
-    //    try
-    //    {
-    //        this.Addons.RemoveAt(index);
-    //    }
-    //    catch (Exception)
-    //    {
-
-    //    }
-    //}
-
-    public List<string> GetAddonsAsList(string addons)
-    {
-        return addons.Split(';').ToList();
-    }
-
-    public string GetAddonsAsString(List<string> addons)
-    {
-        StringBuilder sb = new StringBuilder();
-
-        foreach (var item in addons)
-        {
-            sb.AppendJoin(';', item.ToString());
-        }
-        return sb.ToString();
-    }
-    //TODO unused code
-    //public List<CarModel> GetByAddons(string addon)
-    //{
-    //    List<CarModel> cars = new List<CarModel>();
-    //    if (string.IsNullOrEmpty(addon))
-    //    {
-    //        cars = _mapper.Map<List<CarModel>>(_carRepository.GetAll());
-    //    }
-    //    else
-    //    {
-    //        foreach (var car in _carRepository.GetAll())
-    //        {
-
-    //            foreach (var item in car.Addons.Split(";"))
-    //            {
-    //                if (item.Contains(addon))
-    //                {
-    //                    //  cars.Add(car);  // TODO ?????? GetByAddons
-    //                    break;
-    //                }
-    //            }
-    //        }
-    //    }
-    //    return cars;
-    //}
-
-    //List<CarModel> GetByAddons(string addon);
-
-    #endregion
 }

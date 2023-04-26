@@ -1,0 +1,22 @@
+﻿@{
+    List<string> availableAddons = new() { "Ac", "ABS", "towbar", "roof rack" };
+}
+
+<div class="form-group">
+    @foreach (var addon in availableAddons)
+    {
+        bool isChecked = Model != null && Model?.Addons.Contains(addon);
+
+        <div class="form-check">
+            <input class="form-check-input"
+                   checked=@isChecked
+                   type="checkbox"
+                   value="@addon"
+                   name="Addons"
+                   id="">
+            <label class="" for="addonName">
+                @addon
+            </label>
+        </div>
+    }
+</div>
