@@ -76,8 +76,8 @@
         var carId = null;
 
         elemCar.addEventListener("change", (event) => {
-            //carId = document.getElementById('car').value;
-            carId = event.target.value;
+            carId = document.getElementById('car').value;
+            //carId = event.target.value;
             console.log(`Selected car with id = ${carId}`);
             getTotalCost(beginDate, endDate);
             console.log("agter getTotalCost");
@@ -86,7 +86,6 @@
         elemCalBegin.addEventListener("change", (event) => {
             beginDate = event.target.value;
             console.log(`Begin date selected: ${beginDate}`);
-            //getEmployees();
             getTotalCost(beginDate, endDate);
         });
 
@@ -95,37 +94,6 @@
             console.log(`End date selected: ${endDate}`);
             getTotalCost(beginDate, endDate);
         });
-
-        function getEmployees() {
-            $.ajax({
-                type: "GET",
-                url: 'GetEmpList',
-                data: {},
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                beforeSend: function () {
-                    console.log("run before send");
-                },
-                success: function (response) {
-                    // Looping over emloyee list and display it
-                    var number = 100;
-                    $.each(response, function (index, emp) {
-                        $('#output').append(emp.Name + ' ' + number + '<br/>');
-                        number += 100;
-                        //$('#output').append(emp[0].id);
-                        //$('#output').append('<p>Id: ' + emp[0].Id + '</p>' +
-                        //    '<p>Id: ' + emp[0].Name + '</p>');
-                    });
-                    console.log("run on success");
-                },
-                complete: function () {
-                    console.log("run on complete")
-                },
-                failure: function (jqXHR, textStatus, errorThrown) {
-                    alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
-                }
-            });
-        }
 
         function getTotalCost(beginDate, endDate) {
             $.ajax({
@@ -153,14 +121,6 @@
                 }
             });
         }
-
-        $("label").dblclick(function () {
-            //$(this).hide();
-        });
-
-        $(".begin-date").click(function () {
-            //alert("Value: " + $("#calBeginDate").val());
-        });
 
         document.addEventListener("DOMContentLoaded", function () {
             carId = document.getElementById('car').value;
