@@ -3,6 +3,7 @@ using CarRental.DAL.Entities;
 using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using Microsoft.Extensions.Logging;
 
 namespace CarRental.Logic.Services;
 
@@ -12,13 +13,16 @@ public class RentalService : IRentalService
     private readonly ICustomerService _customerService;
     private readonly IRepository<Rental> _rentalRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger _logger;
 
-    public RentalService(ICarService carService, IMapper mapper, IRepository<Rental> rentalRepository, ICustomerService customerService)
+    public RentalService(ICarService carService, IMapper mapper, IRepository<Rental> rentalRepository,
+        ICustomerService customerService, ILogger<RentalService> logger)
     {
         _carService = carService;
         _customerService = customerService;
-        _mapper = mapper;
         _rentalRepository = rentalRepository;
+        _mapper = mapper;
+        _logger = logger;
     }
 
     public List<RentalViewModel> GetAll()
@@ -73,6 +77,7 @@ public class RentalService : IRentalService
     public void Delete(int id)
     {
         _rentalRepository.Delete(id);
+        _logger.LogInformation($"Rental with id {id} was deleted");
     }
 
     public decimal GetRentalTotalPrice(decimal pricePerDay, DateTime rentStart, DateTime rentEnd)
