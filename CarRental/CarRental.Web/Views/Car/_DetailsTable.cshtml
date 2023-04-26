@@ -78,6 +78,17 @@
                 </td>
             </tr>
             <tr>
+                <td>@Html.DisplayNameFor(model => model.Doors)</td>
+                <td>
+                    @if (Model.Doors != null)
+                {
+                    @Html.DisplayFor(model => model.Doors)
+                }
+                else
+                    @dummyText
+                </td>
+            </tr>
+            <tr>
                 <td>@Html.DisplayNameFor(model => model.Airbags)</td>
                 <td>
                     @if (Model.Airbags != null)
