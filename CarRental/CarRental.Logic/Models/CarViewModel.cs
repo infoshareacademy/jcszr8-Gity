@@ -16,7 +16,7 @@ public class CarViewModel
     [Required]
     public string? Make { get; set; }
 
-    [Display(Name = "Year Of Production")]
+    [Display(Name = "Production Year")]
     [Required]
     public int Year { get; set; }
 
