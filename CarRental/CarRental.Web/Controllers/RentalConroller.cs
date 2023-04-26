@@ -192,4 +192,20 @@ public class RentalController : Controller
     {
         return _carService.GetAll().Select(x => new { x.Id, x.LicencePlateNumber, x.Make, x.CarModelProp }).ToList<object>();
     }
+
+    public List<Employee> GetEmpList() // TODO - remove when testing done
+    {
+        var empList = new List<Employee>()
+        {
+                new Employee { Id=1, Name="Manas"},
+                new Employee { Id=2, Name="Tester"}
+        };
+        return empList;
+    }
+}
+
+public class Employee  // TODO - remove when testing done
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
 }

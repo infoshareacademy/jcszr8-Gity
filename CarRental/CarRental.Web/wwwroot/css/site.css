@@ -1,4 +1,4 @@
-html {
+﻿html {
     font-size: 14px;
 }
 
@@ -192,3 +192,23 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield; /* Firefox */
 }
+
+/* Icon when valid / invalid */
+label {
+    display: flex;
+    align-items: center;
+}
+
+span::after {
+    padding-left: 5px;
+}
+
+input:invalid + span::after {
+    content: "✖";
+}
+
+input:valid + span::after {
+    content: "✓";
+}
+/* end: Icon when valid / invalid */
+
