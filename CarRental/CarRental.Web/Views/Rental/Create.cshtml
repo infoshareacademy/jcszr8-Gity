@@ -19,14 +19,14 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="CustomerId" class="control-label">Customer</label>
-                    <select asp-for="CustomerId" id="" name="CustomerId" class="form-control">
+                    <select asp-for="CustomerId" name="CustomerId" class="form-control">
                         <partial name="_AvailableOptionsForCustomer" , new { Customers="@Model.Customers" } />
                     </select>
                     <span asp-validation-for="CustomerId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="CarId" class="control-label">Car</label>
-                    <select id="car" asp-for="CarId" id="" name="CarId" class="form-control">
+                    <select id="car" asp-for="CarId" name="CarId" class="form-control">
                         <partial name="_AvailableOptionsForCar" , new { Cars="@Model.Cars" } />
                     </select>
                     <span asp-validation-for="CarId" class="text-danger"></span>
