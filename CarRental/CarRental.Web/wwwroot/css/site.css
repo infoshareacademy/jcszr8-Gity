@@ -193,8 +193,51 @@ input[type=number] {
     -moz-appearance: textfield; /* Firefox */
 }
 
+
+/* Table with details */
+
+table.detailsTable {
+    border: 1px solid #082030;
+    background-color: #EEEEEE;
+    width: 50%;
+    text-align: left;
+    border-collapse: collapse;
+    margin-bottom : 1rem;
+    margin-top : 1rem;
+}
+
+    table.detailsTable td, table.detailsTable th {
+        border: 1px solid #AAAAAA;
+        padding: 3px 5px;
+    }
+
+    table.detailsTable tbody td {
+        font-size: 13px;
+    }
+
+    table.detailsTable tr:nth-child(even) {
+        background: #D0E4F5;
+    }
+
+    table.detailsTable thead {
+        background: #1C6EA4;
+        border-bottom: 2px solid #444444;
+    }
+
+        table.detailsTable thead th {
+            font-size: 15px;
+            font-weight: bold;
+            color: #FFFFFF;
+            border-left: 2px solid #D0E4F5;
+        }
+
+            table.detailsTable thead th:first-child {
+                border-left: none;
+            }
+/* end: Table with details */
+
 /* Icon when valid / invalid */
-label {
+/*label {
     display: flex;
     align-items: center;
 }
@@ -209,6 +252,5 @@ input:invalid + span::after {
 
 input:valid + span::after {
     content: "✓";
-}
+}*/
 /* end: Icon when valid / invalid */
-
