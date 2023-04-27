@@ -1,0 +1,163 @@
+﻿@using CarRental.Logic.Models;
+@model CarViewModel
+
+@{
+    string dummyText = "---";
+}
+
+<table class="detailsTable">
+    <colgroup>
+        <col style="width:25%">
+        <col style="width:75%">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Make)</td>
+            <td>@Html.DisplayFor(model => model.Make)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.CarModelProp)</td>
+            <td>@Html.DisplayFor(model => model.CarModelProp)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Year)</td>
+            <td>@Html.DisplayFor(model => model.Year)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.LicencePlateNumber)</td>
+            <td>@Html.DisplayFor(model => model.LicencePlateNumber)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Color)</td>
+            <td>
+                @if (Model.Color != null)
+                {
+                    @Html.DisplayFor(model => model.Color)
+                }
+                else
+                    @dummyText
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Transmission)</td>
+                <td>
+                    @if (Model.Transmission != null)
+                {
+                    @Html.DisplayFor(model => model.Transmission)
+                }
+                else
+                    @dummyText
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Kilometrage)</td>
+                <td>
+                    @if (Model.Kilometrage != null)
+                {
+                    @Html.DisplayFor(model => model.Kilometrage)
+                }
+                else
+                    @dummyText
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.SeatsNo)</td>
+                <td>
+                    @if (Model.SeatsNo != null)
+                {
+                    @Html.DisplayFor(model => model.SeatsNo)
+                }
+                else
+                    @dummyText
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Doors)</td>
+                <td>
+                    @if (Model.Doors != null)
+                {
+                    @Html.DisplayFor(model => model.Doors)
+                }
+                else
+                    @dummyText
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Airbags)</td>
+                <td>
+                    @if (Model.Airbags != null)
+                {
+                    @Html.DisplayFor(model => model.Airbags)
+                }
+                else
+                    @dummyText
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.FuelConsumption)</td>
+                <td>
+                    @if (Model.FuelConsumption != null)
+                {
+                    @Html.DisplayFor(model => model.FuelConsumption)
+                }
+                else
+                    @dummyText
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.EngineType)</td>
+                <td>
+                    @if (Model.EngineType != null)
+                {
+                    @Html.DisplayFor(model => model.EngineType)
+                }
+                else
+                    @dummyText
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Displacement)</td>
+                <td>
+                    @if (Model.Displacement != null)
+                {
+                    @Html.DisplayFor(model => model.Displacement)
+                }
+                else
+                    @dummyText
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.PowerInKiloWats)</td>
+                <td>
+                    @if (Model.PowerInKiloWats != null)
+                {
+                    @Html.DisplayFor(model => model.PowerInKiloWats)
+                }
+                else
+                    @dummyText
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Addons)</td>
+                <td>@string.Join(", ", Model.Addons)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Price)</td>
+                <td>
+                    @if (Model.Price != null)
+                {
+                    @Html.DisplayFor(model => model.Price)
+                }
+                else
+                    @dummyText
+
+                </td>
+            </tr>
+        </tbody>
+    </table>

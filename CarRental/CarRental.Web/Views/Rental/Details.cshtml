@@ -1,10 +1,11 @@
-﻿@using CarRental.Logic.Models;
+﻿@using CarRental.Common.Extensions;
+@using CarRental.Logic.Models;
 @using CarRental.Web.Components;
 @model RentalViewModel
-
 @{
     ViewData["Title"] = "Details";
 }
+
 
 <div class="container">
     <div class="row pt-4">
@@ -15,44 +16,7 @@
     <hr />
 
     <div>
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Id)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Id)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.CustomerName)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CustomerName)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.CarLicencePlate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CarLicencePlate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.BeginDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.BeginDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.EndDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.EndDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.TotalCost)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.TotalCost)
-            </dd>
-        </dl>
+        <partial name="_DetailsTable" />
     </div>
 
     <div>

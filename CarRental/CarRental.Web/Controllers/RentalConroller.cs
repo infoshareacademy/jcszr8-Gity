@@ -76,7 +76,7 @@ public class RentalController : Controller
         var shortCustomers = GetShortCustomers();
         var shortCars = GetShortCars();
         var temp = DateTime.Now;
-        var beginDate = new DateTime(temp.Year, temp.Month, temp.Day, temp.Hour, temp.Minute, 0);
+        var beginDate = new DateTime(temp.Year, temp.Month, temp.Day, temp.Hour, temp.Minute, 1);
 
         var model = new RentalCreateViewModel
         {

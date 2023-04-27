@@ -1,6 +1,8 @@
 ﻿using CarRental.DAL;
 using CarRental.DAL.Context;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace CarRental.Logic.Models;
 
@@ -11,6 +13,7 @@ public class SearchFieldsModel
     public string Model { get; set; }
     public int ProductionYearFrom { get; set; }
     public int ProductionYearTo { get; set; }
+    [Display(Name = "Start Date")]
     public DateTime StartDate { get; set; } = DateTime.Now;
     public DateTime EndDate { get; set; } = DateTime.Now.AddDays(1);
 
