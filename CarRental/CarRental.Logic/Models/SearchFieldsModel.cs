@@ -1,8 +1,5 @@
-﻿using CarRental.DAL;
-using CarRental.DAL.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using CarRental.DAL.Context;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 
 namespace CarRental.Logic.Models;
 
