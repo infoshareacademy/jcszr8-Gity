@@ -202,7 +202,17 @@ public class RentalController : Controller
         {
             return 0m;
         }
-        var carPricePerDay = _carService.Get(carId).Price;
+
+        decimal? carPricePerDay;
+
+        try
+        {
+            carPricePerDay = _carService.Get(carId).Price;
+        }
+        catch (Exception e)
+        {
+            carPricePerDay = 0m;
+        }
         var total = _rentalService.GetRentalTotalPrice((decimal)carPricePerDay, (DateTime)beginDate, (DateTime)endDate);
         return Math.Round(total, 2, MidpointRounding.ToZero);
     }
