@@ -1,5 +1,6 @@
 ﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -71,11 +72,13 @@ public class CustomerController : Controller
     // POST: CustomerController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(CustomerViewModel customer)
+    public ActionResult Edit(CustomerViewModel customer)
     {
         try
         {
             _customerService.Update(customer);
+            TempData["AlertText"] = @"Customer updated successfully";
+            TempData["AlertClass"] = AlertType.Success;
 
             return RedirectToAction(nameof(Index));
         }
