@@ -201,8 +201,6 @@ public class RentalService : IRentalService
     public IEnumerable<T> FilterByPredicate<T>(IQueryable<T> collection, Func<T, bool> predicate)
     {
         return collection.Where(predicate);
-    }    
+    }
     #endregion
 }
-
-

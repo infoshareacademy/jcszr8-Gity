@@ -235,22 +235,3 @@ table.detailsTable {
                 border-left: none;
             }
 /* end: Table with details */
-
-/* Icon when valid / invalid */
-/*label {
-    display: flex;
-    align-items: center;
-}
-
-span::after {
-    padding-left: 5px;
-}
-
-input:invalid + span::after {
-    content: "✖";
-}
-
-input:valid + span::after {
-    content: "✓";
-}*/
-/* end: Icon when valid / invalid */
