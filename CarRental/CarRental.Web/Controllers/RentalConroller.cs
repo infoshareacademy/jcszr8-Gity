@@ -1,6 +1,8 @@
 ﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace CarRental.Web.Controllers;
 
@@ -149,7 +151,7 @@ public class RentalController : Controller
     // POST: RentalConroller/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(Logic.Models.RentalViewModel model)
+    public IActionResult Edit(RentalViewModel model)
     {
         try
         {
@@ -193,5 +195,15 @@ public class RentalController : Controller
     private List<object> GetShortCars()
     {
         return _carService.GetAll().Select(x => new { x.Id, x.LicencePlateNumber, x.Make, x.CarModelProp }).ToList<object>();
+    }
+    public decimal GetTotalCost(int carId, DateTime? beginDate = null, DateTime? endDate = null)
+    {
+        if (beginDate == null || endDate == null)
+        {
+            return 0m;
+        }
+        var carPricePerDay = _carService.Get(carId).Price;
+        var total = _rentalService.GetRentalTotalPrice((decimal)carPricePerDay, (DateTime)beginDate, (DateTime)endDate);
+        return Math.Round(total, 2, MidpointRounding.ToZero);
     }
 }
