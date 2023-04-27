@@ -1,0 +1,51 @@
+﻿@using CarRental.Logic.Models;
+@model CustomerViewModel
+
+@{
+    string dummyText = (ViewData["textIfEmpty"] as string ?? "###");
+}
+
+<table class="detailsTable">
+    <colgroup>
+        <col style="width:25%">
+        <col style="width:75%">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.FirstName)</td>
+            <td>@Html.DisplayFor(model => model.FirstName)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.LastName)</td>
+            <td>@Html.DisplayFor(model => model.LastName)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.EmailAddress)</td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.EmailAddress))
+                {
+                    @Html.DisplayFor(model => model.EmailAddress)
+                }
+                else
+                    @dummyText
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.PhoneNumber)</td>
+                <td>@Html.DisplayFor(model => model.PhoneNumber)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Pesel)</td>
+                <td>@Html.DisplayFor(model => model.Pesel)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Gender)</td>
+                <td>@Html.DisplayFor(model => model.Gender)</td>
+            </tr>
+        </tbody>
+    </table>

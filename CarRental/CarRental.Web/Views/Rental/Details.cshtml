@@ -16,44 +16,7 @@
     <hr />
 
     <div>
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Id)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Id)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.CustomerName)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CustomerName)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.CarLicencePlate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CarLicencePlate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.BeginDate)
-            </dt>
-            <dd class="col-sm-10">
-                 @Model.BeginDate.DefaultDateFormat()
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.EndDate)
-            </dt>
-            <dd class="col-sm-10">
-                 @Model.EndDate.DefaultDateFormat()
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.TotalCost)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.TotalCost)
-            </dd>
-        </dl>
+        <partial name="_DetailsTable" />
     </div>
 
     <div>

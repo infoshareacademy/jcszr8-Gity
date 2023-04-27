@@ -1,0 +1,41 @@
+﻿@using CarRental.Logic.Models;
+@model RentalViewModel
+
+@{
+    string dummyText = (ViewData["textIfEmpty"] as string ?? "###");
+}
+
+<table class="detailsTable">
+    <colgroup>
+        <col style="width:25%">
+        <col style="width:75%">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.CustomerName)</td>
+            <td>@Html.DisplayFor(model => model.CustomerName)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.CarLicencePlate)</td>
+            <td>@Html.DisplayFor(model => model.CarLicencePlate)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.BeginDate)</td>
+            <td>@Html.DisplayFor(model => model.BeginDate)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.EndDate)</td>
+            <td>@Html.DisplayFor(model => model.EndDate)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.TotalCost)</td>
+            <td>@Html.DisplayFor(model => model.TotalCost)</td>
+        </tr>
+    </tbody>
+</table>
