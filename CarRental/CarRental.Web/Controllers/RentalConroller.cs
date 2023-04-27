@@ -203,7 +203,7 @@ public class RentalController : Controller
             return 0m;
         }
         var carPricePerDay = _carService.Get(carId).Price;
-        var  total = _rentalService.GetRentalTotalPrice((decimal)carPricePerDay, (DateTime)beginDate, (DateTime)endDate);
-        return Math.Round(total,2, MidpointRounding.ToZero);
+        var total = _rentalService.GetRentalTotalPrice((decimal)carPricePerDay, (DateTime)beginDate, (DateTime)endDate);
+        return Math.Round(total, 2, MidpointRounding.ToZero);
     }
 }
