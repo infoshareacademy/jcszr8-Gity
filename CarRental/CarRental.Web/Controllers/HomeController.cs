@@ -22,9 +22,18 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         //this._customerService.Create("Imie", "Nazwisko", "+48111222333");
-        var cars = new SearchViewModel();
-        cars.Cars = _carService.GetAll();
-        return View(cars);
+        var temp = DateTime.Now;
+        var beginDate = new DateTime(temp.Year, temp.Month, temp.Day, temp.Hour, temp.Minute, 0);
+        var model = new SearchViewModel()
+        {
+            Cars = _carService.GetAll(),
+            SearchDto = new SearchFieldsModel()
+            {
+                StartDate = beginDate,
+                EndDate = beginDate.AddDays(1)
+            }
+        };
+        return View(model);
     }
 
     public IActionResult Privacy()
