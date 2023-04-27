@@ -21,8 +21,8 @@
                         <partial name="_AvailableOptionsForYearTo" , new { Year=-1 } />
                     </select>
 
-                    <input type="date" class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.StartDate" />
-                    <input type="date" class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.EndDate" />
+                    <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.StartDate" />
+                    <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.EndDate" />
                     <button class="btn btn-outline-success shadow-sm fw-bold" type="submit">Search</button>
                 </form>
             </div>
