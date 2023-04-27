@@ -5,6 +5,7 @@ using CarRental.Logic.MapperProfiles;
 using CarRental.Logic.Services;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Sinks.MSSqlServer;
