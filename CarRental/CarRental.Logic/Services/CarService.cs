@@ -4,7 +4,6 @@ using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using Microsoft.Extensions.Logging;
-using System.Text;
 
 namespace CarRental.Logic.Services;
 
@@ -46,7 +45,7 @@ public class CarService : ICarService
         }
         return cars;
     }
-    
+
     public List<CarViewModel> GetByYear(string read)
     {
         int year;

@@ -202,5 +202,5 @@ public class RentalService : IRentalService
     {
         return collection.Where(predicate);
     }
-    #endregion 
+    #endregion
 }
