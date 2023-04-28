@@ -72,7 +72,7 @@ public class CustomerController : Controller
     // POST: CustomerController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(CustomerViewModel customer)
+    public IActionResult Edit(CustomerViewModel customer)
     {
         try
         {
