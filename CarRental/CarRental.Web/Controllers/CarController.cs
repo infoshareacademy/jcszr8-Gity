@@ -18,7 +18,7 @@ public class CarController : Controller
     // GET: CarController
     public IActionResult Index()
     {
-        var cars = this._carService.GetAll();
+        var cars = _carService.GetAll();
         return View(cars);
     }
 
