@@ -1,5 +1,6 @@
 ﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -116,6 +117,9 @@ public class RentalController : Controller
 
             _rentalService.Create(rentalModel);
 
+            TempData["AlertText"] = "Rental created successfully";
+            TempData["AlertClass"] = AlertType.Success;
+
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -154,6 +158,9 @@ public class RentalController : Controller
         try
         {
             _rentalService.Update(model);
+
+            TempData["AlertText"] = "Rental updated successfully";
+            TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -177,6 +184,8 @@ public class RentalController : Controller
         try
         {
             _rentalService.Delete(id);
+            TempData["AlertText"] = "Rental deleted successfully";
+            TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index));
         }
         catch
