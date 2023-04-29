@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CarRental.DAL;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 

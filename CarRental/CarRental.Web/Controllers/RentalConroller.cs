@@ -1,5 +1,6 @@
 ﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -116,6 +117,9 @@ public class RentalController : Controller
 
             _rentalService.Create(rentalModel);
 
+            TempData["AlertText"] = "Rental created successfully";
+            TempData["AlertClass"] = AlertType.Success;
+
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -151,11 +155,14 @@ public class RentalController : Controller
     // POST: RentalConroller/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(Logic.Models.RentalViewModel model)
+    public IActionResult Edit(RentalViewModel model)
     {
         try
         {
             _rentalService.Update(model);
+
+            TempData["AlertText"] = "Rental updated successfully";
+            TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -179,6 +186,8 @@ public class RentalController : Controller
         try
         {
             _rentalService.Delete(id);
+            TempData["AlertText"] = "Rental deleted successfully";
+            TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -195,5 +204,25 @@ public class RentalController : Controller
     private List<object> GetShortCars()
     {
         return _carService.GetAll().Select(x => new { x.Id, x.LicencePlateNumber, x.Make, x.CarModelProp }).ToList<object>();
+    }
+    public decimal GetTotalCost(int carId, DateTime? beginDate = null, DateTime? endDate = null)
+    {
+        if (beginDate == null || endDate == null)
+        {
+            return 0m;
+        }
+
+        decimal? carPricePerDay;
+
+        try
+        {
+            carPricePerDay = _carService.Get(carId).Price;
+        }
+        catch (Exception e)
+        {
+            carPricePerDay = 0m;
+        }
+        var total = _rentalService.GetRentalTotalPrice((decimal)carPricePerDay, (DateTime)beginDate, (DateTime)endDate);
+        return Math.Round(total, 2, MidpointRounding.ToZero);
     }
 }

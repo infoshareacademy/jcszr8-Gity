@@ -44,6 +44,7 @@ public class RentalService : IRentalService
         {
             var rental = _mapper.Map<Rental>(model);
             _rentalRepository.Insert(rental);
+            _logger.LogInformation($"Rental for car with id {model.CarId} and customer with id {model.CustomerId} was created.");
         }
     }
 
@@ -70,6 +71,7 @@ public class RentalService : IRentalService
         if (model is not null)
         {
             var rental = _mapper.Map<Rental>(model);
+            _logger.LogInformation($"Rental with id {model.Id} was updated.");
             _rentalRepository.Update(rental);
         }
     }
@@ -77,7 +79,7 @@ public class RentalService : IRentalService
     public void Delete(int id)
     {
         _rentalRepository.Delete(id);
-        _logger.LogInformation($"Rental with id {id} was deleted");
+        _logger.LogInformation($"Rental with id {id} was deleted.");
     }
 
     public decimal GetRentalTotalPrice(decimal pricePerDay, DateTime rentStart, DateTime rentEnd)
@@ -202,5 +204,5 @@ public class RentalService : IRentalService
     {
         return collection.Where(predicate);
     }
-    #endregion 
+    #endregion
 }

@@ -6,14 +6,11 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th scope="col">
-                #
+            <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.CarLicencePlate)">
+                Car Licence
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.CustomerName)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.CarLicencePlate)
+                Customer
             </th>
             <th scope="col">
                 @Html.DisplayNameFor(model => model.BeginDate)
@@ -31,14 +28,11 @@
         @foreach (var item in Model)
         {
             <tr>
-                <th scope="row">
-                    @Html.DisplayFor(modelItem => item.Id)
-                </th>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerName)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CarLicencePlate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
                 </td>
                 <td>
                     @item.BeginDate.DefaultDateFormat()

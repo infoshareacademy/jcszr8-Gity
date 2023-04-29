@@ -1,5 +1,6 @@
 ﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -28,7 +29,7 @@ public class CustomerController : Controller
         if (customer is null)
             return RedirectToAction(nameof(Index));
 
-        ViewData["textIfEmpty"] = "---";
+        ViewData["textIfEmpty"] = "---";  //TODO check usage
 
         return View(customer);
     }
@@ -52,7 +53,8 @@ public class CustomerController : Controller
             }
 
             _customerService.Create(model);
-
+            TempData["AlertText"] = "Customer created successfully";
+            TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index));
         }
         catch (Exception)
@@ -76,6 +78,8 @@ public class CustomerController : Controller
         try
         {
             _customerService.Update(customer);
+            TempData["AlertText"] = "Customer updated successfully";
+            TempData["AlertClass"] = AlertType.Success;
 
             return RedirectToAction(nameof(Index));
         }
@@ -100,6 +104,8 @@ public class CustomerController : Controller
         try
         {
             _customerService.Delete(id);
+            TempData["AlertText"] = "Customer deleted successfully";
+            TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index));
         }
         catch

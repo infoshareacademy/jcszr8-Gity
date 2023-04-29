@@ -53,7 +53,7 @@ public class Repository<T> : IRepository<T> where T : Entity
         if (entity is null)
         {
             return;
-        } 
+        }
         this._entities.Update(entity);
         _context.SaveChanges();
     }

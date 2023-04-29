@@ -7,8 +7,8 @@ namespace CarRental.Web.Controllers
     public class SearchController : Controller
     {
         private readonly ISearchService _searchService;
-        private readonly ICarService   _carService;
-        public SearchController(ISearchService searchService,ICarService carService)
+        private readonly ICarService _carService;
+        public SearchController(ISearchService searchService, ICarService carService)
         {
             _searchService = searchService;
             _carService = carService;
@@ -37,7 +37,7 @@ namespace CarRental.Web.Controllers
         {
             var dto = search.SearchDto;
             var model = _searchService.FilterList(dto);
-            search.Cars= model;
+            search.Cars = model;
             return View("Index", search);
         }
 

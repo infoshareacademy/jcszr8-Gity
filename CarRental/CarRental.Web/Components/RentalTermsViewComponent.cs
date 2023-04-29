@@ -28,7 +28,6 @@ public class RentalTermsViewComponent : ViewComponent
                 DateTo = rental.EndDate.ToString("yyyy-MM-dd HH:mm"),
             });
         }
-
         return View(model);
     }
 }

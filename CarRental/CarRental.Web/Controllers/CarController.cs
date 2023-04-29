@@ -1,5 +1,6 @@
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers;
@@ -18,7 +19,7 @@ public class CarController : Controller
     // GET: CarController
     public IActionResult Index()
     {
-        var cars = this._carService.GetAll();
+        var cars = _carService.GetAll();
         return View(cars);
     }
 
@@ -48,7 +49,9 @@ public class CarController : Controller
             }
             _carService.Create(model);
 
-            return RedirectToAction("Index", "Search"); ;
+            TempData["AlertText"] = "Car created successfully";
+            TempData["AlertClass"] = AlertType.Success;
+            return RedirectToAction("Index", "Search");
         }
         catch
         {
@@ -71,6 +74,8 @@ public class CarController : Controller
         try
         {
             _carService.Update(model);
+            TempData["AlertText"] = "Car updated successfully";
+            TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -94,6 +99,8 @@ public class CarController : Controller
         try
         {
             _carService.Delete(id);
+            TempData["AlertText"] = "Car deleted successfully";
+            TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index));
         }
         catch

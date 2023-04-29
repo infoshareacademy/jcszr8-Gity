@@ -5,14 +5,11 @@ using CarRental.Logic.MapperProfiles;
 using CarRental.Logic.Services;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using NuGet.Common;
 using Serilog;
-using System.Globalization;
 using Serilog.Sinks.MSSqlServer;
-using CarRental.Web.Controllers;
-using Serilog.Filters;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -52,17 +52,19 @@ public class CustomerService : ICustomerService
             PhoneNumber = phoneNumber
         };
         _customerRepository.Insert(_mapper.Map<Customer>(model));
+        _logger.LogInformation($"Customer {model.FirstName} {model.LastName} was created.");
     }
 
     public void Update(CustomerViewModel model)
     {
         var customer = _mapper.Map<Customer>(model);
         _customerRepository.Update(customer);
+        _logger.LogInformation($"Customer with id {model.Id} was updated.");
     }
 
     public void Delete(int id)
     {
         _customerRepository.Delete(id);
-        _logger.LogInformation($"Customer with id {id} was deleted");
+        _logger.LogInformation($"Customer with id {id} was deleted.");
     }
 }
