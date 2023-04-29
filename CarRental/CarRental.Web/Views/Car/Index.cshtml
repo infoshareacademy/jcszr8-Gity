@@ -19,20 +19,44 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">
-                    #
+                <th scope="col" data-bs-toggle="tooltip" title="Make & Model">
+                    Car
+                </th>
+                <th scope="col" data-bs-toggle="tooltip" title="License Plate Number">
+                    Licence
+                </th>
+                <th scope="col" data-bs-toggle="tooltip" title="Production Year">
+                    Year
+                </th>
+                <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.EngineType)">
+                    Engine
                 </th>
                 <th scope="col">
-                    @Html.DisplayNameFor(model => model.Make)
+                    Transmission
                 </th>
                 <th scope="col">
-                    @Html.DisplayNameFor(model => model.CarModelProp)
+                    Power [kW]
+                </th>
+                <th scope="col" data-bs-toggle="tooltip" title="Seats / Doors / Airbags">
+                    S/D/A
+                </th>
+                <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.FuelConsumption)">
+                    F. Cons.
                 </th>
                 <th scope="col">
-                    @Html.DisplayNameFor(model => model.Year)
+                    @Html.DisplayNameFor(model => model.Kilometrage)
                 </th>
                 <th scope="col">
-                    @Html.DisplayNameFor(model => model.LicencePlateNumber)
+                    @Html.DisplayNameFor(model => model.Color)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Displacement)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Addons)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Price)
                 </th>
                 <th scope="col">Actions</th>
             </tr>
@@ -41,20 +65,47 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <th scope="row">
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </th>
                     <td>
                         @Html.DisplayFor(modelItem => item.Make)
+                        @Html.DisplayFor(modelItem => item.CarModelProp)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CarModelProp)
+                        @Html.DisplayFor(modelItem => item.LicencePlateNumber)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Year)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.LicencePlateNumber)
+                        @Html.DisplayFor(modelItem => item.EngineType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Transmission)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PowerInKiloWats)
+                    </td>
+                    <td scope="col">
+                        @Html.DisplayFor(modelItem => item.SeatsNo)
+                        /@Html.DisplayFor(modelItem => item.Doors)
+                        /@Html.DisplayFor(modelItem => item.Airbags)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FuelConsumption)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Kilometrage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Color)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Displacement)
+                    </td>
+                    <td>
+                         @string.Join(", ", item.Addons)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
                         <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
