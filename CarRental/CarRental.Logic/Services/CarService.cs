@@ -83,7 +83,7 @@ public class CarService : ICarService
     public void Delete(int id)
     {
         _carRepository.Delete(id);
-        _logger.LogInformation($"Car with id {id} was deleted");
+        _logger.LogInformation($"Car with id {id} was deleted.");
     }
 
     public void Update(CarViewModel model)
@@ -91,6 +91,6 @@ public class CarService : ICarService
         var car = _mapper.Map<Car>(model);
 
         _carRepository.Update(car);
-        _logger.LogInformation($"Car with Id={car.Id} was updated.");
+        _logger.LogInformation($"Car with id {car.Id} was updated.");
     }
 }
