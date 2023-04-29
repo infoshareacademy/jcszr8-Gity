@@ -16,7 +16,7 @@ public sealed class CustomerViewModel
     [Display(Name = "Phone Number")]
     [Required]
     public string? PhoneNumber { get; set; }
-    
+
     [Display(Name = "Email adress")]
     [EmailAddress]
     public string? EmailAddress { get; set; }

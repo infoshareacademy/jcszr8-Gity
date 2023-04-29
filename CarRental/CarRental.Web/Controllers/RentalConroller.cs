@@ -1,8 +1,7 @@
 ﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Diagnostics;
 
 namespace CarRental.Web.Controllers;
 
@@ -118,6 +117,9 @@ public class RentalController : Controller
 
             _rentalService.Create(rentalModel);
 
+            TempData["AlertText"] = "Rental created successfully";
+            TempData["AlertClass"] = AlertType.Success;
+
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -156,6 +158,9 @@ public class RentalController : Controller
         try
         {
             _rentalService.Update(model);
+
+            TempData["AlertText"] = "Rental updated successfully";
+            TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -179,6 +184,8 @@ public class RentalController : Controller
         try
         {
             _rentalService.Delete(id);
+            TempData["AlertText"] = "Rental deleted successfully";
+            TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -202,7 +209,17 @@ public class RentalController : Controller
         {
             return 0m;
         }
-        var carPricePerDay = _carService.Get(carId).Price;
+
+        decimal? carPricePerDay;
+
+        try
+        {
+            carPricePerDay = _carService.Get(carId).Price;
+        }
+        catch (Exception e)
+        {
+            carPricePerDay = 0m;
+        }
         var total = _rentalService.GetRentalTotalPrice((decimal)carPricePerDay, (DateTime)beginDate, (DateTime)endDate);
         return Math.Round(total, 2, MidpointRounding.ToZero);
     }

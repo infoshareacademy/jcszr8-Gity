@@ -3,7 +3,6 @@
 <table class="table table-hover">
     <thead class="">
         <tr>
-            <th scope="col">#</th>
             <th scope="col">
                 <label asp-for="First().FirstName"></label>
             </th>
@@ -29,7 +28,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <th scope="row">@item.Id</th>
                 <td>@item.FirstName</td>
                 <td>@item.LastName</td>
                 <td>@item.EmailAddress</td>

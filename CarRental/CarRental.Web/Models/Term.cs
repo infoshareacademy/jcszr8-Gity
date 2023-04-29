@@ -2,7 +2,7 @@
 
 namespace CarRental.Web.Models;
 
-public class Term
+public class Term // TODO - refactor
 {
     [Display(Name = "Date From")]
     public string? DateFrom { get; set; }
