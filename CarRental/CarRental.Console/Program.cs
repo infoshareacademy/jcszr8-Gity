@@ -1,12 +1,10 @@
-﻿using CarRental.DAL;
-
-namespace CarRental.ConsoleUI;
-internal class Program
+﻿namespace CarRental.ConsoleUI
 {
-    static void Main(string[] args)
+    internal class Program
     {
-        Console.Title = AppConfig.APP_NAME;
-
-        MainMenu.StartMenu();
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+        }
     }
 }

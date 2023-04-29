@@ -10,6 +10,6 @@ public static class Extensions
 {
     public static string DefaultDateFormat(this DateTime dateTime)
     {
-        return Convert.ToDateTime(dateTime).ToString("dd-MM-yyyy hh:mm ");
+        return Convert.ToDateTime(dateTime).ToString("dd-MM-yyyy hh:mm");
     }
 }
