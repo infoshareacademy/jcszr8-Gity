@@ -21,7 +21,6 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        //this._customerService.Create("Imie", "Nazwisko", "+48111222333");
         var temp = DateTime.Now;
         var beginDate = new DateTime(temp.Year, temp.Month, temp.Day, temp.Hour, temp.Minute, 0);
         var model = new SearchViewModel()
