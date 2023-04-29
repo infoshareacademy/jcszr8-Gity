@@ -173,6 +173,10 @@ public class RentalController : Controller
     public IActionResult Delete(int id)
     {
         var rental = _rentalService.Get(id);
+        var car = _carService.Get(rental.CarId);
+        var customer = _customerService.Get(rental.CustomerId);
+        ViewData["Customer"] = customer.FirstName + " " + customer.LastName;
+        ViewData["Car"] = car.Make + " " + car.CarModelProp + ", " + car.LicencePlateNumber;
         return View(rental);
     }
 
