@@ -13,14 +13,13 @@
     string modelAlert = @Model == null ? "Model=null" : "Model != null";
 
 }
-<option value="">-Select production year-</option>
+<option value="">-Year from-</option>
 
 @foreach (var year in years)
 {
     if (Model != null)
     {
-        bool select = year == Model.SearchDto.ProductionYearTo;
-        <option value="@year" selected=@select>@year</option>
+        <option value="@year">@year</option>
     }
     else
     {
