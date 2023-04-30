@@ -97,8 +97,6 @@ public class RentalService : IRentalService
         return availableCarIds;
     }
 
-    #region Checking Car Rentability
-
     public bool IsCarBookedInTerm(int carId, Term wantedTerm)
     {
         return GetCollidingWith(wantedTerm)
