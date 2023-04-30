@@ -17,7 +17,7 @@ public class RentalTermsViewComponent : ViewComponent
     {
         var model = new List<Term>();
 
-        var rentalsOfCar = _rentalService.GetRentalsByCarId(Id)
+        var rentalsOfCar = _rentalService.GetByCarId(Id)
             .OrderBy(c => c.BeginDate).ToList();
 
         foreach (var rental in rentalsOfCar)

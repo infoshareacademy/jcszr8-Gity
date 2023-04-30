@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CarRental.Common;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using Microsoft.Extensions.Logging;
@@ -27,6 +28,8 @@ public class CommonService
     public List<CarViewModel> SearchList(SearchFieldsModel sfModel)
     {
         // TODO refactor SearchList
+        var wantedTerm = new Term(sfModel.StartDate, sfModel.EndDate);
+
         List<CarViewModel> results = new List<CarViewModel>();
         var cars = _carService.GetByName(sfModel.ModelAndMake);
 
@@ -34,7 +37,11 @@ public class CommonService
         {
             cars = cars.Where(c => c.Year >= sfModel.ProductionYearFrom && c.Year <= sfModel.ProductionYearTo).ToList();
         }
-        IEnumerable<int> carIds = _rentalService.GetAvailableCarIdsForSearch(sfModel.StartDate, sfModel.EndDate);
+
+        IEnumerable<int> carIds = _rentalService
+            .GetCarsAvailableInTerm(wantedTerm)
+            .Select(c => c.Id);
+
         foreach (var item in cars)
         {
             if (carIds.Any(x => x == item.Id))
@@ -43,13 +50,13 @@ public class CommonService
             }
         }
         return results;
-
     }
 
     public List<CarViewModel> FilterList(SearchFieldsModel sfModel)
     {
         // TODO refactor FindCars()
         List<CarViewModel> carModels = _carService.GetAll().ToList();
+        var wantedTerm = new Term(sfModel.StartDate, sfModel.EndDate);
 
         if (sfModel.Makes.Values.All(m => m == false))
         {
@@ -75,7 +82,9 @@ public class CommonService
 
         if (sfModel.StartDate != null && sfModel.EndDate != null)
         {
-            var availableCarIds = _rentalService.GetAvailableCarIdsForSearch(sfModel.StartDate, sfModel.EndDate);
+            var availableCarIds = _rentalService
+                .GetCarsAvailableInTerm(wantedTerm)
+                .Select(c => c.Id);
             carModels = carModels.Where(c => availableCarIds.Contains(c.Id)).ToList();
         }
 
