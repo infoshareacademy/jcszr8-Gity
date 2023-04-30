@@ -107,7 +107,7 @@ public class CarService : ICarService
         }
         if (!string.IsNullOrEmpty(sfModel.Model))
         {
-            collection =  FindCarbByModel(collection,sfModel);
+            collection =  FindCarByModel(collection,sfModel);
         }
         if (sfModel.ProductionYearFrom > 0 && sfModel.ProductionYearTo > 0)
         {
@@ -130,10 +130,10 @@ public class CarService : ICarService
         return collection.ToList();
     }
 
-    public List<CarViewModel> FindCarbByModel(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
+    public List<CarViewModel> FindCarByModel(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
     {
-        collection = collection.Where(c => c.Make.Contains(sfModel.Model, StringComparison.CurrentCultureIgnoreCase) ||
-                                         c.CarModelProp.Contains(sfModel.Model, StringComparison.CurrentCultureIgnoreCase)).ToList();
+        collection = collection.Where(c => c.Make.Contains(sfModel.Model.Trim(), StringComparison.CurrentCultureIgnoreCase) ||
+                                         c.CarModelProp.Contains(sfModel.Model.Trim(), StringComparison.CurrentCultureIgnoreCase)).ToList();
         return collection.ToList();
     }
 }

@@ -12,16 +12,14 @@ public class CommonService : ICommonService
     private readonly IRentalService _rentalService;
 
     private readonly IMapper _mapper;
-    private readonly ILogger _logger;
 
     public CommonService(ICarService carService, ICustomerService customerService,
-        IRentalService rentalService, IMapper mapper, ILogger logger)
+        IRentalService rentalService, IMapper mapper)
     {
         _carService = carService;
         _customerService = customerService;
 
         _mapper = mapper;
-        _logger = logger;
         _rentalService = rentalService;
     }
 
@@ -36,18 +34,6 @@ public class CommonService : ICommonService
         if (sfModel.ProductionYearTo > 0 && sfModel.ProductionYearTo >= sfModel.ProductionYearFrom)
         {
             cars = cars.Where(c => c.Year >= sfModel.ProductionYearFrom && c.Year <= sfModel.ProductionYearTo).ToList();
-        }
-
-        IEnumerable<int> carIds = _rentalService
-            .GetCarsAvailableInTerm(wantedTerm)
-            .Select(c => c.Id);
-
-        foreach (var item in cars)
-        {
-            if (carIds.Any(x => x == item.Id))
-            {
-                results.Add(item);
-            }
         }
         return results;
     }
