@@ -53,9 +53,9 @@ builder.Host.UseSerilog((hbc, loggerConfiguration) =>
 });
 
 // Validation
-//builder.Services.AddScoped<IValidator<CustomerViewModel>, CustomerViewModelValidator>();
-//builder.Services.AddScoped<IValidator<CarViewModel>, CarViewModelValidator>();
-//builder.Services.AddScoped<IValidator<RentalViewModel>, RentalViewModelValidator>();
+builder.Services.AddScoped<IValidator<CustomerViewModel>, CustomerViewModelValidator>();
+builder.Services.AddScoped<IValidator<CarViewModel>, CarViewModelValidator>();
+builder.Services.AddScoped<IValidator<RentalViewModel>, RentalViewModelValidator>();
 
 var app = builder.Build();
 

@@ -4,7 +4,9 @@ using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace CarRental.Logic.Services;
 
@@ -13,14 +15,15 @@ public class CustomerService : ICustomerService
     private readonly IRepository<Customer> _customerRepository;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    //private readonly IValidator<CustomerViewModel> _validator;
+    private readonly IValidator<CustomerViewModel> _validator;
 
-    public CustomerService(IRepository<Customer> customerRepository, IMapper mapper, ILogger<CustomerService> logger)
+    public CustomerService(IRepository<Customer> customerRepository, IMapper mapper, ILogger<CustomerService> logger, IValidator<CustomerViewModel> validator)
     {
         _customerRepository = customerRepository;
         _mapper = mapper;
         _logger = logger;
-        //_validator = validator ?? throw new ArgumentNullException(nameof(validator));
+        _validator = validator ?? throw new ArgumentNullException(nameof(validator));
+        _validator = validator;
     }
 
     public IEnumerable<CustomerViewModel> GetAll()
@@ -37,17 +40,17 @@ public class CustomerService : ICustomerService
 
     public void Create(CustomerViewModel model)
     {
-        //ValidationResult results = _validator.Validate(model);
+        ValidationResult results = _validator.Validate(model);
 
-        //if (!results.IsValid)
-        //{
-        //    foreach (var failure in results.Errors)
-        //    {
-        //        Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
-        //        Debug.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
-        //    }
-        //}
-        //_customerRepository.Insert(_mapper.Map<Customer>(model));
+        if (!results.IsValid)
+        {
+            foreach (var failure in results.Errors)
+            {
+                _logger.LogInformation("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+                Debug.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage); // TODO: remove when checked
+            }
+        }
+        _customerRepository.Insert(_mapper.Map<Customer>(model));
     }
 
     public void Create(string firstName, string lastName, string phoneNumber)
