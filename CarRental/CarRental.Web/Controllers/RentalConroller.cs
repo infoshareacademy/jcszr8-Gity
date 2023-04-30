@@ -134,14 +134,16 @@ public class RentalController : Controller
         var rentalModel = _rentalService.Get(id);
         var shortCustomers = GetShortCustomers();
         var shortCars = GetShortCars();
+        var temp = DateTime.Now;
+        var beginDate = new DateTime(temp.Year, temp.Month, temp.Day, temp.Hour, temp.Minute, 0);
 
         var model = new RentalCreateViewModel
         {
             Id = rentalModel.Id,
             CarId = rentalModel.CarId,
             CustomerId = rentalModel.CustomerId,
-            BeginDate = rentalModel.BeginDate,
-            EndDate = rentalModel.EndDate,
+            BeginDate = beginDate,
+            EndDate = beginDate.AddDays(1),
             TotalCost = (decimal)rentalModel.TotalCost,
 
             Customers = shortCustomers,

@@ -23,24 +23,24 @@
                 <div class="col-2 me-2 shadow-lg">
                     <input class="form-control search" asp-for="SearchDto.Model" type="text" placeholder="Type Car Model" aria-label="Search">
                 </div>
-                <div class="col-1 me-2">
-                    <select asp-for="SearchDto.ProductionYearFrom" id="" name="Year" class="form-control">
-                        <partial name="_AvailableOptionsForYearFrom" , new { Year=-1 } />
+                <div class="col-2 me-2">
+                    <select asp-for="SearchDto.ProductionYearFrom" id="" name="SearchDto.ProductionYearFrom" class="form-control">
+                        <partial name="_AvailableOptionsForYear" , new { Year=-1 } />
                     </select>
                     <span asp-validation-for="SearchDto.ProductionYearFrom" class="text-danger"></span>
                 </div>
-                <div class="col-1 me-2">
-                    <select asp-for="SearchDto.ProductionYearTo" id="" name="Year" class="form-control">
-                        <partial name="_AvailableOptionsForYearTo" , new { Year=-1 } />
+                <div class="col-2 me-2">
+                    <select asp-for="SearchDto.ProductionYearTo" id="" name="SearchDto.ProductionYearTo" class="form-control">
+                        <partial name="_AvailableOptionsForYear" , new { Year=-1 } />
                     </select>
                     <span asp-validation-for="SearchDto.ProductionYearTo" class="text-danger"></span>
                 </div>
                 <div class="row pt-2 pb-2 justify-content-center">
                     <div class="col me-2">
-                        <input type="date" class="form-control date" asp-for="SearchDto.StartDate" />
+                        <input class="form-control date" asp-for="SearchDto.StartDate" />
                     </div>
                     <div class="col me-2">
-                        <input type="date" class="form-control date" asp-for="SearchDto.EndDate" />
+                        <input class="form-control date" asp-for="SearchDto.EndDate" />
                     </div>
                     <div class="col">
                         <button class="btn btn-outline-success fw-bold" type="submit" asp-action="Index">Search</button>
