@@ -16,7 +16,8 @@
         </div>
     </div>
 
-    <table class="table table-hover">
+    <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder="Search in table...">
+    <table id="carIndexTable" class="table table-hover">
         <thead>
             <tr>
                 <th scope="col" data-bs-toggle="tooltip" title="Make & Model">
@@ -91,7 +92,7 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.FuelConsumption)
-                    </td>                    
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Kilometrage)
                     </td>
@@ -102,7 +103,7 @@
                         @Html.DisplayFor(modelItem => item.Displacement)
                     </td>
                     <td>
-                         @string.Join(", ", item.Addons)
+                        @string.Join(", ", item.Addons)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Price)
@@ -131,3 +132,68 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function filterFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("filterInput");
+        filter = input.value.toUpperCase().trim();
+
+        table = document.getElementById("carIndexTable");
+        tr = table.getElementsByTagName("tr");
+
+        if (filter.length <= 2) {
+            for (i = 0; i < tr.length; i++) {
+                tr[i].style.display = "";
+            }
+            return;
+        }
+
+        filterArray = filter.split(" ").filter(function (str) {
+            return /\S/.test(str);
+        });
+        //console.log('filterArray= ', filterArray);
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            td1 = tr[i].getElementsByTagName("td")[1];
+            td2 = tr[i].getElementsByTagName("td")[2];
+            td3 = tr[i].getElementsByTagName("td")[3];
+            td4 = tr[i].getElementsByTagName("td")[4];
+            td5 = tr[i].getElementsByTagName("td")[5];
+            td6 = tr[i].getElementsByTagName("td")[6];
+            td7 = tr[i].getElementsByTagName("td")[7];
+            td8 = tr[i].getElementsByTagName("td")[8];
+            td9 = tr[i].getElementsByTagName("td")[9];
+            td10 = tr[i].getElementsByTagName("td")[10];
+            td11 = tr[i].getElementsByTagName("td")[11];
+            td12 = tr[i].getElementsByTagName("td")[12];
+
+            if (td) {
+                txtValue = ''.concat(td.innerText, ' ', td1.innerText, ' ', td2.innerText, ' ', td3.innerText, ' ', td4.innerText,
+                    ' ', td5.innerText, ' ', td6.innerText, ' ', td7.innerText, ' ', td8.innerText, ' ', td9.innerText,
+                    ' ', td10.innerText, ' ', td11.innerText, ' ', td12.innerText)
+                    .replace(/(\r\n|\n|\r)/gm, "")
+                    .toUpperCase();
+
+                console.log('txtValue= '.concat(txtValue));
+
+                var isMatch = true;
+
+                for (var j = 0; j < filterArray.length; j++) {
+                    if (txtValue.indexOf(filterArray[j]) == -1) {
+                        isMatch = false;
+                        break;
+                    }
+                }
+
+                if (isMatch) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
