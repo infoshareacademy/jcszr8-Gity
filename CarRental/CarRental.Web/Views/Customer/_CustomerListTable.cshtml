@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<CarRental.Logic.Models.CustomerViewModel>
 
-<table class="table table-hover">
+<input type="text" id="filterInput" onkeyup="filterFunction()" placeholder="Search in table...">
+
+<table id="customerIndexTable" class="table table-hover">
     <thead class="">
         <tr>
             <th scope="col">

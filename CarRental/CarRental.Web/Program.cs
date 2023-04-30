@@ -2,8 +2,11 @@ using AutoMapper;
 using CarRental.DAL.Context;
 using CarRental.DAL.Repositories;
 using CarRental.Logic.MapperProfiles;
+using CarRental.Logic.Models;
 using CarRental.Logic.Services;
 using CarRental.Logic.Services.IServices;
+using CarRental.Logic.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -47,6 +50,11 @@ builder.Host.UseSerilog((hbc, loggerConfiguration) =>
     //loggerConfiguration.Filter.ByIncludingOnly(Matching.FromSource<CarController>());
     loggerConfiguration.WriteTo.Seq("http://localhost:5341");
 });
+
+// Validation
+builder.Services.AddScoped<IValidator<CustomerViewModel>, CustomerViewModelValidator>();
+builder.Services.AddScoped<IValidator<CarViewModel>, CarViewModelValidator>();
+builder.Services.AddScoped<IValidator<RentalViewModel>, RentalViewModelValidator>();
 
 var app = builder.Build();
 

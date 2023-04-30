@@ -13,11 +13,16 @@
                 <h1>Car Rental – Search, Compare & Save</h1>
                 <h2>Free cancellations on most bookings 60,000+ locations Customer support in 40+ languages</h2>
                 <form class="d-flex pt-3" asp-controller="Search" asp-action="SearchFromHome" method="post">
-                    <input class="form-control shadow-sm me-2 search opacity-75  " asp-for="SearchDto.ModelAndMake" type="text" placeholder="Search" aria-label="Search">
-                    <input class="form-control shadow-sm me-2 year opacity-75" asp-for="SearchDto.ProductionYearFrom" placeholder="2023" />
-                    <input class="form-control shadow-sm me-2 year opacity-75" asp-for="SearchDto.ProductionYearTo" placeholder="2015" />
-                    <input type="date" class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.StartDate" />
-                    <input type="date" class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.EndDate" />
+                    <input class="form-control shadow-sm me-2 search opacity-75  " asp-for="SearchDto.ModelAndMake" type="text" placeholder="Type car maker or car model" aria-label="Search">
+                    <select asp-for="SearchDto.ProductionYearFrom" id="" name="SearchDto.ProductionYearFrom" class="form-control year shadow-sm opacity-75 me-2">
+                        <partial name="_AvailableOptionsForYear" , new { Year=-1 } />
+                    </select>
+                    <select asp-for="SearchDto.ProductionYearTo" id="" name="SearchDto.ProductionYearTo" class="form-control year shadow-sm opacity-75 me-2">
+                        <partial name="_AvailableOptionsForYear" , new { Year=-1 } />
+                    </select>
+
+                    <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.StartDate" />
+                    <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.EndDate" />
                     <button class="btn btn-outline-success shadow-sm fw-bold" type="submit">Search</button>
                 </form>
             </div>
@@ -39,4 +44,3 @@
         </div>
     </div>
 </div>
-

@@ -17,10 +17,16 @@ namespace CarRental.Web.Controllers
         // GET: SearchController
         public IActionResult Index()
         {
+            var temp = DateTime.Now;
+            var beginDate = new DateTime(temp.Year, temp.Month, temp.Day, temp.Hour, temp.Minute, 0);
             var model = new SearchViewModel()
             {
-                SearchDto = new SearchFieldsModel(),
-                Cars = _carService.GetAll()
+                Cars = _carService.GetAll(),
+                SearchDto = new SearchFieldsModel()
+                {
+                    StartDate = beginDate,
+                    EndDate = beginDate.AddDays(1)
+                }
             };
             return View(model);
         }

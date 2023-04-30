@@ -51,7 +51,7 @@ public class CarController : Controller
 
             TempData["AlertText"] = "Car created successfully";
             TempData["AlertClass"] = AlertType.Success;
-            return RedirectToAction("Index", "Search");
+            return RedirectToAction(nameof(Index), "Home");
         }
         catch
         {
