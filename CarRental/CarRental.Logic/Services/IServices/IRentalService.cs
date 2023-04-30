@@ -1,4 +1,5 @@
-﻿using CarRental.Logic.Models;
+﻿using CarRental.Common;
+using CarRental.Logic.Models;
 
 namespace CarRental.Logic.Services.IServices;
 
@@ -13,4 +14,6 @@ public interface IRentalService
     IEnumerable<int> GetAvailableCarIdsForSearch(DateTime start, DateTime end);
     decimal GetRentalTotalPrice(decimal pricePerDay, DateTime rentStart, DateTime rentEnd);
     IEnumerable<RentalViewModel> GetRentalsByCarId(int carId);
+    IEnumerable<RentalViewModel> GetAvailableInGivenTerm(Term wantedTerm);
+    IEnumerable<int> GetIdsOfCarsAvailableInGivenTerm(Term wantedTerm);
 }
