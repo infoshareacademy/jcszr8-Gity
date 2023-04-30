@@ -4,6 +4,8 @@ public class Term
     private DateTime _beginDate;
     private DateTime _endDate;
 
+    public TimeSpan Interval => _endDate - _beginDate;
+
     public DateTime BeginDate
     {
         get => _beginDate;

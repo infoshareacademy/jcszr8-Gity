@@ -38,7 +38,7 @@ namespace CarRental.Web.Controllers
             var dto = search.SearchDto;
             var model = _searchService.FilterList(dto);
             search.Cars = model;
-            return View("Index", search);
+            return View(nameof(Index), search);
         }
 
         [HttpPost]
@@ -48,7 +48,7 @@ namespace CarRental.Web.Controllers
             var dto = search.SearchDto;
             var cars = _searchService.SearchList(dto);
             search.Cars = cars;
-            return View("Index", search);
+            return View(nameof(Index), search);
         }
     }
 }
