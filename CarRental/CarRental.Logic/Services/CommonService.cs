@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CarRental.Common;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using Microsoft.Extensions.Logging;
@@ -27,6 +28,8 @@ public class CommonService
     public List<CarViewModel> SearchList(SearchFieldsModel sfModel)
     {
         // TODO refactor SearchList
+        var wantedTerm = new Term(sfModel.StartDate, sfModel.EndDate);
+
         List<CarViewModel> results = new List<CarViewModel>();
         var cars = _carService.GetByName(sfModel.ModelAndMake);
 
@@ -34,7 +37,7 @@ public class CommonService
         {
             cars = cars.Where(c => c.Year >= sfModel.ProductionYearFrom && c.Year <= sfModel.ProductionYearTo).ToList();
         }
-        IEnumerable<int> carIds = _rentalService.GetAvailableCarIdsForSearch(sfModel.StartDate, sfModel.EndDate);
+        IEnumerable<int> carIds = _rentalService.GetAvailableCarIdsForSearch(wantedTerm);
         foreach (var item in cars)
         {
             if (carIds.Any(x => x == item.Id))
@@ -75,7 +78,7 @@ public class CommonService
 
         if (sfModel.StartDate != null && sfModel.EndDate != null)
         {
-            var availableCarIds = _rentalService.GetAvailableCarIdsForSearch(sfModel.StartDate, sfModel.EndDate);
+            var availableCarIds = _rentalService.GetAvailableCarIdsForSearch(new Term(sfModel.StartDate, sfModel.EndDate));
             carModels = carModels.Where(c => availableCarIds.Contains(c.Id)).ToList();
         }
 
