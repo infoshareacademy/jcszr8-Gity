@@ -3,6 +3,7 @@ using CarRental.DAL.Entities;
 using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using FluentValidation;
 using Microsoft.Extensions.Logging;
 
 namespace CarRental.Logic.Services;
@@ -12,12 +13,14 @@ public class CustomerService : ICustomerService
     private readonly IRepository<Customer> _customerRepository;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
+    //private readonly IValidator<CustomerViewModel> _validator;
 
     public CustomerService(IRepository<Customer> customerRepository, IMapper mapper, ILogger<CustomerService> logger)
     {
         _customerRepository = customerRepository;
         _mapper = mapper;
         _logger = logger;
+        //_validator = validator ?? throw new ArgumentNullException(nameof(validator));
     }
 
     public IEnumerable<CustomerViewModel> GetAll()
@@ -34,7 +37,17 @@ public class CustomerService : ICustomerService
 
     public void Create(CustomerViewModel model)
     {
-        _customerRepository.Insert(_mapper.Map<Customer>(model));
+        //ValidationResult results = _validator.Validate(model);
+
+        //if (!results.IsValid)
+        //{
+        //    foreach (var failure in results.Errors)
+        //    {
+        //        Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+        //        Debug.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+        //    }
+        //}
+        //_customerRepository.Insert(_mapper.Map<Customer>(model));
     }
 
     public void Create(string firstName, string lastName, string phoneNumber)
