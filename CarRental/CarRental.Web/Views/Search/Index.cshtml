@@ -24,13 +24,13 @@
                     <input class="form-control search" asp-for="SearchDto.Model" type="text" placeholder="Type Car Model" aria-label="Search">
                 </div>
                 <div class="col-2 me-2">
-                    <select asp-for="SearchDto.ProductionYearFrom" id="" name="Year" class="form-control">
+                    <select asp-for="SearchDto.ProductionYearFrom" id="" name="SearchDto.ProductionYearFrom" class="form-control">
                         <partial name="_AvailableOptionsForYear" , new { Year=-1 } />
                     </select>
                     <span asp-validation-for="SearchDto.ProductionYearFrom" class="text-danger"></span>
                 </div>
                 <div class="col-2 me-2">
-                    <select asp-for="SearchDto.ProductionYearTo" id="" name="Year" class="form-control">
+                    <select asp-for="SearchDto.ProductionYearTo" id="" name="SearchDto.ProductionYearTo" class="form-control">
                         <partial name="_AvailableOptionsForYear" , new { Year=-1 } />
                     </select>
                     <span asp-validation-for="SearchDto.ProductionYearTo" class="text-danger"></span>
