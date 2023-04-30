@@ -28,7 +28,6 @@ public class RentalService : IRentalService
     public List<RentalViewModel> GetAll()
     {
         var rentals = _rentalRepository.GetAll();
-
         return _mapper.Map<List<RentalViewModel>>(rentals);
     }
 
@@ -94,7 +93,6 @@ public class RentalService : IRentalService
         return availableCarIds.ToList();
     }
 
-
     #region Fast Fix for car search
 
     public IEnumerable<int> GetAvailableCarIdsForSearch(DateTime start, DateTime end)
@@ -127,6 +125,7 @@ public class RentalService : IRentalService
         return found;
     }
     #endregion
+
     private double CalculateDaysBetweenDates(DateTime startDate, DateTime endDate)
     {
         var days = (endDate - startDate).TotalDays;
