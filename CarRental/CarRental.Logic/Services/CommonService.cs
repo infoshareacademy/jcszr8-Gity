@@ -90,6 +90,4 @@ public class CommonService
 
         return carModels;
     }
-
-
 }

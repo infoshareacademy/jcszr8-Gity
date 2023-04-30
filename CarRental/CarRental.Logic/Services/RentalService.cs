@@ -133,10 +133,6 @@ public class RentalService : IRentalService
         return rentals.Where(r => r.CarId == carId);
     }
 
-    #endregion
-
-    #region To be used
-
     public IEnumerable<CarViewModel> GetCarsAvailableInTerm(Term wantedTerm)
     {
         var availableCarIds = GetIdsForCarsAvailableInTerm(wantedTerm);
@@ -154,6 +150,4 @@ public class RentalService : IRentalService
     {
         return collection.Where(predicate);
     }
-
-    #endregion
 }
