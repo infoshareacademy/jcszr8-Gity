@@ -158,7 +158,8 @@ body {
 }
 
 /* trash icon button */
-.bi-trash, .bi-pencil-square, .bi-eye, .bi-arrow-left, .bi-database-add {
+.bi-trash, .bi-pencil-square, .bi-eye, 
+.bi-arrow-left, .bi-database-add, .bi-eraser {
     color: black;
     font-size: 1.2em;
     padding: 0px;
