@@ -21,5 +21,7 @@ public class RentalViewModel
 
     [Display(Name = "Car License Plate")]
     public string? CarLicencePlate { get; set; }
+    public DateTime Created { get; set; }
+    public DateTime? Updated { get; set; }
 
 }
