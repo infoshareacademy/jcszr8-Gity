@@ -10,7 +10,13 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">List of Rentals</h2>
+            <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder=" Search in table..."
+                   maxlength="50">
+
+            <button id="clear-button" type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search field"
+                    onclick="clearFilterInput()">
+                <i class="bi bi-eraser"></i>
+            </button>
         </div>
         <div class="col-6 text-end">
             <a asp-controller="Rental" asp-action="Create" class="btn btn-primary text-dark"

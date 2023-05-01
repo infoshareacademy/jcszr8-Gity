@@ -9,7 +9,13 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">List of Cars</h2>
+            <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder=" Search in table..."
+                   maxlength="50">
+
+            <button id="clear-button" type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search field"
+                    onclick="clearFilterInput()">
+                <i class="bi bi-eraser"></i>
+            </button>
         </div>
         <div class="col-6 text-end">
             <a asp-action="Create" class="btn btn-primary text-dark"
@@ -20,14 +26,6 @@
     </div>
 
     <div class="wrapper">
-        <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder=" Search in table..."
-               maxlength="50">
-
-        <button id="clear-button" type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search field"
-                onclick="clearFilterInput()">
-            <i class="bi bi-eraser"></i>
-        </button>
-
         <table id="indexTable" class="table table-hover">
             <caption caption-side>List of Cars</caption>
             <thead>
@@ -65,8 +63,8 @@
                     <th scope="col">
                         @Html.DisplayNameFor(model => model.Color)
                     </th>
-                    <th scope="col">
-                        @Html.DisplayNameFor(model => model.Displacement)
+                    <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.Displacement)>
+                        Displ.
                     </th>
                     <th scope="col">
                         @Html.DisplayNameFor(model => model.Addons)
@@ -155,70 +153,6 @@
     </div>
 </div>
 
-<script>
-    function clearFilterInput() {
-        console.log("clear input");
-        document.getElementById("filterInput").value = '';
-        var table, tr;
-        table = document.getElementById("indexTable");
-        tr = table.getElementsByTagName("tr");
-        console.log(tr);
-        for (i = 0; i < tr.length; i++) {
-            tr[i].style.display = "";
-        }
-    }
-
-    function filterFunction() {
-        // Declare variables
-        var input, filter, table, tr, td, i, j, txtValue;
-        input = document.getElementById("filterInput");
-        filter = input.value.toUpperCase().trim();
-
-        table = document.getElementById("indexTable");
-        tr = table.getElementsByTagName("tr");
-
-        if (filter.length <= 2) {
-            for (i = 0; i < tr.length; i++) {
-                tr[i].style.display = "";
-            }
-            return;
-        }
-
-        filterArray = filter.split(" ").filter(function (str) {
-            return /\S/.test(str);
-        });
-        console.log('filterArray= ', filterArray);
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td");
-
-            txtValue = ' ';
-            if (td) {
-                for (j = 0; j < td.length; j++) {
-                    txtValue += ' '.concat(td[j].innerText);
-                }
-                txtValue = txtValue.replace(/(\r\n|\n|\r)/gm, "").replace(/\s\s+/g, ' ').toUpperCase();
-
-                //console.log('txtValue= '.concat(txtValue));
-
-                var isMatch = true;
-                for (j = 0; j < filterArray.length; j++) {
-                    if (txtValue.indexOf(filterArray[j]) == -1) {
-                        isMatch = false;
-                        break;
-                    }
-                }
-
-                if (isMatch) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-</script>
-
 <style>
     @@media (max-width: 1000px) {
         th {
@@ -248,3 +182,5 @@
             }
     }
 </style>
+
+<script src="~/js/site.js"></script>
