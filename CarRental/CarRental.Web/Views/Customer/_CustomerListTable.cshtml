@@ -1,19 +1,9 @@
 ﻿@model IEnumerable<CarRental.Logic.Models.CustomerViewModel>
 
-
 <div class="wrapper">
-
-    <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder=" Search in table..."
-           maxlength="50">
-
-    <button id="clear-button" type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search field"
-            onclick="clearFilterInput()">
-        <i class="bi bi-eraser"></i>
-    </button>
-
     <table id="indexTable" class="table table-hover app-index-table">
         <caption caption-side>List of Customers</caption>
-        <thead class="">
+        <thead>
             <tr>
                 <th scope="col">
                     No.
@@ -89,20 +79,7 @@
         element = document.getElementById(elementId);
         element.innerText = text;
     }
-
-    function clearFilterInput() {
-        console.log("clear input");
-        document.getElementById("filterInput").value = '';
-        var table, tr;
-        table = document.getElementById("indexTable");
-        tr = table.getElementsByTagName("tr");
-        console.log(tr);
-        for (i = 0; i < tr.length; i++) {
-            tr[i].style.display = "";
-        }
-    }
 </script>
-
 
 <style>
     @@media (max-width: 770px) {
@@ -137,6 +114,8 @@
             }
     }
 </style>
+
+<script src="~/js/site.js"></script>
 
 @section customerListTable {
     @*    <style type="text/css" media="(max-width: 650px)">
