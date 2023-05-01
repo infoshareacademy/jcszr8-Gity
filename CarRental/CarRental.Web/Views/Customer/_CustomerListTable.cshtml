@@ -2,10 +2,12 @@
 
 
 <div class="wrapper">
-    <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder="Search in table...">
+
+    <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder=" Search in table..."
+    maxlength="50">
 
     <table id="customerIndexTable" class="table table-hover">
-        <caption>List of Customers</caption>
+        <caption caption-side>List of Customers</caption>
         <thead class="">
             <tr>
                 <th scope="col">
@@ -30,21 +32,27 @@
             </tr>
         </thead>
         <tbody>
-            @{ var counter = 1;}
+            @{
+                var counter = 1;
+            }
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@counter. @{counter++;}</td>
-                    <td>@item.FirstName @item.LastName</td>
-                    <td>@item.EmailAddress</td>
-                    <td>@item.PhoneNumber</td>
-                    <td>@item.Gender</td>
-                    <td>
+                    <td data-cell="no.">
+                        @counter. @{
+                            counter++;
+                        }
+                    </td>
+                    <td data-cell="name">@item.FirstName @item.LastName</td>
+                    <td data-cell="email">@item.EmailAddress</td>
+                    <td data-cell="phone">@item.PhoneNumber</td>
+                    <td data-cell="gender">@item.Gender</td>
+                    <td data-cell="pesel">
                         <button id="pesel-@counter" class="btn-customer-pesel" onclick="showPesel('pesel-@counter', @item.Pesel)">
-                            Pesel
+                            Show Pesel
                         </button>
                     </td>
-                    <td>
+                    <td data-cell="actions">
                         <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
                             <a asp-action="Details" asp-route-id="@item.Id">
                                 <i class="bi bi-eye"></i>
@@ -78,6 +86,8 @@
     }
 </script>
 
+
+
 <style>
     .btn-customer-pesel {
         background-color: lightgray;
@@ -91,5 +101,84 @@
         margin: 2px 2px;
         cursor: pointer;
         width: 12ch;
+        border: 1px dotted black;
     }
+
+    caption {
+        background: hsl(0 0% 0%);
+        caption-side: top;
+        font-size: 1.3rem;
+        font-weight: 700;
+        padding-left: 1rem;
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: lightgray;
+        color: black;
+        padding: 1rem;
+    }
+
+    tr:nth-of-type(2n) {
+        background: hsl(0 0% 0% / .1);
+    }
+
+    th {
+        background: hsl(0 0% 0% / .5) !important;
+    }
+
+    td {
+        padding: 1rem;
+    }
+
+
+
+    @@media (max-width: 770px) {
+        th {
+            display: none;
+        }
+
+        td {
+            /*display: block;*/
+            display: grid;
+            gap: 0.5remm;
+            grid-template-columns: 8ch auto;
+            padding: 0.5rem 1rem;
+        }
+
+/*        td:nth-of-type(1)::before {
+            content: "Name";
+        }*/
+
+            td::before {
+                content: attr(data-cell) ": ";
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            td:first-child {
+                padding-top: 2rem;
+            }
+
+            td:last-child {
+                padding-bottom: 2rem;
+            }
+    }
+
+    input {
+        margin-bottom: 0.5rem;
+        width: 50ch;
+        border: 1px solid black;f
+    }
+
 </style>
+
+@section customerListTable {
+    @*    <style type="text/css" media="(max-width: 650px)">
+    </style>*@
+
+}
