@@ -1,61 +1,95 @@
 ﻿@model IEnumerable<CarRental.Logic.Models.CustomerViewModel>
 
-<input type="text" id="filterInput" onkeyup="filterFunction()" placeholder="Search in table...">
 
-<table id="customerIndexTable" class="table table-hover">
-    <thead class="">
-        <tr>
-            <th scope="col">
-                <label asp-for="First().FirstName"></label>
-            </th>
-            <th scope="col">
-                <label asp-for="First().LastName"></label>
-            </th>
-            <th scope="col">
-                <label asp-for="First().EmailAddress"></label>
-            </th>
-            <th scope="col">
-                <label asp-for="First().PhoneNumber"></label>
-            </th>
-            <th scope="col">
-                <label asp-for="First().Gender"></label>
-            </th>
-            <th scope="col">
-                <label asp-for="First().Pesel"></label>
-            </th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="wrapper">
+    <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder="Search in table...">
+
+    <table id="customerIndexTable" class="table table-hover">
+        <caption>List of Customers</caption>
+        <thead class="">
             <tr>
-                <td>@item.FirstName</td>
-                <td>@item.LastName</td>
-                <td>@item.EmailAddress</td>
-                <td>@item.PhoneNumber</td>
-                <td>@item.Gender</td>
-                <td>@item.Pesel</td>
-                <td>
-                    <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
-                        <a asp-action="Details" asp-route-id="@item.Id">
-                            <i class="bi bi-eye"></i>
-                        </a>
-                    </button>
-
-                    <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit element">
-                        <a asp-action="Edit" asp-route-id="@item.Id">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                    </button>
-
-                    <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete element">
-                        <a asp-action="Delete" asp-route-id="@item.Id">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </button>
-                </td>
+                <th scope="col">
+                    No.
+                </th>
+                <th scope="col">
+                    Customer
+                </th>
+                <th scope="col">
+                    <label asp-for="First().EmailAddress"></label>
+                </th>
+                <th scope="col">
+                    <label asp-for="First().PhoneNumber"></label>
+                </th>
+                <th scope="col">
+                    <label asp-for="First().Gender"></label>
+                </th>
+                <th scope="col">
+                    <label asp-for="First().Pesel"></label>
+                </th>
+                <th scope="col">Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @{ var counter = 1;}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@counter. @{counter++;}</td>
+                    <td>@item.FirstName @item.LastName</td>
+                    <td>@item.EmailAddress</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.Gender</td>
+                    <td>
+                        <button id="pesel-@counter" class="btn-customer-pesel" onclick="showPesel('pesel-@counter', @item.Pesel)">
+                            Pesel
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
+                            <a asp-action="Details" asp-route-id="@item.Id">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </button>
+
+                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit element">
+                            <a asp-action="Edit" asp-route-id="@item.Id">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </button>
+
+                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete element">
+                            <a asp-action="Delete" asp-route-id="@item.Id">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function showPesel(elementId, text) {
+        console.log(elementId);
+        console.log(text);
+        element = document.getElementById(elementId);
+        element.innerText = text;
+    }
+</script>
+
+<style>
+    .btn-customer-pesel {
+        background-color: lightgray;
+        border: none;
+        color: black;
+        padding: 2px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 2px 2px;
+        cursor: pointer;
+        width: 12ch;
+    }
+</style>
