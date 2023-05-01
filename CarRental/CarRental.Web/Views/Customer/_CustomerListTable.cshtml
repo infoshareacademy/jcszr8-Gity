@@ -9,10 +9,9 @@
     <button id="clear-button" type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search field"
             onclick="clearFilterInput()">
         <i class="bi bi-eraser"></i>
-        </a>
     </button>
 
-    <table id="customerIndexTable" class="table table-hover">
+    <table id="indexTable" class="table table-hover app-index-table">
         <caption caption-side>List of Customers</caption>
         <thead class="">
             <tr>
@@ -95,7 +94,7 @@
         console.log("clear input");
         document.getElementById("filterInput").value = '';
         var table, tr;
-        table = document.getElementById("customerIndexTable");
+        table = document.getElementById("indexTable");
         tr = table.getElementsByTagName("tr");
         console.log(tr);
         for (i = 0; i < tr.length; i++) {
@@ -105,55 +104,7 @@
 </script>
 
 
-
 <style>
-    .btn-customer-pesel {
-        background-color: lightgray;
-        border: none;
-        color: black;
-        padding: 2px 5px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 2px 2px;
-        cursor: pointer;
-        width: 12ch;
-        border: 1px dotted black;
-    }
-
-    caption {
-        background: hsl(0 0% 0%);
-        caption-side: top;
-        font-size: 1.3rem;
-        font-weight: 700;
-        padding-left: 1rem;
-        text-align: left;
-        text-transform: uppercase;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background-color: lightgray;
-        color: black;
-        padding: 1rem;
-    }
-
-    tr:nth-of-type(2n) {
-        background: hsl(0 0% 0% / .1);
-    }
-
-    th {
-        background: hsl(0 0% 0% / .5) !important;
-    }
-
-    td {
-        padding: 1rem;
-    }
-
-
-
     @@media (max-width: 770px) {
         th {
             display: none;
@@ -163,7 +114,7 @@
             /*display: block;*/
             display: grid;
             gap: 0.5remm;
-            grid-template-columns: 8ch auto;
+            grid-template-columns: 10ch auto;
             padding: 0.5rem 1rem;
         }
             /*        td:nth-of-type(1)::before {
@@ -185,18 +136,6 @@
                 padding-bottom: 2rem;
             }
     }
-
-    input {
-        margin-bottom: 0.75rem;
-        width: 50ch;
-        height: 2rem;
-        border: 1px solid black;
-    }
-
-    #clear-button {
-        margin-bottom: 0.75rem;
-    }
-
 </style>
 
 @section customerListTable {

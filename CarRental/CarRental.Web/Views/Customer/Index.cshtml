@@ -5,6 +5,8 @@
     ViewData["Title"] = "Index";
 }
 
+<link rel="stylesheet" href="~/css/index-tables.css" />
+
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
@@ -30,7 +32,7 @@
         input = document.getElementById("filterInput");
         filter = input.value.toUpperCase().trim();
 
-        table = document.getElementById("customerIndexTable");
+        table = document.getElementById("indexTable");
         tr = table.getElementsByTagName("tr");
 
         if (filter.length <= 2) {
@@ -43,7 +45,6 @@
         filterArray = filter.split(" ").filter(function (str) {
             return /\S/.test(str);
         });
-        //console.log('filterArray= ', filterArray);
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[0];

@@ -5,73 +5,22 @@
     ViewData["Title"] = "Index";
 }
 
+<link rel="stylesheet" href="~/css/index-tables.css" />
+
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">List of Rentals</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Rental" asp-action="Create" class="btn btn-primary text-dark">
-                <i class="bi bi-plus-circle text-dark"></i> &nbsp; Add New Rental
+            <a asp-controller="Rental" asp-action="Create" class="btn btn-primary text-dark"
+               data-bs-toggle="tooltip" data-bs-placement="top" title="Add new rental">
+                <i class="bi bi-plus-circle text-dark"></i> &nbsp; Add Rental
             </a>
         </div>
     </div>
 
     <div>
-        <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder="Search in table...">
         <partial name="_RentalListTable" , model="Model" />
     </div>
 </div>
-
-<script>
-    function filterFunction() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("filterInput");
-        filter = input.value.toUpperCase().trim();
-
-        table = document.getElementById("rentalIndexTable");
-        tr = table.getElementsByTagName("tr");
-
-        if (filter.length <= 2) {
-            for (i = 0; i < tr.length; i++) {
-                tr[i].style.display = "";
-            }
-            return;
-        }
-
-        filterArray = filter.split(" ").filter(function (str) {
-            return /\S/.test(str);
-        });
-        //console.log('filterArray= ', filterArray);
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            td1 = tr[i].getElementsByTagName("td")[1];
-            td2 = tr[i].getElementsByTagName("td")[2];
-            td3 = tr[i].getElementsByTagName("td")[3];
-            td4 = tr[i].getElementsByTagName("td")[4];
-            if (td) {
-                txtValue = ''.concat(td.innerText, ' ', td1.innerText, ' ', td2.innerText, ' ', td3.innerText, ' ', td4.innerText)
-                    .replace(/(\r\n|\n|\r)/gm, "")
-                    .toUpperCase();
-                //console.log('txtValue= '.concat(txtValue));
-
-                var isMatch = true;
-
-                for (var j = 0; j < filterArray.length; j++) {
-                    if (txtValue.indexOf(filterArray[j]) == -1) {
-                        isMatch = false;
-                        break;
-                    }
-                }
-
-                if (isMatch) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-</script>

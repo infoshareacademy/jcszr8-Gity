@@ -3,65 +3,183 @@
 @model IEnumerable<RentalViewModel>
 @*@model dynamic*@
 
-<table id="rentalIndexTable" class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.CarLicencePlate)">
-                Car Licence
-            </th>
-            <th scope="col">
-                Customer
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.BeginDate)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.TotalCost)
-            </th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="wrapper">
+    <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder=" Search in table..."
+           maxlength="50">
+
+    <button id="clear-button" type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search field"
+            onclick="clearFilterInput()">
+        <i class="bi bi-eraser"></i>
+    </button>
+
+    <table id="indexTable" class="table table-hover">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CarLicencePlate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerName)
-                </td>
-                <td>
-                    @item.BeginDate.DefaultDateFormat()
-                <td>
-                    @item.EndDate.DefaultDateFormat()
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalCost)
-                </td>
-                <td>
-                    <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
-                        <a asp-action="Details" asp-route-id="@item.Id">
-                            <i class="bi bi-eye"></i>
-                        </a>
-                    </button>
-
-                    <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit element">
-                        <a asp-action="Edit" asp-route-id="@item.Id">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                    </button>
-
-                    <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete element">
-                        <a asp-action="Delete" asp-route-id="@item.Id">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </button>
-                </td>
+                <th scope="col">
+                    No.
+                </th>
+                <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.CarLicencePlate)">
+                    Car Licence
+                </th>
+                <th scope="col">
+                    Customer
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.BeginDate)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TotalCost)
+                </th>
+                <th scope="col">Actions</th>
             </tr>
+        </thead>
+        <tbody>
+            @{
+                var counter = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-cell="no.">
+                        @counter. @{
+                            counter++;
+                        }
+                    </td>
+                    <td data-cell="licence">
+                        @Html.DisplayFor(modelItem => item.CarLicencePlate)
+                    </td>
+                    <td data-cell="customer">
+                        @Html.DisplayFor(modelItem => item.CustomerName)
+                    </td>
+                    <td data-cell="begin date">
+                        @item.BeginDate.DefaultDateFormat()
+                    <td data-cell="end date">
+                            @item.EndDate.DefaultDateFormat()
+                    </td>
+                    <td data-cell="total cost">
+                            @Html.DisplayFor(modelItem => item.TotalCost)
+                    </td>
+                    <td data-cell="actions">
+                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
+                            <a asp-action="Details" asp-route-id="@item.Id">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </button>
+
+                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit element">
+                            <a asp-action="Edit" asp-route-id="@item.Id">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </button>
+
+                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete element">
+                            <a asp-action="Delete" asp-route-id="@item.Id">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function clearFilterInput() {
+        console.log("clear input");
+        document.getElementById("filterInput").value = '';
+        var table, tr;
+        table = document.getElementById("indexTable");
+        tr = table.getElementsByTagName("tr");
+        console.log(tr);
+        for (i = 0; i < tr.length; i++) {
+            tr[i].style.display = "";
         }
-    </tbody>
-</table>
+    }
+
+    function filterFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("filterInput");
+        filter = input.value.toUpperCase().trim();
+
+        table = document.getElementById("indexTable");
+        tr = table.getElementsByTagName("tr");
+
+        if (filter.length <= 2) {
+            for (i = 0; i < tr.length; i++) {
+                tr[i].style.display = "";
+            }
+            return;
+        }
+
+        filterArray = filter.split(" ").filter(function (str) {
+            return /\S/.test(str);
+        });
+        //console.log('filterArray= ', filterArray);
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            td1 = tr[i].getElementsByTagName("td")[1];
+            td2 = tr[i].getElementsByTagName("td")[2];
+            td3 = tr[i].getElementsByTagName("td")[3];
+            td4 = tr[i].getElementsByTagName("td")[4];
+            if (td) {
+                txtValue = ''.concat(td.innerText, ' ', td1.innerText, ' ', td2.innerText, ' ', td3.innerText, ' ', td4.innerText)
+                    .replace(/(\r\n|\n|\r)/gm, "")
+                    .toUpperCase();
+                //console.log('txtValue= '.concat(txtValue));
+
+                var isMatch = true;
+
+                for (var j = 0; j < filterArray.length; j++) {
+                    if (txtValue.indexOf(filterArray[j]) == -1) {
+                        isMatch = false;
+                        break;
+                    }
+                }
+
+                if (isMatch) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+@section customerListTable {
+    <style type="text/css" media="(max-width: 650px)">
+        @@media (max-width: 770px) {
+            th {
+                display: none;
+            }
+
+            td {
+                display: grid;
+                gap: 0.5remm;
+                grid-template-columns: 10ch auto;
+                padding: 0.5rem 1rem;
+            }
+
+                td::before {
+                    content: attr(data-cell) ": ";
+                    float: left;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+
+                td:first-child {
+                    padding-top: 2rem;
+                }
+
+                td:last-child {
+                    padding-bottom: 2rem;
+                }
+        }
+    </style>
+}
