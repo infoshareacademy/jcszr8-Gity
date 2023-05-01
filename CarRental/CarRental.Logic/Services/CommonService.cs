@@ -2,7 +2,6 @@
 using CarRental.Common;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
-using Microsoft.Extensions.Logging;
 
 namespace CarRental.Logic.Services;
 public class CommonService : ICommonService
