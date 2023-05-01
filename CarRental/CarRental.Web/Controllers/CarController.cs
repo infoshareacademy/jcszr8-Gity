@@ -8,12 +8,12 @@ namespace CarRental.Web.Controllers;
 public class CarController : Controller
 {
     private readonly ICarService _carService;
-    private readonly ISearchService _searchService;
+    private readonly ICommonService _commonService;
 
-    public CarController(ICarService carService, ISearchService searchService)
+    public CarController(ICarService carService, ICommonService commonService)
     {
         _carService = carService;
-        _searchService = searchService;
+        _commonService = commonService;
     }
 
     // GET: CarController

@@ -93,4 +93,47 @@ public class CarService : ICarService
         _carRepository.Update(car);
         _logger.LogInformation($"Car with id {car.Id} was updated.");
     }
+
+    public List<CarViewModel> FindCars(IEnumerable<CarViewModel> collection,SearchFieldsModel sfModel)
+    {
+        if (sfModel.Makes.Values.All(m => m == false))
+        {
+            var cars = GetAll();
+            collection = _mapper.Map<List<CarViewModel>>(collection);
+        }
+        if (sfModel.Makes.Values.Contains(true))
+        {
+            collection = FindCarsByMaker(collection,sfModel);
+        }
+        if (!string.IsNullOrEmpty(sfModel.Model))
+        {
+            collection =  FindCarByModel(collection,sfModel);
+        }
+        if (sfModel.ProductionYearFrom > 0 && sfModel.ProductionYearTo > 0)
+        {
+            collection =  FindCarsByYear(collection,sfModel);
+        }
+        return collection.ToList();
+    }
+
+    public List<CarViewModel> FindCarsByMaker(IEnumerable<CarViewModel> collection,SearchFieldsModel sfModel)
+    {
+        var selectedMakes = sfModel.Makes.Where(m => m.Value == true).Select(m => m.Key); 
+        collection = GetAll()
+            .Where(c => selectedMakes.Contains(c.Make, StringComparer.CurrentCultureIgnoreCase)).ToList();
+        return collection.ToList();
+    }
+
+    public List<CarViewModel> FindCarsByYear(IEnumerable<CarViewModel> collection,SearchFieldsModel sfModel)
+    {
+        collection = collection.Where(c => c.Year >= sfModel.ProductionYearFrom && c.Year <= sfModel.ProductionYearTo).ToList();
+        return collection.ToList();
+    }
+
+    public List<CarViewModel> FindCarByModel(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
+    {
+        collection = collection.Where(c => c.Make.Contains(sfModel.Model.Trim(), StringComparison.CurrentCultureIgnoreCase) ||
+                                         c.CarModelProp.Contains(sfModel.Model.Trim(), StringComparison.CurrentCultureIgnoreCase)).ToList();
+        return collection.ToList();
+    }
 }

@@ -26,7 +26,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<ICarService, CarService>();
 builder.Services.AddTransient<IRentalService, RentalService>();
-builder.Services.AddTransient<ISearchService, SearchService>();
+builder.Services.AddTransient<ICommonService, CommonService>();
 
 //builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
