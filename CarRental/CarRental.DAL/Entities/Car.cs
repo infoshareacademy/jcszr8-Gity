@@ -16,7 +16,7 @@ public class Car : Entity
     public TransmissionType? Transmission { get; set; }
     [JsonProperty("addons")]
     public List<string> Addons { get; set; } = new();
-    public string? Color { get; set; }
+    public CarColor? Color { get; set; }
     public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
     [JsonProperty("fuel_consumption")]
     public string? FuelConsumption { get; set; }
