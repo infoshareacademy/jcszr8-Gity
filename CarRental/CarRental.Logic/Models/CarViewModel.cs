@@ -1,6 +1,7 @@
 ﻿using CarRental.Common;
 using CarRental.Common.Enums;
 using CarRental.Common.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Logic.Models;
@@ -25,8 +26,10 @@ public class CarViewModel
 
     [Display(Name = "Licence Plate")]
     [Required]
-    [MinLength(AppConfig.CarLicencePlateNumberMinLength)]
-    [MaxLength(AppConfig.CarLicencePlateNumberMaxLength)]
+    [MinLength(AppConfig.CarLicencePlateNumberMinLength, 
+        ErrorMessage = $"Minimum length for licence plate is {AppConfig.CarLicencePlateNumberMinLengthString}")]
+    [MaxLength(AppConfig.CarLicencePlateNumberMaxLength,
+        ErrorMessage = $"Maximum length for licence plate is {AppConfig.CarLicencePlateNumberMaxLengthString}")]
     public string? LicencePlateNumber
     {
         get => _licencePlateNumber;

@@ -15,8 +15,12 @@ public static class AppConfig
     // For Car
     public const int CarMakeMaxLength = 20;
     public const int CarModelMaxLength = 20;
+
     public const int CarLicencePlateNumberMinLength = 2;
+    public const string CarLicencePlateNumberMinLengthString = "2";
     public const int CarLicencePlateNumberMaxLength = 8;
+    public const string CarLicencePlateNumberMaxLengthString = "8";
+
     public const int CarKilometrageMinValue = 0;
     public const int CarKilometrageMaxValue = 500_000;
     public const int CarDoorsNoMinValue = 2;
