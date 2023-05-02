@@ -59,8 +59,7 @@ public class ApplicationContext : DbContext
             eb.Property(c => c.LicencePlateNumber).IsRequired().HasMaxLength(AppConfig.CarLicencePlateNumberMaxLength);
             eb.Property(c => c.Year).IsRequired().HasComment("Car production year");
             eb.Property(c => c.Displacement).HasMaxLength(AppConfig.CarDisplacementMaxLength);
-            eb.Property(c => c.FuelConsumption).HasMaxLength(50);
-            eb.Property(c => c.EngineType).HasMaxLength(20);
+            eb.Property(c => c.FuelConsumption).HasMaxLength(AppConfig.CarFuelConsumptionMaxLength);
             eb.Property(c => c.Addons).HasMaxLength(300);
             eb.Property(c => c.Price).HasColumnType("decimal").HasPrecision(7, 2);
             eb.Property(c => c.PowerInKiloWats).HasColumnType("decimal").HasPrecision(5, 2);
