@@ -93,6 +93,8 @@ public class CustomerController : Controller
     public IActionResult Delete(int id)
     {
         var customer = _customerService.Get(id);
+        TempData["AlertText"] = "You are in danger zone";
+        TempData["AlertClass"] = AlertType.Warning;
         return View(customer);
     }
 

@@ -52,8 +52,8 @@
                     <legend>Optional</legend>
                     <div class="form-group">
                         <label asp-for="Color" class="control-label"></label>
-                        <input asp-for="Color" class="form-control" />
-                        <span asp-validation-for="Color" class="text-danger"></span>
+                        @Html.DropDownList("Color", Html.GetEnumSelectList<CarColor>(),
+                        "-Select color-", new {@class = "form-control"})
                     </div>
                     <div class="form-group">
                         <label asp-for="Transmission" class="control-label"></label>
@@ -73,14 +73,14 @@
 
                     <div class="form-group">
                         @{
-                            var forDoorPartialModel = new { MinValue = 3, MaxValue = 10 }; 
+                            var forDoorPartialModel = new { MinValue = 3, MaxValue = 10 };
                         }
                         <label asp-for="Doors" class="control-label"></label>
                         <select asp-for="Doors" id="" name="Doors" class="form-control">
                             @{
-                                await Html.RenderPartialAsync("_AvailableOptionsForInteger", 
+                                await Html.RenderPartialAsync("_AvailableOptionsForInteger",
                                 new { MinValue = 3, MaxValue = 10, Prompt = "-Select number of doors-" });
-                            } 
+                            }
                         </select>
                         <span asp-validation-for="Doors" class="text-danger"></span>
                     </div>

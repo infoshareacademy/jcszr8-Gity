@@ -177,8 +177,12 @@ public class RentalController : Controller
         var rental = _rentalService.Get(id);
         var car = _carService.Get(rental.CarId);
         var customer = _customerService.Get(rental.CustomerId);
+
+        TempData["AlertText"] = "You are in danger zone";
+        TempData["AlertClass"] = AlertType.Warning;
         ViewData["Customer"] = customer.FirstName + " " + customer.LastName;
         ViewData["Car"] = car.Make + " " + car.CarModelProp + ", " + car.LicencePlateNumber;
+
         return View(rental);
     }
 

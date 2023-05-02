@@ -23,7 +23,7 @@ public class CarViewModel
     [Display(Name = "Licence Plate")]
     [Required]
     public string? LicencePlateNumber { get; set; }
-    public string? Color { get; set; }
+    public CarColor? Color { get; set; }
     [Display(Name = "Transmission Type")]
     public TransmissionType? Transmission { get; set; }
     public int? Kilometrage { get; set; }

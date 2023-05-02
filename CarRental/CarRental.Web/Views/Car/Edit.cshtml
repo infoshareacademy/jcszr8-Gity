@@ -38,8 +38,8 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Color" class="control-label"></label>
-                    <input asp-for="Color" class="form-control" />
-                    <span asp-validation-for="Color" class="text-danger"></span>
+                    @Html.DropDownList("Color", Html.GetEnumSelectList<CarColor>(),
+                    "-Select color-", new {@class="form-control"})
                 </div>
                 <div class="form-group">
                     <label asp-for="Transmission" class="control-label"></label>
@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <label asp-for="EngineType" class="control-label"></label>
                     @Html.DropDownList("EngineType", Html.GetEnumSelectList<EngineType>(),
-                    "-Select engine type-", new {@class = "form-control"})
+                    "-Select engine type-", new {@class="form-control"})
                 </div>
                 <div class="form-group">
                     <label asp-for="LicencePlateNumber" class="control-label"></label>
