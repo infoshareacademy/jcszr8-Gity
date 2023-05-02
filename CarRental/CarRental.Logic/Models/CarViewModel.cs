@@ -1,4 +1,6 @@
-﻿using CarRental.Common.Enums;
+﻿using CarRental.Common;
+using CarRental.Common.Enums;
+using CarRental.Common.Extensions;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Logic.Models;
@@ -19,9 +21,18 @@ public class CarViewModel
     [Required]
     public int Year { get; set; }
 
+    private string? _licencePlateNumber;
+
     [Display(Name = "Licence Plate")]
     [Required]
-    public string? LicencePlateNumber { get; set; }
+    [MinLength(AppConfig.CarLicencePlateNumberMinLength)]
+    [MaxLength(AppConfig.CarLicencePlateNumberMaxLength)]
+    public string? LicencePlateNumber
+    {
+        get => _licencePlateNumber;
+        set => _licencePlateNumber = value.RemoveWhitespaces().ToUpper();
+    }
+
     public CarColor? Color { get; set; }
     [Display(Name = "Transmission Type")]
     public TransmissionType? Transmission { get; set; }

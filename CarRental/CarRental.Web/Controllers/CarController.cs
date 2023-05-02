@@ -80,7 +80,9 @@ public class CarController : Controller
         }
         catch
         {
-            return View();
+            TempData["AlertText"] = "Something went wrong";
+            TempData["AlertClass"] = AlertType.Warning;
+            return View(nameof(Edit), model);
         }
     }
 

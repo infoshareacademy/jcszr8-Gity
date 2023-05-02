@@ -3,6 +3,8 @@ using CarRental.DAL.Entities;
 using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
 
 namespace CarRental.Logic.Services;
@@ -12,12 +14,14 @@ public class CarService : ICarService
     private readonly IRepository<Car> _carRepository;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
+    private readonly IValidator<CarViewModel> _validator;
 
-    public CarService(IRepository<Car> carRepository, IMapper mapper, ILogger<CarService> logger)
+    public CarService(IRepository<Car> carRepository, IMapper mapper, ILogger<CarService> logger, IValidator<CarViewModel> validator)
     {
         _carRepository = carRepository;
         _mapper = mapper;
         _logger = logger;
+        _validator = validator;
     }
 
     public IEnumerable<CarViewModel> GetAll()
@@ -88,8 +92,14 @@ public class CarService : ICarService
 
     public void Update(CarViewModel model)
     {
-        var car = _mapper.Map<Car>(model);
+        //ValidationResult results = _validator.Validate(model);
 
+        //if (!results.IsValid)
+        //{
+        //    return;
+        //}
+
+        var car = _mapper.Map<Car>(model);
         _carRepository.Update(car);
         _logger.LogInformation($"Car with id {car.Id} was updated.");
     }

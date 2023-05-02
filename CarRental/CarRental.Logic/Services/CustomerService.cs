@@ -47,7 +47,6 @@ public class CustomerService : ICustomerService
             foreach (var failure in results.Errors)
             {
                 _logger.LogInformation("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
-                Debug.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage); // TODO: remove when checked
             }
         }
         _customerRepository.Insert(_mapper.Map<Customer>(model));
