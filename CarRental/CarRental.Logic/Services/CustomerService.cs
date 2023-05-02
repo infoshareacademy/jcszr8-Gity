@@ -73,6 +73,17 @@ public class CustomerService : ICustomerService
 
     public void Update(CustomerViewModel model)
     {
+        ValidationResult results = _validator.Validate(model);
+
+        if (!results.IsValid)
+        {
+            foreach (var failure in results.Errors)
+            {
+                _logger.LogInformation("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+                Debug.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage); // TODO: remove when checked
+            }
+        }
+
         var customer = _mapper.Map<Customer>(model);
         _customerRepository.Update(customer);
         _logger.LogInformation($"Customer with id {model.Id} was updated.");

@@ -1,6 +1,9 @@
 ﻿namespace CarRental.Common;
 public static class AppConfig
 {
+    // Development settings - for testing purposes
+    public const bool UsePeselChecksumValidation = false;
+
     // For Customer
     public static readonly int FirstNameMaxLength = 30;
     public static readonly int LastNameMaxLength = 50;

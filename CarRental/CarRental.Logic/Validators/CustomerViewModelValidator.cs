@@ -36,6 +36,46 @@ public class CustomerViewModelValidator : AbstractValidator<CustomerViewModel>
             .Length(AppConfig.PeselLength)
             .WithMessage($"Pesel must have {AppConfig.PeselLength} characters")
             .Matches(@"^\d{11}$")
-            .WithMessage("Pesel must contain only digits");
+            .WithMessage("Pesel must contain only digits")
+            .Must(PeselValidator.ValidatePesel);
+    }
+}
+
+public static class PeselValidator
+{
+    private static readonly int[] multipliers = { 1, 3, 7, 9, 1, 3, 7, 9, 1, 3 };
+
+    public static bool ValidatePesel(string pesel)
+    {
+        if (AppConfig.UsePeselChecksumValidation == false)
+        {
+            return true;
+        }
+
+        bool result = false;
+        try
+        {
+            if (pesel.Length == 11)
+            {
+                result = CountSum(pesel).Equals(pesel[10].ToString());
+            }
+        }
+        catch (Exception)
+        {
+            result = false;
+        }
+        return result;
+    }
+
+    private static string CountSum(string pesel)
+    {
+        int sum = 0;
+        for (int i = 0; i < multipliers.Length; i++)
+        {
+            sum += multipliers[i] * int.Parse(pesel[i].ToString());
+        }
+
+        int remainder = sum % 10;
+        return remainder == 0 ? remainder.ToString() : (10 - remainder).ToString();
     }
 }
