@@ -88,6 +88,8 @@ public class CarController : Controller
     public IActionResult Delete(int id)
     {
         var car = _carService.Get(id);
+        TempData["AlertText"] = "You are in danger zone";
+        TempData["AlertClass"] = AlertType.Warning;
         return View(car);
     }
 
