@@ -35,8 +35,8 @@ public static class AppConfig
     public static readonly int CarYearMaxValue = DateTime.Now.Year;
     public const int CarDescriptionMaxLength = 1000;
     public const decimal CarPricePerDayMinValue = 40;
-    public const float CarPowerInKiloWatsMinValue = 60;
-    public const float CarPowerInKiloWatsMaxValue = 1000;
+    public const float CarPowerInKiloWattsMinValue = 60;
+    public const float CarPowerInKiloWattsMaxValue = 1000;
 
     // For Rental
     public const int RentalMinDays = 1;

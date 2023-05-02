@@ -49,10 +49,10 @@ public class CarViewModelValidator : AbstractValidator<CarViewModel>
             .LessThanOrEqualTo(CarKilometrageMaxValue)
             .WithMessage($"Maximum value for kilometrage is {CarKilometrageMaxValue}");
         RuleFor(c => c.PowerInKiloWats)
-            .GreaterThanOrEqualTo(CarPowerInKiloWatsMinValue)
-            .WithMessage($"Minimum value for power is {CarPowerInKiloWatsMinValue} kW") // TODO if change from kW to W
-            .LessThanOrEqualTo(CarPowerInKiloWatsMaxValue)
-            .WithMessage($"Maximum value for power is {CarPowerInKiloWatsMaxValue} kW"); // TODO if change from kW to W
+            .GreaterThanOrEqualTo(CarPowerInKiloWattsMinValue)
+            .WithMessage($"Minimum value for power is {CarPowerInKiloWattsMinValue} kW") // TODO if change from kW to W
+            .LessThanOrEqualTo(CarPowerInKiloWattsMaxValue)
+            .WithMessage($"Maximum value for power is {CarPowerInKiloWattsMaxValue} kW"); // TODO if change from kW to W
         RuleFor(c => c.EngineType)
             .IsInEnum()
             .WithMessage("Engine type should be selected from list");
