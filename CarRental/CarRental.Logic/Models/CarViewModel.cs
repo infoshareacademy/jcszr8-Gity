@@ -12,7 +12,6 @@ public class CarViewModel
     [Required]
     public string? CarModelProp { get; set; }
 
-
     [Required]
     public string? Make { get; set; }
 

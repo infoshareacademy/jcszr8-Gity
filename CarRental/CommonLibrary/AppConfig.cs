@@ -16,12 +16,21 @@ public static class AppConfig
     public static readonly int CarMakeMaxLength = 20;
     public static readonly int CarModelMaxLength = 20;
     public static readonly int CarLicencePlateNumberMinLength = 3;
-    public static readonly int CarLicencePlateNumberMaxLength = 10;
-    public static readonly int CarColorMaxLength = 20;
+    public static readonly int CarLicencePlateNumberMaxLength = 8;
+    public static readonly int CarMinKilometrage = 0;
+    public static readonly int CarMaxKilometrage = 500_000;
+    public static readonly int CarMinDoorsNo = 2;
+    public static readonly int CarMaxDoorsNo = 10;
+    public static readonly int CarMinSeatsNo = 2;
+    public static readonly int CarMaxSeatsNo = 50;
+    public static readonly int CarMinAirbagsNo = 0;
+    public static readonly int CarMaxAirbagsNo = 100;
+    public static readonly int CarFuelConsumptionMaxLength = 100;
+    public static readonly int CarDisplacementMaxLength = 10;
     public static readonly int CarYearMinValue = 2000;
     public static readonly int CarYearMaxValue = DateTime.Now.Year;
     public static readonly int CarDescriptionMaxLength = 1000;
-    public static readonly int CarPricePerDayMinValue = 40;
+    public static readonly decimal CarPricePerDayMinValue = 40;
 
     // For Rental
     public static readonly int RentalMinDays = 1;
