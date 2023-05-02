@@ -20,6 +20,8 @@ public class ApplicationContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Customer>()
             .HasMany<Rental>()
             .WithOne();
@@ -44,6 +46,9 @@ public class ApplicationContext : DbContext
             eb.Property(c => c.Pesel).IsRequired().HasMaxLength(11);
             eb.Property(c => c.Gender).IsRequired();
             eb.Property(c => c.EmailAddress).HasMaxLength(100);
+
+            eb.Property(c => c.Created).HasDefaultValueSql("getutcdate()");
+            eb.Property(c => c.Updated).ValueGeneratedOnUpdate();
         });
 
         modelBuilder.Entity<Car>(eb =>
@@ -60,13 +65,17 @@ public class ApplicationContext : DbContext
             eb.Property(c => c.Addons).HasMaxLength(300);
             eb.Property(c => c.Price).HasColumnType("decimal").HasPrecision(7, 2);
             eb.Property(c => c.PowerInKiloWats).HasColumnType("decimal").HasPrecision(5, 2);
+
+            eb.Property(c => c.Created).HasDefaultValueSql("getutcdate()");
+            eb.Property(c => c.Updated).ValueGeneratedOnUpdate();
         });
 
         modelBuilder.Entity<Rental>(eb =>
         {
             eb.Property(r => r.TotalCost).HasColumnType("decimal").HasPrecision(7, 2);
-        });
 
-        base.OnModelCreating(modelBuilder);
+            eb.Property(c => c.Created).HasDefaultValueSql("getutcdate()");
+            eb.Property(c => c.Updated).ValueGeneratedOnUpdate();
+        });
     }
 }

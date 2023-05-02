@@ -4,194 +4,183 @@
     ViewData["Title"] = "Index";
 }
 
+<link rel="stylesheet" href="~/css/index-tables.css" />
+
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">List of Cars</h2>
+            <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder=" Search in table..."
+                   maxlength="50">
+
+            <button id="clear-button" type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search field"
+                    onclick="clearFilterInput()">
+                <i class="bi bi-eraser"></i>
+            </button>
         </div>
         <div class="col-6 text-end">
-            <a asp-action="Create" class="btn btn-primary text-dark">
-                <i class="bi bi-plus-circle text-dark"></i> &nbsp; Add New Car
+            <a asp-action="Create" class="btn btn-primary text-dark"
+               data-bs-toggle="tooltip" data-bs-placement="top" title="Add new car">
+                <i class="bi bi-plus-circle text-dark"></i> &nbsp; Add Car
             </a>
         </div>
     </div>
 
-    <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder="Search in table...">
-    <table id="carIndexTable" class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col" data-bs-toggle="tooltip" title="Make & Model">
-                    Car
-                </th>
-                <th scope="col" data-bs-toggle="tooltip" title="License Plate Number">
-                    Licence
-                </th>
-                <th scope="col" data-bs-toggle="tooltip" title="Production Year">
-                    Year
-                </th>
-                <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.EngineType)">
-                    Engine
-                </th>
-                <th scope="col">
-                    Transmission
-                </th>
-                <th scope="col">
-                    Power [kW]
-                </th>
-                <th scope="col" data-bs-toggle="tooltip" title="Seats / Doors / Airbags">
-                    S/D/A
-                </th>
-                <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.FuelConsumption)">
-                    F. Cons.
-                </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.Kilometrage)
-                </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.Color)
-                </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.Displacement)
-                </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.Addons)
-                </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <div class="wrapper">
+        <table id="indexTable" class="table table-hover">
+            <caption caption-side>List of Cars</caption>
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Make)
-                        @Html.DisplayFor(modelItem => item.CarModelProp)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LicencePlateNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Year)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EngineType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Transmission)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PowerInKiloWats)
-                    </td>
-                    <td scope="col">
-                        @Html.DisplayFor(modelItem => item.SeatsNo)/@Html.DisplayFor(modelItem => item.Doors)/@Html.DisplayFor(modelItem => item.Airbags)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FuelConsumption)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Kilometrage)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Color)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Displacement)
-                    </td>
-                    <td>
-                        @string.Join(", ", item.Addons)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
-                            <a asp-action="Details" asp-route-id="@item.Id">
-                                <i class="bi bi-eye"></i>
-                            </a>
-                        </button>
-
-                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit element">
-                            <a asp-action="Edit" asp-route-id="@item.Id">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                        </button>
-
-                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete element">
-                            <a asp-action="Delete" asp-route-id="@item.Id">
-                                <i class="bi bi-trash"></i>
-                            </a>
-                        </button>
-                    </td>
+                    <th scope="col">
+                        No.
+                    </th>
+                    <th scope="col" data-bs-toggle="tooltip" title="Make & Model">
+                        Car
+                    </th>
+                    <th scope="col" data-bs-toggle="tooltip" title="License Plate Number">
+                        Licence
+                    </th>
+                    <th scope="col" data-bs-toggle="tooltip" title="Production Year">
+                        Year
+                    </th>
+                    <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.EngineType)">
+                        Engine
+                    </th>
+                    <th scope="col">
+                        Transmission
+                    </th>
+                    <th scope="col">
+                        Power [kW]
+                    </th>
+                    <th scope="col" data-bs-toggle="tooltip" title="Seats / Doors / Airbags">
+                        S/D/A
+                    </th>
+                    <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.FuelConsumption)">
+                        F. Cons.
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Kilometrage)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Color)
+                    </th>
+                    <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.Displacement)>
+                        Displ.
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Addons)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th scope="col">Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @{
+                    var counter = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td data-cell="no.">
+                            @counter. @{
+                                counter++;
+                            }
+                        </td>
+                        <td data-cell="car">
+                            @Html.DisplayFor(modelItem => item.Make)
+                            @Html.DisplayFor(modelItem => item.CarModelProp)
+                        </td>
+                        <td data-cell="licence">
+                            @Html.DisplayFor(modelItem => item.LicencePlateNumber)
+                        </td>
+                        <td data-cell="year">
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
+                        <td data-cell="engine">
+                            @Html.DisplayFor(modelItem => item.EngineType)
+                        </td>
+                        <td data-cell="transmission">
+                            @Html.DisplayFor(modelItem => item.Transmission)
+                        </td>
+                        <td data-cell="power">
+                            @Html.DisplayFor(modelItem => item.PowerInKiloWats)
+                        </td>
+                        <td data-cell="s/d/a">
+                            @Html.DisplayFor(modelItem => item.SeatsNo)/@Html.DisplayFor(modelItem => item.Doors)/@Html.DisplayFor(modelItem => item.Airbags)
+                        </td>
+                        <td data-cell="fuel cons.">
+                            @Html.DisplayFor(modelItem => item.FuelConsumption)
+                        </td>
+                        <td data-cell="kilometrage">
+                            @Html.DisplayFor(modelItem => item.Kilometrage)
+                        </td>
+                        <td data-cell="color">
+                            @Html.DisplayFor(modelItem => item.Color)
+                        </td>
+                        <td data-cell="displacement">
+                            @Html.DisplayFor(modelItem => item.Displacement)
+                        </td>
+                        <td data-cell="addons">
+                            @string.Join(", ", item.Addons)
+                        </td>
+                        <td data-cell="price">
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td data-cell="actions">
+                            <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
+                                <a asp-action="Details" asp-route-id="@item.Id">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </button>
+
+                            <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit element">
+                                <a asp-action="Edit" asp-route-id="@item.Id">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            </button>
+
+                            <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete element">
+                                <a asp-action="Delete" asp-route-id="@item.Id">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<script>
-    function filterFunction() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("filterInput");
-        filter = input.value.toUpperCase().trim();
-
-        table = document.getElementById("carIndexTable");
-        tr = table.getElementsByTagName("tr");
-
-        if (filter.length <= 2) {
-            for (i = 0; i < tr.length; i++) {
-                tr[i].style.display = "";
-            }
-            return;
+<style>
+    @@media (max-width: 1000px) {
+        th {
+            display: none;
         }
 
-        filterArray = filter.split(" ").filter(function (str) {
-            return /\S/.test(str);
-        });
-        //console.log('filterArray= ', filterArray);
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            td1 = tr[i].getElementsByTagName("td")[1];
-            td2 = tr[i].getElementsByTagName("td")[2];
-            td3 = tr[i].getElementsByTagName("td")[3];
-            td4 = tr[i].getElementsByTagName("td")[4];
-            td5 = tr[i].getElementsByTagName("td")[5];
-            td6 = tr[i].getElementsByTagName("td")[6];
-            td7 = tr[i].getElementsByTagName("td")[7];
-            td8 = tr[i].getElementsByTagName("td")[8];
-            td9 = tr[i].getElementsByTagName("td")[9];
-            td10 = tr[i].getElementsByTagName("td")[10];
-            td11 = tr[i].getElementsByTagName("td")[11];
-            td12 = tr[i].getElementsByTagName("td")[12];
-
-            if (td) {
-                txtValue = ''.concat(td.innerText, ' ', td1.innerText, ' ', td2.innerText, ' ', td3.innerText, ' ', td4.innerText,
-                    ' ', td5.innerText, ' ', td6.innerText, ' ', td7.innerText, ' ', td8.innerText, ' ', td9.innerText,
-                    ' ', td10.innerText, ' ', td11.innerText, ' ', td12.innerText)
-                    .replace(/(\r\n|\n|\r)/gm, "")
-                    .toUpperCase();
-
-                console.log('txtValue= '.concat(txtValue));
-
-                var isMatch = true;
-
-                for (var j = 0; j < filterArray.length; j++) {
-                    if (txtValue.indexOf(filterArray[j]) == -1) {
-                        isMatch = false;
-                        break;
-                    }
-                }
-
-                if (isMatch) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
+        td {
+            display: grid;
+            gap: 0.5remm;
+            grid-template-columns: 15ch auto;
+            padding: 0.5rem 1rem;
         }
+
+            td::before {
+                content: attr(data-cell) ": ";
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            td:first-child {
+                padding-top: 2rem;
+            }
+
+            td:last-child {
+                padding-bottom: 2rem;
+            }
     }
-</script>
+</style>
+
+<script src="~/js/site.js"></script>

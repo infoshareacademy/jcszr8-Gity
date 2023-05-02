@@ -42,5 +42,8 @@ public class CarViewModel
     public List<string> Addons { get; set; } = new();
     public decimal? Price { get; set; }
 
+    public DateTime Created { get; set; }
+    public DateTime? Updated { get; set; }
+
     #endregion
 }

@@ -1,67 +1,118 @@
 ﻿@using CarRental.Common.Extensions;
 @using CarRental.Logic.Models;
 @model IEnumerable<RentalViewModel>
-@*@model dynamic*@
 
-<table id="rentalIndexTable" class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.CarLicencePlate)">
-                Car Licence
-            </th>
-            <th scope="col">
-                Customer
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.BeginDate)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.TotalCost)
-            </th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CarLicencePlate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerName)
-                </td>
-                <td>
-                    @item.BeginDate.DefaultDateFormat()
-                <td>
-                    @item.EndDate.DefaultDateFormat()
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalCost)
-                </td>
-                <td>
-                    <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
-                        <a asp-action="Details" asp-route-id="@item.Id">
-                            <i class="bi bi-eye"></i>
-                        </a>
-                    </button>
-
-                    <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit element">
-                        <a asp-action="Edit" asp-route-id="@item.Id">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                    </button>
-
-                    <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete element">
-                        <a asp-action="Delete" asp-route-id="@item.Id">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </button>
-                </td>
-            </tr>
+<style type="text/css" media="(max-width: 650px)">
+    @@media (max-width: 770px) {
+        th {
+            display: none;
         }
-    </tbody>
-</table>
+
+        td {
+            display: grid;
+            gap: 0.5rem;
+            grid-template-columns: 10ch auto;
+            padding: 0.5rem 1rem;
+        }
+
+            td::before {
+                content: attr(data-cell) ": ";
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            td:first-child {
+                padding-top: 2rem;
+            }
+
+            td:last-child {
+                padding-bottom: 2rem;
+            }
+    }
+</style>
+
+<div class="wrapper">
+    <table id="indexTable" class="table table-hover">
+        <caption caption-side>List of Rentals</caption>
+        <thead>
+            <tr>
+                <th scope="col">
+                    No.
+                </th>
+                <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.CarLicencePlate)">
+                    Car Licence
+                </th>
+                <th scope="col">
+                    Customer
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.BeginDate)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TotalCost)
+                </th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var counter = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-cell="no.">
+                        @counter. @{
+                            counter++;
+                        }
+                    </td>
+                    <td data-cell="licence">
+                        @Html.DisplayFor(modelItem => item.CarLicencePlate)
+                    </td>
+                    <td data-cell="customer">
+                        @Html.DisplayFor(modelItem => item.CustomerName)
+                    </td>
+                    <td data-cell="begin">
+                        @item.BeginDate.DefaultDateFormat().Split(' ')[0]
+                        <br/>@item.BeginDate.DefaultDateFormat().Split(' ')[1]
+                    <td data-cell="end">
+                            @item.EndDate.DefaultDateFormat().Split(' ')[0]
+                            <br/>@item.EndDate.DefaultDateFormat().Split(' ')[1]
+                    </td>
+                    <td data-cell="total cost">
+                            @Html.DisplayFor(modelItem => item.TotalCost)
+                    </td>
+                    <td data-cell="actions">
+                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
+                            <a asp-action="Details" asp-route-id="@item.Id">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </button>
+
+                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit element">
+                            <a asp-action="Edit" asp-route-id="@item.Id">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </button>
+
+                        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete element">
+                            <a asp-action="Delete" asp-route-id="@item.Id">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="~/js/site.js"></script>
+
+@section rentalListTable {
+
+}

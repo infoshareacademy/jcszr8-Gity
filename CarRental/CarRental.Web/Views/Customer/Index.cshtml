@@ -5,14 +5,23 @@
     ViewData["Title"] = "Index";
 }
 
+<link rel="stylesheet" href="~/css/index-tables.css" />
+
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">List of Customers</h2>
+            <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder=" Search in table..."
+                   maxlength="50">
+
+            <button id="clear-button" type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search field"
+                    onclick="clearFilterInput()">
+                <i class="bi bi-eraser"></i>
+            </button>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Customer" asp-action="Create" class="btn btn-primary text-dark">
-                <i class="bi bi-plus-circle text-dark"></i> &nbsp; Add New Customer
+            <a asp-controller="Customer" asp-action="Create" class="btn btn-primary text-dark"
+               data-bs-toggle="tooltip" data-bs-placement="top" title="Add new customer">
+                <i class="bi bi-plus-circle text-dark"></i> &nbsp; Add Customer
             </a>
         </div>
     </div>
@@ -29,7 +38,7 @@
         input = document.getElementById("filterInput");
         filter = input.value.toUpperCase().trim();
 
-        table = document.getElementById("customerIndexTable");
+        table = document.getElementById("indexTable");
         tr = table.getElementsByTagName("tr");
 
         if (filter.length <= 2) {
@@ -42,7 +51,6 @@
         filterArray = filter.split(" ").filter(function (str) {
             return /\S/.test(str);
         });
-        //console.log('filterArray= ', filterArray);
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[0];
