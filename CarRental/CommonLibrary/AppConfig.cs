@@ -1,56 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarRental.Common;
+﻿namespace CarRental.Common;
 public static class AppConfig
-{   
+{
     // For Customer
-    public const int CustomerFirstNameMaxLength = 30;
-    public const int CustomerLastNameMaxLength = 50;
-    public const int EmailMaxLength = 100;
-    public const int PeselLength = 11;
-    public const int PhoneNumberMinLength = 10;
-    public const int PhoneNumberMaxLength = 50;
+    public static readonly int FirstNameMaxLength = 30;
+    public static readonly int LastNameMaxLength = 50;
+    public static readonly int EmailAddressMaxLength = 100;
+    public static readonly int PeselLength = 11;
+    public static readonly int PhoneNumberMinLength = 9;
+    public static readonly int PhoneNumberMaxLength = 50;
 
-
-    // For Cars
-    public const int CarMakeMaxLength = 20;
-    public const int CarModelMaxLength = 20;
-    public const int CarLicencePlateNumberMinLength = 3;
-    public const int CarLicencePlateNumberMaxLength = 10;
-    public const int CarColorMaxLength = 20;
-    public const int CarYearMinValue = 2000;
+    // For Car
+    public static readonly int CarMakeMaxLength = 20;
+    public static readonly int CarModelMaxLength = 20;
+    public static readonly int CarLicencePlateNumberMinLength = 3;
+    public static readonly int CarLicencePlateNumberMaxLength = 10;
+    public static readonly int CarColorMaxLength = 20;
+    public static readonly int CarYearMinValue = 2000;
     public static readonly int CarYearMaxValue = DateTime.Now.Year;
-    public const int CarDescriptionMaxLength = 1000;
-    public const int CarPricePerDayMinValue = 0;
-    public const int CarPricePerDayMaxValue = 500;
+    public static readonly int CarDescriptionMaxLength = 1000;
+    public static readonly int CarPricePerDayMinValue = 40;
 
-    // For Rentals
-    public const int RentalCommentMaxLength = 500;
-    public const int RentalMinDays = 1;
-    public const int RentalMaxDays = 90;
-    public const int RentalMaxLimitOfRentals = 5;
-
-
-
-    // For Buckets
-    public const int MaxLimitOfBuckets = 10;
-    public const int BucketNameMaxLength = 100;
-    public const int BucketDescriptionMaxLength = 500;
-    public const string BucketDefaultColor = "#8b4513"; //brown color #8b4513
-
-    public const int MinNumberOfTasks = 0;
-    public const int MaxNumberOfTasks = 40;
-    public const int DefaultMaxNumberOfTasks = 15;
-
-    public const int TaskTitleMaxLength = 100;
-    public const int TaskDescriptionMaxLength = 500;
-
-    public const int AssigneeAutoSearchFromNChars = 3;
-    public const int AssigneeNameMaxLenght = 100;
-    public const int AssigneesMaxLimitForTask = 5;
-
+    // For Rental
+    public static readonly int RentalMinDays = 1;
+    public static readonly int RentalMaxDays = 90;
 }
