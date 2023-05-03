@@ -80,7 +80,7 @@ public static class Seed
         return result ?? new List<T>();
     }
 
-    public static List<PoorCar> GetItemsWithEmbedded<T>(string fileName)
+    public static List<Car> GetItemsWithEmbedded(string fileName)
     {
         var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
         string itemsSerialized;
@@ -95,25 +95,34 @@ public static class Seed
         }
 
         JObject jsonObject = JObject.Parse(itemsSerialized);
-            //.Parse<List<JObject>>(itemsSerialized);
 
-        var msSerialized = jsonObject["cars"].ToString();
-
+        var prepopulatedCars = JsonConvert.DeserializeObject<List<Car>>(itemsSerialized);
+        
         IList<JToken> jsonCars = jsonObject["cars"].Children().ToList();
 
         var selectedValues = jsonCars.Select(car => new
         {
-            Displacement = car["engine_parameters"]["displacement"],
-            FuelConsumption = car["engine_parameters"]["fuel_consumption"],
-            PowerInKiloWatts = car["engine_parameters"]["power_kw"],
-            FuelType = car["engine_parameters"]["fuel_type"]
-        });
-        
+            Displacement = car["engine_parameters"]["displacement"].ToString(),
+            FuelConsumption = car["engine_parameters"]["fuel_consumption"].ToString(),
+            PowerInKiloWatts = car["engine_parameters"]["power_kw"].ToString(),
+            FuelType = car["engine_parameters"]["fuel_type"].ToString()
+        }).ToList();
 
-        var result = JsonConvert.DeserializeObject<List<PoorCar>>(itemsSerialized);
+        var zipped = prepopulatedCars.Zip(selectedValues);
 
+        foreach (var car in zipped)
+        {
+            car.First.Displacement = car.Second.Displacement;
+            car.First.FuelConsumption = car.Second.FuelConsumption;
+            car.First.PowerInKiloWatts = float.Parse(car.Second.PowerInKiloWatts);
+        }
 
-        return result ?? new List<PoorCar>();
+            //(first, second) =>
+            //{
+            //    first.Displacement = second.Displacement;
+            //});
+
+        return result ?? new List<Car>();
 
     }
 }
