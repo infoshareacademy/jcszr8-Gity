@@ -53,7 +53,7 @@ public class CarController : Controller
             TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index), "Home");
         }
-        catch(ArgumentException)
+        catch (ArgumentException)
         {
             TempData["AlertText"] = "Something went wrong";
             TempData["AlertClass"] = AlertType.Warning;
