@@ -40,11 +40,10 @@ namespace CarRental.Web.Migrations
 
                     b.Property<string>("CarModelProp")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int?>("Color")
-                        .HasMaxLength(30)
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
@@ -53,23 +52,22 @@ namespace CarRental.Web.Migrations
                         .HasDefaultValueSql("getutcdate()");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Displacement")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int?>("Doors")
                         .HasColumnType("int");
 
                     b.Property<int?>("EngineType")
-                        .HasMaxLength(20)
                         .HasColumnType("int");
 
                     b.Property<string>("FuelConsumption")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int?>("Kilometrage")
                         .HasColumnType("int");
@@ -81,10 +79,10 @@ namespace CarRental.Web.Migrations
 
                     b.Property<string>("Make")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.Property<decimal?>("PowerInKiloWats")
+                    b.Property<decimal?>("PowerInKiloWatts")
                         .HasPrecision(5, 2)
                         .HasColumnType("decimal(5,2)");
 
@@ -96,7 +94,6 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("Transmission")
-                        .HasMaxLength(20)
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Updated")
@@ -145,7 +142,8 @@ namespace CarRental.Web.Migrations
                     b.Property<string>("Pesel")
                         .IsRequired()
                         .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("nchar(11)")
+                        .IsFixedLength();
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()

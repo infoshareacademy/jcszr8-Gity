@@ -226,7 +226,7 @@ public class RentalController : Controller
         {
             carPricePerDay = _carService.Get(carId).Price;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             carPricePerDay = 0m;
         }
