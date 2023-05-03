@@ -116,6 +116,11 @@
                 <label asp-for="Addons" class="control-label"></label>
                 <partial name="_AvailableOptionsForAddons" , new { Addons=@Model.Addons } />
 
+                <div class="mb-3">
+                    <label for="Description" class="form-label">Description</label>
+                    <textarea class="form-control" rows="6" name="Description">@Model.Description</textarea>
+                </div>
+
                 <div class="form-group">
                     @*<input type="submit" value="Save" class="btn btn-primary" />*@
                     <button type="submit" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Save data">

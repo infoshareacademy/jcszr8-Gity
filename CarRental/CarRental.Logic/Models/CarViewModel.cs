@@ -6,8 +6,6 @@ using System.ComponentModel.DataAnnotations;
 namespace CarRental.Logic.Models;
 public class CarViewModel
 {
-    #region Properties/Fields
-
     public int Id { get; set; }
 
     [Display(Name = "Car Model")]
@@ -56,6 +54,5 @@ public class CarViewModel
 
     public DateTime Created { get; set; }
     public DateTime? Updated { get; set; }
-
-    #endregion
+    public string Description { get; set; } = string.Empty;
 }

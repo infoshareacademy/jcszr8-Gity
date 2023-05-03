@@ -119,6 +119,11 @@
                     <label asp-for="Addons" class="control-label"></label>
                     <partial name="_AvailableOptionsForAddons" />
 
+                    <div class="mb-3">
+                        <label for="Description" class="form-label">Description</label>
+                        <textarea class="form-control" rows="6" name="Description"></textarea>
+                    </div>
+
                 </fieldset>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
