@@ -76,7 +76,7 @@ namespace CarRental.Web.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<decimal?>("PowerInKiloWats")
+                    b.Property<decimal?>("PowerInKiloWatts")
                         .HasPrecision(5, 2)
                         .HasColumnType("decimal(5,2)");
 

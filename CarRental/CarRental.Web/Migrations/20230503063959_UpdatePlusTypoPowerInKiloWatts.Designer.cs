@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRental.Web.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230425153948_OnTheFlyAddonsConversion")]
-    partial class OnTheFlyAddonsConversion
+    [Migration("20230503063959_UpdatePlusTypoPowerInKiloWatts")]
+    partial class UpdatePlusTypoPowerInKiloWatts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,27 +42,34 @@ namespace CarRental.Web.Migrations
 
                     b.Property<string>("CarModelProp")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Color")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Displacement")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<int?>("Color")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Displacement")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int?>("Doors")
                         .HasColumnType("int");
 
                     b.Property<int?>("EngineType")
-                        .HasMaxLength(20)
                         .HasColumnType("int");
 
                     b.Property<string>("FuelConsumption")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int?>("Kilometrage")
                         .HasColumnType("int");
@@ -74,8 +81,8 @@ namespace CarRental.Web.Migrations
 
                     b.Property<string>("Make")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal?>("PowerInKiloWatts")
                         .HasPrecision(5, 2)
@@ -89,8 +96,11 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("Transmission")
-                        .HasMaxLength(20)
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("Updated")
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Year")
                         .HasColumnType("int")
@@ -108,6 +118,11 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<string>("EmailAddress")
                         .HasMaxLength(100)
@@ -129,12 +144,17 @@ namespace CarRental.Web.Migrations
                     b.Property<string>("Pesel")
                         .IsRequired()
                         .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("nchar(11)")
+                        .IsFixedLength();
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("Updated")
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -155,6 +175,11 @@ namespace CarRental.Web.Migrations
                     b.Property<int>("CarId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
@@ -164,6 +189,10 @@ namespace CarRental.Web.Migrations
                     b.Property<decimal?>("TotalCost")
                         .HasPrecision(7, 2)
                         .HasColumnType("decimal(7,2)");
+
+                    b.Property<DateTime?>("Updated")
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

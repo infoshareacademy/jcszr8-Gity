@@ -15,13 +15,10 @@ public class RentalViewModel
     public DateTime EndDate { get; set; }
     [Display(Name = "Total Cost")]
     public decimal? TotalCost { get; set; }
-
     [Display(Name = "Customer Name")]
     public string? CustomerName { get; set; }
-
     [Display(Name = "Car License Plate")]
     public string? CarLicencePlate { get; set; }
     public DateTime Created { get; set; }
     public DateTime? Updated { get; set; }
-
 }

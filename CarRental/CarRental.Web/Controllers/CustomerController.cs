@@ -51,13 +51,12 @@ public class CustomerController : Controller
             {
                 return View(model);
             }
-
             _customerService.Create(model);
             TempData["AlertText"] = "Customer created successfully";
             TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index));
         }
-        catch (Exception)
+        catch (ArgumentException)
         {
             return View();
         }
@@ -80,7 +79,6 @@ public class CustomerController : Controller
             _customerService.Update(customer);
             TempData["AlertText"] = "Customer updated successfully";
             TempData["AlertClass"] = AlertType.Success;
-
             return RedirectToAction(nameof(Index));
         }
         catch

@@ -14,7 +14,12 @@
 
     <div>
         <partial name="_DetailsTable" />
+        <div class="mb-3 col-6">
+            <label for="Description" class="form-label">Description</label>
+            <textarea class="form-control" rows="6" disabled readonly>@Model.Description</textarea>
+        </div>
     </div>
+
     <div>
         <partial name="Buttons/_ButtonEdit-2" />
         <partial name="Buttons/_ButtonBackToList" />

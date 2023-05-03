@@ -38,7 +38,6 @@ builder.Host.UseSerilog((hbc, loggerConfiguration) =>
     //loggerConfiguration.WriteTo.File("log.txt", Serilog.Events.LogEventLevel.Information);
     //loggerConfiguration.WriteTo.File("log.txt").MinimumLevel.Information();
 
-
     loggerConfiguration.WriteTo.MSSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         new MSSqlServerSinkOptions
@@ -55,6 +54,9 @@ builder.Host.UseSerilog((hbc, loggerConfiguration) =>
 builder.Services.AddScoped<IValidator<CustomerViewModel>, CustomerViewModelValidator>();
 builder.Services.AddScoped<IValidator<CarViewModel>, CarViewModelValidator>();
 builder.Services.AddScoped<IValidator<RentalViewModel>, RentalViewModelValidator>();
+builder.Services.AddScoped<ICustomerValidationService, CustomerValidationService>();
+builder.Services.AddScoped<ICarValidationService, CarValidationService>();
+builder.Services.AddScoped<IRentalValidationService, RentalValidationService>();
 
 var app = builder.Build();
 
@@ -63,7 +65,6 @@ CreateDbIfNotExists(app);
 // Check if all mappings are configured
 var mapper = (IMapper)app.Services.GetService(typeof(IMapper));
 mapper.ConfigurationProvider.AssertConfigurationIsValid();
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -84,7 +85,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
 // For fixing comma vs dot problem
 app.UseRequestLocalization(new RequestLocalizationOptions
 {
@@ -94,7 +94,6 @@ app.UseRequestLocalization(new RequestLocalizationOptions
 });
 
 app.Run();
-
 
 static void CreateDbIfNotExists(IHost host)
 {

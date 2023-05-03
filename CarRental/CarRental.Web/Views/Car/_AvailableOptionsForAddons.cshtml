@@ -1,5 +1,6 @@
-﻿@{
-    List<string> availableAddons = new() { "Ac", "ABS", "towbar", "roof rack" };  //TODO availableAddons
+﻿@using CarRental.Common;
+@{
+    List<string> availableAddons = AppConfig.AvailableAddons;
 }
 
 <div class="form-group">

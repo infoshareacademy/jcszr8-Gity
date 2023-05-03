@@ -148,4 +148,11 @@ public class RentalService : IRentalService
     {
         return collection.Where(predicate);
     }
+
+    public bool IsCarRentedNow(int carId)
+    {
+        var now = DateTime.Now;
+        var rentals = GetByCarId(carId);
+        return rentals.Any(r => r.BeginDate <= now && r.EndDate >= now);
+    }
 }
