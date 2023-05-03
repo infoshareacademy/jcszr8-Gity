@@ -1,5 +1,8 @@
 ﻿using CarRental.DAL.Entities;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Data;
+using System.Text.Json.Nodes;
 
 namespace CarRental.DAL.Context;
 
@@ -16,6 +19,8 @@ public static class Seed
         Customer[] customers = Customers.ToArray();
         Rental[] rentals = Rentals.ToArray();
         Car[] cars = Cars.ToArray();
+
+        GetItemsWithEmbedded<PoorCar>("cars2.json"); // TODO: remove after check
 
         if (context.Customers.Any() && context.Rentals.Any() && context.Cars.Any())
         {
@@ -73,5 +78,42 @@ public static class Seed
 
         var result = JsonConvert.DeserializeObject<List<T>>(itemsSerialized);
         return result ?? new List<T>();
+    }
+
+    public static List<PoorCar> GetItemsWithEmbedded<T>(string fileName)
+    {
+        var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
+        string itemsSerialized;
+
+        try
+        {
+            itemsSerialized = File.ReadAllText(filePath);
+        }
+        catch (Exception)
+        {
+            throw new Exception("Error with serializing to string!");
+        }
+
+        JObject jsonObject = JObject.Parse(itemsSerialized);
+            //.Parse<List<JObject>>(itemsSerialized);
+
+        var msSerialized = jsonObject["cars"].ToString();
+
+        IList<JToken> jsonCars = jsonObject["cars"].Children().ToList();
+
+        var selectedValues = jsonCars.Select(car => new
+        {
+            Displacement = car["engine_parameters"]["displacement"],
+            FuelConsumption = car["engine_parameters"]["fuel_consumption"],
+            PowerInKiloWatts = car["engine_parameters"]["power_kw"],
+            FuelType = car["engine_parameters"]["fuel_type"]
+        });
+        
+
+        var result = JsonConvert.DeserializeObject<List<PoorCar>>(itemsSerialized);
+
+
+        return result ?? new List<PoorCar>();
+
     }
 }
