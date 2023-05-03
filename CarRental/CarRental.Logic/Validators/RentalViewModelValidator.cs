@@ -16,7 +16,6 @@ public class RentalViewModelValidator : AbstractValidator<RentalViewModel>
             .GreaterThanOrEqualTo(r => r.BeginDate.AddDays(1))
             .WithMessage("End date must be at least one day greater than begin date");
     }
-
 }
 
 public static class ValidationRules

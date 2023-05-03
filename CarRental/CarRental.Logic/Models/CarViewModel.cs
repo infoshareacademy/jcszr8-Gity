@@ -30,7 +30,7 @@ public class CarViewModel
     public string? LicencePlateNumber
     {
         get => _licencePlateNumber;
-        set => _licencePlateNumber = value != null ? 
+        set => _licencePlateNumber = value != null ?
             value.RemoveWhitespaces().ToUpper() : null;
     }
 

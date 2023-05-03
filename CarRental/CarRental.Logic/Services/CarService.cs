@@ -67,7 +67,7 @@ public class CarService : ICarService
 
     public void Create(CarViewModel model)
     {
-        if(!_validator.Validate(model).IsValid)
+        if (!_validator.Validate(model).IsValid)
         {
             throw new Exception();
         }
