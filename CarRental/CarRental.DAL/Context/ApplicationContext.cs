@@ -62,7 +62,7 @@ public class ApplicationContext : DbContext
             eb.Property(c => c.FuelConsumption).HasMaxLength(AppConfig.CarFuelConsumptionMaxLength);
             eb.Property(c => c.Addons).HasMaxLength(300);
             eb.Property(c => c.Price).HasColumnType("decimal").HasPrecision(7, 2);
-            eb.Property(c => c.PowerInKiloWats).HasColumnType("decimal").HasPrecision(5, 2);
+            eb.Property(c => c.PowerInKiloWatts).HasColumnType("decimal").HasPrecision(5, 2);
 
             eb.Property(c => c.Created).HasDefaultValueSql("getutcdate()");
             eb.Property(c => c.Updated).ValueGeneratedOnUpdate();

@@ -74,7 +74,7 @@ namespace CarRental.Web.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<float?>("PowerInKiloWats")
+                    b.Property<float?>("PowerInKiloWatts")
                         .HasColumnType("real");
 
                     b.Property<decimal?>("Price")

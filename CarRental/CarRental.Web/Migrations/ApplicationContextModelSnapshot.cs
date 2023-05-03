@@ -43,9 +43,9 @@ namespace CarRental.Web.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("Color")
+                    b.Property<string>("Color")
                         .HasMaxLength(30)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace CarRental.Web.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<decimal?>("PowerInKiloWats")
+                    b.Property<decimal?>("PowerInKiloWatts")
                         .HasPrecision(5, 2)
                         .HasColumnType("decimal(5,2)");
 
