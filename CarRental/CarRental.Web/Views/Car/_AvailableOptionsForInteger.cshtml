@@ -14,7 +14,11 @@
 
 <option value="">@Prompt</option>
 
-@for(int i = @MinValue; i <= MaxValue; i++)
+@for (int i = @MinValue; i <= MaxValue; i++)
 {
-    <option value="@i">@i</option>
+    if (Model is not null)
+    {
+        bool select = i == Model.PresentValue;
+        <option value="@i" selected=@select>@i</option>
+    }
 }

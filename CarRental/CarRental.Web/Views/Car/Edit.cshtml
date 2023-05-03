@@ -76,7 +76,7 @@
                     <select asp-for="Doors" id="" name="Doors" class="form-control">
                         @{
                             await Html.RenderPartialAsync("_AvailableOptionsForInteger",
-                            new { MinValue = 3, MaxValue = 10, Prompt = "-Select number of doors-" });
+                            new { MinValue = 3, MaxValue = 10, PresentValue = Model.Doors, Prompt = "-Select number of doors-" });
                         }
                     </select>
                     <span asp-validation-for="Doors" class="text-danger"></span>
@@ -86,7 +86,7 @@
                     <select asp-for="SeatsNo" id="" name="SeatsNo" class="form-control">
                         @{
                             await Html.RenderPartialAsync("_AvailableOptionsForInteger",
-                            new { MinValue = 2, MaxValue = 15, Prompt = "-Select number of seats-" });
+                            new { MinValue = 2, MaxValue = 15, PresentValue = Model.SeatsNo, Prompt = "-Select number of seats-" });
                         }
                     </select>
                     <span asp-validation-for="SeatsNo" class="text-danger"></span>
@@ -96,7 +96,7 @@
                     <select asp-for="Airbags" id="" name="Airbags" class="form-control">
                         @{
                             await Html.RenderPartialAsync("_AvailableOptionsForInteger",
-                            new { MinValue = 3, MaxValue = 10, Prompt = "-Select number of airbags-" });
+                            new { MinValue = 3, MaxValue = 10, PresentValue = Model.Airbags, Prompt = "-Select number of airbags-" });
                         }
                     </select>
                     <span asp-validation-for="Airbags" class="text-danger"></span>

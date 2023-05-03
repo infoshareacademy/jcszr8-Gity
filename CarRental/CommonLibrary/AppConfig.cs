@@ -41,4 +41,9 @@ public static class AppConfig
     // For Rental
     public const int RentalMinDays = 1;
     public const int RentalMaxDays = 90;
+
+    // Collections
+    public readonly static List<string> AvailableAddons = new()
+        { "Ac", "ABS", "towbar", "roof rack" };
+
 }
