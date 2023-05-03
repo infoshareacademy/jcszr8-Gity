@@ -1,5 +1,4 @@
 ﻿@using CarRental.Common;
-
 @{
     List<int> years = new();
     int presentYear = DateTime.Now.Year;
@@ -9,6 +8,7 @@
         years.Add(year);
     }
 }
+<h1>YEAR = Year</h1>
 <option value="">-Select production year-</option>
 
 @foreach (var year in years)
@@ -17,5 +17,9 @@
     {
         bool select = (year == Model.Year);
         <option value="@year" selected=@select>@year</option>
+    }
+    else
+    {
+        <option value="@year">@year</option>
     }
 }

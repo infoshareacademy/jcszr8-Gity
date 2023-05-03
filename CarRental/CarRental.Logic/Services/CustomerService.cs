@@ -39,7 +39,7 @@ public class CustomerService : ICustomerService
     {
         if (!_validator.IsAllValid(model))
         {
-
+            throw new ArgumentException("Customer is not valid.");
         }
         _customerRepository.Insert(_mapper.Map<Customer>(model));
         _logger.LogInformation($"Customer {model.FirstName} {model.LastName} was created.");
@@ -51,7 +51,6 @@ public class CustomerService : ICustomerService
         {
             throw new ArgumentException("Customer is not valid.");
         }
-
         var customer = _mapper.Map<Customer>(model);
         _customerRepository.Update(customer);
         _logger.LogInformation($"Customer with id {model.Id} was updated.");
