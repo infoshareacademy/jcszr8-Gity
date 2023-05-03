@@ -54,7 +54,7 @@
                     <th scope="col" data-bs-toggle="tooltip" title="Seats / Doors / Airbags">
                         S/D/A
                     </th>
-                    <th scope="col" data-bs-toggle="tooltip" title="@Html.DisplayNameFor(model => model.FuelConsumption)">
+                    <th scope="col" data-bs-toggle="tooltip" title="Fuel Consumption Highway/City">
                         F. Cons.
                     </th>
                     <th scope="col">
@@ -106,10 +106,10 @@
                         <td data-cell="power">
                             @Html.DisplayFor(modelItem => item.PowerInKiloWatts)
                         </td>
-                        <td data-cell="s/d/a">
+                        <td data-cell="s/d/a" data-bs-toggle="tooltip" title="Doors/Seats/Airbags">
                             @Html.DisplayFor(modelItem => item.SeatsNo)/@Html.DisplayFor(modelItem => item.Doors)/@Html.DisplayFor(modelItem => item.Airbags)
                         </td>
-                        <td data-cell="fuel cons.">
+                        <td data-cell="fuel cons." data-bs-toggle="tooltip" title="Fuel Consumption Highway/City">
                             @Html.DisplayFor(modelItem => item.FuelConsumption)
                         </td>
                         <td data-cell="kilometrage">

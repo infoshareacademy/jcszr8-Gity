@@ -27,9 +27,6 @@
     <None Update="Data\cars.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\cars2.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Data\customers.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -4,7 +4,6 @@ using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
 
 namespace CarRental.Logic.Services;

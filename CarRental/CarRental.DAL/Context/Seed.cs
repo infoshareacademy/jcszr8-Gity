@@ -1,8 +1,9 @@
-﻿using CarRental.DAL.Entities;
+﻿using CarRental.Common.Enums;
+using CarRental.DAL.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data;
-using System.Text.Json.Nodes;
+using System.Globalization;
 
 namespace CarRental.DAL.Context;
 
@@ -10,7 +11,7 @@ public static class Seed
 {
     public static List<Customer> Customers { get; set; } = GetItems<Customer>("customers.json");
     public static List<Rental> Rentals { get; set; } = GetItems<Rental>("rentals.json");
-    public static List<Car> Cars { get; set; } = GetItems<Car>("cars.json");
+    public static List<Car> Cars { get; set; } = GetCarsWithJsonEmbeddedValues("cars.json");
 
     public static void Initialize(ApplicationContext context)
     {
@@ -19,8 +20,6 @@ public static class Seed
         Customer[] customers = Customers.ToArray();
         Rental[] rentals = Rentals.ToArray();
         Car[] cars = Cars.ToArray();
-
-        GetItemsWithEmbedded<PoorCar>("cars2.json"); // TODO: remove after check
 
         if (context.Customers.Any() && context.Rentals.Any() && context.Cars.Any())
         {
@@ -80,11 +79,11 @@ public static class Seed
         return result ?? new List<T>();
     }
 
-    public static List<Car> GetItemsWithEmbedded(string fileName)
+    public static List<Car> GetCarsWithJsonEmbeddedValues(string fileName)
     {
         var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
         string itemsSerialized;
-
+        string itemsSerializedWithCarsTag;
         try
         {
             itemsSerialized = File.ReadAllText(filePath);
@@ -94,35 +93,42 @@ public static class Seed
             throw new Exception("Error with serializing to string!");
         }
 
-        JObject jsonObject = JObject.Parse(itemsSerialized);
-
         var prepopulatedCars = JsonConvert.DeserializeObject<List<Car>>(itemsSerialized);
-        
-        IList<JToken> jsonCars = jsonObject["cars"].Children().ToList();
+
+        #region Complete Car with embedded values from JSON file
+
+        itemsSerializedWithCarsTag = "{\"cars\": " + itemsSerialized + "\n}";
+        JObject jsonObject = JObject.Parse(itemsSerializedWithCarsTag);
+        IList<JToken> jsonCars = jsonObject["cars"]!.Children().ToList();
 
         var selectedValues = jsonCars.Select(car => new
         {
-            Displacement = car["engine_parameters"]["displacement"].ToString(),
-            FuelConsumption = car["engine_parameters"]["fuel_consumption"].ToString(),
-            PowerInKiloWatts = car["engine_parameters"]["power_kw"].ToString(),
-            FuelType = car["engine_parameters"]["fuel_type"].ToString()
+            Displacement = car["engine_parameters"]!["displacement"]!.ToString(),
+            PowerInKiloWatts = car["engine_parameters"]!["power_kw"]!.ToString(),
+            FuelType = car["engine_parameters"]!["fuel_type"]!.ToString(),
+
+            FuelConsumptionHighway = float.Parse(car["fuel_consumption_highway"]!.ToString()).ToString(CultureInfo.InvariantCulture),
+            FuelConsumptionCity = float.Parse(car["fuel_consumption_city"]!.ToString()).ToString(CultureInfo.InvariantCulture),
         }).ToList();
 
-        var zipped = prepopulatedCars.Zip(selectedValues);
+        Dictionary<int, EngineType> jsonFuelTypeToCarEngineTypeTranslator = new()
+        {
+            [1] = EngineType.Gasoline,
+            [2] = EngineType.Electric,
+        };
 
+        var zipped = prepopulatedCars!.Zip(selectedValues);
         foreach (var car in zipped)
         {
             car.First.Displacement = car.Second.Displacement;
-            car.First.FuelConsumption = car.Second.FuelConsumption;
             car.First.PowerInKiloWatts = float.Parse(car.Second.PowerInKiloWatts);
+            car.First.EngineType = jsonFuelTypeToCarEngineTypeTranslator[int.Parse(car.Second.FuelType)];
+            car.First.FuelConsumption = car.Second.FuelConsumptionHighway + "/" + car.Second.FuelConsumptionCity;
         }
+        #endregion
 
-            //(first, second) =>
-            //{
-            //    first.Displacement = second.Displacement;
-            //});
+        var result = zipped.Select(z => z.First).ToList();
 
         return result ?? new List<Car>();
-
     }
 }

@@ -1,7 +1,5 @@
-﻿using CarRental.Common;
-using CarRental.Logic.Models;
+﻿using CarRental.Logic.Models;
 using FluentValidation;
-using Microsoft.IdentityModel.Tokens;
 using static CarRental.Common.AppConfig;
 
 namespace CarRental.Logic.Validators;
@@ -26,7 +24,7 @@ public class CarViewModelValidator : AbstractValidator<CarViewModel>
                 .WithMessage("Licence plate number is required")
                 .MinimumLength(CarLicencePlateNumberMinLength)
                 .WithMessage($"Minimum licence plate number length is {CarLicencePlateNumberMinLength}")
-                .MaximumLength (CarLicencePlateNumberMaxLength)
+                .MaximumLength(CarLicencePlateNumberMaxLength)
                 .WithMessage($"Maximum licence plate number length is {CarLicencePlateNumberMaxLength}");
             RuleFor(c => c.Year)
                 .NotEmpty()
