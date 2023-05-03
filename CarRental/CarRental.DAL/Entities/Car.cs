@@ -28,6 +28,5 @@ public class Car : Entity
     [JsonProperty("power_kw")]
     public float? PowerInKiloWatts { get; set; }
     public decimal? Price { get; set; }
-
     public string Description { get; set; } = string.Empty;
 }

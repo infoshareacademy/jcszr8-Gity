@@ -48,7 +48,7 @@ public class CarViewModelValidator : AbstractValidator<CarViewModel>
             .WithMessage($"Minimum value for kilomegrage is {CarKilometrageMinValue}")
             .LessThanOrEqualTo(CarKilometrageMaxValue)
             .WithMessage($"Maximum value for kilometrage is {CarKilometrageMaxValue}");
-        RuleFor(c => c.PowerInKiloWats)
+        RuleFor(c => c.PowerInKiloWatts)
             .GreaterThanOrEqualTo(CarPowerInKiloWattsMinValue)
             .WithMessage($"Minimum value for power is {CarPowerInKiloWattsMinValue} kW") // TODO if change from kW to W
             .LessThanOrEqualTo(CarPowerInKiloWattsMaxValue)

@@ -41,7 +41,7 @@ public class CarViewModel
     public TransmissionType? Transmission { get; set; }
     public int? Kilometrage { get; set; }
     [Display(Name = "Power In Kilowatts")]
-    public float? PowerInKiloWats { get; set; }
+    public float? PowerInKiloWatts { get; set; }
 
     [Display(Name = "Engine Type")]
     public EngineType? EngineType { get; set; }
