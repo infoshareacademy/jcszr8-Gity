@@ -50,23 +50,6 @@ public class CustomerService : ICustomerService
             }
         }
         _customerRepository.Insert(_mapper.Map<Customer>(model));
-    }
-
-    public void Create(string firstName, string lastName, string phoneNumber)
-    {
-        if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName)
-            || string.IsNullOrEmpty(phoneNumber))
-        {
-            return;
-        }
-
-        var model = new CustomerViewModel
-        {
-            FirstName = firstName,
-            LastName = lastName,
-            PhoneNumber = phoneNumber
-        };
-        _customerRepository.Insert(_mapper.Map<Customer>(model));
         _logger.LogInformation($"Customer {model.FirstName} {model.LastName} was created.");
     }
 
