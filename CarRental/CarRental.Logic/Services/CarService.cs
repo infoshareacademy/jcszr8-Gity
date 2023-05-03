@@ -67,6 +67,10 @@ public class CarService : ICarService
 
     public void Create(CarViewModel model)
     {
+        if (!_validator.Validate(model).IsValid)
+        {
+            throw new Exception();
+        }
         var car = _mapper.Map<Car>(model);
         _carRepository.Insert(car);
         _logger.LogInformation($"Car ({car.Make}, {car.CarModelProp}, {car.Year}, {car.LicencePlateNumber}) was created.");

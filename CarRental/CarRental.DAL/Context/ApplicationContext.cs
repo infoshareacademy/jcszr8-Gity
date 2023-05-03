@@ -65,6 +65,7 @@ public class ApplicationContext : DbContext
 
             eb.Property(c => c.Created).HasDefaultValueSql("getutcdate()");
             eb.Property(c => c.Updated).ValueGeneratedOnUpdate();
+            eb.Property(c => c.Description).HasMaxLength(AppConfig.CarDescriptionMaxLength);
         });
 
         modelBuilder.Entity<Rental>(eb =>

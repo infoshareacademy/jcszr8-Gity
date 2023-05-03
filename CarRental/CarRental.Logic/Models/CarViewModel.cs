@@ -30,7 +30,8 @@ public class CarViewModel
     public string? LicencePlateNumber
     {
         get => _licencePlateNumber;
-        set => _licencePlateNumber = value.RemoveWhitespaces().ToUpper();
+        set => _licencePlateNumber = value != null ?
+            value.RemoveWhitespaces().ToUpper() : null;
     }
 
     public CarColor? Color { get; set; }
@@ -39,7 +40,6 @@ public class CarViewModel
     public int? Kilometrage { get; set; }
     [Display(Name = "Power In Kilowatts")]
     public float? PowerInKiloWatts { get; set; }
-
     [Display(Name = "Engine Type")]
     public EngineType? EngineType { get; set; }
     public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
@@ -51,8 +51,7 @@ public class CarViewModel
     public string? FuelConsumption { get; set; } // in l/100km format city/highway, ex. "6.5/4.5"
     public List<string> Addons { get; set; } = new();
     public decimal? Price { get; set; }
-
     public DateTime Created { get; set; }
     public DateTime? Updated { get; set; }
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; } = string.Empty;
 }

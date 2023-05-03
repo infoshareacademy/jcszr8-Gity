@@ -18,7 +18,14 @@
 {
     if (Model is not null)
     {
-        bool select = i == Model.PresentValue;
-        <option value="@i" selected=@select>@i</option>
+        if (Model.PresentValue != -1)
+        {
+            bool select = i == Model.PresentValue;
+            <option value="@i" selected=@select>@i</option>
+        }
+        else
+        {
+            <option value="@i">@i</option>
+        }
     }
 }
