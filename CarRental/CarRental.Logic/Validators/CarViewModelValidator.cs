@@ -78,5 +78,8 @@ public class CarViewModelValidator : AbstractValidator<CarViewModel>
         RuleFor(c => c.Price)
             .GreaterThanOrEqualTo(CarPricePerDayMinValue)
             .WithMessage($"Minimum value for price is {CarPricePerDayMinValue}");
+        RuleFor(c => c.Description)
+            .MaximumLength(CarDescriptionMaxLength)
+            .WithMessage($"Maximum length for description is {CarDescriptionMaxLength}");
     }
 }

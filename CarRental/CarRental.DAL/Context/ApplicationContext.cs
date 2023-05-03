@@ -38,7 +38,6 @@ public class ApplicationContext : DbContext
                 v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
         );
 
-
         modelBuilder.Entity<Customer>(eb =>
         {
             eb.Property(c => c.FirstName).IsRequired().HasMaxLength(AppConfig.FirstNameMaxLength);

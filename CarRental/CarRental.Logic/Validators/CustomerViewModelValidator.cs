@@ -47,11 +47,6 @@ public static class PeselValidator
 
     public static bool ValidatePesel(string pesel)
     {
-        if (AppConfig.UsePeselChecksumValidation == false)
-        {
-            return true;
-        }
-
         bool result = false;
         try
         {
@@ -64,7 +59,7 @@ public static class PeselValidator
         {
             result = false;
         }
-        return result;
+        return AppConfig.UsePeselChecksumValidation ? result : true;
     }
 
     private static string CountSum(string pesel)
@@ -74,7 +69,6 @@ public static class PeselValidator
         {
             sum += multipliers[i] * int.Parse(pesel[i].ToString());
         }
-
         int remainder = sum % 10;
         return remainder == 0 ? remainder.ToString() : (10 - remainder).ToString();
     }
