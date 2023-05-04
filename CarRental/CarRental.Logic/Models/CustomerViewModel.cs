@@ -15,13 +15,14 @@ public sealed class CustomerViewModel
     public string? LastName { get; set; }
     [Display(Name = "Phone Number")]
     [Required]
+    [Phone]
     public string? PhoneNumber { get; set; }
 
     [Display(Name = "Email adress")]
     [EmailAddress]
     public string? EmailAddress { get; set; }
 
-    [RegularExpression(@"^\d{11}$")]
+    [RegularExpression(@"^\d{11}$",ErrorMessage = "PESEL should consist of 11 digits")]
     [MinLength(11)]
     [MaxLength(11)]
     public string? Pesel { get; set; }
