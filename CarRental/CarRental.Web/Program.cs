@@ -1,5 +1,6 @@
 using AutoMapper;
 using CarRental.DAL.Context;
+using CarRental.DAL.Entities;
 using CarRental.DAL.Repositories;
 using CarRental.Logic.MapperProfiles;
 using CarRental.Logic.Models;
@@ -7,6 +8,7 @@ using CarRental.Logic.Services;
 using CarRental.Logic.Services.IServices;
 using CarRental.Logic.Validators;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -17,6 +19,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDefaultIdentity<SampleIdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationContext>();
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -78,6 +85,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 
@@ -92,6 +100,7 @@ app.UseRequestLocalization(new RequestLocalizationOptions
     SupportedCultures = new List<CultureInfo> { new("en-US") },
     SupportedUICultures = new List<CultureInfo> { new("en-US") }
 });
+app.MapRazorPages();
 
 app.Run();
 

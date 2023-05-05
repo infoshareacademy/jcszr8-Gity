@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.DAL", "CarRental.DAL\CarRental.DAL.csproj", "{CD8DB6D2-1EF2-454D-B572-1D7B21A0E0B3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.Web", "CarRental.Web\CarRental.Web.csproj", "{B23BD58B-CC64-4582-9063-273D1AFE2D41}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CD8DB6D2-1EF2-454D-B572-1D7B21A0E0B3} = {CD8DB6D2-1EF2-454D-B572-1D7B21A0E0B3}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.Common", "CommonLibrary\CarRental.Common.csproj", "{44C7CFC0-8762-4475-8195-F930FFA3FB1D}"
 EndProject
