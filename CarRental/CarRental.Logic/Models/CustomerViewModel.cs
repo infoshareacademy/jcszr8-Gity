@@ -14,7 +14,7 @@ public sealed class CustomerViewModel
     [Required]
     public string? LastName { get; set; }
     [Display(Name = "Phone Number")]
-    [Required]
+    [Required(ErrorMessage = "Phone Number is required.")]
     [Phone]
     public string? PhoneNumber { get; set; }
 
