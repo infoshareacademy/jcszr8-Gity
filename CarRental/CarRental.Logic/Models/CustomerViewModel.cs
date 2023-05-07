@@ -22,9 +22,7 @@ public sealed class CustomerViewModel
     [EmailAddress]
     public string? EmailAddress { get; set; }
 
-    [RegularExpression(@"^\d{11}$",ErrorMessage = "PESEL should consist of 11 digits")]
-    [MinLength(11)]
-    [MaxLength(11)]
+    [RegularExpression(@"^\d{11}$", ErrorMessage = "PESEL should consist of 11 digits")]
     public string? Pesel { get; set; }
 
     [Required]
