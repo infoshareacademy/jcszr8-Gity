@@ -14,8 +14,8 @@ public class RentalCreateViewModel
     [Display(Name = "End Date")]
     public DateTime EndDate { get; set; }
     [Display(Name = "Total Cost")]
+    [MaxLength(999999999)]
     public decimal TotalCost { get; set; }
-
     public List<object> Customers { get; set; } = new();
     public List<object> Cars { get; set; } = new();
 }

@@ -14,6 +14,7 @@ public static class AppConfig
 
     // For Car
     public const int CarMakeMaxLength = 20;
+    public const string CarMakeMaxLengthString = "20";
     public const int CarModelMaxLength = 20;
 
     public const int CarLicencePlateNumberMinLength = 2;
