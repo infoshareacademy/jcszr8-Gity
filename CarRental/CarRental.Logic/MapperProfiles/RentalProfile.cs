@@ -11,7 +11,7 @@ public class RentalProfile : Profile
         CreateMap<RentalViewModel, Rental>()
             .ReverseMap();
 
-        CreateMap<RentalFromJson, Rental>()
-            .ReverseMap();
+        //CreateMap<RentalFromJson, Rental>()
+        //    .ReverseMap();
     }
 }

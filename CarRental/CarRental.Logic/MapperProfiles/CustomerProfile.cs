@@ -11,7 +11,7 @@ public class CustomerProfile : Profile
         CreateMap<CustomerViewModel, Customer>()
             .ReverseMap();
 
-        CreateMap<CustomerFromJson, Customer>()
-            .ReverseMap();
+        //CreateMap<CustomerFromJson, Customer>()
+        //    .ReverseMap();
     }
 }
