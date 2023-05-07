@@ -27,7 +27,7 @@ public class CarService : ICarService
         return result;
     }
 
-    public IEnumerable<CarViewModel> GetByName(IEnumerable<CarViewModel> collection,string name)
+    public IEnumerable<CarViewModel> GetByName(IEnumerable<CarViewModel> collection, string name)
     {
         if (string.IsNullOrEmpty(name))
         {
