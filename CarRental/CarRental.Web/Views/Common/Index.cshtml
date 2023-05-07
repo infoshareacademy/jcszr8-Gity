@@ -25,13 +25,13 @@
                 </div>
                 <div class="col-2 me-2">
                     <select asp-for="SearchDto.ProductionYearFrom" id="" name="SearchDto.ProductionYearFrom" class="form-control">
-                        <partial name="_AvailableOptionsForYear" , new { Year=-1 } />
+                        <partial name="_AvailableOptionsForYearFrom" , new { Year=-1 } />
                     </select>
                     <span asp-validation-for="SearchDto.ProductionYearFrom" class="text-danger"></span>
                 </div>
                 <div class="col-2 me-2">
                     <select asp-for="SearchDto.ProductionYearTo" id="" name="SearchDto.ProductionYearTo" class="form-control">
-                        <partial name="_AvailableOptionsForYear" , new { Year=-1 } />
+                        <partial name="_AvailableOptionsForYearTo" , new { Year=-1 } />
                     </select>
                     <span asp-validation-for="SearchDto.ProductionYearTo" class="text-danger"></span>
                 </div>

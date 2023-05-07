@@ -1,0 +1,26 @@
+﻿@ViewData.Eval("Year")
+@*@model dynamic*@
+
+@{
+    List<int> years = new();
+    int presentYear = DateTime.Now.Year;
+
+    for (int year = presentYear - 15; year <= presentYear; year++)
+    {
+        years.Add(year);
+    }
+}
+<option value="">-Year From-</option>
+
+@foreach (var year in years)
+{
+    if (Model != null)
+    {
+        bool select = year == Model.SearchDto.ProductionYearFrom;
+        <option value="@year" selected=@select>@year</option>
+    }
+    else
+    {
+        <option value="@year">@year</option>
+    }
+}

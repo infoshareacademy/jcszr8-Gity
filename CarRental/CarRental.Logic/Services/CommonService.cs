@@ -28,12 +28,7 @@ public class CommonService : ICommonService
         var wantedTerm = new Term(sfModel.StartDate, sfModel.EndDate);
 
         List<CarViewModel> results = new List<CarViewModel>();
-        var cars = _carService.GetByName(sfModel.ModelAndMake);
-
-        if (sfModel.ProductionYearTo > 0 && sfModel.ProductionYearTo >= sfModel.ProductionYearFrom)
-        {
-            cars = cars.Where(c => c.Year >= sfModel.ProductionYearFrom && c.Year <= sfModel.ProductionYearTo).ToList();
-        }
+        results = _carService.FindCarsFromHome(results, sfModel);
         return results;
     }
 
