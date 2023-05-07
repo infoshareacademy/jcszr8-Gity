@@ -201,7 +201,7 @@ namespace CarRental.Web.Migrations
                     b.ToTable("Rentals");
                 });
 
-            modelBuilder.Entity("CarRental.DAL.Entities.SampleIdentityUser", b =>
+            modelBuilder.Entity("CarRental.DAL.Entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -429,7 +429,7 @@ namespace CarRental.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("CarRental.DAL.Entities.SampleIdentityUser", null)
+                    b.HasOne("CarRental.DAL.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -438,7 +438,7 @@ namespace CarRental.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("CarRental.DAL.Entities.SampleIdentityUser", null)
+                    b.HasOne("CarRental.DAL.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -453,7 +453,7 @@ namespace CarRental.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarRental.DAL.Entities.SampleIdentityUser", null)
+                    b.HasOne("CarRental.DAL.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -462,7 +462,7 @@ namespace CarRental.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("CarRental.DAL.Entities.SampleIdentityUser", null)
+                    b.HasOne("CarRental.DAL.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
