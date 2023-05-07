@@ -1,9 +1,4 @@
-﻿@model IEnumerable<Term>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<(string, string)>
 
 <style>
 table {
@@ -22,10 +17,10 @@ table {
     <thead>
         <tr>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.DateFrom)
+                Begin Date
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.DateTo)
+                End Date
             </th>
         </tr>
     </thead>
@@ -33,13 +28,12 @@ table {
         @foreach (var item in Model) {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateFrom)
+                    @Html.DisplayFor(modelItem => item.Item1)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateTo)
+                    @Html.DisplayFor(modelItem => item.Item2)
                 </td>
             </tr>
         }
     </tbody>
-
 </table>

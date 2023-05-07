@@ -15,18 +15,17 @@ public class RentalTermsViewComponent : ViewComponent
 
     public IViewComponentResult Invoke(int Id)
     {
-        var model = new List<Term>();
+        var model = new List<(string, string)>();
 
         var rentalsOfCar = _rentalService.GetByCarId(Id)
             .OrderBy(c => c.BeginDate).ToList();
 
         foreach (var rental in rentalsOfCar)
         {
-            model.Add(new Term
-            {
-                DateFrom = rental.BeginDate.ToString("yyyy-MM-dd HH:mm"),
-                DateTo = rental.EndDate.ToString("yyyy-MM-dd HH:mm"),
-            });
+            model.Add(
+                (DateFrom: rental.BeginDate.ToString("yyyy-MM-dd HH:mm"),
+                DateTo: rental!.EndDate.ToString("yyyy-MM-dd HH:mm"))
+            );
         }
         return View(model);
     }
