@@ -16,12 +16,6 @@ public class Repository<T> : IRepository<T> where T : Entity
         _entities = context.Set<T>();
     }
 
-    //public List<T> GetAll()
-    //{
-    //    // TODO AsAsyncEnumerable()
-    //    return this._entities.AsEnumerable().ToList();
-    //}
-
     public List<T> GetAll(Expression<Func<T, object>>? include = null)
     {
         // TODO AsAsyncEnumerable()
@@ -29,7 +23,6 @@ public class Repository<T> : IRepository<T> where T : Entity
         {
             return _entities.ToList();
         }
-        //return this._entities.AsEnumerable().ToList();
         return _entities.Include(include).ToList();
     }
 
@@ -60,7 +53,6 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public void Delete(int id)
     {
-        //_context.Remove(id);
         var entity = _entities.SingleOrDefault(e => e.Id == id);
         if (entity != null)
         {
