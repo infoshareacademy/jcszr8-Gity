@@ -2,7 +2,7 @@
 using CarRental.DAL.Entities;
 using CarRental.DAL.HelperModels;
 
-namespace CarRental.DAL.HelperMapperProfiles;
+namespace CarRental.DAL.HelperMappings;
 public class RentalJsonProfile : Profile
 {
     public RentalJsonProfile()

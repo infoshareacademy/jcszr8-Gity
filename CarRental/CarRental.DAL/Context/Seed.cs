@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CarRental.Common.Enums;
 using CarRental.DAL.Entities;
+using CarRental.DAL.HelperMappings;
 using CarRental.DAL.HelperModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -11,10 +12,6 @@ namespace CarRental.DAL.Context;
 
 public static class Seed
 {
-    //public static List<Customer> Customers { get; set; } = GetItems<Customer>("customers.json");
-    //public static List<Rental> Rentals { get; set; } = GetItems<Rental>("rentals.json");
-    //public static List<Car> Cars { get; set; } = GetCarsWithJsonEmbeddedValues("cars.json");
-
     public static List<CustomerJson> Customers { get; set; } = GetItems<CustomerJson>("customers.json");
     public static List<RentalJson> Rentals { get; set; } = GetItems<RentalJson>("rentals.json");
     public static List<CarJson> Cars { get; set; } = GetCarsWithJsonEmbeddedValues("cars.json");
@@ -24,19 +21,13 @@ public static class Seed
 
     //}
 
-    static Seed()
-    {
-        Mapper.Initi
-    }
-
-
     public static void Initialize(ApplicationContext context)
     {
         context.Database.EnsureCreated();
 
-        Customer[] customers = Customers.ToArray();
-        Rental[] rentals = Rentals.ToArray();
-        Car[] cars = Cars.ToArray();
+        Customer[] customers = MapperFromJson.MapToCustomers(Customers).ToArray();
+        Rental[] rentals = MapperFromJson.MapToRentals(Rentals).ToArray();
+        Car[] cars = MapperFromJson.MapToCars(Cars).ToArray();
 
         if (context.Customers.Any() && context.Rentals.Any() && context.Cars.Any())
         {
