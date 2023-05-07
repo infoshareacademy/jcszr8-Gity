@@ -15,10 +15,10 @@
                 <form class="d-flex pt-3" asp-controller="Search" asp-action="SearchFromHome" method="post">
                     <input class="form-control shadow-sm me-2 search opacity-75  " asp-for="SearchDto.ModelAndMake" type="text" placeholder="Type car maker or car model" aria-label="Search">
                     <select asp-for="SearchDto.ProductionYearFrom" id="" name="SearchDto.ProductionYearFrom" class="form-control year shadow-sm opacity-75 me-2">
-                        <partial name="_AvailableOptionsForYear" , new { Year=-1 } />
+                        <partial name="_AvailableOptionsForYearFrom"/>
                     </select>
                     <select asp-for="SearchDto.ProductionYearTo" id="" name="SearchDto.ProductionYearTo" class="form-control year shadow-sm opacity-75 me-2">
-                        <partial name="_AvailableOptionsForYear" , new { Year=-1 } />
+                        <partial name="_AvailableOptionsForYearTo"/>
                     </select>
 
                     <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.StartDate" />
