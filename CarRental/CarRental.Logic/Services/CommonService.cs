@@ -29,11 +29,6 @@ public class CommonService : ICommonService
 
         List<CarViewModel> results = new List<CarViewModel>();
         results = _carService.FindCarsFromHome(results, sfModel);
-
-        if (sfModel.ProductionYearTo > 0 && sfModel.ProductionYearTo >= sfModel.ProductionYearFrom)
-        {
-            results = results.Where(c => c.Year >= sfModel.ProductionYearFrom && c.Year <= sfModel.ProductionYearTo).ToList();
-        }
         return results;
     }
 
