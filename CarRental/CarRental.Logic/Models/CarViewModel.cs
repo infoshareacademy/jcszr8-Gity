@@ -42,10 +42,10 @@ public class CarViewModel
     public TransmissionType? Transmission { get; set; }
     public int? Kilometrage { get; set; }
     [Display(Name = "Power In Kilowatts")]
-    [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
+    [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer number")]
     public float? PowerInKiloWatts { get; set; }
     [Display(Name = "Engine Type")]
-    [Range(0, float.MaxValue, ErrorMessage = "Please enter valid Number")]
+    [Range(0, float.MaxValue, ErrorMessage = "Please enter valid number")]
     public EngineType? EngineType { get; set; }
     public string? Displacement { get; set; } // ex. 1.8, 1.5 T-GDI, etc.
     public int? Doors { get; set; }
