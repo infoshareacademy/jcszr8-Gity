@@ -95,13 +95,6 @@ public class CarService : ICarService
 
     public void Update(CarViewModel model)
     {
-        //ValidationResult results = _validator.Validate(model);
-
-        //if (!results.IsValid)
-        //{
-        //    return;
-        //}
-
         var car = _mapper.Map<Car>(model);
         _carRepository.Update(car);
         _logger.LogInformation($"Car with id {car.Id} was updated.");

@@ -11,16 +11,14 @@ namespace CarRental.Logic.Services;
 public class RentalService : IRentalService
 {
     private readonly ICarService _carService;
-    private readonly ICustomerService _customerService;
     private readonly IRepository<Rental> _rentalRepository;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
 
     public RentalService(ICarService carService, IMapper mapper, IRepository<Rental> rentalRepository,
-        ICustomerService customerService, ILogger<RentalService> logger)
+        ILogger<RentalService> logger)
     {
         _carService = carService;
-        _customerService = customerService;
         _rentalRepository = rentalRepository;
         _mapper = mapper;
         _logger = logger;
@@ -46,23 +44,6 @@ public class RentalService : IRentalService
             _rentalRepository.Insert(rental);
             _logger.LogInformation($"Rental for car with id {model.CarId} and customer with id {model.CustomerId} was created.");
         }
-    }
-
-    private bool IsRentalValidForCreate(RentalViewModel model)
-    {
-        if (model is null)
-        {
-            return false;
-        }
-        if (model.BeginDate >= model.EndDate)
-        {
-            return false;
-        }
-        if (IsCarBookedInTerm(model.CarId, new Term(model.BeginDate, model.EndDate)))
-        {
-            return false;
-        }
-        return true;
     }
 
     public void Update(RentalViewModel model)
@@ -105,6 +86,48 @@ public class RentalService : IRentalService
             .Contains(carId);
     }
 
+    public IEnumerable<RentalViewModel> GetByCarId(int carId)
+    {
+        var rentals = GetAll();
+        return rentals.Where(r => r.CarId == carId);
+    }
+
+    public IEnumerable<CarViewModel> GetCarsAvailableInTerm(Term wantedTerm)
+    {
+        var availableCarIds = GetIdsForCarsAvailableInTerm(wantedTerm);
+        var cars = _carService.GetAll().Where(c => availableCarIds.Contains(c.Id)).ToList();
+        return cars;
+    }
+
+    public IEnumerable<T> FilterByPredicate<T>(IQueryable<T> collection, Func<T, bool> predicate)
+    {
+        return collection.Where(predicate);
+    }
+
+    public bool IsCarRentedNow(int carId)
+    {
+        var now = DateTime.Now;
+        var rentals = GetByCarId(carId);
+        return rentals.Any(r => r.BeginDate <= now && r.EndDate >= now);
+    }
+
+    private bool IsRentalValidForCreate(RentalViewModel model)
+    {
+        if (model is null)
+        {
+            return false;
+        }
+        if (model.BeginDate >= model.EndDate)
+        {
+            return false;
+        }
+        if (IsCarBookedInTerm(model.CarId, new Term(model.BeginDate, model.EndDate)))
+        {
+            return false;
+        }
+        return true;
+    }
+
     private IEnumerable<RentalViewModel> GetCollidingWith(Term wantedTerm)
     {
         var collidingRentals = GetAll().Where(r =>
@@ -125,34 +148,9 @@ public class RentalService : IRentalService
         });
     }
 
-    public IEnumerable<RentalViewModel> GetByCarId(int carId)
-    {
-        var rentals = GetAll();
-        return rentals.Where(r => r.CarId == carId);
-    }
-
-    public IEnumerable<CarViewModel> GetCarsAvailableInTerm(Term wantedTerm)
-    {
-        var availableCarIds = GetIdsForCarsAvailableInTerm(wantedTerm);
-        var cars = _carService.GetAll().Where(c => availableCarIds.Contains(c.Id)).ToList();
-        return cars;
-    }
-
     private IEnumerable<RentalViewModel> GetByPredicate(Func<RentalViewModel, bool> predicate)
     {
         var rentals = GetAll();
         return rentals.Where(predicate);
-    }
-
-    public IEnumerable<T> FilterByPredicate<T>(IQueryable<T> collection, Func<T, bool> predicate)
-    {
-        return collection.Where(predicate);
-    }
-
-    public bool IsCarRentedNow(int carId)
-    {
-        var now = DateTime.Now;
-        var rentals = GetByCarId(carId);
-        return rentals.Any(r => r.BeginDate <= now && r.EndDate >= now);
     }
 }
