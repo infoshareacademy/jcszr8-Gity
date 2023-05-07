@@ -54,7 +54,7 @@ public class RentalService : IRentalService
 
     public void Update(RentalViewModel model)
     {
-        if (!(model is not null && IsAllValid(model)))
+        if (model is null || !IsAllValid(model))
         {
             throw new ArgumentException("Rental is not valid for update");
         }

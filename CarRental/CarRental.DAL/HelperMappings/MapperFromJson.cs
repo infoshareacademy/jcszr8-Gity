@@ -8,19 +8,16 @@ public class MapperFromJson
     private static readonly IMapper _customerMapper = new Mapper(new MapperConfiguration(cfg =>
     {
         cfg.CreateMap<CustomerJson, Customer>();
-        //cfg.AddProfile<CustomerJsonProfile>();
     }));
 
     private static readonly IMapper _carMapper = new Mapper(new MapperConfiguration(cfg =>
     {
         cfg.CreateMap<CarJson, Car>();
-        cfg.AddProfile<CarJsonProfile>();
     }));
 
     private static readonly IMapper _rentalMapper = new Mapper(new MapperConfiguration(cfg =>
     {
         cfg.CreateMap<RentalJson, Rental>();
-        cfg.AddProfile<RentalJsonProfile>();
     }));
 
     public static List<Car> MapToCars(List<CarJson> carsJson)

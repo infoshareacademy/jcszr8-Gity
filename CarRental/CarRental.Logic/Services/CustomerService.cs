@@ -49,7 +49,7 @@ public class CustomerService : ICustomerService
 
     public void Update(CustomerViewModel model)
     {
-        if (IsAllValid(model))
+        if (!IsAllValid(model))
         {
             throw new ArgumentException("Customer is not valid.");
         }

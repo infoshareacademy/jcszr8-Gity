@@ -16,10 +16,6 @@ public static class Seed
     public static List<RentalJson> Rentals { get; set; } = GetItems<RentalJson>("rentals.json");
     public static List<CarJson> Cars { get; set; } = GetCarsWithJsonEmbeddedValues("cars.json");
 
-    //private static List<Car> MapFromCarJson()
-    //{
-
-    //}
 
     public static void Initialize(ApplicationContext context)
     {
