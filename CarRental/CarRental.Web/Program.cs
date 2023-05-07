@@ -62,7 +62,6 @@ builder.Services.AddScoped<IValidator<CustomerViewModel>, CustomerViewModelValid
 builder.Services.AddScoped<IValidator<CarViewModel>, CarViewModelValidator>();
 builder.Services.AddScoped<IValidator<RentalViewModel>, RentalViewModelValidator>();
 builder.Services.AddScoped<ICustomerValidationService, CustomerValidationService>();
-builder.Services.AddScoped<ICarValidationService, CarValidationService>();
 builder.Services.AddScoped<IRentalValidationService, RentalValidationService>();
 
 var app = builder.Build();
