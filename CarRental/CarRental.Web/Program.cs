@@ -61,7 +61,6 @@ builder.Host.UseSerilog((hbc, loggerConfiguration) =>
 builder.Services.AddScoped<IValidator<CustomerViewModel>, CustomerViewModelValidator>();
 builder.Services.AddScoped<IValidator<CarViewModel>, CarViewModelValidator>();
 builder.Services.AddScoped<IValidator<RentalViewModel>, RentalViewModelValidator>();
-builder.Services.AddScoped<ICustomerValidationService, CustomerValidationService>();
 
 var app = builder.Build();
 
