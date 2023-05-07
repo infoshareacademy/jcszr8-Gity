@@ -70,7 +70,7 @@ public class CarService : ICarService
     {
         if (!IsValidForCreate(model))
         {
-            throw new Exception();
+            throw new Exception("Car is not valid for create");
         }
         var car = _mapper.Map<Car>(model);
         _carRepository.Insert(car);
@@ -98,7 +98,7 @@ public class CarService : ICarService
     {
         if (!IsAllValid(model))
         {
-            throw new ArgumentException("Model not valid for update.");
+            throw new ArgumentException("Car is not valid for update");
         }
         var car = _mapper.Map<Car>(model);
         _carRepository.Update(car);
