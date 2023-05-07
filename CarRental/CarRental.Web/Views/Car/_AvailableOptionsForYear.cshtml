@@ -1,25 +1,21 @@
-﻿@ViewData.Eval("Year")
-@*@model dynamic*@
-
+﻿@using CarRental.Common;
 @{
     List<int> years = new();
     int presentYear = DateTime.Now.Year;
 
-    for (int year = presentYear - 15; year <= presentYear; year++)
+    for (int year = AppConfig.CarYearMinValue; year <= presentYear; year++)
     {
         years.Add(year);
     }
-
-    string modelAlert = @Model == null ? "Model=null" : "Model != null";
-
 }
+<h1>YEAR = Year</h1>
 <option value="">-Select production year-</option>
 
 @foreach (var year in years)
 {
     if (Model != null)
     {
-        bool select = year == Model.Year;
+        bool select = (year == Model.Year);
         <option value="@year" selected=@select>@year</option>
     }
     else

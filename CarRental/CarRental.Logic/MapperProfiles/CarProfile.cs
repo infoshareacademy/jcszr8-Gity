@@ -10,5 +10,8 @@ public class CarProfile : Profile
     {
         CreateMap<Car, CarViewModel>()
             .ReverseMap();
+
+        //CreateMap<CarFromJson, Car>()
+        //    .ReverseMap();
     }
 }

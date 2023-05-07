@@ -6,7 +6,6 @@ using CarRental.Logic.Services.IServices;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 
 namespace CarRental.Logic.Services;
 
@@ -17,12 +16,12 @@ public class CustomerService : ICustomerService
     private readonly ILogger _logger;
     private readonly IValidator<CustomerViewModel> _validator;
 
-    public CustomerService(IRepository<Customer> customerRepository, IMapper mapper, ILogger<CustomerService> logger, IValidator<CustomerViewModel> validator)
+    public CustomerService(IRepository<Customer> customerRepository, IMapper mapper, ILogger<CustomerService> logger,
+        IValidator<CustomerViewModel> validator)
     {
         _customerRepository = customerRepository;
         _mapper = mapper;
         _logger = logger;
-        _validator = validator ?? throw new ArgumentNullException(nameof(validator));
         _validator = validator;
     }
 
@@ -40,39 +39,20 @@ public class CustomerService : ICustomerService
 
     public void Create(CustomerViewModel model)
     {
-        ValidationResult results = _validator.Validate(model);
-
-        if (!results.IsValid)
+        if (!IsAllValid(model))
         {
-            foreach (var failure in results.Errors)
-            {
-                _logger.LogInformation("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
-                Debug.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage); // TODO: remove when checked
-            }
+            throw new ArgumentException("Customer is not valid.");
         }
-        _customerRepository.Insert(_mapper.Map<Customer>(model));
-    }
-
-    public void Create(string firstName, string lastName, string phoneNumber)
-    {
-        if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName)
-            || string.IsNullOrEmpty(phoneNumber))
-        {
-            return;
-        }
-
-        var model = new CustomerViewModel
-        {
-            FirstName = firstName,
-            LastName = lastName,
-            PhoneNumber = phoneNumber
-        };
         _customerRepository.Insert(_mapper.Map<Customer>(model));
         _logger.LogInformation($"Customer {model.FirstName} {model.LastName} was created.");
     }
 
     public void Update(CustomerViewModel model)
     {
+        if (IsAllValid(model))
+        {
+            throw new ArgumentException("Customer is not valid.");
+        }
         var customer = _mapper.Map<Customer>(model);
         _customerRepository.Update(customer);
         _logger.LogInformation($"Customer with id {model.Id} was updated.");
@@ -83,4 +63,21 @@ public class CustomerService : ICustomerService
         _customerRepository.Delete(id);
         _logger.LogInformation($"Customer with id {id} was deleted.");
     }
+
+    #region Validation
+    public bool IsAllValid(CustomerViewModel customer)
+    {
+        var validationResult = _validator.Validate(customer);
+        LogErrors(validationResult);
+        return validationResult.IsValid;
+    }
+
+    private void LogErrors(ValidationResult validationResult)
+    {
+        foreach (var failure in validationResult.Errors)
+        {
+            _logger.LogInformation("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+        }
+    }
+    #endregion Validation
 }
