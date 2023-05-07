@@ -20,7 +20,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<SampleIdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationContext>();
 
 
@@ -61,9 +61,6 @@ builder.Host.UseSerilog((hbc, loggerConfiguration) =>
 builder.Services.AddScoped<IValidator<CustomerViewModel>, CustomerViewModelValidator>();
 builder.Services.AddScoped<IValidator<CarViewModel>, CarViewModelValidator>();
 builder.Services.AddScoped<IValidator<RentalViewModel>, RentalViewModelValidator>();
-builder.Services.AddScoped<ICustomerValidationService, CustomerValidationService>();
-builder.Services.AddScoped<ICarValidationService, CarValidationService>();
-builder.Services.AddScoped<IRentalValidationService, RentalValidationService>();
 
 var app = builder.Build();
 

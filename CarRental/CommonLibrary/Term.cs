@@ -1,4 +1,7 @@
-﻿namespace CarRental.Common;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
+
+namespace CarRental.Common;
 public class Term
 {
     private DateTime _beginDate;
@@ -6,6 +9,7 @@ public class Term
 
     public TimeSpan Interval => _endDate - _beginDate;
 
+    [Display(Name = "Begin Date")]
     public DateTime BeginDate
     {
         get => _beginDate;
@@ -16,6 +20,8 @@ public class Term
                 : throw new ArgumentException("Begin Date should be smaller than End Date.");
         }
     }
+
+    [Display(Name = "End Date")]
     public DateTime EndDate
     {
         get => _endDate;

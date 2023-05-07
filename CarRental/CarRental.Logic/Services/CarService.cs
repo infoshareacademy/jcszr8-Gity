@@ -4,6 +4,7 @@ using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
 
 namespace CarRental.Logic.Services;
@@ -67,9 +68,9 @@ public class CarService : ICarService
 
     public void Create(CarViewModel model)
     {
-        if (!_validator.Validate(model).IsValid)
+        if (!IsValidForCreate(model))
         {
-            throw new Exception();
+            throw new Exception("Car is not valid for create");
         }
         var car = _mapper.Map<Car>(model);
         _carRepository.Insert(car);
@@ -95,13 +96,10 @@ public class CarService : ICarService
 
     public void Update(CarViewModel model)
     {
-        //ValidationResult results = _validator.Validate(model);
-
-        //if (!results.IsValid)
-        //{
-        //    return;
-        //}
-
+        if (!IsAllValid(model))
+        {
+            throw new ArgumentException("Car is not valid for update");
+        }
         var car = _mapper.Map<Car>(model);
         _carRepository.Update(car);
         _logger.LogInformation($"Car with id {car.Id} was updated.");
@@ -149,4 +147,33 @@ public class CarService : ICarService
                                          c.CarModelProp.Contains(sfModel.Model.Trim(), StringComparison.CurrentCultureIgnoreCase)).ToList();
         return collection.ToList();
     }
+
+    #region Validation
+    private bool IsValidForCreate(CarViewModel car)
+    {
+        var validationResult = _validator.Validate(car, options =>
+        {
+            options.IncludeRuleSets("CarCreate");
+        });
+        LogErrors(validationResult);
+        return validationResult.IsValid;
+    }
+    private bool IsAllValid(CarViewModel car)
+    {
+        var validationResult = _validator.Validate(car, options =>
+        {
+            options.IncludeAllRuleSets();
+        });
+        LogErrors(validationResult);
+        return validationResult.IsValid;
+    }
+
+    private void LogErrors(ValidationResult validationResult)
+    {
+        foreach (var failure in validationResult.Errors)
+        {
+            _logger.LogInformation("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+        }
+    }
+    #endregion Validation
 }

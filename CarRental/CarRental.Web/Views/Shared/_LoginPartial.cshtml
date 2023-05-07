@@ -1,8 +1,8 @@
 ﻿@using CarRental.DAL.Entities;
 @using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<SampleIdentityUser> SignInManager
-@inject UserManager<SampleIdentityUser> UserManager
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))

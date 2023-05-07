@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.DAL.Context;
 
-public class ApplicationContext : IdentityDbContext<SampleIdentityUser>
+public class ApplicationContext : IdentityDbContext<User>
 {
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
