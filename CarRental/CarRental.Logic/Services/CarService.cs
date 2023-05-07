@@ -27,12 +27,11 @@ public class CarService : ICarService
         return result;
     }
 
-    public IEnumerable<CarViewModel> GetByName(string name)
+    public IEnumerable<CarViewModel> GetByName(IEnumerable<CarViewModel> collection,string name)
     {
-        List<CarViewModel> cars = new();
         if (string.IsNullOrEmpty(name))
         {
-            cars = GetAll().ToList();
+            collection = GetAll().ToList();
         }
         else
         {
@@ -41,9 +40,9 @@ public class CarService : ICarService
                  || c.CarModelProp.Contains(name, StringComparison.CurrentCultureIgnoreCase)
              ).ToList();
 
-            cars = _mapper.Map<List<CarViewModel>>(temp);
+            collection = _mapper.Map<List<CarViewModel>>(temp);
         }
-        return cars;
+        return collection;
     }
 
     public List<CarViewModel> GetByYear(string read)
@@ -115,7 +114,27 @@ public class CarService : ICarService
         }
         return collection.ToList();
     }
-
+    public List<CarViewModel> FindCarsFromHome(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
+    {
+        if (sfModel.Makes.Values.All(m => m == false))
+        {
+            var cars = GetAll();
+            collection = _mapper.Map<List<CarViewModel>>(collection);
+        }
+        if (sfModel.Makes.Values.Contains(true))
+        {
+            collection = GetByName(collection, sfModel.ModelAndMake);
+        }
+        if (!string.IsNullOrEmpty(sfModel.Model))
+        {
+            collection = FindCarByModel(collection, sfModel);
+        }
+        if (sfModel.ProductionYearFrom > 0 && sfModel.ProductionYearTo > 0)
+        {
+            collection = FindCarsByYear(collection, sfModel);
+        }
+        return collection.ToList();
+    }
     public List<CarViewModel> FindCarsByMaker(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
     {
         var selectedMakes = sfModel.Makes.Where(m => m.Value == true).Select(m => m.Key);
