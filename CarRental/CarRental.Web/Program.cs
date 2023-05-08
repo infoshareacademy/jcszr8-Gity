@@ -109,11 +109,12 @@ static void CreateDbIfNotExists(IHost host)
     var services = scope.ServiceProvider;
     try
     {
-        var userManager = services.GetRequiredService<UserManager<Customer>>();
         var context = services.GetRequiredService<ApplicationContext>();
+        var userManager = services.GetRequiredService<UserManager<Customer>>();
+        var roleManager = services.GetRequiredService<RoleManager<Customer>>();
 
         context.Database.EnsureDeleted();
-        Seed.Initialize(context, userManager);
+        Seed.Initialize(context, userManager, roleManager);
     }
     catch (Exception ex)
     {
