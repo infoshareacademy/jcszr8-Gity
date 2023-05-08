@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CarRental.DAL.Entities;
 
-public class Customer : IdentityUser
+public class Customer : IdentityUser<int>
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }

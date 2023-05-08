@@ -3,6 +3,8 @@ using CarRental.Common.Enums;
 using CarRental.DAL.Entities;
 using CarRental.DAL.HelperMappings;
 using CarRental.DAL.HelperModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data;
@@ -17,7 +19,7 @@ public static class Seed
     public static List<CarJson> Cars { get; set; } = GetCarsWithJsonEmbeddedValues("cars.json");
 
 
-    public static void Initialize(ApplicationContext context)
+    public static void Initialize(ApplicationContext context, UserManager<Customer> userManager)
     {
         context.Database.EnsureCreated();
 
@@ -25,24 +27,28 @@ public static class Seed
         Rental[] rentals = MapperFromJson.MapToRentals(Rentals).ToArray();
         Car[] cars = MapperFromJson.MapToCars(Cars).ToArray();
 
-        if (context.Customers.Any() && context.Rentals.Any() && context.Cars.Any())
+
+
+        //if (context.Customers.Any() && context.Rentals.Any() && context.Cars.Any())
+        if (context.Rentals.Any() && context.Cars.Any())
         {
             return; // DB has been seeded
         }
 
         foreach (var customer in customers)
         {
-            context.Customers.Add(new()
-            {
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
-                PhoneNumber = customer.PhoneNumber,
-                EmailAddress = customer.EmailAddress,
-                Gender = customer.Gender,
-                Pesel = customer.Pesel,
-            });
+            userManager.CreateAsync(customer).Wait();
+            //context.Customers.Add(new()
+            //{
+            //    FirstName = customer.FirstName,
+            //    LastName = customer.LastName,
+            //    PhoneNumber = customer.PhoneNumber,
+            //    EmailAddress = customer.EmailAddress,
+            //    Gender = customer.Gender,
+            //    Pesel = customer.Pesel,
+            //});
         }
-        context.SaveChanges();
+        //context.SaveChanges();
 
         foreach (var car in cars)
         {

@@ -10,12 +10,13 @@ using Microsoft.Extensions.Logging;
 
 namespace CarRental.Logic.Services;
 
-public class CustomerService : ICustomerService
+public class CustomerService
 {
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
     private readonly IValidator<CustomerViewModel> _validator;
     private readonly UserManager<Customer> _userManager;
+    private readonly RoleManager<IdentityRole> roleManager;
 
 
     public CustomerService(IMapper mapper, ILogger<CustomerService> logger,
@@ -27,45 +28,45 @@ public class CustomerService : ICustomerService
         _userManager = userManager;
     }
 
-    public IEnumerable<CustomerViewModel> GetAll()
-    {
-        var temp = _userManager.GetUsersInRoleAsync
-        var customers = _customerRepository.GetAll();
-        return _mapper.Map<List<CustomerViewModel>>(customers);
-    }
+    //public IEnumerable<CustomerViewModel> GetAll()
+    //{
+    //    var temp = _userManager.GetUsersInRoleAsync();
+    //    var customers = _customerRepository.GetAll();
+    //    return _mapper.Map<List<CustomerViewModel>>(customers);
+    //}
 
-    public CustomerViewModel? Get(int customerId)
-    {
-        var customer = _customerRepository.Get(customerId);
-        return _mapper.Map<CustomerViewModel>(customer);
-    }
+    //public CustomerViewModel? Get(int customerId)
+    //{
+    //    var customer = _customerRepository.Get(customerId);
+    //    return _mapper.Map<CustomerViewModel>(customer);
+    //}
 
-    public void Create(CustomerViewModel model)
-    {
-        if (!IsAllValid(model))
-        {
-            throw new ArgumentException("Customer is not valid.");
-        }
-        _customerRepository.Insert(_mapper.Map<Customer>(model));
-        _logger.LogInformation($"Customer {model.FirstName} {model.LastName} was created.");
-    }
+    //public void Create(CustomerViewModel model)
+    //{
+    //    if (!IsAllValid(model))
+    //    {
+    //        throw new ArgumentException("Customer is not valid.");
+    //    }
+    //    _customerRepository.Insert(_mapper.Map<Customer>(model));
+    //    _logger.LogInformation($"Customer {model.FirstName} {model.LastName} was created.");
+    //}
 
-    public void Update(CustomerViewModel model)
-    {
-        if (!IsAllValid(model))
-        {
-            throw new ArgumentException("Customer is not valid.");
-        }
-        var customer = _mapper.Map<Customer>(model);
-        _customerRepository.Update(customer);
-        _logger.LogInformation($"Customer with id {model.Id} was updated.");
-    }
+    //public void Update(CustomerViewModel model)
+    //{
+    //    if (!IsAllValid(model))
+    //    {
+    //        throw new ArgumentException("Customer is not valid.");
+    //    }
+    //    var customer = _mapper.Map<Customer>(model);
+    //    _customerRepository.Update(customer);
+    //    _logger.LogInformation($"Customer with id {model.Id} was updated.");
+    //}
 
-    public void Delete(int id)
-    {
-        _customerRepository.Delete(id);
-        _logger.LogInformation($"Customer with id {id} was deleted.");
-    }
+    //public void Delete(int id)
+    //{
+    //    _customerRepository.Delete(id);
+    //    _logger.LogInformation($"Customer with id {id} was deleted.");
+    //}
 
     #region Validation
     public bool IsAllValid(CustomerViewModel customer)

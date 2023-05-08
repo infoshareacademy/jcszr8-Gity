@@ -20,9 +20,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationContext>();
+//builder.Services.AddDefaultIdentity<Customer<int>>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationContext>();
 
+builder.Services.AddIdentity<Customer, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationContext>();
 
 
 // Add services to the container.
@@ -30,7 +32,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-builder.Services.AddTransient<ICustomerService, CustomerService>();
+builder.Services.AddTransient<CustomerService>();
 builder.Services.AddTransient<ICarService, CarService>();
 builder.Services.AddTransient<IRentalService, RentalService>();
 builder.Services.AddTransient<ICommonService, CommonService>();
@@ -82,7 +84,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication(); ;
 
 app.UseAuthorization();
 
@@ -107,10 +109,11 @@ static void CreateDbIfNotExists(IHost host)
     var services = scope.ServiceProvider;
     try
     {
+        var userManager = services.GetRequiredService<UserManager<Customer>>();
         var context = services.GetRequiredService<ApplicationContext>();
 
         context.Database.EnsureDeleted();
-        Seed.Initialize(context);
+        Seed.Initialize(context, userManager);
     }
     catch (Exception ex)
     {

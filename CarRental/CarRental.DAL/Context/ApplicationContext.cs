@@ -1,17 +1,17 @@
 ﻿using CarRental.Common;
 using CarRental.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.DAL.Context;
 
-public class ApplicationContext : IdentityDbContext<Customer>
+public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>, int>
 {
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
     }
 
-    public DbSet<Customer> Customers { get; set; }
     public DbSet<Car> Cars { get; set; }
     public DbSet<Rental> Rentals { get; set; }
 

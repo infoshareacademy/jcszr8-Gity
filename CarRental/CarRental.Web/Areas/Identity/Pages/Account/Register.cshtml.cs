@@ -148,7 +148,7 @@ namespace CarRental.Web.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private User CreateUser()
+        private Customer CreateUser()
         {
             try
             {
@@ -157,7 +157,7 @@ namespace CarRental.Web.Areas.Identity.Pages.Account
             catch
             {
                 throw new InvalidOperationException($"Can't create an instance of '{nameof(DAL.Entities.Customer)}'. " +
-                    $"Ensure that '{nameof(DAL.Entities.User)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                    $"Ensure that '{nameof(DAL.Entities.Customer)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
