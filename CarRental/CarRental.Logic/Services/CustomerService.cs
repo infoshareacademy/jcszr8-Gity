@@ -5,28 +5,31 @@ using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace CarRental.Logic.Services;
 
 public class CustomerService : ICustomerService
 {
-    private readonly IRepository<Customer> _customerRepository;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
     private readonly IValidator<CustomerViewModel> _validator;
+    private readonly UserManager<Customer> _userManager;
 
-    public CustomerService(IRepository<Customer> customerRepository, IMapper mapper, ILogger<CustomerService> logger,
-        IValidator<CustomerViewModel> validator)
+
+    public CustomerService(IMapper mapper, ILogger<CustomerService> logger,
+        IValidator<CustomerViewModel> validator, UserManager<Customer> userManager)
     {
-        _customerRepository = customerRepository;
         _mapper = mapper;
         _logger = logger;
         _validator = validator;
+        _userManager = userManager;
     }
 
     public IEnumerable<CustomerViewModel> GetAll()
     {
+        var temp = _userManager.GetUsersInRoleAsync
         var customers = _customerRepository.GetAll();
         return _mapper.Map<List<CustomerViewModel>>(customers);
     }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.DAL.Context;
 
-public class ApplicationContext : IdentityDbContext<User>
+public class ApplicationContext : IdentityDbContext<Customer>
 {
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
@@ -50,9 +50,6 @@ public class ApplicationContext : IdentityDbContext<User>
             eb.Property(c => c.Pesel).IsRequired().IsFixedLength().HasMaxLength(AppConfig.PeselLength);
             eb.Property(c => c.Gender).IsRequired();
             eb.Property(c => c.EmailAddress).HasMaxLength(AppConfig.EmailAddressMaxLength);
-
-            eb.Property(c => c.Created).HasDefaultValueSql("getutcdate()");
-            eb.Property(c => c.Updated).ValueGeneratedOnUpdate();
         });
 
         modelBuilder.Entity<Car>(eb =>

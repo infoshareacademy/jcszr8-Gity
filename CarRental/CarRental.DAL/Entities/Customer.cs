@@ -1,9 +1,10 @@
 ﻿using CarRental.Common.Enums;
 using CarRental.DAL.Entities.BaseEntity;
+using Microsoft.AspNetCore.Identity;
 
 namespace CarRental.DAL.Entities;
 
-public class Customer : Entity
+public class Customer : IdentityUser
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
