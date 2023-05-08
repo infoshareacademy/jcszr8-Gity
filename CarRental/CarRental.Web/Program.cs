@@ -32,7 +32,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-builder.Services.AddTransient<CustomerService>();
+builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<ICarService, CarService>();
 builder.Services.AddTransient<IRentalService, RentalService>();
 builder.Services.AddTransient<ICommonService, CommonService>();
@@ -63,6 +63,11 @@ builder.Host.UseSerilog((hbc, loggerConfiguration) =>
 builder.Services.AddScoped<IValidator<CustomerViewModel>, CustomerViewModelValidator>();
 builder.Services.AddScoped<IValidator<CarViewModel>, CarViewModelValidator>();
 builder.Services.AddScoped<IValidator<RentalViewModel>, RentalViewModelValidator>();
+
+builder.Services.AddMvc();
+
+builder.Services.AddScoped<UserManager<Customer>>();
+builder.Services.AddScoped<RoleManager<IdentityRole<int>>>();
 
 var app = builder.Build();
 
@@ -111,7 +116,7 @@ static void CreateDbIfNotExists(IHost host)
     {
         var context = services.GetRequiredService<ApplicationContext>();
         var userManager = services.GetRequiredService<UserManager<Customer>>();
-        var roleManager = services.GetRequiredService<RoleManager<Customer>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
 
         context.Database.EnsureDeleted();
         Seed.Initialize(context, userManager, roleManager);

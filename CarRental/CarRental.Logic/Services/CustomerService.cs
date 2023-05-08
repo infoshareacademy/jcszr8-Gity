@@ -10,13 +10,13 @@ using Microsoft.Extensions.Logging;
 
 namespace CarRental.Logic.Services;
 
-public class CustomerService
+public class CustomerService : ICustomerService
 {
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
     private readonly IValidator<CustomerViewModel> _validator;
     private readonly UserManager<Customer> _userManager;
-    private readonly RoleManager<IdentityRole> roleManager;
+    private readonly RoleManager<IdentityRole<int>> roleManager;
 
 
     public CustomerService(IMapper mapper, ILogger<CustomerService> logger,

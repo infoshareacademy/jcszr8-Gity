@@ -18,7 +18,7 @@ public static class Seed
     public static List<RentalJson> Rentals { get; set; } = GetItems<RentalJson>("rentals.json");
     public static List<CarJson> Cars { get; set; } = GetCarsWithJsonEmbeddedValues("cars.json");
 
-    public static void Initialize(ApplicationContext context, UserManager<Customer> userManager, RoleManager<Customer> roleManager)
+    public static void Initialize(ApplicationContext context, UserManager<Customer> userManager, RoleManager<IdentityRole<int>> roleManager)
     {
         context.Database.EnsureCreated();
 
