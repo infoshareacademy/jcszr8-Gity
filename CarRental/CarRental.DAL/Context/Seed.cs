@@ -1,5 +1,8 @@
-﻿using CarRental.Common.Enums;
+﻿using AutoMapper;
+using CarRental.Common.Enums;
 using CarRental.DAL.Entities;
+using CarRental.DAL.HelperMappings;
+using CarRental.DAL.HelperModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data;
@@ -9,17 +12,18 @@ namespace CarRental.DAL.Context;
 
 public static class Seed
 {
-    public static List<Customer> Customers { get; set; } = GetItems<Customer>("customers.json");
-    public static List<Rental> Rentals { get; set; } = GetItems<Rental>("rentals.json");
-    public static List<Car> Cars { get; set; } = GetCarsWithJsonEmbeddedValues("cars.json");
+    public static List<CustomerJson> Customers { get; set; } = GetItems<CustomerJson>("customers.json");
+    public static List<RentalJson> Rentals { get; set; } = GetItems<RentalJson>("rentals.json");
+    public static List<CarJson> Cars { get; set; } = GetCarsWithJsonEmbeddedValues("cars.json");
+
 
     public static void Initialize(ApplicationContext context)
     {
         context.Database.EnsureCreated();
 
-        Customer[] customers = Customers.ToArray();
-        Rental[] rentals = Rentals.ToArray();
-        Car[] cars = Cars.ToArray();
+        Customer[] customers = MapperFromJson.MapToCustomers(Customers).ToArray();
+        Rental[] rentals = MapperFromJson.MapToRentals(Rentals).ToArray();
+        Car[] cars = MapperFromJson.MapToCars(Cars).ToArray();
 
         if (context.Customers.Any() && context.Rentals.Any() && context.Cars.Any())
         {
@@ -79,7 +83,7 @@ public static class Seed
         return result ?? new List<T>();
     }
 
-    public static List<Car> GetCarsWithJsonEmbeddedValues(string fileName)
+    public static List<CarJson> GetCarsWithJsonEmbeddedValues(string fileName)
     {
         var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
         string itemsSerialized;
@@ -93,7 +97,7 @@ public static class Seed
             throw new Exception("Error with serializing to string!");
         }
 
-        var prepopulatedCars = JsonConvert.DeserializeObject<List<Car>>(itemsSerialized);
+        var prepopulatedCars = JsonConvert.DeserializeObject<List<CarJson>>(itemsSerialized);
 
         #region Complete Car with embedded values from JSON file
 
@@ -129,6 +133,31 @@ public static class Seed
 
         var result = zipped.Select(z => z.First).ToList();
 
-        return result ?? new List<Car>();
+        return result ?? new List<CarJson>();
     }
+}
+
+public static class Helper
+{
+    private static IMapper Mapper;
+    public static void MappingHelper()
+    {
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<CarJson, Car>();
+        });
+        Mapper = config.CreateMapper();
+    }
+    public static DestinationClass Map(SourceClass source)
+    {
+        return Mapper.Map<SourceClass, DestinationClass>(source);
+    }
+}
+public class SourceClass
+{
+    public string Name { get; set; }
+}
+public class DestinationClass
+{
+    public string Name { get; set; }
 }

@@ -1,9 +1,9 @@
 ﻿using CarRental.Common.Enums;
 using Newtonsoft.Json;
 
-namespace CarRental.DAL.Entities;
+namespace CarRental.DAL.HelperModels;
 
-public class CustomerFromJson
+public class CustomerJson
 {
     [JsonProperty("first_name")]
     public string FirstName { get; set; }

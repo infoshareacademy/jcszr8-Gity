@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace CarRental.DAL.Entities;
+namespace CarRental.DAL.HelperModels;
 
-public class RentalFromJson
+public class RentalJson
 {
     [JsonProperty("customer_id")]
     public int CustomerId { get; set; }

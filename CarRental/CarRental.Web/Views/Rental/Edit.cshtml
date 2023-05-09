@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label asp-for="CustomerId" class="control-label">Customer</label>
                     <select asp-for="CustomerId" name="CustomerId" class="form-control">
-                        <partial name="_AvailableOptionsForCustomer" , new { Customers="@Model.Customers" } />
+                        <partial name="_AvailableOptionsForCustomer" , new { Customers=@Model.Customers } />
                     </select>
                     <span asp-validation-for="CustomerId" class="text-danger"></span>
                 </div>
