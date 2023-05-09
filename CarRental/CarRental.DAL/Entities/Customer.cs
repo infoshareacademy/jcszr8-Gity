@@ -11,5 +11,5 @@ public class Customer : IdentityUser<int>
     public string? EmailAddress { get; set; }
     public string? Pesel { get; set; }
     public Gender Gender { get; set; }
-    public virtual List<Rental> Rentals { get; set; } = new();
+    public virtual ICollection<Car> Cars { get; set; }
 }

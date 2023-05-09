@@ -107,8 +107,8 @@ public static class Seed
         {
             await context.Rentals.AddAsync(new Rental
             {
-                CarId = rental.CarId,
-                CustomerId = rental.CustomerId,
+                //CarId = rental.CarId,
+                //CustomerId = rental.CustomerId,
                 BeginDate = rental.BeginDate,
                 EndDate = rental.EndDate,
                 TotalCost = rental.TotalCost,

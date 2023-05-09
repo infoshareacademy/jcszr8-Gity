@@ -32,25 +32,40 @@ public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>,
         //modelBuilder.Entity<Customer>().HasKey(c => c.Id);
         //modelBuilder.Entity<Rental>().HasKey(r => r.Id);
 
-        modelBuilder.Entity<Rental>()
-            .HasOne(r => r.Customer)
-            .WithMany()
-            .HasForeignKey(r => r.CustomerId);
+        //modelBuilder.Entity<Rental>()
+        //    .HasOne(r => r.Customer)
+        //    .WithMany();
+        //.HasForeignKey(r => r.CustomerId);
 
-        modelBuilder.Entity<Rental>()
-            .HasOne(r => r.Car)
-            .WithMany()
-            .HasForeignKey(r => r.CarId);
+        //modelBuilder.Entity<Rental>()
+        //    .HasOne(r => r.Car)
+        //    .WithMany();
 
         //modelBuilder.Entity<Customer>()
         //    .HasMany<Rental>()
-        //    .WithOne()
-        //    .HasForeignKey(r => r.CustomerId);
+        //    .WithOne();
+
+        //modelBuilder.Entity<Customer>()
+        //    .HasMany(c => c.Cars)
+        //    .WithMany(cu => cu.Customers)
+        //    .UsingEntity(j => j.ToTable("CC"));
+
+        modelBuilder.Entity<Rental>()
+            .HasOne(c => c.Car)
+            .WithMany();
+
+
+        modelBuilder.Entity<Rental>()
+            .HasOne(c => c.Customer)
+            .WithMany();
+
+
+
 
         //modelBuilder.Entity<Car>()
         //    .HasMany<Rental>()
         //    .WithOne()
-        //    .HasForeignKey(r => r.CarId);
+        //    .HasForeignKey(r => r.Car);
 
         //modelBuilder.Entity<Car>()
         //    .Property(e => e.Addons)
@@ -101,12 +116,12 @@ public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>,
             eb.Property(c => c.Image).HasMaxLength(AppConfig.CarImagePathMaxLength);
         });
 
-        modelBuilder.Entity<Rental>(eb =>
-        {
-            eb.Property(r => r.TotalCost).HasColumnType("decimal").HasPrecision(7, 2);
+        //modelBuilder.Entity<Rental>(eb =>
+        //{
+        //    eb.Property(r => r.TotalCost).HasColumnType("decimal").HasPrecision(7, 2);
 
-            eb.Property(c => c.Created).HasDefaultValueSql("getutcdate()");
-            eb.Property(c => c.Updated).ValueGeneratedOnUpdate();
-        });
+        //    eb.Property(c => c.Created).HasDefaultValueSql("getutcdate()");
+        //    eb.Property(c => c.Updated).ValueGeneratedOnUpdate();
+        //});
     }
 }
