@@ -8,7 +8,8 @@ public class CustomerProfile : Profile
 {
     public CustomerProfile()
     {
-        CreateMap<CustomerViewModel, Customer>()
-            .ReverseMap();
+        CreateMap<CustomerViewModel, Customer>(MemberList.Source);
+
+        CreateMap<Customer, CustomerViewModel>(MemberList.Destination);
     }
 }

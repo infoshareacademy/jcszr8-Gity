@@ -7,19 +7,13 @@ namespace CarRental.Logic.Services;
 public class CommonService : ICommonService
 {
     private readonly ICarService _carService;
-    private readonly ICustomerService _customerService;
-    private readonly IRentalService _rentalService;
 
     private readonly IMapper _mapper;
 
-    public CommonService(ICarService carService, ICustomerService customerService,
-        IRentalService rentalService, IMapper mapper)
+    public CommonService(ICarService carService, IMapper mapper)
     {
         _carService = carService;
-        _customerService = customerService;
-
         _mapper = mapper;
-        _rentalService = rentalService;
     }
 
     public List<CarViewModel> SearchList(SearchFieldsModel sfModel)

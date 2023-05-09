@@ -51,7 +51,7 @@ public class CustomerController : Controller
             {
                 return View(model);
             }
-            _customerService.Create(model);
+            _customerService.CreateAsync(model).Wait(); // change to use await
             TempData["AlertText"] = "Customer created successfully";
             TempData["AlertClass"] = AlertType.Success;
             return RedirectToAction(nameof(Index));

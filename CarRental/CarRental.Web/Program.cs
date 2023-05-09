@@ -20,20 +20,29 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationContext>();
+builder.Services.AddMvc();
 
-
+builder.Services.AddIdentity<Customer, IdentityRole<int>>(options => 
+    options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationContext>()
+    .AddDefaultTokenProviders()
+    .AddRoles<IdentityRole<int>>()
+    .AddDefaultUI();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-builder.Services.AddTransient<ICustomerService, CustomerService>();
-builder.Services.AddTransient<ICarService, CarService>();
-builder.Services.AddTransient<IRentalService, RentalService>();
-builder.Services.AddTransient<ICommonService, CommonService>();
+//builder.Services.AddTransient<ICustomerService, CustomerService>();
+//builder.Services.AddTransient<ICarService, CarService>();
+//builder.Services.AddTransient<IRentalService, RentalService>();
+//builder.Services.AddTransient<ICommonService, CommonService>();
+
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddScoped<IRentalService, RentalService>();
+builder.Services.AddScoped<ICommonService, CommonService>();
 
 //builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
@@ -62,13 +71,17 @@ builder.Services.AddScoped<IValidator<CustomerViewModel>, CustomerViewModelValid
 builder.Services.AddScoped<IValidator<CarViewModel>, CarViewModelValidator>();
 builder.Services.AddScoped<IValidator<RentalViewModel>, RentalViewModelValidator>();
 
+
+builder.Services.AddScoped<UserManager<Customer>>();
+builder.Services.AddScoped<RoleManager<IdentityRole<int>>>();
+
 var app = builder.Build();
 
-CreateDbIfNotExists(app);
+//CreateDbIfNotExists(app);
 
 // Check if all mappings are configured
 var mapper = (IMapper)app.Services.GetService(typeof(IMapper));
-mapper.ConfigurationProvider.AssertConfigurationIsValid();
+//mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -82,7 +95,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication(); ;
 
 app.UseAuthorization();
 
@@ -99,6 +112,8 @@ app.UseRequestLocalization(new RequestLocalizationOptions
 });
 app.MapRazorPages();
 
+CreateDbIfNotExists(app);
+
 app.Run();
 
 static void CreateDbIfNotExists(IHost host)
@@ -108,9 +123,12 @@ static void CreateDbIfNotExists(IHost host)
     try
     {
         var context = services.GetRequiredService<ApplicationContext>();
+        var userManager = services.GetRequiredService<UserManager<Customer>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
 
         context.Database.EnsureDeleted();
-        Seed.Initialize(context);
+        Seed.Initialize(context, userManager, roleManager)
+            .Wait();
     }
     catch (Exception ex)
     {

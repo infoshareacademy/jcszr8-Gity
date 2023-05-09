@@ -21,4 +21,6 @@ public class Car : Entity
     public float? PowerInKiloWatts { get; set; }
     public decimal? Price { get; set; }
     public string? Description { get; set; }
+    public string? Image { get; set; }
+    public ICollection<Customer> Customers { get; set; } = new List<Customer>();
 }

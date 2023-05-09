@@ -8,7 +8,11 @@ public class RentalProfile : Profile
 {
     public RentalProfile()
     {
+        CreateMap<Rental, RentalViewModel>(MemberList.Destination);
+
         CreateMap<RentalViewModel, Rental>()
-            .ReverseMap();
+            .ForSourceMember(r => r.CustomerName, opt => opt.DoNotValidate())
+            .ForSourceMember(r => r.CarLicencePlate, opt => opt.DoNotValidate());
+
     }
 }

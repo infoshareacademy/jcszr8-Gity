@@ -9,13 +9,13 @@ namespace CarRental.Web.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly ICustomerService _customerService;
+    //private readonly ICustomerService _customerService;
     private readonly ICarService _carService;
 
-    public HomeController(ILogger<HomeController> logger, ICustomerService customerService, ICarService carService)
+    public HomeController(ILogger<HomeController> logger, ICarService carService)
     {
         _logger = logger;
-        _customerService = customerService;
+        //_customerService = customerService;
         _carService = carService;
     }
 
