@@ -21,6 +21,9 @@ html {
     text-decoration: none;
 }
 
+.card-text {
+    margin-bottom: 0.46rem
+}
 .search-container {
     position: relative;
     z-index: 2;

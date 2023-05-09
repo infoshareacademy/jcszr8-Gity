@@ -15,10 +15,10 @@
                 <form class="d-flex pt-3" asp-controller="Common" asp-action="FromHome" method="post">
                     <input class="form-control shadow-sm me-2 search opacity-75  " asp-for="SearchDto.ModelAndMake" type="text" placeholder="Type car maker or car model" aria-label="Search">
                     <select asp-for="SearchDto.ProductionYearFrom" id="" name="SearchDto.ProductionYearFrom" class="form-control year shadow-sm opacity-75 me-2">
-                        <partial name="_AvailableOptionsForYearFrom"/>
+                        <partial name="_AvailableOptionsForYearFrom" />
                     </select>
                     <select asp-for="SearchDto.ProductionYearTo" id="" name="SearchDto.ProductionYearTo" class="form-control year shadow-sm opacity-75 me-2">
-                        <partial name="_AvailableOptionsForYearTo"/>
+                        <partial name="_AvailableOptionsForYearTo" />
                     </select>
 
                     <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.StartDate" />
@@ -28,19 +28,22 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row justify-content-center">
-            @foreach (var item in Model.Cars)
-            {
-                <div class="card col-3 me-4 mt-4 shadow" style="width: 18rem;">
-                    <img class="card-img-top" src="images/car-1.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Make</h5>
-                        <p class="card-text">@item.CarModelProp | Production Year @item.Year</p>
-                        <a class="btn btn-outline-success fw-bold" asp-controller="Car" asp-action="Details" asp-route-id="@item.Id">Show details</a>
-                    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        @foreach (var item in Model.Cars)
+        {
+            <div class="card col-3 me-4 mt-4 shadow-lg" style="width: 18rem;">
+                <img class="card-img-top" src="/images/car-1.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Make @item.CarModelProp</h5>
+                    <p class="card-text">Year: @item.Year</p>
+                    <p class="card-text">Transmission: @item.Transmission</p>
+                    <p class="card-text">Engine type: @item.EngineType</p>
+                    <a class="btn btn-outline-success fw-bold" asp-controller="Car" asp-action="Details" asp-route-id="@item.Id">Show details</a>
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
 </div>
+
