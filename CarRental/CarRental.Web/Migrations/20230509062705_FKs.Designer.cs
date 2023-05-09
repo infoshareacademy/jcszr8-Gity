@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRental.Web.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230508181634_Initial")]
-    partial class Initial
+    [Migration("20230509062705_FKs")]
+    partial class FKs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,6 +70,10 @@ namespace CarRental.Web.Migrations
                     b.Property<string>("FuelConsumption")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int?>("Kilometrage")
                         .HasColumnType("int");
@@ -218,12 +222,18 @@ namespace CarRental.Web.Migrations
                     b.Property<int>("CarId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CarId1")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
 
                     b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CustomerId1")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
@@ -241,7 +251,11 @@ namespace CarRental.Web.Migrations
 
                     b.HasIndex("CarId");
 
+                    b.HasIndex("CarId1");
+
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("CustomerId1");
 
                     b.ToTable("Rentals");
                 });
@@ -381,17 +395,29 @@ namespace CarRental.Web.Migrations
 
             modelBuilder.Entity("CarRental.DAL.Entities.Rental", b =>
                 {
-                    b.HasOne("CarRental.DAL.Entities.Car", null)
+                    b.HasOne("CarRental.DAL.Entities.Car", "Car")
                         .WithMany()
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarRental.DAL.Entities.Customer", null)
+                    b.HasOne("CarRental.DAL.Entities.Car", null)
+                        .WithMany("Rentals")
+                        .HasForeignKey("CarId1");
+
+                    b.HasOne("CarRental.DAL.Entities.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("CarRental.DAL.Entities.Customer", null)
+                        .WithMany("Rentals")
+                        .HasForeignKey("CustomerId1");
+
+                    b.Navigation("Car");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -443,6 +469,16 @@ namespace CarRental.Web.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CarRental.DAL.Entities.Car", b =>
+                {
+                    b.Navigation("Rentals");
+                });
+
+            modelBuilder.Entity("CarRental.DAL.Entities.Customer", b =>
+                {
+                    b.Navigation("Rentals");
                 });
 #pragma warning restore 612, 618
         }

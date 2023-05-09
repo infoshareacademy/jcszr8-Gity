@@ -27,13 +27,25 @@ public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>,
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
 
-        modelBuilder.Entity<Customer>()
-            .HasMany<Rental>()
-            .WithOne();
+        modelBuilder.Entity<Rental>()
+            .HasOne(r => r.Customer)
+            .WithMany()
+            .HasForeignKey(r => r.CustomerId);
 
-        modelBuilder.Entity<Car>()
-            .HasMany<Rental>()
-            .WithOne();
+        modelBuilder.Entity<Rental>()
+            .HasOne(r => r.Car)
+            .WithMany()
+            .HasForeignKey(r => r.CarId);
+
+        //modelBuilder.Entity<Customer>()
+        //    .HasMany<Rental>()
+        //    .WithOne()
+        //    .HasForeignKey(r => r.CustomerId);
+
+        //modelBuilder.Entity<Car>()
+        //    .HasMany<Rental>()
+        //    .WithOne()
+        //    .HasForeignKey(r => r.CarId);
 
         modelBuilder.Entity<Car>()
             .Property(e => e.Addons)
@@ -67,6 +79,7 @@ public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>,
             eb.Property(c => c.Created).HasDefaultValueSql("getutcdate()");
             eb.Property(c => c.Updated).ValueGeneratedOnUpdate();
             eb.Property(c => c.Description).HasMaxLength(AppConfig.CarDescriptionMaxLength);
+            eb.Property(c => c.Image).HasMaxLength(AppConfig.CarImagePathMaxLength);
         });
 
         modelBuilder.Entity<Rental>(eb =>

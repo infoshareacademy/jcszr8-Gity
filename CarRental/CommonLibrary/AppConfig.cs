@@ -38,6 +38,7 @@ public static class AppConfig
     public const decimal CarPricePerDayMinValue = 40;
     public const float CarPowerInKiloWattsMinValue = 60;
     public const float CarPowerInKiloWattsMaxValue = 1000;
+    public const int CarImagePathMaxLength = 300;
 
     // For Rental
     public const int RentalMinDays = 1;

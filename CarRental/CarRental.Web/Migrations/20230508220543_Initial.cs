@@ -78,6 +78,7 @@ namespace CarRental.Web.Migrations
                     PowerInKiloWatts = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: true),
                     Price = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getutcdate()"),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -203,6 +204,8 @@ namespace CarRental.Web.Migrations
                     BeginDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalCost = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: true),
+                    CarId1 = table.Column<int>(type: "int", nullable: true),
+                    CustomerId1 = table.Column<int>(type: "int", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getutcdate()"),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -216,11 +219,21 @@ namespace CarRental.Web.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Rentals_AspNetUsers_CustomerId1",
+                        column: x => x.CustomerId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Rentals_Cars_CarId",
                         column: x => x.CarId,
                         principalTable: "Cars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Rentals_Cars_CarId1",
+                        column: x => x.CarId1,
+                        principalTable: "Cars",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -268,9 +281,19 @@ namespace CarRental.Web.Migrations
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Rentals_CarId1",
+                table: "Rentals",
+                column: "CarId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rentals_CustomerId",
                 table: "Rentals",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rentals_CustomerId1",
+                table: "Rentals",
+                column: "CustomerId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
