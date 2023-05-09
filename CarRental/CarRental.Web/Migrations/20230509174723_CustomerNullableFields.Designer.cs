@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRental.Web.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230509171155_Initial")]
-    partial class Initial
+    [Migration("20230509174723_CustomerNullableFields")]
+    partial class CustomerNullableFields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -157,15 +157,13 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -187,13 +185,11 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Pesel")
-                        .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nchar(11)")
                         .IsFixedLength();
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -238,7 +234,9 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -247,9 +245,11 @@ namespace CarRental.Web.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal?>("TotalCost")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
 
                     b.Property<DateTime?>("Updated")
+                        .ValueGeneratedOnUpdate()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

@@ -225,10 +225,10 @@ namespace CarRental.Web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BeginDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalCost = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    TotalCost = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: true),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     CarId = table.Column<int>(type: "int", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getutcdate()"),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>

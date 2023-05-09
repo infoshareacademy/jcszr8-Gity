@@ -32,7 +32,7 @@ public static class Seed
 
         string adminRole = "Admin";
         string memberRole = "Member";
-        string tempPasswordForAll = "Password@236785hgjhr@4$"; //TODO password setup
+        string tempPasswordForAll = "Password@23"; //TODO password setup
 
         if (context.Rentals.Any() && context.Cars.Any())
         {

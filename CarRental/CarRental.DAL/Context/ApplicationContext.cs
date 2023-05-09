@@ -53,11 +53,11 @@ public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>,
 
         modelBuilder.Entity<Customer>(eb =>
         {
-            eb.Property(c => c.FirstName).IsRequired().HasMaxLength(AppConfig.FirstNameMaxLength);
-            eb.Property(c => c.LastName).IsRequired().HasMaxLength(AppConfig.LastNameMaxLength);
-            eb.Property(c => c.PhoneNumber).IsRequired().HasMaxLength(AppConfig.PhoneNumberMaxLength);
-            eb.Property(c => c.Pesel).IsRequired().IsFixedLength().HasMaxLength(AppConfig.PeselLength);
-            eb.Property(c => c.Gender).IsRequired();
+            eb.Property(c => c.FirstName).HasMaxLength(AppConfig.FirstNameMaxLength); //.IsRequired().
+            eb.Property(c => c.LastName).HasMaxLength(AppConfig.LastNameMaxLength); //.IsRequired().
+            eb.Property(c => c.PhoneNumber).HasMaxLength(AppConfig.PhoneNumberMaxLength); //.IsRequired().
+            eb.Property(c => c.Pesel).IsFixedLength().HasMaxLength(AppConfig.PeselLength); //.IsRequired();
+            eb.Property(c => c.Gender); //.IsRequired();
             eb.Property(c => c.EmailAddress).HasMaxLength(AppConfig.EmailAddressMaxLength);
         });
 
