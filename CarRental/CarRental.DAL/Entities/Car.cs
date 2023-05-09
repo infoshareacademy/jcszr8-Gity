@@ -1,6 +1,5 @@
 ﻿using CarRental.Common.Enums;
 using CarRental.DAL.Entities.BaseEntity;
-using System.Collections;
 
 namespace CarRental.DAL.Entities;
 public class Car : Entity
@@ -23,6 +22,5 @@ public class Car : Entity
     public decimal? Price { get; set; }
     public string? Description { get; set; }
     public string? Image { get; set; }
-    //public List<Rental> Rentals { get; set; } = new();
-    public ICollection<Customer> Customers { get; set; } = null!;
+    public ICollection<Customer> Customers { get; set; } = new List<Customer>();
 }
