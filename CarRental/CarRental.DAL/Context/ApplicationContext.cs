@@ -3,6 +3,7 @@ using CarRental.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CarRental.DAL.Context;
 
@@ -27,6 +28,10 @@ public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>,
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
 
+        modelBuilder.Entity<Car>().HasKey(c => c.Id);
+        modelBuilder.Entity<Customer>().HasKey(c => c.Id);
+        modelBuilder.Entity<Rental>().HasKey(r => r.Id);
+
         modelBuilder.Entity<Rental>()
             .HasOne(r => r.Customer)
             .WithMany()
@@ -47,12 +52,26 @@ public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>,
         //    .WithOne()
         //    .HasForeignKey(r => r.CarId);
 
+        //modelBuilder.Entity<Car>()
+        //    .Property(e => e.Addons)
+        //    .HasConversion(
+        //        v => string.Join(';', v),
+        //        v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
+        //);
+
         modelBuilder.Entity<Car>()
             .Property(e => e.Addons)
             .HasConversion(
                 v => string.Join(';', v),
-                v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
-        );
+                v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList());
+
+        var valueComparer = new ValueComparer<List<string>>((c1, c2) => 
+            c1.SequenceEqual(c2), c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())), c => c.ToList());
+
+        modelBuilder.Entity<Car>()
+            .Property(e => e.Addons)
+            .Metadata
+            .SetValueComparer( valueComparer );
 
         modelBuilder.Entity<Customer>(eb =>
         {

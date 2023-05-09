@@ -34,27 +34,31 @@ public class CustomerService : ICustomerService
         //var customers = _customerRepository.GetAll();
         //return _mapper.Map<List<CustomerViewModel>>(customers);
 
-        throw new NotImplementedException();
+        var customers = _userManager.Users.ToList();
+        var model = _mapper.Map<List<CustomerViewModel>>(customers);
+        return model;
     }
 
     public CustomerViewModel? Get(int customerId)
     {
-        //var customer = _customerRepository.Get(customerId);
-        //return _mapper.Map<CustomerViewModel>(customer);
-
-        throw new NotImplementedException();
+        var customer = _userManager.Users.FirstOrDefault(c => c.Id == customerId);
+        return _mapper.Map<CustomerViewModel>(customer);
     }
 
-    public void Create(CustomerViewModel model)
+    public async Task CreateAsync(CustomerViewModel model)
     {
-        //if (!IsAllValid(model))
-        //{
-        //    throw new ArgumentException("Customer is not valid.");
-        //}
-        //_customerRepository.Insert(_mapper.Map<Customer>(model));
-        //_logger.LogInformation($"Customer {model.FirstName} {model.LastName} was created.");
-
-        throw new NotImplementedException();
+        if (!IsAllValid(model))
+        {
+            throw new ArgumentException("Customer is not valid.");
+        }
+        var newCustomer = _mapper.Map<Customer>(model);
+        var result = await _userManager.CreateAsync(newCustomer); // TODO password creation
+        if (result.Succeeded)
+        {
+            await _userManager.AddPasswordAsync(newCustomer, "Pa$$w0rd");
+            await _userManager.AddToRoleAsync(newCustomer, "Member");
+        }
+        _logger.LogInformation($"Customer {model.FirstName} {model.LastName} was created.");
     }
 
     public void Update(CustomerViewModel model)

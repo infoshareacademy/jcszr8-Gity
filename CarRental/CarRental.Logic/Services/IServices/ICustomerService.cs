@@ -6,7 +6,7 @@ public interface ICustomerService
 {
     IEnumerable<CustomerViewModel> GetAll();
     CustomerViewModel? Get(int id);
-    void Create(CustomerViewModel model);
+    Task CreateAsync(CustomerViewModel model);
     void Update(CustomerViewModel customer);
     void Delete(int id);
 }
