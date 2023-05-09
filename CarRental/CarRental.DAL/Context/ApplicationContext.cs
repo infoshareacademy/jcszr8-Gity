@@ -28,9 +28,9 @@ public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>,
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
 
-        modelBuilder.Entity<Car>().HasKey(c => c.Id);
-        modelBuilder.Entity<Customer>().HasKey(c => c.Id);
-        modelBuilder.Entity<Rental>().HasKey(r => r.Id);
+        //modelBuilder.Entity<Car>().HasKey(c => c.Id);
+        //modelBuilder.Entity<Customer>().HasKey(c => c.Id);
+        //modelBuilder.Entity<Rental>().HasKey(r => r.Id);
 
         modelBuilder.Entity<Rental>()
             .HasOne(r => r.Customer)
