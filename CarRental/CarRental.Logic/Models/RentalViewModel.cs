@@ -19,6 +19,8 @@ public class RentalViewModel
     public string? CustomerName { get; set; }
     [Display(Name = "Car License Plate")]
     public string? CarLicencePlate { get; set; }
-    public DateTime Created { get; set; }
-    public DateTime? Updated { get; set; }
+    public DateTime Created { get; set; }  //TODO remove from here
+    public DateTime? Updated { get; set; } //TODO remove from here
+    public List<object> Customers { get; set; } = new();
+    public List<object> Cars { get; set; } = new();
 }

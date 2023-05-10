@@ -47,6 +47,7 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Rental" asp-action="Index">Rentals</a>
                         </li>
                         <partial name="_LoginPartial" />
+                        <a id="logout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Logout</a>
                     </ul>
                 </div>
             </div>
