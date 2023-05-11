@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -30,12 +29,12 @@ namespace CarRental.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     EmailAddress = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Pesel = table.Column<string>(type: "nchar(11)", fixedLength: true, maxLength: 11, nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false),
+                    Pesel = table.Column<string>(type: "nchar(11)", fixedLength: true, maxLength: 11, nullable: true),
+                    Gender = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -194,30 +193,6 @@ namespace CarRental.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CarCustomer",
-                columns: table => new
-                {
-                    CarsId = table.Column<int>(type: "int", nullable: false),
-                    CustomersId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarCustomer", x => new { x.CarsId, x.CustomersId });
-                    table.ForeignKey(
-                        name: "FK_CarCustomer_AspNetUsers_CustomersId",
-                        column: x => x.CustomersId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CarCustomer_Cars_CarsId",
-                        column: x => x.CarsId,
-                        principalTable: "Cars",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Rentals",
                 columns: table => new
                 {
@@ -226,8 +201,8 @@ namespace CarRental.Web.Migrations
                     BeginDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalCost = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: true),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     CarId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getutcdate()"),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -288,11 +263,6 @@ namespace CarRental.Web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarCustomer_CustomersId",
-                table: "CarCustomer",
-                column: "CustomersId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Rentals_CarId",
                 table: "Rentals",
                 column: "CarId");
@@ -319,9 +289,6 @@ namespace CarRental.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "CarCustomer");
 
             migrationBuilder.DropTable(
                 name: "Rentals");

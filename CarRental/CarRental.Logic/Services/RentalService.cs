@@ -7,7 +7,6 @@ using CarRental.Logic.Services.IServices;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
-using System.Runtime.CompilerServices;
 
 namespace CarRental.Logic.Services;
 
@@ -43,7 +42,8 @@ public class RentalService : IRentalService
 
     public void Create(RentalViewModel model)
     {
-        if (!(IsRentalValidForCreate(model) && IsAllValid(model)))
+        bool check = !IsRentalValidForCreate(model) || !IsAllValid(model);
+        if (check)
         {
             throw new ArgumentException("Rental is not valid for create");
         }
@@ -54,7 +54,7 @@ public class RentalService : IRentalService
 
     public void Update(RentalViewModel model)
     {
-        if (model is null || !IsAllValid(model))
+        if (model is null || !IsValidForUpdate(model))
         {
             throw new ArgumentException("Rental is not valid for update");
         }
@@ -167,6 +167,16 @@ public class RentalService : IRentalService
         var validationResult = _validator.Validate(rental, options =>
         {
             options.IncludeAllRuleSets();
+        });
+        LogErrors(validationResult);
+        return validationResult.IsValid;
+    }
+
+    public bool IsValidForUpdate(RentalViewModel rental)
+    {
+        var validationResult = _validator.Validate(rental, options =>
+        {
+            options.IncludeRulesNotInRuleSet();
         });
         LogErrors(validationResult);
         return validationResult.IsValid;

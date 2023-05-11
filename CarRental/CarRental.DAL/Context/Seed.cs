@@ -4,13 +4,9 @@ using CarRental.DAL.Entities;
 using CarRental.DAL.HelperMappings;
 using CarRental.DAL.HelperModels;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Diagnostics;
 using System.Globalization;
 
 namespace CarRental.DAL.Context;
@@ -21,7 +17,7 @@ public static class Seed
     public static List<RentalJson> Rentals { get; set; } = GetItems<RentalJson>("rentals.json");
     public static List<CarJson> Cars { get; set; } = GetCarsWithJsonEmbeddedValues("cars.json");
 
-    public static async Task Initialize(ApplicationContext context, 
+    public static async Task Initialize(ApplicationContext context,
         UserManager<Customer> userManager, RoleManager<IdentityRole<int>> roleManager)
     {
         context.Database.EnsureCreated();
@@ -59,10 +55,11 @@ public static class Seed
                 LastName = customer.LastName,
                 PhoneNumber = customer.PhoneNumber,
                 EmailAddress = customer.EmailAddress,
+                Email = customer.EmailAddress,
+                EmailConfirmed = true,
                 Gender = customer.Gender,
                 Pesel = customer.Pesel,
-
-                UserName = "user" + counter++,
+                UserName = customer.EmailAddress,
             };
 
             result = await userManager.CreateAsync(user);
@@ -79,14 +76,16 @@ public static class Seed
             FirstName = "Admin",
             LastName = "Adminski",
             PhoneNumber = "666666666",
-            EmailAddress = "adminUser@example.com",
+            EmailAddress = "admin@example.com", //TODO email address
+            Email = "admin@example.com",
             Gender = Gender.Male,
             Pesel = "80020210345",
-            UserName = "adminadmin",
+            UserName = "admin@example.com",
+            EmailConfirmed = true,
         };
-        
+
         result = await userManager.CreateAsync(adminUser);
-        
+
         if (result.Succeeded)
         {
             await userManager.AddPasswordAsync(adminUser, "Admin@23");
@@ -107,8 +106,8 @@ public static class Seed
         {
             await context.Rentals.AddAsync(new Rental
             {
-                //CarId = rental.CarId,
-                //CustomerId = rental.CustomerId,
+                CarId = rental.CarId,
+                CustomerId = rental.CustomerId,
                 BeginDate = rental.BeginDate,
                 EndDate = rental.EndDate,
                 TotalCost = rental.TotalCost,
