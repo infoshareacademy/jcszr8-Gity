@@ -20,7 +20,7 @@ public class EmailController : ControllerBase
 
         using var smtp = new SmtpClient();
         smtp.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
-        smtp.Authenticate("team-gity@tlen.pl", "jcszr8-Gity");
+        smtp.Authenticate("team-gity@tlen.pl", "jcszr8-gity");
         smtp.Send(email);
         smtp.Disconnect(true);
         return Ok();
