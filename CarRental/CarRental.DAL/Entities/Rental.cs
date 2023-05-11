@@ -7,6 +7,8 @@ public class Rental : Entity
     public DateTime BeginDate { get; set; }
     public DateTime EndDate { get; set; }
     public decimal? TotalCost { get; set; }
-    public Customer Customer { get; set; } = null!;
+    public int CarId { get; set; }
+    public int CustomerId { get; set; }
     public Car Car { get; set; } = null!;
+    public Customer Customer { get; set; } = null!;
 }

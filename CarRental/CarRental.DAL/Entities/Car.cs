@@ -22,5 +22,6 @@ public class Car : Entity
     public decimal? Price { get; set; }
     public string? Description { get; set; }
     public string? Image { get; set; }
-    public ICollection<Customer> Customers { get; set; } = new List<Customer>();
+    public ICollection<Rental> Rentals { get; } = new List<Rental>();
+    public ICollection<Customer> Customers { get; } = new List<Customer>();
 }

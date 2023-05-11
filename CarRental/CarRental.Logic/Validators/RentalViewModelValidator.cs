@@ -6,10 +6,16 @@ public class RentalViewModelValidator : AbstractValidator<RentalViewModel>
 {
     public RentalViewModelValidator()
     {
+        RuleSet("Create", () =>
+        {
+            RuleFor(r => r.BeginDate)
+             .Must(ValidationRules.IsValid)
+             .WithMessage("Begin date should be in the future");
+        });
+
         RuleFor(r => r.BeginDate)
             .NotEmpty()
-            .WithMessage("Begin date is required")
-            .Must(ValidationRules.IsValid);
+            .WithMessage("Begin date is required");
         RuleFor(r => r.EndDate)
             .NotEmpty()
             .WithMessage("End date is required")
@@ -22,6 +28,8 @@ public static class ValidationRules
 {
     public static bool IsValid(DateTime beginDate)
     {
-        return beginDate > DateTime.Now;
+        // below line can be potentially problematic, ex. add 1 second can be too small addtion
+        // (checked in debug mode)
+        return beginDate.AddSeconds(300) > DateTime.Now;
     }
 }

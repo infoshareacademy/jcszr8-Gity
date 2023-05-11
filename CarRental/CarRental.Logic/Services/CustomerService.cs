@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CarRental.DAL.Entities;
-using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using FluentValidation;

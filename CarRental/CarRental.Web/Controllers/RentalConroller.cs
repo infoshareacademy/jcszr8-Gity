@@ -77,7 +77,7 @@ public class RentalController : Controller
         var shortCustomers = GetShortCustomers();
         var shortCars = GetShortCars();
         var temp = DateTime.Now;
-        var beginDate = new DateTime(temp.Year, temp.Month, temp.Day, temp.Hour, temp.Minute, 1);
+        var beginDate = new DateTime(temp.Year, temp.Month, temp.Day, temp.Hour, temp.Minute, 0);
 
         var model = new RentalCreateViewModel
         {
@@ -85,7 +85,7 @@ public class RentalController : Controller
             Cars = shortCars,
             BeginDate = beginDate,
             EndDate = beginDate.AddDays(1),
-            TotalCost = 0m
+            TotalCost = 0m,
         };
 
         return View(model);
@@ -96,6 +96,11 @@ public class RentalController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Create(RentalCreateViewModel model)
     {
+        var shortCustomers = GetShortCustomers();
+        var shortCars = GetShortCars();
+        model.Customers = shortCustomers;
+        model.Cars = shortCars;
+
         try
         {
             if (!ModelState.IsValid)
@@ -110,21 +115,25 @@ public class RentalController : Controller
                 BeginDate = model.BeginDate,
                 EndDate = model.EndDate,
                 TotalCost = model.TotalCost,
+                Customers = shortCustomers,
+                Cars = shortCars,
             };
 
             decimal carPricePerDay = (decimal)_carService!.Get(model.CarId)!.Price;
             rentalModel.TotalCost = _rentalService.GetRentalTotalPrice(carPricePerDay, rentalModel.BeginDate, rentalModel.EndDate);
 
             _rentalService.Create(rentalModel);
-
             TempData["AlertText"] = "Rental created successfully";
             TempData["AlertClass"] = AlertType.Success;
 
             return RedirectToAction(nameof(Index));
         }
-        catch
+        catch (Exception)
         {
-            return View();
+            TempData["AlertText"] = "Some error occured. Rental was not created";
+            TempData["AlertClass"] = AlertType.Warning;
+            return View(model);
+            //return RedirectToAction(nameof(Index));
         }
     }
 
@@ -135,7 +144,10 @@ public class RentalController : Controller
         var shortCustomers = GetShortCustomers();
         var shortCars = GetShortCars();
         var temp = DateTime.Now;
-        var beginDate = new DateTime(temp.Year, temp.Month, temp.Day, temp.Hour, temp.Minute, 0);
+        var b = rentalModel.BeginDate;
+        var e = rentalModel.EndDate;
+        var beginDate = new DateTime(b.Year, b.Month, b.Day, b.Hour, b.Minute, 0);
+        var endDate = new DateTime(e.Year, e.Month, e.Day, e.Hour, e.Minute, 0);
 
         var model = new RentalCreateViewModel
         {
@@ -143,7 +155,7 @@ public class RentalController : Controller
             CarId = rentalModel.CarId,
             CustomerId = rentalModel.CustomerId,
             BeginDate = beginDate,
-            EndDate = beginDate.AddDays(1),
+            EndDate = endDate,
             TotalCost = (decimal)rentalModel.TotalCost,
 
             Customers = shortCustomers,
