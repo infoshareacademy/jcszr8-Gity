@@ -7,7 +7,7 @@ using System.Numerics;
 namespace CarRentalApi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ReportController : ControllerBase
 {
     private readonly CarRentalApiContext _context;
@@ -43,9 +43,12 @@ public class ReportController : ControllerBase
     }
 
     [HttpPut(Name = "UpdateLastLogged")]
-    public async Task UpdateAsync([FromBody] LastLoggedReport lastLoggedReport)
+    public void Update([FromBody] LastLoggedReport lastLoggedReport)
     {
-        _context.LastLoggings.Update(lastLoggedReport);
-        await _context.SaveChangesAsync();
+        //_context.LastLoggings.Update(lastLoggedReport);
+        //var lastLogged = _context.LastLoggings.Find(lastLoggedReport.Id);
+        var lastLogged = _context.LastLoggings.FirstOrDefault(x => x.UserId == lastLoggedReport.UserId);
+        lastLogged.LastLogged = lastLoggedReport.LastLogged;
+        _context.SaveChanges();
     }
 }
