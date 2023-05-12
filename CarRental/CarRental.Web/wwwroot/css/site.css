@@ -24,6 +24,11 @@ html {
 .card-text {
     margin-bottom: 0.46rem
 }
+
+.card-image-height {
+    height: 43%!important;
+}
+
 .search-container {
     position: relative;
     z-index: 2;
