@@ -1,5 +1,4 @@
-﻿using System.Net.Mail;
-using MailKit.Net.Smtp;
+﻿using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using CarRental.Web.Models;
@@ -36,7 +35,6 @@ namespace CarRental.Web.Controllers
 
             return RedirectToAction("SentEmail");
         }
-
         public IActionResult SentEmail()
         {
             ViewData["Success"] = "Email has been sent successfully!";

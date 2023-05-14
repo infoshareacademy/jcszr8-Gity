@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CarRental.Common;
 
 namespace CarRental.Web.Models;
 
@@ -16,7 +17,7 @@ public class EmailData
 
     public EmailData()
     {
-        From = "jcszr8gity@gmail.com";
-        Password = "";
+        From = SecretReader.Email;
+        Password = SecretReader.Password;
     }
 }
