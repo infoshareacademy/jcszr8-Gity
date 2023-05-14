@@ -17,6 +17,6 @@ public class EmailData
     public EmailData()
     {
         From = "jcszr8gity@gmail.com";
-        Password = "jcszr8gityjcszr8gity";
+        Password = "ohcpkgcluducvkre";
     }
 }
