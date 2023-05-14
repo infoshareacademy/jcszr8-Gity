@@ -21,6 +21,7 @@
     "VIN": "8ACDVM8U5MFPU0220",
     "licence_plate_number": "GD RE01",
     "kilometrage": 100000,
+    "image": "/images/toyota-corolla-black.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 97.0,
@@ -51,6 +52,7 @@
     "VIN": "99ARVPJL8ESAT2607",
     "licence_plate_number": "GD RE02",
     "kilometrage": 100000,
+    "image": "/images/toyota-corolla-gray.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 97.0,
@@ -80,6 +82,7 @@
     "VIN": "LC0USWJC1AN6R5381",
     "licence_plate_number": "GD RE03",
     "kilometrage": 100000,
+    "image": "/images/toyota-corolla-silver.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 97.0,
@@ -110,6 +113,7 @@
     "VIN": "1M961LC887ENT3380",
     "licence_plate_number": "GD RE04",
     "kilometrage": 100000,
+    "image": "/images/toyota-corolla-white.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 97.0,
@@ -139,6 +143,7 @@
     "VIN": "AHTTF8KS8FXST6312",
     "licence_plate_number": "GD RE05",
     "kilometrage": 100000,
+    "image": "/images/mercedes-c63-white.jpg",
     "engine_parameters": {
       "torque": "700Nm",
       "power_kw": 375.0,
@@ -168,6 +173,7 @@
     "VIN": "TMB7NGWE1VVX01930",
     "licence_plate_number": "GD RE06",
     "kilometrage": 100000,
+    "image": "/images/mazda-3-polymetalgraymetallic.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 0.0,
@@ -197,6 +203,7 @@
     "VIN": "5NP2ZVSY0CT6B5064",
     "licence_plate_number": "GD RE07",
     "kilometrage": 100000,
+    "image": "/images/mazda-3-silver.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 0.0,
@@ -226,6 +233,7 @@
     "VIN": "W09Y6XGD5Y0849348",
     "licence_plate_number": "GD RE08",
     "kilometrage": 100000,
+    "image": "/images/mazda-3-white.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 0.0,
@@ -257,6 +265,7 @@
     "VIN": "2HJCNR5Y8389S5283",
     "licence_plate_number": "GD RE09",
     "kilometrage": 100000,
+    "image": "/images/ford-fiesta-white.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 0.0,
@@ -286,6 +295,7 @@
     "VIN": "SFE8208R0LJYZ5073",
     "licence_plate_number": "GD RE10",
     "kilometrage": 100000,
+    "image": "/images/ford-fiesta-blue.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 0.0,
@@ -315,6 +325,7 @@
     "VIN": "8AGXXEXC3F0FT2074",
     "licence_plate_number": "GD RE11",
     "kilometrage": 100000,
+    "image": "/images/ford-fiesta-white-11.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 0.0,
@@ -345,6 +356,7 @@
     "VIN": "9C6KZKAK3WP2E1498",
     "licence_plate_number": "GD RE12",
     "kilometrage": 100000,
+    "image": "/images/kia-ceed-blue-12.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 0.0,
@@ -375,6 +387,7 @@
     "VIN": "LGX9YDY103LSZ4509",
     "licence_plate_number": "GD RE13",
     "kilometrage": 100000,
+    "image": "/images/kia-ceed-red-13.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 0.0,
@@ -404,6 +417,7 @@
     "VIN": "1GDWKJGZ679G70798",
     "licence_plate_number": "GD RE14",
     "kilometrage": 100000,
+    "image": "/images/kia-ceed-blue-13.jpg",
     "engine_parameters": {
       "torque": "",
       "power_kw": 0.0,
