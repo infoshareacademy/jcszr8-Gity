@@ -269,3 +269,6 @@ __pycache__/
 # Cake - Uncomment if you are using it
 # tools/
 /CarRental/CarRental.Web/log.txt
+
+
+**/appsecrets.json
