@@ -1,0 +1,42 @@
+﻿@model CarRental.Web.Models.EmailData
+
+<h4 class="text-success mt-4">Send Email</h4>
+<hr class="text-success" />
+<div class="d-flex justify-content-center">
+    <div class="alert alert-info alert-dismissible fade show text-secondary indexText col-6" role="alert">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="SendEmail" method="post">
+            <div class="col-12 mb-3">
+                <label asp-for="To" class="text-success">Please enter your email address</label>
+                <input asp-for="To" class="form-control" />
+                <span asp-validation-for="To" class="text-danger"></span>
+            </div>
+            <div class="col-12 mb-3">
+                <label asp-for="Subject" class="text-success">Subject</label>
+                <input asp-for="Subject" class="form-control" />
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="col-12 mb-3">
+                <label asp-for="Body" class="text-success">Write your message</label>
+                <textarea asp-for="Body" class="form-control" id="editor" rows="3"></textarea>
+                <span asp-validation-for="Body" class="text-danger"></span>
+            </div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-outline-success">Send Email</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
+    <partial src="_ValidationScriptsPartial.cshtml"></partial>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+
+}
