@@ -1,4 +1,5 @@
-﻿using MailKit.Net.Smtp;
+﻿using System.Net.Mail;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using CarRental.Web.Models;
@@ -26,8 +27,8 @@ namespace CarRental.Web.Controllers
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = emailData.Body };
 
             using var smtp = new SmtpClient();
-            smtp.Connect("smtp.ethereal.email", 587, MailKit.Security.SecureSocketOptions.StartTls);
-            //smtp.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+            //smtp.Connect("smtp.ethereal.email", 587, MailKit.Security.SecureSocketOptions.StartTls);
+            smtp.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
             smtp.Authenticate(emailData.From, emailData.Password);
             smtp.Send(email);
             smtp.Disconnect(true);
