@@ -27,6 +27,7 @@ public class CarController : Controller
     public IActionResult Details(int id)
     {
         var car = _carService.Get(id);
+        DetailsButton_Click(id,car.Make);
         return View(car);
     }
 
@@ -113,5 +114,22 @@ public class CarController : Controller
         {
             return View();
         }
+    }
+
+    private async Task DetailsButton_Click(int carId,DateTime whenClicked)
+    {
+        var visitedCar = new VisitedCarDTO
+        {
+            UserId = 12,
+            CarId = carId,
+            DateWhenClicked = whenClicked,
+            Make = "Toyota",
+            Model = "Corolla",
+            Year = 2015,
+            LicencePlate = "GD023"
+        };
+
+        ActivityLogger.ActivityLogger logger = new ActivityLogger.ActivityLogger("https://localhost:7225/VisitedCar");
+        await logger.LogActivityAsync(visitedCar);
     }
 }

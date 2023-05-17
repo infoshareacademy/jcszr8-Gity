@@ -11,6 +11,7 @@ public class CarRentalApiContext : DbContext
     }
 
     public DbSet<LastLoggedReport> LastLoggings { get; set; }
+    public DbSet<VisitedCar> VisitedCars { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -32,5 +33,9 @@ public class CarRentalApiContext : DbContext
                 new { Id = 3, UserId = 3, LastLogged = DateTime.Now.AddDays(-1).AddHours(2).AddMinutes(10) },
                 new { Id = 4, UserId = 4, LastLogged = DateTime.Now }
             );
+
+        modelBuilder.Entity<VisitedCar>()
+            .HasIndex(u => u.UserId)
+            .IsUnique();
     }
 }
