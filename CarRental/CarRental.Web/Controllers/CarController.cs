@@ -1,3 +1,4 @@
+using AutoMapper;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
@@ -9,11 +10,13 @@ public class CarController : Controller
 {
     private readonly ICarService _carService;
     private readonly ICommonService _commonService;
+    private readonly IServiceProvider _serviceProvider;
 
-    public CarController(ICarService carService, ICommonService commonService)
+    public CarController(ICarService carService, ICommonService commonService, IServiceProvider serviceProvider)
     {
         _carService = carService;
         _commonService = commonService;
+        _serviceProvider = serviceProvider;
     }
 
     // GET: CarController
@@ -121,7 +124,6 @@ public class CarController : Controller
         var visitedCar = _carService.Get(carId);
         var carToPost = new VisitedCarDTO
         {
-            Id = 3,
             UserId = 12,
             CarId = visitedCar.Id,
             DateWhenClicked = whenClicked,
@@ -130,7 +132,11 @@ public class CarController : Controller
             Year = visitedCar.Year,
             LicencePlate = visitedCar.LicencePlateNumber
         };
-        ActivityLogger.ActivityLogger logger = new ActivityLogger.ActivityLogger("https://localhost:7225/VisitedCar");
-        await logger.LogActivityAsync(carToPost);
+        using (var scope = _serviceProvider.CreateScope())
+        {
+            var mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
+            var logger = new ActivityLogger.ActivityLogger("https://localhost:7225/VisitedCar", mapper);
+            await logger.LogActivityAsync(carToPost);
+        }
     }
 }
