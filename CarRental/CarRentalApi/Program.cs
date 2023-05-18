@@ -1,10 +1,10 @@
-using CarRentalApi.Context;
+using CarRental.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using CarRentalApi.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<CarRentalApiContext>(options =>
+builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration
     .GetConnectionString("DefaultConnection"))
 );
