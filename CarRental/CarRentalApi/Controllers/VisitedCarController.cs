@@ -1,4 +1,5 @@
-﻿using CarRentalApi.Context;
+﻿using CarRental.DAL.Context;
+using CarRental.DAL.Entities;
 using CarRentalApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +10,9 @@ namespace CarRentalApi.Controllers;
 [Route("[controller]")]
 public class VisitedCarController : ControllerBase
 {
-    private readonly CarRentalApiContext _context;
-    private readonly ILogger<ReportController> _logger;
-    public VisitedCarController(ILogger<ReportController> logger, CarRentalApiContext context)
+    private readonly ApplicationContext _context;
+    private readonly ILogger<VisitedCarController> _logger;
+    public VisitedCarController(ILogger<VisitedCarController> logger, ApplicationContext context)
     {
         _logger = logger;
         _context = context;
