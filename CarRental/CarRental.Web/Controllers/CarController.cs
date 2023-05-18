@@ -11,12 +11,14 @@ public class CarController : Controller
     private readonly ICarService _carService;
     private readonly ICommonService _commonService;
     private readonly IServiceProvider _serviceProvider;
+    private readonly IUserActivityService _userActivityService;
 
-    public CarController(ICarService carService, ICommonService commonService, IServiceProvider serviceProvider)
+    public CarController(ICarService carService, ICommonService commonService, IServiceProvider serviceProvider, IUserActivityService userActivityService)
     {
         _carService = carService;
         _commonService = commonService;
         _serviceProvider = serviceProvider;
+        _userActivityService = userActivityService;
     }
 
     // GET: CarController
@@ -30,7 +32,7 @@ public class CarController : Controller
     public IActionResult Details(int id)
     {
         var car = _carService.Get(id);
-        DetailsButton_Click(id,DateTime.Now);
+        _userActivityService.OnDetailsButtonClicked(car);
         return View(car);
     }
 
@@ -116,27 +118,6 @@ public class CarController : Controller
         catch
         {
             return View();
-        }
-    }
-
-    private async Task DetailsButton_Click(int carId,DateTime whenClicked)
-    {
-        var visitedCar = _carService.Get(carId);
-        var carToPost = new VisitedCarDTO
-        {
-            UserId = 12,
-            CarId = visitedCar.Id,
-            DateWhenClicked = whenClicked,
-            Make = visitedCar.Make,
-            Model = visitedCar.CarModelProp,
-            Year = visitedCar.Year,
-            LicencePlate = visitedCar.LicencePlateNumber
-        };
-        using (var scope = _serviceProvider.CreateScope())
-        {
-            var mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
-            var logger = new ActivityLogger.ActivityLogger("https://localhost:7225/VisitedCar", mapper);
-            await logger.LogActivityAsync(carToPost);
         }
     }
 }
