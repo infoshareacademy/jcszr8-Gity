@@ -94,17 +94,7 @@ public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>,
             eb.Property(c => c.Updated).ValueGeneratedOnUpdate();
         });
 
-        modelBuilder.Entity<LastLoggedReport>()
-            .HasIndex(u => u.UserId)
-            .IsUnique();
-
-        modelBuilder.Entity<LastLoggedReport>()
-            .HasData(
-                new { Id = 1, UserId = 1, LastLogged = DateTime.Now.AddDays(-3).AddMinutes(-10) },
-                new { Id = 2, UserId = 2, LastLogged = DateTime.Now.AddDays(-2).AddHours(1) },
-                new { Id = 3, UserId = 3, LastLogged = DateTime.Now.AddDays(-1).AddHours(2).AddMinutes(10) },
-                new { Id = 4, UserId = 4, LastLogged = DateTime.Now }
-            );
+        modelBuilder.Entity<LastLoggedReport>();
 
         modelBuilder.Entity<VisitedCar>();
     }
