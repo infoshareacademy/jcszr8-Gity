@@ -43,6 +43,7 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<IRentalService, RentalService>();
 builder.Services.AddScoped<ICommonService, CommonService>();
+builder.Services.AddScoped<IUserActivityService, UserActivityService>();
 
 //builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
