@@ -1,8 +1,8 @@
 ﻿using CarRental.DAL.Context;
-using CarRentalApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
+using CarRental.DAL.Entities;
 
 namespace CarRentalApi.Controllers;
 
