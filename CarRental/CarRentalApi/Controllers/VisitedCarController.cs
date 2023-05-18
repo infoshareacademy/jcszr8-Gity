@@ -1,6 +1,5 @@
 ﻿using CarRental.DAL.Context;
 using CarRental.DAL.Entities;
-using CarRentalApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
