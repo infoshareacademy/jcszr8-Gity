@@ -22,4 +22,8 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CarRental.DAL\CarRental.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
