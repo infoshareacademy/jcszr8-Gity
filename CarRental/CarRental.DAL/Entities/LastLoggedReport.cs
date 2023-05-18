@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using CarRental.DAL.Entities.BaseEntity;
 
 namespace CarRental.DAL.Entities;
-public class LastLoggedReport
+public class LastLoggedReport : Entity
 {
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [Key]
     public int Id { get; set; }
     public int UserId { get; set; }
     public DateTime LastLogged { get; set; }
