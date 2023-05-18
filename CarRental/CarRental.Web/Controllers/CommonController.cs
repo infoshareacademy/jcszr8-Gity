@@ -40,14 +40,4 @@ public class CommonController : Controller
         search.Cars = model;
         return View(nameof(Index), search);
     }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult FromHome(SearchViewModel search)
-    {
-        var dto = search.SearchDto;
-        var model = _commonService.SearchList(dto);
-        search.Cars = model;
-        return View(nameof(Index), search);
-    }
 }

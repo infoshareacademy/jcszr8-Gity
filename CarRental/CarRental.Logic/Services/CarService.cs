@@ -115,7 +115,7 @@ public class CarService : ICarService
         {
             collection = FindCarsByMaker(collection, sfModel);
         }
-        if (!string.IsNullOrEmpty(sfModel.Model))
+        if (!string.IsNullOrEmpty(sfModel.ModelAndMake))
         {
             collection = FindCarByModel(collection, sfModel);
         }
@@ -162,8 +162,8 @@ public class CarService : ICarService
 
     public List<CarViewModel> FindCarByModel(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
     {
-        collection = collection.Where(c => c.Make.Contains(sfModel.Model.Trim(), StringComparison.CurrentCultureIgnoreCase) ||
-                                         c.CarModelProp.Contains(sfModel.Model.Trim(), StringComparison.CurrentCultureIgnoreCase)).ToList();
+        collection = collection.Where(c => c.Make.Contains(sfModel.ModelAndMake.Trim(), StringComparison.CurrentCultureIgnoreCase) ||
+                                         c.CarModelProp.Contains(sfModel.ModelAndMake.Trim(), StringComparison.CurrentCultureIgnoreCase)).ToList();
         return collection.ToList();
     }
 
