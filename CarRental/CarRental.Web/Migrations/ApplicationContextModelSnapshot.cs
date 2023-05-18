@@ -202,6 +202,54 @@ namespace CarRental.Web.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("CarRental.DAL.Entities.LastLoggedReport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("LastLogged")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("LastLoggings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            LastLogged = new DateTime(2023, 5, 15, 13, 49, 46, 504, DateTimeKind.Local).AddTicks(4911),
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            LastLogged = new DateTime(2023, 5, 16, 14, 59, 46, 504, DateTimeKind.Local).AddTicks(4942),
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            LastLogged = new DateTime(2023, 5, 17, 16, 9, 46, 504, DateTimeKind.Local).AddTicks(4944),
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            LastLogged = new DateTime(2023, 5, 18, 13, 59, 46, 504, DateTimeKind.Local).AddTicks(4945),
+                            UserId = 4
+                        });
+                });
+
             modelBuilder.Entity("CarRental.DAL.Entities.Rental", b =>
                 {
                     b.Property<int>("Id")
@@ -242,6 +290,52 @@ namespace CarRental.Web.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Rentals");
+                });
+
+            modelBuilder.Entity("CarRental.DAL.Entities.VisitedCar", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateWhenClicked")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LicencePlate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Make")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("VisitedCars");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
