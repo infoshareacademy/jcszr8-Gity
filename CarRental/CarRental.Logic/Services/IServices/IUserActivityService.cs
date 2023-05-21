@@ -3,5 +3,5 @@
 namespace CarRental.Logic.Services.IServices;
 public interface IUserActivityService
 {
-    Task OnDetailsButtonClicked(CarViewModel visitedCar);
+    Task OnDetailsButtonClicked(CarViewModel visitedCar,int userId);
 }

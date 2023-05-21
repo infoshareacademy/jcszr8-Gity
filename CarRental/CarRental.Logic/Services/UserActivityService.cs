@@ -3,17 +3,19 @@ using AutoMapper;
 using CarRental.DAL.Entities;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using Microsoft.AspNetCore.Identity;
 
 namespace CarRental.Logic.Services;
 public class UserActivityService : IUserActivityService
 {
     private readonly HttpClient httpClient;
     private readonly IMapper _mapper;
-
-    public UserActivityService(IMapper mapper)
+    private readonly UserManager<Customer> _userManager;
+    public UserActivityService(IMapper mapper, UserManager<Customer> userManager)
     {
         httpClient = new HttpClient();
         _mapper = mapper;
+        _userManager = userManager;
     }
 
     private async Task PostUserActivityAsync(VisitedCarDTO visitedCarDto,string apiEndpoint)
@@ -26,12 +28,12 @@ public class UserActivityService : IUserActivityService
         await httpClient.PostAsync(apiEndpoint, content);
     }
 
-    public async Task OnDetailsButtonClicked(CarViewModel visitedCar)
+    public async Task OnDetailsButtonClicked(CarViewModel visitedCar,int userId)
     {
         var apiEndpoint = "https://localhost:7225/VisitedCar"; ;
         var carToPost = new VisitedCarDTO
         {
-            UserId = 12,
+            UserId = userId,
             CarId = visitedCar.Id,
             DateWhenClicked = DateTime.Now,
             Make = visitedCar.Make,

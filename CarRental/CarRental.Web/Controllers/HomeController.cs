@@ -4,6 +4,7 @@ using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using CarRental.Common;
+using System.Security.Claims;
 
 namespace CarRental.Web.Controllers;
 
@@ -22,6 +23,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         SecretReader.ReadSecrects();
         var temp = DateTime.Now;
         var beginDate = new DateTime(temp.Year, temp.Month, temp.Day, temp.Hour, temp.Minute, 0);

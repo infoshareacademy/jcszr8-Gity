@@ -3,6 +3,7 @@ using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CarRental.Web.Controllers;
 
@@ -31,8 +32,11 @@ public class CarController : Controller
     // GET: CarController/Details/5
     public IActionResult Details(int id)
     {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        int userIdToInt;
+        userIdToInt = int.Parse(userId);
         var car = _carService.Get(id);
-        _userActivityService.OnDetailsButtonClicked(car);
+        _userActivityService.OnDetailsButtonClicked(car, userIdToInt);
         return View(car);
     }
 
