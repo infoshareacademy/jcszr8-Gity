@@ -16,7 +16,7 @@ public class UserActivityService : IUserActivityService
         _mapper = mapper;
     }
 
-    public async Task PostUserActivityAsync(VisitedCarDTO visitedCarDto,string apiEndpoint)
+    private async Task PostUserActivityAsync(VisitedCarDTO visitedCarDto,string apiEndpoint)
     {
         _mapper.Map<VisitedCar>(visitedCarDto);
         var requestData = visitedCarDto;
