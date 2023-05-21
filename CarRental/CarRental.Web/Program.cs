@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using AutoMapper;
 using CarRental.DAL.Context;
 using CarRental.DAL.Entities;
@@ -40,7 +41,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 //builder.Services.AddTransient<ICommonService, CommonService>();
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddScoped<ICarService, CarService>(); 
 builder.Services.AddScoped<IRentalService, RentalService>();
 builder.Services.AddScoped<ICommonService, CommonService>();
 builder.Services.AddScoped<IUserActivityService, UserActivityService>();
@@ -48,24 +49,33 @@ builder.Services.AddScoped<IUserActivityService, UserActivityService>();
 //builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
 
+//Log.Logger = new LoggerConfiguration().MinimumLevel.Information().WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), "LogsAnd", autoCreateSqlTable:true).CreateLogger();
+//Serilog.Debugging.SelfLog.Enable(msg =>
+//{
+//    Debug.Print(msg);
+//    Debugger.Break();
+//});
+
 builder.Host.UseSerilog((hbc, loggerConfiguration) =>
 {
     //loggerConfiguration.ReadFrom.Configuration(hbc.Configuration);
-    loggerConfiguration.WriteTo.Console();
+    //loggerConfiguration.WriteTo.Console();
     //loggerConfiguration.WriteTo.File("log.txt", Serilog.Events.LogEventLevel.Information);
     //loggerConfiguration.WriteTo.File("log.txt").MinimumLevel.Information();
-
+    loggerConfiguration.MinimumLevel.Information();
     loggerConfiguration.WriteTo.MSSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MSSqlServerSinkOptions
-        {
-            AutoCreateSqlTable = true,
-            TableName = "CarRentalLogs"
-        });
+        builder.Configuration.GetConnectionString("DefaultConnection"), "CarRentalLogs",
+        autoCreateSqlTable: true);
+    //new MSSqlServerSinkOptions
+    //{
+    //    AutoCreateSqlTable = true,
+    //    TableName = "CarRentalLogs"
+    //}).CreateLogger();
 
     //loggerConfiguration.Filter.ByIncludingOnly(Matching.FromSource<CarController>());
     loggerConfiguration.WriteTo.Seq("http://localhost:5341");
 });
+
 
 // Validation
 builder.Services.AddScoped<IValidator<CustomerViewModel>, CustomerViewModelValidator>();

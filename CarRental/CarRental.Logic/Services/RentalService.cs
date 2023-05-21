@@ -99,7 +99,7 @@ public class RentalService : IRentalService
         return rentals.Where(r => r.CarId == carId);
     }
 
-    public IEnumerable<CarViewModel> GetCarsAvailableInTerm(Term wantedTerm)
+    public IEnumerable<CarViewModel> GetCarsAvailableInTerm(Term wantedTerm)//TODO dodac do metody z wyszukiwaniem
     {
         var availableCarIds = GetIdsForCarsAvailableInTerm(wantedTerm);
         var cars = _carService.GetAll().Where(c => availableCarIds.Contains(c.Id)).ToList();
