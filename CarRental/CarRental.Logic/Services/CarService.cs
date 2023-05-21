@@ -125,27 +125,7 @@ public class CarService : ICarService
         }
         return collection.ToList();
     }
-    public List<CarViewModel> FindCarsFromHome(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
-    {
-        if (sfModel.Makes.Values.All(m => m == false))
-        {
-            var cars = GetAll();
-            collection = _mapper.Map<List<CarViewModel>>(collection);
-        }
-        if (sfModel.Makes.Values.Contains(true))
-        {
-            collection = GetByName(collection, sfModel.ModelAndMake);
-        }
-        if (!string.IsNullOrEmpty(sfModel.Model))
-        {
-            collection = FindCarByModel(collection, sfModel);
-        }
-        if (sfModel.ProductionYearFrom > 0 && sfModel.ProductionYearTo > 0)
-        {
-            collection = FindCarsByYear(collection, sfModel);
-        }
-        return collection.ToList();
-    }
+
     public List<CarViewModel> FindCarsByMaker(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
     {
         var selectedMakes = sfModel.Makes.Where(m => m.Value == true).Select(m => m.Key);

@@ -18,17 +18,17 @@ public class UserActivityService : IUserActivityService
         _userManager = userManager;
     }
 
-    private async Task PostUserActivityAsync(VisitedCarDTO visitedCarDto,string apiEndpoint)
+    private async Task<HttpResponseMessage> PostUserActivityAsync(VisitedCarDTO visitedCarDto,string apiEndpoint)//Podmienic na obiekt wywolywac wczesniej mappera
     {
         _mapper.Map<VisitedCar>(visitedCarDto);
         var requestData = visitedCarDto;
         var json = Newtonsoft.Json.JsonConvert.SerializeObject(requestData);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-        await httpClient.PostAsync(apiEndpoint, content);
+        return await httpClient.PostAsync(apiEndpoint, content);
     }
 
-    public async Task OnDetailsButtonClicked(CarViewModel visitedCar,int userId)
+    public async Task OnDetailsButtonClicked(CarViewModel visitedCar,int userId) //ReportCarVisit
     {
         var apiEndpoint = "https://localhost:7225/VisitedCar"; ;
         var carToPost = new VisitedCarDTO
@@ -41,6 +41,11 @@ public class UserActivityService : IUserActivityService
             Year = visitedCar.Year,
             LicencePlate = visitedCar.LicencePlateNumber
         };
-        await PostUserActivityAsync(carToPost, apiEndpoint);
+
+        var response = await PostUserActivityAsync(carToPost, apiEndpoint);
+        if (!response.IsSuccessStatusCode)
+        {
+            // Task logowanie zdarzeń aplikacji (dodać log.Error)
+        }
     }
 }

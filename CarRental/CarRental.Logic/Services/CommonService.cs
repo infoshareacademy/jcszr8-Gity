@@ -16,16 +16,6 @@ public class CommonService : ICommonService
         _mapper = mapper;
     }
 
-    public List<CarViewModel> SearchList(SearchFieldsModel sfModel)
-    {
-        // TODO refactor SearchList
-        var wantedTerm = new Term(sfModel.StartDate, sfModel.EndDate);
-
-        List<CarViewModel> results = new List<CarViewModel>();
-        results = _carService.FindCarsFromHome(results, sfModel);
-        return results;
-    }
-
     public List<CarViewModel> FilterList(SearchFieldsModel sfModel)
     {
         // TODO refactor FindCars()

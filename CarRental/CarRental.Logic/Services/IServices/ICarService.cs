@@ -12,7 +12,6 @@ public interface ICarService
 
     List<CarViewModel> GetByYear(string read);
     List<CarViewModel> FindCars(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel);
-    List<CarViewModel> FindCarsFromHome(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel);
 
     void Create(CarViewModel car);
     void Update(CarViewModel car);
