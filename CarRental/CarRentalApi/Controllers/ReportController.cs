@@ -1,8 +1,8 @@
-﻿using CarRentalApi.Context;
-using CarRentalApi.Models;
+﻿using CarRental.DAL.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
+using CarRental.DAL.Entities;
 
 namespace CarRentalApi.Controllers;
 
@@ -10,10 +10,10 @@ namespace CarRentalApi.Controllers;
 [Route("[controller]")]
 public class ReportController : ControllerBase
 {
-    private readonly CarRentalApiContext _context;
+    private readonly ApplicationContext _context;
     private readonly ILogger<ReportController> _logger;
 
-    public ReportController(ILogger<ReportController> logger, CarRentalApiContext context)
+    public ReportController(ILogger<ReportController> logger, ApplicationContext context)
     {
         _logger = logger;
         _context = context;

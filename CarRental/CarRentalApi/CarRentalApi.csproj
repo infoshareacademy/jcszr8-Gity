@@ -20,6 +20,11 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarRental.DAL\CarRental.DAL.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,4 @@
+using AutoMapper;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
@@ -9,11 +10,15 @@ public class CarController : Controller
 {
     private readonly ICarService _carService;
     private readonly ICommonService _commonService;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IUserActivityService _userActivityService;
 
-    public CarController(ICarService carService, ICommonService commonService)
+    public CarController(ICarService carService, ICommonService commonService, IServiceProvider serviceProvider, IUserActivityService userActivityService)
     {
         _carService = carService;
         _commonService = commonService;
+        _serviceProvider = serviceProvider;
+        _userActivityService = userActivityService;
     }
 
     // GET: CarController
@@ -27,6 +32,7 @@ public class CarController : Controller
     public IActionResult Details(int id)
     {
         var car = _carService.Get(id);
+        _userActivityService.OnDetailsButtonClicked(car);
         return View(car);
     }
 

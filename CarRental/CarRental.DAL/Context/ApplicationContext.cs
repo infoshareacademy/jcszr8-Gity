@@ -15,6 +15,8 @@ public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>,
 
     public DbSet<Car> Cars { get; set; }
     public DbSet<Rental> Rentals { get; set; }
+    public DbSet<LastLoggedReport> LastLoggings { get; set; }
+    public DbSet<VisitedCar> VisitedCars { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -91,5 +93,9 @@ public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>,
             //eb.Property(c => c.Created).HasDefaultValueSql("getutcdate()");
             eb.Property(c => c.Updated).ValueGeneratedOnUpdate();
         });
+
+        modelBuilder.Entity<LastLoggedReport>();
+
+        modelBuilder.Entity<VisitedCar>();
     }
 }
