@@ -16,12 +16,12 @@
                     <select asp-for="SearchDto.ProductionYearFrom" id="" name="SearchDto.ProductionYearFrom" class="form-control year shadow-sm opacity-75 me-2">
                         <partial name="_AvailableOptionsForYearFrom" />
                     </select>
-                    <select asp-for="SearchDto.ProductionYearTo" id="" name="SearchDto.ProductionYearTo" class="form-control year shadow-sm opacity-75 me-2">
+                    <select asp-for="SearchDto.ProductionYearTo" id="" name="SearchDto.ProductionYearTo"  class="form-control year shadow-sm opacity-75 me-2">
                         <partial name="_AvailableOptionsForYearTo" />
                     </select>
 
-                    <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.StartDate" />
-                    <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.EndDate" />
+                    <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.StartDate" asp-format="{0:yyyy-MM-dd HH:mm} />
+                    <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.EndDate" asp-format="{0:yyyy-MM-dd HH:mm}" />
                     <button class="btn btn-outline-success shadow-sm fw-bold" type="submit">Search</button>
                 </form>
             </div>
