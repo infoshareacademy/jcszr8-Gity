@@ -6,7 +6,7 @@ using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 
 namespace CarRental.Logic.Services;
-public class UserActivityService : IUserActivityService
+public class UserActivityService : IUserActivityService // ReportService
 {
     private readonly HttpClient httpClient;
     private readonly IMapper _mapper;
