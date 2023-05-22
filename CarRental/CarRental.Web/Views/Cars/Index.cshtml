@@ -37,10 +37,10 @@
                 </div>
                 <div class="row pt-2 pb-2 justify-content-center">
                     <div class="col me-2">
-                        <input class="form-control date" asp-for="SearchDto.StartDate" />
+                        <input class="form-control date" asp-for="SearchDto.StartDate" asp-format="{0:yyyy-MM-dd HH:mm}" />
                     </div>
                     <div class="col me-2">
-                        <input class="form-control date" asp-for="SearchDto.EndDate" />
+                        <input class="form-control date" asp-for="SearchDto.EndDate" asp-format="{0:yyyy-MM-dd HH:mm}" />
                     </div>
                     <div class="col">
                         <button class="btn btn-outline-success fw-bold" type="submit" asp-action="Index">Search</button>
@@ -61,7 +61,7 @@
                     <p class="card-text">Year: @item.Year</p>
                     <p class="card-text">Transmission: @item.Transmission</p>
                     <p class="card-text">Engine type: @item.EngineType</p>
-                    <a class="btn btn-outline-success fw-bold" asp-controller="Car" asp-action="Details" asp-route-id="@item.Id">Show details</a>
+                    <a class="btn btn-outline-success fw-bold" asp-controller="Cars" asp-action="Details" asp-route-id="@item.Id">Show details</a>
                 </div>
             </div>
         }
