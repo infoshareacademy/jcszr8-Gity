@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
+using CarRental.Logic.Services.IServices;
 
 namespace CarRental.Web.Areas.Identity.Pages.Account
 {
@@ -15,11 +17,15 @@ namespace CarRental.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<Customer> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IReportService _reportService;
+        private readonly HttpContext _httpContext;
 
-        public LoginModel(SignInManager<Customer> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<Customer> signInManager, ILogger<LoginModel> logger, IReportService reportService, IHttpContextAccessor httpContextAccessor)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _reportService = reportService;
+            _httpContext = httpContextAccessor.HttpContext;
         }
 
         /// <summary>
@@ -108,8 +114,11 @@ namespace CarRental.Web.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    //wywolywac metode ktora rejetruje ze uzytkownik sie zalogowal
                     _logger.LogInformation("User logged in.");
+
+                    var userId = "3";
+                    await _reportService.ReportUserLogin(userId);
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

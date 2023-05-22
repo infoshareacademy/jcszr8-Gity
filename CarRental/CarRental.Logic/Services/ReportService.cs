@@ -20,20 +20,20 @@ public class ReportService : IReportService // ReportService
 
     private async Task<HttpResponseMessage> PostUserActivityAsync(object reportModel,string apiEndpoint)//Podmienic na obiekt wywolywac wczesniej mappera
     {
-        _mapper.Map<VisitedCar>(reportModel);
-        var requestData = reportModel;
-        var json = Newtonsoft.Json.JsonConvert.SerializeObject(requestData);
+        var json = Newtonsoft.Json.JsonConvert.SerializeObject(reportModel);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
         return await httpClient.PostAsync(apiEndpoint, content);
     }
 
-    public async Task ReportCarVisit(CarViewModel visitedCar,int userId)
+    public async Task ReportCarVisit(CarViewModel visitedCar,string userId)
     {
+        int userIdToInt;
+        userIdToInt = int.Parse(userId);
         var apiEndpoint = "https://localhost:7225/VisitedCar";
         var carToPost = new VisitedCarDTO
         {
-            UserId = userId,
+            UserId = userIdToInt,
             CarId = visitedCar.Id,
             DateWhenClicked = DateTime.Now,
             Make = visitedCar.Make,
@@ -42,7 +42,28 @@ public class ReportService : IReportService // ReportService
             LicencePlate = visitedCar.LicencePlateNumber
         };
 
+        _mapper.Map<VisitedCar>(carToPost);
         var response = await PostUserActivityAsync(carToPost, apiEndpoint);
+        if (!response.IsSuccessStatusCode)
+        {
+            // Task logowanie zdarzeń aplikacji (dodać log.Error)
+        }
+    }
+
+    public async Task ReportUserLogin(string userId)
+    {
+        int userIdToInt;
+        userIdToInt = int.Parse(userId);
+        var apiEndpoint = "https://localhost:7225/Report";
+        var userToPost = new LastLoggedReportDTO
+        {
+            UserId = userIdToInt,
+            LastLogged = DateTime.Now,
+            LoginCount = +1
+        };
+
+        _mapper.Map<LastLoggedReport>(userToPost);
+        var response = await PostUserActivityAsync(userToPost, apiEndpoint);
         if (!response.IsSuccessStatusCode)
         {
             // Task logowanie zdarzeń aplikacji (dodać log.Error)

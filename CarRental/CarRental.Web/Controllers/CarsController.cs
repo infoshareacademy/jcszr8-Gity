@@ -57,10 +57,8 @@ public class CarsController : Controller
     public IActionResult Details(int id)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        int userIdToInt;
-        userIdToInt = int.Parse(userId);
         var car = _carService.Get(id);
-        _userActivityService.ReportCarVisit(car, userIdToInt);
+        _userActivityService.ReportCarVisit(car, userId);
         return View(car);
     }
 

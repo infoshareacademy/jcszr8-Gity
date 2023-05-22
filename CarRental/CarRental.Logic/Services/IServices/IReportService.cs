@@ -3,5 +3,6 @@
 namespace CarRental.Logic.Services.IServices;
 public interface IReportService
 {
-    Task ReportCarVisit(CarViewModel visitedCar,int userId);
+    Task ReportCarVisit(CarViewModel visitedCar,string userId);
+    Task ReportUserLogin(string userId);
 }
