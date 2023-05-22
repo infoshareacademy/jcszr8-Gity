@@ -6,31 +6,31 @@ using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 
 namespace CarRental.Logic.Services;
-public class UserActivityService : IUserActivityService // ReportService
+public class ReportService : IReportService // ReportService
 {
     private readonly HttpClient httpClient;
     private readonly IMapper _mapper;
     private readonly UserManager<Customer> _userManager;
-    public UserActivityService(IMapper mapper, UserManager<Customer> userManager)
+    public ReportService(IMapper mapper, UserManager<Customer> userManager)
     {
         httpClient = new HttpClient();
         _mapper = mapper;
         _userManager = userManager;
     }
 
-    private async Task<HttpResponseMessage> PostUserActivityAsync(VisitedCarDTO visitedCarDto,string apiEndpoint)//Podmienic na obiekt wywolywac wczesniej mappera
+    private async Task<HttpResponseMessage> PostUserActivityAsync(object reportModel,string apiEndpoint)//Podmienic na obiekt wywolywac wczesniej mappera
     {
-        _mapper.Map<VisitedCar>(visitedCarDto);
-        var requestData = visitedCarDto;
+        _mapper.Map<VisitedCar>(reportModel);
+        var requestData = reportModel;
         var json = Newtonsoft.Json.JsonConvert.SerializeObject(requestData);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
         return await httpClient.PostAsync(apiEndpoint, content);
     }
 
-    public async Task OnDetailsButtonClicked(CarViewModel visitedCar,int userId) //ReportCarVisit
+    public async Task ReportCarVisit(CarViewModel visitedCar,int userId)
     {
-        var apiEndpoint = "https://localhost:7225/VisitedCar"; ;
+        var apiEndpoint = "https://localhost:7225/VisitedCar";
         var carToPost = new VisitedCarDTO
         {
             UserId = userId,

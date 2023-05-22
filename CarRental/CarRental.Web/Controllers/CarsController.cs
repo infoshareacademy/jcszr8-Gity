@@ -10,11 +10,10 @@ namespace CarRental.Web.Controllers;
 public class CarsController : Controller
 {
     private readonly ICarService _carService;
-    private readonly ICommonService _commonService;
     private readonly IServiceProvider _serviceProvider;
-    private readonly IUserActivityService _userActivityService;
+    private readonly IReportService _userActivityService;
 
-    public CarsController(ICarService carService, IServiceProvider serviceProvider, IUserActivityService userActivityService)
+    public CarsController(ICarService carService, IServiceProvider serviceProvider, IReportService userActivityService)
     {
         _carService = carService;
         _serviceProvider = serviceProvider;
@@ -61,7 +60,7 @@ public class CarsController : Controller
         int userIdToInt;
         userIdToInt = int.Parse(userId);
         var car = _carService.Get(id);
-        _userActivityService.OnDetailsButtonClicked(car, userIdToInt);
+        _userActivityService.ReportCarVisit(car, userIdToInt);
         return View(car);
     }
 
