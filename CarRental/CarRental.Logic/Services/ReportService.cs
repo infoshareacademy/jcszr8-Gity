@@ -12,16 +12,14 @@ public class ReportService : IReportService // ReportService
     private readonly HttpClient httpClient;
     private readonly IMapper _mapper;
     private readonly UserManager<Customer> _userManager;
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    public ReportService(IMapper mapper, UserManager<Customer> userManager, IHttpContextAccessor httpContextAccessor)
+    public ReportService(IMapper mapper, UserManager<Customer> userManager)
     {
         httpClient = new HttpClient();
         _mapper = mapper;
         _userManager = userManager;
-        _httpContextAccessor = httpContextAccessor;
     }
 
-    private async Task<HttpResponseMessage> PostUserActivityAsync(object reportModel,string apiEndpoint)//Podmienic na obiekt wywolywac wczesniej mappera
+    private async Task<HttpResponseMessage> PostUserActivityAsync(object reportModel, string apiEndpoint)
     {
         var json = Newtonsoft.Json.JsonConvert.SerializeObject(reportModel);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -29,7 +27,7 @@ public class ReportService : IReportService // ReportService
         return await httpClient.PostAsync(apiEndpoint, content);
     }
 
-    public async Task ReportCarVisit(CarViewModel visitedCar,string userId)
+    public async Task ReportCarVisitAsync(CarViewModel visitedCar, string userId)
     {
         int userIdToInt;
         userIdToInt = int.Parse(userId);
@@ -55,14 +53,13 @@ public class ReportService : IReportService // ReportService
 
     public async Task<int> GetUserIdAsync(string email)
     {
-        var httpContext = _httpContextAccessor.HttpContext;
-        var user =  _userManager.Users.FirstOrDefault(c => c.Email == email);
+        var user = _userManager.Users.FirstOrDefault(c => c.Email == email);
         var userId = user.Id;
         return userId;
     }
-    public async Task ReportUserLogin(int userId)
+    public async Task ReportUserLoginAsync(int userId)
     {
-        
+
         var apiEndpoint = "https://localhost:7225/Report";
         var userToPost = new LastLoggedReportDTO
         {

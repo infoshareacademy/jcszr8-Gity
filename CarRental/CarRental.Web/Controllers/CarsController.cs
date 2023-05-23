@@ -58,7 +58,7 @@ public class CarsController : Controller
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var car = _carService.Get(id);
-        _userActivityService.ReportCarVisit(car, userId);
+        _userActivityService.ReportCarVisitAsync(car, userId);
         return View(car);
     }
 

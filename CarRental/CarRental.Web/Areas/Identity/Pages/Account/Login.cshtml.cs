@@ -118,7 +118,7 @@ namespace CarRental.Web.Areas.Identity.Pages.Account
 
                     var userEmail = Input.Email;
                     var customer = await _reportService.GetUserIdAsync(userEmail);
-                    await _reportService.ReportUserLogin(customer);
+                    await _reportService.ReportUserLoginAsync(customer);
 
                     return LocalRedirect(returnUrl);
                 }

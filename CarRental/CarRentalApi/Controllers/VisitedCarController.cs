@@ -27,7 +27,7 @@ public class VisitedCarController : ControllerBase
         {
             _context.VisitedCars.Update(lastLoggedReport);
             await _context.SaveChangesAsync();
-            return; 
+            return;
         }
         await _context.AddAsync(lastLoggedReport);
         await _context.SaveChangesAsync();

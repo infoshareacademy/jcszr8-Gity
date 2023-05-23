@@ -122,7 +122,7 @@ public class CarService : ICarService
 
     private IEnumerable<CarViewModel> FindCarByDate(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
     {
-        var availableCarIds = GetAvailableCarIdsForSearch(sfModel.StartDate,sfModel.EndDate);
+        var availableCarIds = GetAvailableCarIdsForSearch(sfModel.StartDate, sfModel.EndDate);
         collection = collection.Where(c => availableCarIds.Contains(c.Id));
 
         return collection.ToList();
