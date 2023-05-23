@@ -53,10 +53,10 @@ public class ReportService : IReportService // ReportService
         }
     }
 
-    public async Task<int> GetUserIdAsync()
+    public async Task<int> GetUserIdAsync(string email)
     {
         var httpContext = _httpContextAccessor.HttpContext;
-        var user = await _userManager.GetUserAsync(httpContext.User);
+        var user =  _userManager.Users.FirstOrDefault(c => c.Email == email);
         var userId = user.Id;
         return userId;
     }

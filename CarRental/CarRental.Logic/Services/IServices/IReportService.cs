@@ -5,5 +5,5 @@ public interface IReportService
 {
     Task ReportCarVisit(CarViewModel visitedCar,string userId);
     Task ReportUserLogin(int userId);
-    Task<int> GetUserIdAsync();
+    Task<int> GetUserIdAsync(string email);
 }
