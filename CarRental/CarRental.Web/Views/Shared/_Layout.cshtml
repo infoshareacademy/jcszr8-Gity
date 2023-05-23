@@ -35,10 +35,10 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Common" asp-action="Index">Search</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Cars" asp-action="Index">Search</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Car" asp-action="Index">Cars</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Cars" asp-action="List">Cars</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Customer" asp-action="Index">Customers</a>
@@ -50,7 +50,6 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="EmailData" asp-action="Index">Contact</a>
                         </li>
                         <partial name="_LoginPartial" />
-                        <a id="logout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Logout</a>
                     </ul>
                 </div>
             </div>

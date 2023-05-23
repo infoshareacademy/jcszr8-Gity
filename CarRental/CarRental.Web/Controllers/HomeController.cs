@@ -4,6 +4,7 @@ using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using CarRental.Common;
+using System.Security.Claims;
 
 namespace CarRental.Web.Controllers;
 
@@ -22,16 +23,16 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+
         SecretReader.ReadSecrects();
         var temp = DateTime.Now;
-        var beginDate = new DateTime(temp.Year, temp.Month, temp.Day, temp.Hour, temp.Minute, 0);
         var model = new SearchViewModel()
         {
             Cars = _carService.GetAll(),
             SearchDto = new SearchFieldsModel()
             {
-                StartDate = beginDate,
-                EndDate = beginDate.AddDays(1)
+                StartDate = temp,
+                EndDate = temp.AddDays(1)
             }
         };
         return View(model);

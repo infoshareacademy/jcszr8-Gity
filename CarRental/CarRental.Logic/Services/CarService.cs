@@ -12,13 +12,15 @@ namespace CarRental.Logic.Services;
 public class CarService : ICarService
 {
     private readonly IRepository<Car> _carRepository;
+    private readonly IRepository<Rental> _rentalRepository;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
     private readonly IValidator<CarViewModel> _validator;
 
-    public CarService(IRepository<Car> carRepository, IMapper mapper, ILogger<CarService> logger, IValidator<CarViewModel> validator)
+    public CarService(IRepository<Car> carRepository, IRepository<Rental> rentalRepository, IMapper mapper, ILogger<CarService> logger, IValidator<CarViewModel> validator)
     {
         _carRepository = carRepository;
+        _rentalRepository = rentalRepository;
         _mapper = mapper;
         _logger = logger;
         _validator = validator;
@@ -29,40 +31,6 @@ public class CarService : ICarService
         List<Car> cars = _carRepository.GetAll() ?? new List<Car>();
         var result = _mapper.Map<List<CarViewModel>>(cars);
         return result;
-    }
-
-    public IEnumerable<CarViewModel> GetByName(IEnumerable<CarViewModel> collection, string name)
-    {
-        if (string.IsNullOrEmpty(name))
-        {
-            collection = GetAll().ToList();
-        }
-        else
-        {
-            var temp = _carRepository.GetAll()
-                 .Where(c => c.Make.Contains(name, StringComparison.CurrentCultureIgnoreCase)
-                 || c.CarModelProp.Contains(name, StringComparison.CurrentCultureIgnoreCase)
-             ).ToList();
-
-            collection = _mapper.Map<List<CarViewModel>>(temp);
-        }
-        return collection;
-    }
-
-    public List<CarViewModel> GetByYear(string read)
-    {
-        int year;
-        bool makes = int.TryParse(read, out year);
-        List<CarViewModel> cars = new();
-        if (read == null)
-        {
-            cars = GetAll().ToList();
-        }
-        else
-        {
-            cars = GetAll().Where(c => c.Year == year || c.CarModelProp.ToLower().Contains(read.ToLower())).ToList();
-        }
-        return cars;
     }
 
     public void Create(CarViewModel model)
@@ -104,7 +72,7 @@ public class CarService : ICarService
         _logger.LogInformation($"Car with id {car.Id} was updated.");
     }
 
-    public List<CarViewModel> FindCars(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
+    public IEnumerable<CarViewModel> FindCars(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
     {
         if (sfModel.Makes.Values.All(m => m == false))
         {
@@ -123,30 +91,15 @@ public class CarService : ICarService
         {
             collection = FindCarsByYear(collection, sfModel);
         }
-        return collection.ToList();
-    }
-    public List<CarViewModel> FindCarsFromHome(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
-    {
-        if (sfModel.Makes.Values.All(m => m == false))
+
+        if (sfModel.StartDate != null && sfModel.EndDate != null)
         {
-            var cars = GetAll();
-            collection = _mapper.Map<List<CarViewModel>>(collection);
-        }
-        if (sfModel.Makes.Values.Contains(true))
-        {
-            collection = GetByName(collection, sfModel.ModelAndMake);
-        }
-        if (!string.IsNullOrEmpty(sfModel.Model))
-        {
-            collection = FindCarByModel(collection, sfModel);
-        }
-        if (sfModel.ProductionYearFrom > 0 && sfModel.ProductionYearTo > 0)
-        {
-            collection = FindCarsByYear(collection, sfModel);
+            collection = FindCarByDate(collection, sfModel);
         }
         return collection.ToList();
     }
-    public List<CarViewModel> FindCarsByMaker(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
+
+    private IEnumerable<CarViewModel> FindCarsByMaker(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
     {
         var selectedMakes = sfModel.Makes.Where(m => m.Value == true).Select(m => m.Key);
         collection = GetAll()
@@ -154,17 +107,55 @@ public class CarService : ICarService
         return collection.ToList();
     }
 
-    public List<CarViewModel> FindCarsByYear(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
+    private IEnumerable<CarViewModel> FindCarsByYear(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
     {
         collection = collection.Where(c => c.Year >= sfModel.ProductionYearFrom && c.Year <= sfModel.ProductionYearTo).ToList();
         return collection.ToList();
     }
 
-    public List<CarViewModel> FindCarByModel(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
+    private IEnumerable<CarViewModel> FindCarByModel(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
     {
         collection = collection.Where(c => c.Make.Contains(sfModel.ModelAndMake.Trim(), StringComparison.CurrentCultureIgnoreCase) ||
                                          c.CarModelProp.Contains(sfModel.ModelAndMake.Trim(), StringComparison.CurrentCultureIgnoreCase)).ToList();
         return collection.ToList();
+    }
+
+    private IEnumerable<CarViewModel> FindCarByDate(IEnumerable<CarViewModel> collection, SearchFieldsModel sfModel)
+    {
+        var availableCarIds = GetAvailableCarIdsForSearch(sfModel.StartDate, sfModel.EndDate);
+        collection = collection.Where(c => availableCarIds.Contains(c.Id));
+
+        return collection.ToList();
+    }
+
+    private IEnumerable<int> GetAvailableCarIdsForSearch(DateTime start, DateTime end)
+    {
+        var cars1 = GetNotRentedForSearch();
+        var cars2 = GetAvailableInGivenTimeForSearch(start, end);
+        var allIdCars = cars1.Concat(cars2).Distinct().ToList();
+        return allIdCars;
+    }
+    private IEnumerable<int> GetNotRentedForSearch()
+    {
+        var rentedIds = _rentalRepository.GetAll()
+            .Select(r => r.CarId).ToList();
+
+        var carIds = GetAll()
+            .Select(c => c.Id).ToList();
+
+        var availableCarIds = carIds.Except(rentedIds).ToList();
+
+        return availableCarIds;
+    }
+
+    private IEnumerable<int> GetAvailableInGivenTimeForSearch(DateTime start, DateTime end)
+    {
+        var found = _rentalRepository.GetAll()
+            .Where(r =>
+                (end < r.BeginDate) ||
+                (start > r.EndDate)
+            ).Select(r => r.CarId).ToList();
+        return found;
     }
 
     #region Validation

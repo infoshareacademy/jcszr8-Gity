@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
+using CarRental.Logic.Services.IServices;
 
 namespace CarRental.Web.Areas.Identity.Pages.Account
 {
@@ -15,11 +17,13 @@ namespace CarRental.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<Customer> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IReportService _reportService;
 
-        public LoginModel(SignInManager<Customer> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<Customer> signInManager, ILogger<LoginModel> logger, IReportService reportService)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _reportService = reportService;
         }
 
         /// <summary>
@@ -109,6 +113,11 @@ namespace CarRental.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    var userEmail = Input.Email;
+                    var customer = await _reportService.GetUserIdAsync(userEmail);
+                    await _reportService.ReportUserLoginAsync(customer);
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

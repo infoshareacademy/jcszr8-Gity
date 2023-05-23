@@ -3,26 +3,51 @@ using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CarRental.Web.Controllers;
 
-public class CarController : Controller
+public class CarsController : Controller
 {
     private readonly ICarService _carService;
-    private readonly ICommonService _commonService;
     private readonly IServiceProvider _serviceProvider;
-    private readonly IUserActivityService _userActivityService;
+    private readonly IReportService _userActivityService;
 
-    public CarController(ICarService carService, ICommonService commonService, IServiceProvider serviceProvider, IUserActivityService userActivityService)
+    public CarsController(ICarService carService, IServiceProvider serviceProvider, IReportService userActivityService)
     {
         _carService = carService;
-        _commonService = commonService;
         _serviceProvider = serviceProvider;
         _userActivityService = userActivityService;
     }
 
-    // GET: CarController
+
     public IActionResult Index()
+    {
+        var temp = DateTime.Now;
+        var model = new SearchViewModel()
+        {
+            Cars = _carService.GetAll(),
+            SearchDto = new SearchFieldsModel()
+            {
+                StartDate = temp,
+                EndDate = temp.AddDays(1)
+            }
+        };
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Index(SearchViewModel search)
+    {
+        var dto = search.SearchDto;
+        List<CarViewModel> carModels = _carService.GetAll().ToList();
+        carModels = _carService.FindCars(carModels, dto).ToList();
+        search.Cars = carModels;
+        return View(nameof(Index), search);
+    }
+    // GET: CarController
+    public IActionResult List()
     {
         var cars = _carService.GetAll();
         return View(cars);
@@ -31,8 +56,9 @@ public class CarController : Controller
     // GET: CarController/Details/5
     public IActionResult Details(int id)
     {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var car = _carService.Get(id);
-        _userActivityService.OnDetailsButtonClicked(car);
+        _userActivityService.ReportCarVisitAsync(car, userId);
         return View(car);
     }
 
