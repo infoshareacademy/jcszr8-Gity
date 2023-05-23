@@ -18,14 +18,12 @@ namespace CarRental.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<Customer> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly IReportService _reportService;
-        private readonly HttpContext _httpContext;
 
-        public LoginModel(SignInManager<Customer> signInManager, ILogger<LoginModel> logger, IReportService reportService, IHttpContextAccessor httpContextAccessor)
+        public LoginModel(SignInManager<Customer> signInManager, ILogger<LoginModel> logger, IReportService reportService)
         {
             _signInManager = signInManager;
             _logger = logger;
             _reportService = reportService;
-            _httpContext = httpContextAccessor.HttpContext;
         }
 
         /// <summary>
