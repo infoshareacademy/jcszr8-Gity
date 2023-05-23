@@ -24,7 +24,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 builder.Services.AddMvc();
 
 builder.Services.AddIdentity<Customer, IdentityRole<int>>(options =>
-        options.SignIn.RequireConfirmedAccount = true)
+        options.SignIn.RequireConfirmedAccount = true )
     .AddEntityFrameworkStores<ApplicationContext>()
     .AddDefaultTokenProviders()
     .AddRoles<IdentityRole<int>>()
