@@ -116,7 +116,8 @@ namespace CarRental.Web.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User logged in.");
 
-                    var userId = "3";
+                    var a = HttpContext.User.Identity;
+                    var userId = 3;
                     await _reportService.ReportUserLogin(userId);
 
                     return LocalRedirect(returnUrl);

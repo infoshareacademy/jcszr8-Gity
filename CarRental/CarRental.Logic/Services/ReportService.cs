@@ -3,6 +3,7 @@ using AutoMapper;
 using CarRental.DAL.Entities;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace CarRental.Logic.Services;
@@ -11,11 +12,13 @@ public class ReportService : IReportService // ReportService
     private readonly HttpClient httpClient;
     private readonly IMapper _mapper;
     private readonly UserManager<Customer> _userManager;
-    public ReportService(IMapper mapper, UserManager<Customer> userManager)
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    public ReportService(IMapper mapper, UserManager<Customer> userManager, IHttpContextAccessor httpContextAccessor)
     {
         httpClient = new HttpClient();
         _mapper = mapper;
         _userManager = userManager;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     private async Task<HttpResponseMessage> PostUserActivityAsync(object reportModel,string apiEndpoint)//Podmienic na obiekt wywolywac wczesniej mappera
@@ -50,14 +53,20 @@ public class ReportService : IReportService // ReportService
         }
     }
 
-    public async Task ReportUserLogin(string userId)
+    public async Task<int> GetUserIdAsync()
     {
-        int userIdToInt;
-        userIdToInt = int.Parse(userId);
+        var httpContext = _httpContextAccessor.HttpContext;
+        var user = await _userManager.GetUserAsync(httpContext.User);
+        var userId = user.Id;
+        return userId;
+    }
+    public async Task ReportUserLogin(int userId)
+    {
+        
         var apiEndpoint = "https://localhost:7225/Report";
         var userToPost = new LastLoggedReportDTO
         {
-            UserId = userIdToInt,
+            UserId = userId,
             LastLogged = DateTime.Now,
             LoginCount = +1
         };
