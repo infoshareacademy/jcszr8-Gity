@@ -46,13 +46,6 @@ builder.Services.AddAutoMapper(typeof(CustomerProfile));
 
 var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-//Log.Logger = new LoggerConfiguration().MinimumLevel.Information().WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), "LogsAnd", autoCreateSqlTable:true).CreateLogger();
-//Serilog.Debugging.SelfLog.Enable(msg =>
-//{
-//    Debug.Print(msg);
-//    Debugger.Break();
-//});
-
 builder.Host.UseSerilog((hbc, loggerConfiguration) =>
 {
     loggerConfiguration.ReadFrom.Configuration(hbc.Configuration);
@@ -61,19 +54,11 @@ builder.Host.UseSerilog((hbc, loggerConfiguration) =>
     //loggerConfiguration.WriteTo.File("log.txt").MinimumLevel.Information();
     //loggerConfiguration.MinimumLevel.Information();
 
-    loggerConfiguration.WriteTo.MSSqlServer(dbConnectionString, "CarRentalLogs", autoCreateSqlTable: true);
-
     //loggerConfiguration.WriteTo.MSSqlServer(dbConnectionString, new MSSqlServerSinkOptions
     //{
     //    AutoCreateSqlTable = true,
-    //    TableName = "IsaLogs"
-    //});
-
-    //new MSSqlServerSinkOptions
-    //{
-    //    AutoCreateSqlTable = true,
     //    TableName = "CarRentalLogs"
-    //}).CreateLogger();
+    //});
 
     //loggerConfiguration.Filter.ByIncludingOnly(Matching.FromSource<CarController>());
     //loggerConfiguration.WriteTo.Seq("http://localhost:5341");
@@ -112,6 +97,8 @@ app.UseRouting();
 app.UseAuthentication(); ;
 
 app.UseAuthorization();
+
+//app.UseSerilogRequestLogging();
 
 app.MapControllerRoute(
     name: "default",
