@@ -35,17 +35,11 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-//builder.Services.AddTransient<ICustomerService, CustomerService>();
-//builder.Services.AddTransient<ICarService, CarService>();
-//builder.Services.AddTransient<IRentalService, RentalService>();
-//builder.Services.AddTransient<ICommonService, CommonService>();
-
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICarService, CarService>(); 
 builder.Services.AddScoped<IRentalService, RentalService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 
-//builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
 
 //Log.Logger = new LoggerConfiguration().MinimumLevel.Information().WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), "LogsAnd", autoCreateSqlTable:true).CreateLogger();
@@ -57,7 +51,7 @@ builder.Services.AddAutoMapper(typeof(CustomerProfile));
 
 builder.Host.UseSerilog((hbc, loggerConfiguration) =>
 {
-    //loggerConfiguration.ReadFrom.Configuration(hbc.Configuration);
+    loggerConfiguration.ReadFrom.Configuration(hbc.Configuration);
     //loggerConfiguration.WriteTo.Console();
     //loggerConfiguration.WriteTo.File("log.txt", Serilog.Events.LogEventLevel.Information);
     //loggerConfiguration.WriteTo.File("log.txt").MinimumLevel.Information();
