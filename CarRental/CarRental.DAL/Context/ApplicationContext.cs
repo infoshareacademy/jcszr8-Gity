@@ -96,6 +96,9 @@ public class ApplicationContext : IdentityDbContext<Customer, IdentityRole<int>,
 
         modelBuilder.Entity<LastLoggedReport>();
 
-        modelBuilder.Entity<VisitedCar>();
+        modelBuilder.Entity<VisitedCar>(eb =>
+        {
+            eb.Property(v => v.Created).HasDefaultValueSql("getutcdate()");
+        });
     }
 }

@@ -11,17 +11,17 @@
             <div class="text-white home-container">
                 <h1>Car Rental – Search, Compare & Save</h1>
                 <h2>Free cancellations on most bookings 60,000+ locations Customer support in 40+ languages</h2>
-                <form class="d-flex pt-3" asp-controller="Common" asp-action="Index" method="post">
+                <form class="d-flex pt-3" asp-controller="Cars" asp-action="Index" method="post">
                     <input class="form-control shadow-sm me-2 search opacity-75  " asp-for="SearchDto.ModelAndMake" type="text" placeholder="Type car maker or car model" aria-label="Search">
                     <select asp-for="SearchDto.ProductionYearFrom" id="" name="SearchDto.ProductionYearFrom" class="form-control year shadow-sm opacity-75 me-2">
                         <partial name="_AvailableOptionsForYearFrom" />
                     </select>
-                    <select asp-for="SearchDto.ProductionYearTo" id="" name="SearchDto.ProductionYearTo" class="form-control year shadow-sm opacity-75 me-2">
+                    <select asp-for="SearchDto.ProductionYearTo" id="" name="SearchDto.ProductionYearTo"  class="form-control year shadow-sm opacity-75 me-2">
                         <partial name="_AvailableOptionsForYearTo" />
                     </select>
 
-                    <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.StartDate" />
-                    <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.EndDate" />
+                    <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.StartDate" asp-format="{0:yyyy-MM-dd HH:mm}" />
+                    <input class="form-control shadow-sm me-2 date opacity-75" asp-for="SearchDto.EndDate" asp-format="{0:yyyy-MM-dd HH:mm}" />
                     <button class="btn btn-outline-success shadow-sm fw-bold" type="submit">Search</button>
                 </form>
             </div>
@@ -39,7 +39,7 @@
                     <p class="card-text">Year: @item.Year</p>
                     <p class="card-text">Transmission: @item.Transmission</p>
                     <p class="card-text">Engine type: @item.EngineType</p>
-                    <a class="btn btn-outline-success fw-bold" asp-controller="Car" asp-action="Details" asp-route-id="@item.Id">Show details</a>
+                    <a class="btn btn-outline-success fw-bold" asp-controller="Cars" asp-action="Details" asp-route-id="@item.Id">Show details</a>
                 </div>
             </div>
         }
