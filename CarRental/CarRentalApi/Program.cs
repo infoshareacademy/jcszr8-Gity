@@ -1,6 +1,5 @@
 using CarRental.DAL.Context;
 using Microsoft.EntityFrameworkCore;
-using CarRentalApi.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 

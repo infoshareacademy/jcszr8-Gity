@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Sinks.MSSqlServer;
 using System.Globalization;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,47 +33,35 @@ builder.Services.AddIdentity<Customer, IdentityRole<int>>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-//builder.Services.AddTransient<ICustomerService, CustomerService>();
-//builder.Services.AddTransient<ICarService, CarService>();
-//builder.Services.AddTransient<IRentalService, RentalService>();
-//builder.Services.AddTransient<ICommonService, CommonService>();
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICarService, CarService>(); 
 builder.Services.AddScoped<IRentalService, RentalService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 
-//builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
 
-//Log.Logger = new LoggerConfiguration().MinimumLevel.Information().WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), "LogsAnd", autoCreateSqlTable:true).CreateLogger();
-//Serilog.Debugging.SelfLog.Enable(msg =>
-//{
-//    Debug.Print(msg);
-//    Debugger.Break();
-//});
+var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Host.UseSerilog((hbc, loggerConfiguration) =>
 {
-    //loggerConfiguration.ReadFrom.Configuration(hbc.Configuration);
+    loggerConfiguration.ReadFrom.Configuration(hbc.Configuration);
     //loggerConfiguration.WriteTo.Console();
     //loggerConfiguration.WriteTo.File("log.txt", Serilog.Events.LogEventLevel.Information);
     //loggerConfiguration.WriteTo.File("log.txt").MinimumLevel.Information();
-    loggerConfiguration.MinimumLevel.Information();
-    loggerConfiguration.WriteTo.MSSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection"), "CarRentalLogs",
-        autoCreateSqlTable: true);
-    //new MSSqlServerSinkOptions
+    //loggerConfiguration.MinimumLevel.Information();
+
+    //loggerConfiguration.WriteTo.MSSqlServer(dbConnectionString, new MSSqlServerSinkOptions
     //{
     //    AutoCreateSqlTable = true,
     //    TableName = "CarRentalLogs"
-    //}).CreateLogger();
+    //});
 
     //loggerConfiguration.Filter.ByIncludingOnly(Matching.FromSource<CarController>());
-    loggerConfiguration.WriteTo.Seq("http://localhost:5341");
+    //loggerConfiguration.WriteTo.Seq("http://localhost:5341");
 });
 
 
@@ -87,7 +76,7 @@ builder.Services.AddScoped<RoleManager<IdentityRole<int>>>();
 
 var app = builder.Build();
 
-//CreateDbIfNotExists(app);
+CreateDbIfNotExists(app);
 
 // Check if all mappings are configured
 var mapper = (IMapper)app.Services.GetService(typeof(IMapper));
@@ -109,6 +98,8 @@ app.UseAuthentication(); ;
 
 app.UseAuthorization();
 
+//app.UseSerilogRequestLogging();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -121,8 +112,6 @@ app.UseRequestLocalization(new RequestLocalizationOptions
     SupportedUICultures = new List<CultureInfo> { new("en-US") }
 });
 app.MapRazorPages();
-
-CreateDbIfNotExists(app);
 
 app.Run();
 
