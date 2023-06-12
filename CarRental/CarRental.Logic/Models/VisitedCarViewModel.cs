@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CarRental.Logic.Models;
-public class VisitedCarDTO
+public class VisitedCarViewModel
 {
     public int UserId { get; set; }
     public int CarId { get; set; }

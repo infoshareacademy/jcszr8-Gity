@@ -15,11 +15,13 @@ public class ReportService : IReportService // ReportService
     private readonly UserManager<Customer> _userManager;
     private readonly IRepository<VisitedCar> _visitedCarRepository;
     private readonly IRepository<LastLoggedReport> _lastLoggedReportRepository;
-    public ReportService(IMapper mapper, UserManager<Customer> userManager)
+    public ReportService(IMapper mapper, UserManager<Customer> userManager, IRepository<VisitedCar> visitedCarRepository, IRepository<LastLoggedReport> lastLoggedReportRepository)
     {
         httpClient = new HttpClient();
         _mapper = mapper;
         _userManager = userManager;
+        _visitedCarRepository = visitedCarRepository;
+        _lastLoggedReportRepository = lastLoggedReportRepository;
     }
 
     private async Task<HttpResponseMessage> PostUserActivityAsync(object reportModel, string apiEndpoint)
@@ -35,7 +37,7 @@ public class ReportService : IReportService // ReportService
         int userIdToInt;
         userIdToInt = int.Parse(userId);
         var apiEndpoint = "https://localhost:7225/VisitedCar";
-        var carToPost = new VisitedCarDTO
+        var carToPost = new VisitedCarViewModel
         {
             UserId = userIdToInt,
             CarId = visitedCar.Id,
@@ -79,16 +81,18 @@ public class ReportService : IReportService // ReportService
         return userId;
     }
 
-    public async Task<IEnumerable<VisitedCar>> GenerateCarVisitReportAsync(int userId, DateTime from , DateTime to)
-    {
-        var visitedCars = GetAll().Where(v => v.UserId == userId);
-        visitedCars.Where(v => v.Created >= from && v.Created <= to);
-        return visitedCars;
-    }
+    //public async Task<IEnumerable<VisitedCarViewModel>> GenerateCarVisitReportAsync(int userId, DateTime from , DateTime to)
+    //{
+    //    var visitedCars = GetAll().Where(v => v.UserId == userId);
+    //    visitedCars.Where(v => v.DateWhenClicked >= from && v.DateWhenClicked <= to);
 
-    private IEnumerable<VisitedCar> GetAll()
-    {
-        List<VisitedCar> visitedCars = _visitedCarRepository.GetAll();
-        return visitedCars;
-    }
+    //    return _mapper.Map<IEnumerable<VisitedCarViewModel>>(visitedCars); ;
+    //}
+
+    //private IEnumerable<VisitedCarViewModel> GetAll()
+    //{
+    //    List<VisitedCar> visitedCars = _visitedCarRepository.GetAll();
+    //    return _mapper.Map<IEnumerable<VisitedCarViewModel>>(visitedCars);
+    //}
+
 }

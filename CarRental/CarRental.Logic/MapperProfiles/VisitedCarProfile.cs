@@ -12,7 +12,7 @@ public class VisitedCarProfile : Profile
 {
     public VisitedCarProfile()
     {
-        CreateMap<VisitedCar, VisitedCarDTO>()
+        CreateMap<VisitedCar, VisitedCarViewModel>()
             .ReverseMap();
     }
 }

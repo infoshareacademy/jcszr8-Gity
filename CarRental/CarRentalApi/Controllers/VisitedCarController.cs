@@ -1,5 +1,8 @@
-﻿using CarRental.DAL.Context;
+﻿using AutoMapper;
+using CarRental.DAL.Context;
 using CarRental.DAL.Entities;
+using CarRental.Logic.Models;
+using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,27 +12,24 @@ namespace CarRentalApi.Controllers;
 [Route("[controller]")]
 public class VisitedCarController : ControllerBase
 {
-    private readonly ApplicationContext _context;
     private readonly ILogger<VisitedCarController> _logger;
-    public VisitedCarController(ILogger<VisitedCarController> logger, ApplicationContext context)
+    private readonly IReportApiService _reportApiService;
+    public VisitedCarController(ILogger<VisitedCarController> logger, IReportApiService reportApiService)
     {
         _logger = logger;
-        _context = context;
+        _reportApiService = reportApiService;
     }
 
     [HttpPost(Name = "AddVisitedCar")]
-    public async Task AddAsyncVisit([FromBody] VisitedCar lastLoggedReport)
+    public async Task AddAsyncVisit([FromBody] VisitedCarViewModel lastLoggedReport)
     {
-        var existingRow = await _context.VisitedCars
-            .FirstOrDefaultAsync<VisitedCar>(x => x.UserId == lastLoggedReport.UserId);
+        await _reportApiService.Create(lastLoggedReport);
+    }
 
-        if (existingRow != null)
-        {
-            _context.VisitedCars.Update(lastLoggedReport);
-            await _context.SaveChangesAsync();
-            return;
-        }
-        await _context.AddAsync(lastLoggedReport);
-        await _context.SaveChangesAsync();
+    [HttpGet("{id}/{from}/{to}")]
+    public async Task<IEnumerable<VisitedCarViewModel>> GetByIdAndDateAsync(int id, DateTime from, DateTime to)
+    {
+        var visitedCarsReport = await _reportApiService.GetByIdAndDateAsync(id, from, to);
+        return visitedCarsReport.ToList();
     }
 }

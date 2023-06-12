@@ -1,0 +1,42 @@
+﻿@using CarRental.Logic.Models;
+@using Microsoft.VisualBasic
+@model GenerateReportViewModel;
+
+@{
+    ViewData["Tittle"] = "Generate Report";
+    var visitedCars = Model.VisitedCars;
+}
+<div class="container">
+    <form method="post">
+        <div class="col-2 me-2 shadow-lg">
+            <input class="form-control search" asp-for="UserId" type="text" placeholder="Type Car Model" aria-label="Search">
+        </div>
+        <div class="col me-2">
+            <input class="form-control date" asp-for="To" asp-format="{0:yyyy-MM-dd}" />
+        </div>
+        <div class="col me-2">
+            <input class="form-control date" asp-for="From" asp-format="{0:yyyy-MM-dd}" />
+        </div>
+        <button class="btn btn-outline-success fw-bold" type="submit" asp-action="Index">Search</button>
+    </form>
+    
+
+</div>
+@if (visitedCars != null && visitedCars.Any())
+{
+    @foreach (var item in visitedCars)
+    {
+        <td>
+            @Html.DisplayFor(modelItem => item.CarId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Make)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LicencePlate)
+        </td>
+    }
+}
