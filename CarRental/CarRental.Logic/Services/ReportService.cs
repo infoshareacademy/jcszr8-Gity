@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using AutoMapper;
 using CarRental.DAL.Entities;
+using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,8 @@ public class ReportService : IReportService // ReportService
     private readonly HttpClient httpClient;
     private readonly IMapper _mapper;
     private readonly UserManager<Customer> _userManager;
+    private readonly IRepository<VisitedCar> _visitedCarRepository;
+    private readonly IRepository<LastLoggedReport> _lastLoggedReportRepository;
     public ReportService(IMapper mapper, UserManager<Customer> userManager)
     {
         httpClient = new HttpClient();
@@ -51,15 +54,9 @@ public class ReportService : IReportService // ReportService
         }
     }
 
-    public async Task<int> GetUserIdAsync(string email)
+    public async Task ReportUserLoginAsync(string email)
     {
-        var user = _userManager.Users.FirstOrDefault(c => c.Email == email);
-        var userId = user.Id;
-        return userId;
-    }
-    public async Task ReportUserLoginAsync(int userId)
-    {
-
+        var userId = await GetUserIdAsync(email);
         var apiEndpoint = "https://localhost:7225/Report";
         var userToPost = new LastLoggedReportDTO
         {
@@ -74,5 +71,24 @@ public class ReportService : IReportService // ReportService
         {
             // Task logowanie zdarzeń aplikacji (dodać log.Error)
         }
+    }
+    private async Task<int> GetUserIdAsync(string email)
+    {
+        var user = _userManager.Users.FirstOrDefault(c => c.Email == email);
+        var userId = user.Id;
+        return userId;
+    }
+
+    public async Task<IEnumerable<VisitedCar>> GenerateCarVisitReportAsync(int userId, DateTime from , DateTime to)
+    {
+        var visitedCars = GetAll().Where(v => v.UserId == userId);
+        visitedCars.Where(v => v.Created >= from && v.Created <= to);
+        return visitedCars;
+    }
+
+    private IEnumerable<VisitedCar> GetAll()
+    {
+        List<VisitedCar> visitedCars = _visitedCarRepository.GetAll();
+        return visitedCars;
     }
 }
