@@ -10,12 +10,12 @@ namespace CarRentalApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ReportController : ControllerBase
+public class LastLoggedController : ControllerBase
 {
     private readonly IReportApiService _reportApiService;
-    private readonly ILogger<ReportController> _logger;
+    private readonly ILogger<LastLoggedController> _logger;
 
-    public ReportController(ILogger<ReportController> logger, IReportApiService reportApiService)
+    public LastLoggedController(ILogger<LastLoggedController> logger, IReportApiService reportApiService)
     {
         _logger = logger;
         _reportApiService = reportApiService;

@@ -54,7 +54,7 @@ public class ReportService : IReportService // ReportService
     public async Task ReportUserLoginAsync(string email)
     {
         var userId = await GetUserIdAsync(email);
-        var apiEndpoint = "https://localhost:7225/Report";
+        var apiEndpoint = "https://localhost:7225/LastLogged";
         var userToPost = new LastLoggedReportDTO
         {
             UserId = userId,
@@ -73,9 +73,9 @@ public class ReportService : IReportService // ReportService
     public async Task<IEnumerable<object>> GetReportsAsync(int userId, DateTime from, DateTime to,string reportType)
     {
         var apiEndpoint = reportType == "visitedCars"
-            ? $"https://localhost:7225/VisitedCar/{userId}/{from}/{to}"
-            : $"https://localhost:7225/Report/{userId}/{from}/{to}";
-        IEnumerable<object> visitedCars = await GetFromApiAsync(apiEndpoint,userId, from,to, reportType);
+            ? $"https://localhost:7225/VisitedCar/{userId}/{from:yyyy-MM-dd hh:mm:ss}/{to:yyyy-MM-dd hh:mm:ss}"
+            : $"https://localhost:7225/LastLogged/{userId}/{from:yyyy-MM-dd hh:mm:ss}/{to.AddSeconds(1):yyyy-MM-dd hh:mm:ss}";
+        IEnumerable<object> visitedCars = await GetFromApiAsync(apiEndpoint, reportType);
         return visitedCars;
     }
 
@@ -87,7 +87,7 @@ public class ReportService : IReportService // ReportService
         return await _httpClient.PostAsync(apiEndpoint, content);
     }
 
-    private async Task<IEnumerable<object>> GetFromApiAsync(string apiEndpoint, int userId, DateTime from, DateTime to,string reportType)
+    private async Task<IEnumerable<object>> GetFromApiAsync(string apiEndpoint, string reportType)
     {
 
         using (var httpClient = new HttpClient())
@@ -105,6 +105,7 @@ public class ReportService : IReportService // ReportService
                 else if (reportType == "lastLogged")
                 {
                     var lassLoggedReport = JsonConvert.DeserializeObject<IEnumerable<LastLoggedReportDTO>>(responsData);
+                    return lassLoggedReport;
                 }
                 
             }
