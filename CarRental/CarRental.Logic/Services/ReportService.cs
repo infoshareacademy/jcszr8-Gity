@@ -6,6 +6,7 @@ using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 namespace CarRental.Logic.Services;
 public class ReportService : IReportService // ReportService
@@ -32,6 +33,22 @@ public class ReportService : IReportService // ReportService
         return await httpClient.PostAsync(apiEndpoint, content);
     }
 
+    private async Task<IEnumerable<VisitedCarViewModel>> GetFromApiAsync(string apiEndpoint, int userId, DateTime from, DateTime to)
+    {
+        using (var httpClient = new HttpClient())
+        {
+            var response = await httpClient.GetAsync(apiEndpoint);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responsData = await response.Content.ReadAsStringAsync();
+                var visitedCars = JsonConvert.DeserializeObject<IEnumerable<VisitedCarViewModel>>(responsData);
+                return visitedCars;
+            }
+            return null;
+        }
+    }
+
     public async Task ReportCarVisitAsync(CarViewModel visitedCar, string userId)
     {
         int userIdToInt;
@@ -54,6 +71,13 @@ public class ReportService : IReportService // ReportService
         {
             // Task logowanie zdarzeń aplikacji (dodać log.Error)
         }
+    }
+
+    public async Task<IEnumerable<VisitedCarViewModel>> GetVisitedCarsAsync(int userId, DateTime from, DateTime to)
+    {
+        var apiEndpoint = "https://localhost:7225/VisitedCar";
+        IEnumerable<VisitedCarViewModel> visitedCars = await GetFromApiAsync(apiEndpoint,userId, from,to);
+        return visitedCars;
     }
 
     public async Task ReportUserLoginAsync(string email)
@@ -80,19 +104,5 @@ public class ReportService : IReportService // ReportService
         var userId = user.Id;
         return userId;
     }
-
-    //public async Task<IEnumerable<VisitedCarViewModel>> GenerateCarVisitReportAsync(int userId, DateTime from , DateTime to)
-    //{
-    //    var visitedCars = GetAll().Where(v => v.UserId == userId);
-    //    visitedCars.Where(v => v.DateWhenClicked >= from && v.DateWhenClicked <= to);
-
-    //    return _mapper.Map<IEnumerable<VisitedCarViewModel>>(visitedCars); ;
-    //}
-
-    //private IEnumerable<VisitedCarViewModel> GetAll()
-    //{
-    //    List<VisitedCar> visitedCars = _visitedCarRepository.GetAll();
-    //    return _mapper.Map<IEnumerable<VisitedCarViewModel>>(visitedCars);
-    //}
 
 }

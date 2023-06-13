@@ -34,6 +34,19 @@ public class ReportApiService : IReportApiService
     {
         var lastLogged = _mapper.Map<LastLoggedReport>(model);
         _lastLoggedReportRepository.Insert(lastLogged);
+        var user = _lastLoggedReportRepository.Get(model.UserId);
+
+        if (user != null)
+        {
+            user.LastLogged = model.LastLogged;
+            user.LoginCount += 1;
+
+             _lastLoggedReportRepository.Update(user);
+        }
+        else
+        {
+            //Do ogarniecia
+        }
     }
 
     public async Task<IEnumerable<VisitedCarViewModel>> GetVisitedCarByIdAndDateAsync(int id, DateTime from, DateTime to)
