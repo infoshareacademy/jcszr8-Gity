@@ -1,10 +1,6 @@
-﻿using AutoMapper;
-using CarRental.DAL.Context;
-using CarRental.DAL.Entities;
-using CarRental.Logic.Models;
+﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CarRentalApi.Controllers;
 

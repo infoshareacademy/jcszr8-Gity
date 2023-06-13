@@ -1,8 +1,4 @@
-﻿using CarRental.DAL.Context;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Numerics;
-using CarRental.DAL.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 

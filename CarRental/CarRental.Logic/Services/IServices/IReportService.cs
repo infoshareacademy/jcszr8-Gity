@@ -1,5 +1,4 @@
-﻿using CarRental.DAL.Entities;
-using CarRental.Logic.Models;
+﻿using CarRental.Logic.Models;
 
 namespace CarRental.Logic.Services.IServices;
 public interface IReportService

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CarRental.DAL.Entities;
 using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
-using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.Logic.Services;
 public class ReportApiService : IReportApiService
@@ -40,7 +34,7 @@ public class ReportApiService : IReportApiService
 
     public async Task<IEnumerable<VisitedCarViewModel>> GetVisitedCarByIdAndDateAsync(int id, DateTime from, DateTime to)
     {
-        var lista =  _visitedCarRepository.GetAll().Where(x =>
+        var lista = _visitedCarRepository.GetAll().Where(x =>
             x.UserId == id && x.DateWhenClicked >= from && x.DateWhenClicked <= to).ToList();
 
         return _mapper.Map<IEnumerable<VisitedCarViewModel>>(lista);
@@ -48,7 +42,7 @@ public class ReportApiService : IReportApiService
 
     public async Task<IEnumerable<LastLoggedReportDTO>> GetLastLoggerdByIdAndDateAsync(int id, DateTime from, DateTime to)
     {
-        var lista =  _lastLoggedReportRepository.GetAll().Where(x =>
+        var lista = _lastLoggedReportRepository.GetAll().Where(x =>
             x.UserId == id && x.LastLogged >= from && x.LastLogged <= to).ToList();
 
         return _mapper.Map<IEnumerable<LastLoggedReportDTO>>(lista);

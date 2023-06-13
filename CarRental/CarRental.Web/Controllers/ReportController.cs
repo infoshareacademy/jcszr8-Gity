@@ -30,11 +30,11 @@ public class ReportController : Controller
         if (ModelState.IsValid)
         {
 
-           var report = await _reportService.GetReportsAsync(reportModel.UserId, reportModel.From, reportModel.To,
-                reportModel.ReportType);
+            var report = await _reportService.GetReportsAsync(reportModel.UserId, reportModel.From, reportModel.To,
+                 reportModel.ReportType);
 
-           reportModel.Reports = report;
-           return View(reportModel);
+            reportModel.Reports = report;
+            return View(reportModel);
         }
 
         return View(reportModel);

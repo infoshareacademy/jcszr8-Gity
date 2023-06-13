@@ -4,10 +4,8 @@ using CarRental.DAL.Entities;
 using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
-using static System.Net.WebRequestMethods;
 
 namespace CarRental.Logic.Services;
 public class ReportService : IReportService // ReportService
@@ -70,7 +68,7 @@ public class ReportService : IReportService // ReportService
         }
     }
 
-    public async Task<IEnumerable<object>> GetReportsAsync(int userId, DateTime from, DateTime to,string reportType)
+    public async Task<IEnumerable<object>> GetReportsAsync(int userId, DateTime from, DateTime to, string reportType)
     {
         var apiEndpoint = reportType == "visitedCars"
             ? $"https://localhost:7225/VisitedCar/{userId}/{from:yyyy-MM-dd hh:mm:ss}/{to:yyyy-MM-dd hh:mm:ss}"
@@ -97,7 +95,7 @@ public class ReportService : IReportService // ReportService
             if (response.IsSuccessStatusCode)
             {
                 var responsData = await response.Content.ReadAsStringAsync();
-                if(reportType == "visitedCars")
+                if (reportType == "visitedCars")
                 {
                     var visitedCars = JsonConvert.DeserializeObject<IEnumerable<VisitedCarViewModel>>(responsData);
                     return visitedCars;
@@ -107,7 +105,7 @@ public class ReportService : IReportService // ReportService
                     var lassLoggedReport = JsonConvert.DeserializeObject<IEnumerable<LastLoggedReportDTO>>(responsData);
                     return lassLoggedReport;
                 }
-                
+
             }
             return null;
         }
