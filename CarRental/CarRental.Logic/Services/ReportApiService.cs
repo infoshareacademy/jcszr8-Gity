@@ -60,7 +60,7 @@ public class ReportApiService : IReportApiService
     public async Task<IEnumerable<LastLoggedReportDTO>> GetLastLoggerdByIdAndDateAsync(int id, DateTime from, DateTime to)
     {
         var lista =  _lastLoggedReportRepository.GetAll().Where(x =>
-            x.UserId == id && x.Created >= from && x.Created <= to).ToList();
+            x.UserId == id && x.LastLogged >= from && x.LastLogged <= to).ToList();
 
         return _mapper.Map<IEnumerable<LastLoggedReportDTO>>(lista);
     }

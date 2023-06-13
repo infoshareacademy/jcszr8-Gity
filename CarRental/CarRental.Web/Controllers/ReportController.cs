@@ -6,7 +6,7 @@ namespace CarRental.Web.Controllers;
 
 public class ReportController : Controller
 {
-    public readonly IReportService _reportService;
+    private readonly IReportService _reportService;
 
     public ReportController(IReportService reportService)
     {
@@ -15,15 +15,27 @@ public class ReportController : Controller
 
     public IActionResult Index()
     {
-        var model = new GenerateReportViewModel();
+        var model = new GenerateReportViewModel()
+        {
+            From = DateTime.Now,
+            To = DateTime.Now.AddDays(1),
+        };
         return View(model);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Index(int userId, DateTime from , DateTime to)
+    public async Task<IActionResult> Index(GenerateReportViewModel reportModel)
     {
-        var model = new GenerateReportViewModel();
-        return View(model);
+        if (ModelState.IsValid)
+        {
+
+           var report = await _reportService.GetReportsAsync(reportModel.UserId, reportModel.From, reportModel.To,
+                reportModel.ReportType);
+
+           reportModel.Reports = report.ToList();
+        }
+
+        return View(reportModel);
     }
 }

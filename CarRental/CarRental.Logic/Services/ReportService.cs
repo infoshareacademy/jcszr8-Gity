@@ -73,8 +73,8 @@ public class ReportService : IReportService // ReportService
     public async Task<IEnumerable<object>> GetReportsAsync(int userId, DateTime from, DateTime to,string reportType)
     {
         var apiEndpoint = reportType == "visitedCars"
-            ? "https://localhost:7225/VisitedCar"
-            : "https://localhost:7225/Report";
+            ? $"https://localhost:7225/VisitedCar/{userId}/{from}/{to}"
+            : $"https://localhost:7225/Report/{userId}/{from}/{to}";
         IEnumerable<object> visitedCars = await GetFromApiAsync(apiEndpoint,userId, from,to, reportType);
         return visitedCars;
     }
@@ -89,6 +89,7 @@ public class ReportService : IReportService // ReportService
 
     private async Task<IEnumerable<object>> GetFromApiAsync(string apiEndpoint, int userId, DateTime from, DateTime to,string reportType)
     {
+
         using (var httpClient = new HttpClient())
         {
             var response = await httpClient.GetAsync(apiEndpoint);
