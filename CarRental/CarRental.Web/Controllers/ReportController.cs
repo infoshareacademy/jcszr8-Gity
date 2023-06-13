@@ -15,7 +15,8 @@ public class ReportController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        var model = new GenerateReportViewModel();
+        return View(model);
     }
 
     [HttpPost]

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
 using CarRental.DAL.Entities;
+using CarRental.Logic.Models;
+using CarRental.Logic.Services.IServices;
 
 namespace CarRentalApi.Controllers;
 
@@ -10,42 +12,26 @@ namespace CarRentalApi.Controllers;
 [Route("[controller]")]
 public class ReportController : ControllerBase
 {
-    private readonly ApplicationContext _context;
+    private readonly IReportApiService _reportApiService;
     private readonly ILogger<ReportController> _logger;
 
-    public ReportController(ILogger<ReportController> logger, ApplicationContext context)
+    public ReportController(ILogger<ReportController> logger, IReportApiService reportApiService)
     {
         _logger = logger;
-        _context = context;
+        _reportApiService = reportApiService;
     }
 
-    [HttpGet(Name = "GetAllLastLogged")]
-    public async Task<IEnumerable<LastLoggedReport>> Get()
-    {
-        var allLastLogged = await _context.LastLoggings.ToListAsync();
-        return allLastLogged;
-    }
 
     [HttpPost(Name = "AddLastLogged")]
-    public async Task AddAsync([FromBody] LastLoggedReport lastLoggedReport)
+    public async Task AddAsync([FromBody] LastLoggedReportDTO lastLoggedReport)
     {
-        var existingRow = await _context.LastLoggings
-            .FirstOrDefaultAsync<LastLoggedReport>(x => x.UserId == lastLoggedReport.UserId);
-
-        if (existingRow != null)
-        {
-            _context.LastLoggings.Update(lastLoggedReport);
-            await _context.SaveChangesAsync();
-            return;
-        }
-        await _context.AddAsync(lastLoggedReport);
-        await _context.SaveChangesAsync();
+        await _reportApiService.CreateLastLoggedAsync(lastLoggedReport);
     }
 
-    [HttpPut(Name = "UpdateLastLogged")]
-    public async Task UpdateAsync([FromBody] LastLoggedReport lastLoggedReport)
+    [HttpGet("{id}/{from}/{to}")]
+    public async Task<IEnumerable<LastLoggedReportDTO>> GetByIdAndDateAsync(int id, DateTime from, DateTime to)
     {
-        _context.LastLoggings.Update(lastLoggedReport);
-        await _context.SaveChangesAsync();
+        var visitedCarsReport = await _reportApiService.GetLastLoggerdByIdAndDateAsync(id, from, to);
+        return visitedCarsReport.ToList();
     }
 }

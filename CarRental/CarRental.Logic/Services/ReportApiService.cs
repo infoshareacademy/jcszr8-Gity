@@ -24,17 +24,31 @@ public class ReportApiService : IReportApiService
         _lastLoggedReportRepository = lastLoggedReportRepository;
     }
 
-    public async Task Create(VisitedCarViewModel model)
+    public async Task CreateVisitedCarAsync(VisitedCarViewModel model)
     {
         var visitedCar = _mapper.Map<VisitedCar>(model);
         _visitedCarRepository.Insert(visitedCar);
     }
 
-    public async Task<IEnumerable<VisitedCarViewModel>> GetByIdAndDateAsync(int id, DateTime from, DateTime to)
+    public async Task CreateLastLoggedAsync(LastLoggedReportDTO model)
+    {
+        var lastLogged = _mapper.Map<LastLoggedReport>(model);
+        _lastLoggedReportRepository.Insert(lastLogged);
+    }
+
+    public async Task<IEnumerable<VisitedCarViewModel>> GetVisitedCarByIdAndDateAsync(int id, DateTime from, DateTime to)
     {
         var lista =  _visitedCarRepository.GetAll().Where(x =>
             x.UserId == id && x.DateWhenClicked >= from && x.DateWhenClicked <= to).ToList();
 
         return _mapper.Map<IEnumerable<VisitedCarViewModel>>(lista);
+    }
+
+    public async Task<IEnumerable<LastLoggedReportDTO>> GetLastLoggerdByIdAndDateAsync(int id, DateTime from, DateTime to)
+    {
+        var lista =  _lastLoggedReportRepository.GetAll().Where(x =>
+            x.UserId == id && x.Created >= from && x.Created <= to).ToList();
+
+        return _mapper.Map<IEnumerable<LastLoggedReportDTO>>(lista);
     }
 }

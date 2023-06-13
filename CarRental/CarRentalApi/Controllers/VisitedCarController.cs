@@ -23,13 +23,13 @@ public class VisitedCarController : ControllerBase
     [HttpPost(Name = "AddVisitedCar")]
     public async Task AddAsyncVisit([FromBody] VisitedCarViewModel lastLoggedReport)
     {
-        await _reportApiService.Create(lastLoggedReport);
+        await _reportApiService.CreateVisitedCarAsync(lastLoggedReport);
     }
 
     [HttpGet("{id}/{from}/{to}")]
     public async Task<IEnumerable<VisitedCarViewModel>> GetByIdAndDateAsync(int id, DateTime from, DateTime to)
     {
-        var visitedCarsReport = await _reportApiService.GetByIdAndDateAsync(id, from, to);
+        var visitedCarsReport = await _reportApiService.GetVisitedCarByIdAndDateAsync(id, from, to);
         return visitedCarsReport.ToList();
     }
 }

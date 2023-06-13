@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 namespace CarRental.Logic.Services.IServices;
 public interface IReportApiService
 {
-    Task Create(VisitedCarViewModel model);
-    Task<IEnumerable<VisitedCarViewModel>> GetByIdAndDateAsync(int id, DateTime from, DateTime to);
+    Task CreateVisitedCarAsync(VisitedCarViewModel model);
+    Task CreateLastLoggedAsync(LastLoggedReportDTO model);
+    Task<IEnumerable<VisitedCarViewModel>> GetVisitedCarByIdAndDateAsync(int id, DateTime from, DateTime to);
+    Task<IEnumerable<LastLoggedReportDTO>> GetLastLoggerdByIdAndDateAsync(int id, DateTime from, DateTime to);
 }
