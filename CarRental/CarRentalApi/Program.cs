@@ -1,6 +1,9 @@
 using CarRental.DAL.Context;
+using CarRental.Logic.Services;
+using CarRental.Logic.Services.IServices;
 using Microsoft.EntityFrameworkCore;
-using CarRentalApi.Controllers;
+using CarRental.Logic.MapperProfiles;
+using CarRental.DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IReportApiService, ReportApiService>();
+builder.Services.AddAutoMapper(typeof(CustomerProfile));
 
 var app = builder.Build();
 

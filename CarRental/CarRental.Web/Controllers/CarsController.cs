@@ -41,7 +41,7 @@ public class CarsController : Controller
     public IActionResult Index(SearchViewModel search)
     {
         var dto = search.SearchDto;
-        List<CarViewModel> carModels = _carService.GetAll().ToList();
+        var carModels = _carService.GetAll().ToList();
         carModels = _carService.FindCars(carModels, dto).ToList();
         search.Cars = carModels;
         return View(nameof(Index), search);

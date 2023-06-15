@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CarRental.DAL.Entities;
 using CarRental.Logic.Models;
 
@@ -12,7 +7,7 @@ public class VisitedCarProfile : Profile
 {
     public VisitedCarProfile()
     {
-        CreateMap<VisitedCar, VisitedCarDTO>()
+        CreateMap<VisitedCar, VisitedCarViewModel>()
             .ReverseMap();
     }
 }
