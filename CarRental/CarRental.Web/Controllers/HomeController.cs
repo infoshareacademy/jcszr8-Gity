@@ -23,7 +23,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-
+        _logger.LogInformation("Test");
         SecretReader.ReadSecrects();
         var temp = DateTime.Now;
         var model = new SearchViewModel()

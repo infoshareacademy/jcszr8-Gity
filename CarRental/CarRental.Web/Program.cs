@@ -12,9 +12,8 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
-using Serilog.Sinks.MSSqlServer;
 using System.Globalization;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,22 +56,11 @@ builder.Services.AddAutoMapper(typeof(CustomerProfile));
 
 builder.Host.UseSerilog((hbc, loggerConfiguration) =>
 {
-    //loggerConfiguration.ReadFrom.Configuration(hbc.Configuration);
-    //loggerConfiguration.WriteTo.Console();
-    //loggerConfiguration.WriteTo.File("log.txt", Serilog.Events.LogEventLevel.Information);
-    //loggerConfiguration.WriteTo.File("log.txt").MinimumLevel.Information();
     loggerConfiguration.MinimumLevel.Information();
     loggerConfiguration.WriteTo.MSSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection"), "CarRentalLogs",
+        builder.Configuration.GetConnectionString("DefaultConnection"), "WebLogs",
         autoCreateSqlTable: true);
-    //new MSSqlServerSinkOptions
-    //{
-    //    AutoCreateSqlTable = true,
-    //    TableName = "CarRentalLogs"
-    //}).CreateLogger();
 
-    //loggerConfiguration.Filter.ByIncludingOnly(Matching.FromSource<CarController>());
-    loggerConfiguration.WriteTo.Seq("http://localhost:5341");
 });
 
 
@@ -136,7 +124,7 @@ static void CreateDbIfNotExists(IHost host)
         var userManager = services.GetRequiredService<UserManager<Customer>>();
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
 
-        context.Database.EnsureDeleted();
+        //context.Database.EnsureDeleted();
         Seed.Initialize(context, userManager, roleManager)
             .Wait();
     }
