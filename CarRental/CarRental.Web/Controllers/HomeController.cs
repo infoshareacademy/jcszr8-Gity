@@ -23,7 +23,6 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-
         SecretReader.ReadSecrects();
         var temp = DateTime.Now;
         var model = new SearchViewModel()
