@@ -41,6 +41,8 @@ builder.Services.AddHangfire(configuration => configuration
         DisableGlobalLocks = true,
     }));
 
+builder.Services.AddHangfireServer();
+
 
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -120,7 +122,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-RecurringJob.AddOrUpdate<IEmailService>("SendEmailToAdmin", service => service.SendEmailToAdmin(), Cron.Minutely);
+RecurringJob.AddOrUpdate<IEmailService>("SendEmailToAdmin", service => service.SendEmailToAdmin(), Cron.Daily);
 
 // For fixing comma vs dot problem
 app.UseRequestLocalization(new RequestLocalizationOptions
