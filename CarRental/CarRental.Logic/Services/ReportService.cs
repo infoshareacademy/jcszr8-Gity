@@ -6,6 +6,7 @@ using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
+using static System.Net.WebRequestMethods;
 
 namespace CarRental.Logic.Services;
 public class ReportService : IReportService // ReportService
@@ -57,7 +58,6 @@ public class ReportService : IReportService // ReportService
         {
             UserId = userId,
             LastLogged = DateTime.Now,
-            LoginCount = +1
         };
 
         _mapper.Map<LastLoggedReport>(userToPost);
@@ -83,6 +83,28 @@ public class ReportService : IReportService // ReportService
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
         return await _httpClient.PostAsync(apiEndpoint, content);
+    }
+
+    public async Task<IEnumerable<object>> GetDailyReport()
+    {
+        using (var httpClient = new HttpClient())
+        {
+            var getVisitedCars = await httpClient.GetAsync($"https://localhost:7225/VisitedCar/{2}/{DateTime.Today.AddDays(-1):yyyy-MM-dd hh:mm:ss}/{DateTime.Today:yyyy-MM-dd hh:mm:ss}");
+            var getLasstLogged = await httpClient.GetAsync($"https://localhost:7225/LastLogged/{1}/{DateTime.Today.AddDays(-1):yyyy-MM-dd hh:mm:ss}/{DateTime.Today.AddSeconds(1):yyyy-MM-dd hh:mm:ss}");
+
+            if (getVisitedCars.IsSuccessStatusCode && getLasstLogged.IsSuccessStatusCode)
+            {
+                var responseCarData = await getVisitedCars.Content.ReadAsStringAsync();
+                var reportCar = JsonConvert.DeserializeObject<IEnumerable<VisitedCarViewModel>>(responseCarData);
+
+                var responseLasstLoggedData = await getLasstLogged.Content.ReadAsStringAsync();
+                var reportLastLogged =
+                    JsonConvert.DeserializeObject<IEnumerable<LastLoggedReportDTO>>(responseLasstLoggedData);
+
+                return reportCar + responseLasstLoggedData.ToList();
+            }
+        }
+
     }
 
     private async Task<IEnumerable<object>> GetFromApiAsync(string apiEndpoint, string reportType)

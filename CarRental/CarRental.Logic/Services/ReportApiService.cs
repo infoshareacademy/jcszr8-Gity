@@ -28,8 +28,6 @@ public class ReportApiService : IReportApiService
     {
         var lastLogged = _mapper.Map<LastLoggedReport>(model);
         _lastLoggedReportRepository.Insert(lastLogged);
-
-        //Ogarnac zeby metoda zmieniala login count jesli uzytkownik sie juz dzisiaj logowal
     }
 
     public async Task<IEnumerable<VisitedCarViewModel>> GetVisitedCarByIdAndDateAsync(int id, DateTime from, DateTime to)
