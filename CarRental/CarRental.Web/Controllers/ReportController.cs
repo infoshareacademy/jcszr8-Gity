@@ -1,9 +1,12 @@
 ﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace CarRental.Web.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class ReportController : Controller
 {
     private readonly IReportService _reportService;

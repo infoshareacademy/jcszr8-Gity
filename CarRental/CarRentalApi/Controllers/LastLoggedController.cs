@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using CarRental.Logic.ServicesApi;
 
 namespace CarRentalApi.Controllers;
 
@@ -22,6 +23,12 @@ public class LastLoggedController : ControllerBase
     public async Task AddAsync([FromBody] LastLoggedReportDTO lastLoggedReport)
     {
         await _reportApiService.CreateLastLoggedAsync(lastLoggedReport);
+    }
+
+    [HttpGet]
+    public async Task<IEnumerable<LastLoggedReportDTO>> GetDaily()
+    {
+        return await _reportApiService.GetDailyLastLogged();
     }
 
     [HttpGet("{id}/{from}/{to}")]

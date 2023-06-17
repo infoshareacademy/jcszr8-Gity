@@ -13,17 +13,18 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     //private readonly ICustomerService _customerService;
     private readonly ICarService _carService;
+    private readonly IEmailService _mailService;
 
-    public HomeController(ILogger<HomeController> logger, ICarService carService)
+    public HomeController(ILogger<HomeController> logger, ICarService carService, IEmailService mailService)
     {
         _logger = logger;
         //_customerService = customerService;
         _carService = carService;
+        _mailService = mailService;
     }
 
     public IActionResult Index()
     {
-        SecretReader.ReadSecrects();
         var temp = DateTime.Now;
         var model = new SearchViewModel()
         {

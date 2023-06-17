@@ -1,5 +1,6 @@
 ﻿using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
+using CarRental.Logic.ServicesApi;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRentalApi.Controllers;
@@ -20,6 +21,12 @@ public class VisitedCarController : ControllerBase
     public async Task AddAsyncVisit([FromBody] VisitedCarViewModel lastLoggedReport)
     {
         await _reportApiService.CreateVisitedCarAsync(lastLoggedReport);
+    }
+
+    [HttpGet]
+    public async Task<IEnumerable<VisitedCarViewModel>> GetDaily()
+    {
+       return await _reportApiService.GetDailyVisitedCar();
     }
 
     [HttpGet("{id}/{from}/{to}")]

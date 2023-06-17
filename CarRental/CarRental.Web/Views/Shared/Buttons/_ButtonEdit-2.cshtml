@@ -1,6 +1,18 @@
-﻿
-<button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit item">
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="none-underline">
-        <i class="bi bi-pencil-square"> Edit</i>
-    </a>
-</button>
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using CarRental.DAL.Entities
+
+@inject UserManager<Customer> UserManager
+@inject SignInManager<Customer> SignInManager
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+    if (user != null && await UserManager.IsInRoleAsync(user, "Admin"))
+    {
+        <button type="button" class="btn btn-secondary app-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit item">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="none-underline">
+                <i class="bi bi-pencil-square"> Edit</i>
+            </a>
+        </button>
+    }
+}

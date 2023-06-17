@@ -13,9 +13,36 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using Hangfire;
 using Serilog;
+using CarRental.Logic.MailConf;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionstring = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Host.UseSerilog((hbc, loggerConfiguration) =>
+{
+    loggerConfiguration.MinimumLevel.Information();
+    loggerConfiguration.WriteTo.MSSqlServer(connectionstring, "WebLogs",
+        autoCreateSqlTable: true);
+
+});
+
+builder.Services.AddHangfire(configuration => configuration
+    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+    .UseSimpleAssemblyNameTypeSerializer()
+    .UseRecommendedSerializerSettings()
+    .UseSqlServerStorage(connectionstring, new Hangfire.SqlServer.SqlServerStorageOptions
+    {
+        CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+        QueuePollInterval = TimeSpan.Zero,
+        UseRecommendedIsolationLevel = true,
+        DisableGlobalLocks = true,
+    }));
+
+builder.Services.AddHangfireServer();
+
 
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -43,6 +70,8 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICarService, CarService>(); 
 builder.Services.AddScoped<IRentalService, RentalService>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 //builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
@@ -53,16 +82,6 @@ builder.Services.AddAutoMapper(typeof(CustomerProfile));
 //    Debug.Print(msg);
 //    Debugger.Break();
 //});
-
-builder.Host.UseSerilog((hbc, loggerConfiguration) =>
-{
-    loggerConfiguration.MinimumLevel.Information();
-    loggerConfiguration.WriteTo.MSSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection"), "WebLogs",
-        autoCreateSqlTable: true);
-
-});
-
 
 // Validation
 builder.Services.AddScoped<IValidator<CustomerViewModel>, CustomerViewModelValidator>();
@@ -97,9 +116,13 @@ app.UseAuthentication(); ;
 
 app.UseAuthorization();
 
+app.UseHangfireDashboard();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+RecurringJob.AddOrUpdate<IEmailService>("SendEmailToAdmin", service => service.SendEmailToAdmin(), Cron.Daily);
 
 // For fixing comma vs dot problem
 app.UseRequestLocalization(new RequestLocalizationOptions

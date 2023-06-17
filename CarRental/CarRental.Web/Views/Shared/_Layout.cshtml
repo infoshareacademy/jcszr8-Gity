@@ -44,6 +44,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Cars" asp-action="Index">Search</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Rental" asp-action="Index">Rentals</a>
+                        </li>
                         @{
                             var user = await UserManager.GetUserAsync(User);
                             if (user != null && await UserManager.IsInRoleAsync(user, "Admin"))
@@ -54,9 +57,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-light" asp-area="" asp-controller="Customer" asp-action="Index">Customers</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Rental" asp-action="Index">Rentals</a>
-                                </li>
+                               
                                 <li class="nav-item">
                                     <a class="nav-link text-light" asp-area="" asp-controller="Report" asp-action="Index">Report</a>
                                 </li>

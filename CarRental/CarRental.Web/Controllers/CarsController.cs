@@ -4,6 +4,7 @@ using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarRental.Web.Controllers;
 
@@ -47,6 +48,7 @@ public class CarsController : Controller
         return View(nameof(Index), search);
     }
     // GET: CarController
+    [Authorize(Roles = "Admin")]
     public IActionResult List()
     {
         var cars = _carService.GetAll();
@@ -63,6 +65,7 @@ public class CarsController : Controller
     }
 
     // GET: CarController/Create
+    [Authorize(Roles = "Admin")]
     public IActionResult Create()
     {
         return View();
@@ -94,6 +97,7 @@ public class CarsController : Controller
     }
 
     // GET: CarController/Edit/5
+    [Authorize(Roles = "Admin")]
     public IActionResult Edit(int id)
     {
         var carModel = _carService.Get(id);
@@ -121,6 +125,7 @@ public class CarsController : Controller
     }
 
     // GET: CarController/Delete/5
+    [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
         var car = _carService.Get(id);

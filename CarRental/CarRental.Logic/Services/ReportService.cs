@@ -6,6 +6,7 @@ using CarRental.Logic.Models;
 using CarRental.Logic.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
+using static System.Net.WebRequestMethods;
 
 namespace CarRental.Logic.Services;
 public class ReportService : IReportService // ReportService
@@ -57,7 +58,6 @@ public class ReportService : IReportService // ReportService
         {
             UserId = userId,
             LastLogged = DateTime.Now,
-            LoginCount = +1
         };
 
         _mapper.Map<LastLoggedReport>(userToPost);
@@ -83,6 +83,35 @@ public class ReportService : IReportService // ReportService
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
         return await _httpClient.PostAsync(apiEndpoint, content);
+    }
+
+    public async Task<GeneratedReportViewModel> GetDailyReport()
+    {
+        GeneratedReportViewModel combinetReport = new GeneratedReportViewModel();
+        var visitedCarsList = new List<VisitedCarViewModel>();
+        var lastLoggedList = new List<LastLoggedReportDTO>();
+        using (var httpClient = new HttpClient())
+        {
+            var getVisitedCars = await httpClient.GetAsync($"https://localhost:7225/VisitedCar/");
+            var getLastLogged = await httpClient.GetAsync($"https://localhost:7225/LastLogged/");
+
+
+            if (getVisitedCars.IsSuccessStatusCode && getLastLogged.IsSuccessStatusCode)
+            {
+                var responseCarData = await getVisitedCars.Content.ReadAsStringAsync();
+                visitedCarsList = JsonConvert.DeserializeObject<IEnumerable<VisitedCarViewModel>>(responseCarData).ToList();
+
+                var responseLastLoggedData = await getLastLogged.Content.ReadAsStringAsync();
+                lastLoggedList = JsonConvert.DeserializeObject<IEnumerable<LastLoggedReportDTO>>(responseLastLoggedData).ToList();
+
+                combinetReport.LastLoggedReports = lastLoggedList;
+                combinetReport.VisitedCars = visitedCarsList;
+                return combinetReport;
+            }
+
+            return null;
+        }
+
     }
 
     private async Task<IEnumerable<object>> GetFromApiAsync(string apiEndpoint, string reportType)
