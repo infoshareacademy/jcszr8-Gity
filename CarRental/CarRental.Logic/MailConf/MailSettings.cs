@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.Common;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace CarRental.Logic.MailConf;
 public class MailSettings
@@ -15,4 +17,10 @@ public class MailSettings
     public int Port { get; set; }
     public bool UseSSL { get; set; }
     public bool UseStartTls { get; set; }
+
+    public MailSettings()
+    {
+        SecretReader.ReadSecrects();
+        Password = SecretReader.Password;
+    }
 }

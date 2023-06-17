@@ -6,4 +6,5 @@ public class GenerateReportViewModel
     public DateTime To { get; set; }
     public string ReportType { get; set; }
     public IEnumerable<object> Reports { get; set; } = new List<object>();
+    
 }

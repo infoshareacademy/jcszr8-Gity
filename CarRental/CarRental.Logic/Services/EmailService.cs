@@ -1,4 +1,5 @@
-﻿using CarRental.Logic.MailConf;
+﻿using System.Text;
+using CarRental.Logic.MailConf;
 using CarRental.Logic.Services.IServices;
 using CarRental.Web.Models;
 using MailKit.Security;
@@ -22,16 +23,47 @@ public class EmailService : IEmailService
 
     public async Task SendEmailToAdmin()
     {
-        var mailData = new EmailData(
-            new List<string> { "willy0@ethereal.email" },
-            "Hello World",
-            "Hola - this is just a test to verify that our mailing works. Have a great day!",
+        var reportToSend = await _reportService.GetDailyReport();
+        var report = reportToSend;
+
+        if (reportToSend != null)
+        {
+            var emailBody = new StringBuilder();
+
+            emailBody.AppendLine("Last Logged");
+            foreach (var think in reportToSend.LastLoggedReports)
+            {
+                emailBody.AppendLine(" ");
+                emailBody.AppendLine($"User ID from Last Logged: {think.UserId} ");
+                emailBody.AppendLine($"Last Logged: {think.LastLogged}");
+            }
+            
+            emailBody.AppendLine(" ");
+            emailBody.AppendLine("VISITED CARS");
+            foreach (var car in reportToSend.VisitedCars)
+            {
+                emailBody.AppendLine(" ");
+                emailBody.AppendLine($"User ID from Visited Cars: {car.UserId}");
+                emailBody.AppendLine($"Car ID: {car.CarId} ");
+                emailBody.AppendLine($"Date When Clicked: {car.DateWhenClicked}");
+                emailBody.AppendLine($"Make: {car.Make}");
+                emailBody.AppendLine($"Model: {car.Model}");
+                emailBody.AppendLine($"Year: {car.Year}");
+                emailBody.AppendLine($"Licence Plate: {car.LicencePlate}");
+            }
+
+            var mailData = new EmailData(
+            new List<string> { "patrykwiacek00@gmail.com" },
+            "Daily Report",
+            emailBody.ToString(),
             null,
-            "Christian Schou",
+            "System Admin",
             null,
             "Test mail"
         );
-        await SendAsync(mailData, new CancellationToken());
+
+            await SendAsync(mailData, new CancellationToken());
+        }
     }
     public async Task<bool> SendAsync(EmailData mailData, CancellationToken ct = default)
     {
@@ -77,9 +109,10 @@ public class EmailService : IEmailService
             #region Content
 
             // Add Content to Mime Message
+            string formattedBody = mailData.Body.Replace(Environment.NewLine, "<br>");
             var body = new BodyBuilder();
             mail.Subject = mailData.Subject;
-            body.HtmlBody = mailData.Body;
+            body.HtmlBody = formattedBody;
             mail.Body = body.ToMessageBody();
 
             #endregion Content
@@ -112,4 +145,5 @@ public class EmailService : IEmailService
             return false;
         }
     }
+
 }

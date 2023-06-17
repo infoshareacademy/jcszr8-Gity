@@ -85,27 +85,34 @@ public class ReportService : IReportService // ReportService
         return await _httpClient.PostAsync(apiEndpoint, content);
     }
 
-    //public async Task<IEnumerable<object>> GetDailyReport()
-    //{
-    //    using (var httpClient = new HttpClient())
-    //    {
-    //        var getVisitedCars = await httpClient.GetAsync($"https://localhost:7225/VisitedCar/{2}/{DateTime.Today.AddDays(-1):yyyy-MM-dd hh:mm:ss}/{DateTime.Today:yyyy-MM-dd hh:mm:ss}");
-    //        var getLasstLogged = await httpClient.GetAsync($"https://localhost:7225/LastLogged/{1}/{DateTime.Today.AddDays(-1):yyyy-MM-dd hh:mm:ss}/{DateTime.Today.AddSeconds(1):yyyy-MM-dd hh:mm:ss}");
+    public async Task<GeneratedReportViewModel> GetDailyReport()
+    {
+        GeneratedReportViewModel combinetReport = new GeneratedReportViewModel();
+        var visitedCarsList = new List<VisitedCarViewModel>();
+        var lastLoggedList = new List<LastLoggedReportDTO>();
+        using (var httpClient = new HttpClient())
+        {
+            var getVisitedCars = await httpClient.GetAsync($"https://localhost:7225/VisitedCar/");
+            var getLastLogged = await httpClient.GetAsync($"https://localhost:7225/LastLogged/");
 
-    //        if (getVisitedCars.IsSuccessStatusCode && getLasstLogged.IsSuccessStatusCode)
-    //        {
-    //            var responseCarData = await getVisitedCars.Content.ReadAsStringAsync();
-    //            var reportCar = JsonConvert.DeserializeObject<IEnumerable<VisitedCarViewModel>>(responseCarData);
 
-    //            var responseLasstLoggedData = await getLasstLogged.Content.ReadAsStringAsync();
-    //            var reportLastLogged =
-    //                JsonConvert.DeserializeObject<IEnumerable<LastLoggedReportDTO>>(responseLasstLoggedData);
+            if (getVisitedCars.IsSuccessStatusCode && getLastLogged.IsSuccessStatusCode)
+            {
+                var responseCarData = await getVisitedCars.Content.ReadAsStringAsync();
+                visitedCarsList = JsonConvert.DeserializeObject<IEnumerable<VisitedCarViewModel>>(responseCarData).ToList();
 
-    //            return reportCar + responseLasstLoggedData.ToList();
-    //        }
-    //    }
+                var responseLastLoggedData = await getLastLogged.Content.ReadAsStringAsync();
+                lastLoggedList = JsonConvert.DeserializeObject<IEnumerable<LastLoggedReportDTO>>(responseLastLoggedData).ToList();
 
-    //}
+                combinetReport.LastLoggedReports = lastLoggedList;
+                combinetReport.VisitedCars = visitedCarsList;
+                return combinetReport;
+            }
+
+            return null;
+        }
+
+    }
 
     private async Task<IEnumerable<object>> GetFromApiAsync(string apiEndpoint, string reportType)
     {

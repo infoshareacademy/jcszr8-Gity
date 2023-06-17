@@ -1,9 +1,8 @@
 using CarRental.DAL.Context;
-using CarRental.Logic.Services;
-using CarRental.Logic.Services.IServices;
 using Microsoft.EntityFrameworkCore;
 using CarRental.Logic.MapperProfiles;
 using CarRental.DAL.Repositories;
+using CarRental.Logic.ServicesApi;
 
 var builder = WebApplication.CreateBuilder(args);
 

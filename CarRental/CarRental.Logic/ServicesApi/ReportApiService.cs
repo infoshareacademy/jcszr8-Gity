@@ -2,9 +2,8 @@
 using CarRental.DAL.Entities;
 using CarRental.DAL.Repositories;
 using CarRental.Logic.Models;
-using CarRental.Logic.Services.IServices;
 
-namespace CarRental.Logic.Services;
+namespace CarRental.Logic.ServicesApi;
 public class ReportApiService : IReportApiService
 {
     private readonly IMapper _mapper;
@@ -44,5 +43,17 @@ public class ReportApiService : IReportApiService
             x.UserId == id && x.LastLogged >= from && x.LastLogged <= to).ToList();
 
         return _mapper.Map<IEnumerable<LastLoggedReportDTO>>(lista);
+    }
+
+    public async Task<IEnumerable<VisitedCarViewModel>> GetDailyVisitedCar()
+    {
+        var visitedCars = _visitedCarRepository.GetAll().Where(x => x.DateWhenClicked >= DateTime.Today && x.DateWhenClicked <= DateTime.Today.AddDays(1));
+        return _mapper.Map<IEnumerable<VisitedCarViewModel>>(visitedCars);
+    }
+
+    public async Task<IEnumerable<LastLoggedReportDTO>> GetDailyLastLogged()
+    {
+        var lastLogged = _lastLoggedReportRepository.GetAll().Where(x => x.Created >= DateTime.Today && x.Created <= DateTime.Today.AddDays(1));
+        return _mapper.Map<IEnumerable<LastLoggedReportDTO>>(lastLogged);
     }
 }

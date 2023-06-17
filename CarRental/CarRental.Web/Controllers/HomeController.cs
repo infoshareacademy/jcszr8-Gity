@@ -25,8 +25,6 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        SecretReader.ReadSecrects();
-        _mailService.SendEmailToAdmin();
         var temp = DateTime.Now;
         var model = new SearchViewModel()
         {
